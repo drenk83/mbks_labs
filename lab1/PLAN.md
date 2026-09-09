@@ -1,6 +1,6 @@
 # Lab1 — утверждённый план
 
-Статус: **этап 2 (фаззер) написан.** Запуск: `py -3.12 fuzzer.py` из `lab1/fuzzer/`. Дым: оригинал под отладчиком ok; `drcov` даёт ~498 BB (`vuln2.exe`+`func.dll`); `auto --cov` меняет стратегии (байт→delim→expand в `adapt.log`); `vulns/config_2` не тронут. Полные `auto --seq` / `auto --cov` — этап 4, гоняет пользователь. Дальше можно этап 3 (IDAPython).
+Статус: **этап 3 скрипт написан** (`lab1/ida/find_calls.py`). Пользователь: `ida.exe` → `lab1/work/vuln2.exe` → File → Script file. Ждём `calls.txt` с `fread` и `memcpy`. Фаззер готов; полные `auto --seq` / `auto --cov` — этап 4.
 
 Вариант **2**. Цели: `lab1/vulns/vuln2.exe`, `lab1/vulns/config_2`, `lab1/vulns/func.dll`. ТЗ: `lab1/Лабораторная_работа_1_Поиск_уязвимостей_без_исходных_кодов.docx`.
 
@@ -144,13 +144,54 @@ CLI тот же: `python fuzzer.py auto --cov`. Отдельный `--adapt` н�
 
 ## Этап 3 — IDAPython
 
-`lab1/ida/find_calls.py`. Запуск: `ida.exe`, File → Script file.
+Файл: `lab1/ida/find_calls.py`. Язык: IDAPython 3, API IDA 7.7 (`idaapi` / `idautils` / `idc`). Без сторонних пакетов.
 
-Искать импорты ввода (`fread`, `fscanf`, `read`, `fgets`, `fopen`, …) и небезопасные (`strcpy`, `sprintf`, `strncpy`, `memcpy`, `memmove`, …). На каждую — имя и адреса всех `call`. Вывод: консоль IDA и `lab1/ida/calls.txt`.
+Запуск (пользователь):
 
-Не фильтровать по подстроке `mem`/`str` в имени (чужой IDC так ловит `GetLastError` / `strlen`).
+1. `C:\Tools\IDAPro77\ida.exe` (не `ida64.exe`) → открыть **`lab1/work/vuln2.exe`** (базы IDA останутся в gitignore `work/`, оригинал в `vulns/` не трогаем).
+2. Дождаться автоанализа.
+3. File → Script file → `lab1/ida/find_calls.py`.
 
-Готово, когда скрипт на `vuln2.exe` печатает как минимум `fread` и `memcpy` с адресами вызовов.
+### Что ищет
+
+Два белых списка **точных** имён (после снятия `_`, `__imp_`, `@N` у stdcall). **Не** `if 'mem' in name` — так чужой IDC цепляет `GetLastError` / `strlen`.
+
+Ввод: `fread`, `fread_s`, `fscanf`, `sscanf`, `scanf`, `read`, `_read`, `fgets`, `gets`, `fopen`, `wfopen`, `fopen_s`.
+
+Небезопасные: `strcpy`, `strcat`, `sprintf`, `vsprintf`, `strncpy`, `strncat`, `memcpy`, `memmove`, `memcpy_s`, `memmove_s`, `wcscpy`, `lstrcpyA`, `lstrcpyW`, `wsprintfA`.
+
+Список можно чуть расширить, если в импортах `vuln2.exe` всплывёт очевидный родственник (`fscanf_s` и т.п.) — только точное имя, не подстрока.
+
+### Как ищет (алгоритм)
+
+1. Обойти таблицу импортов: `get_import_module_qty` + `enum_import_names` (не Names window и не grep по дизасму).
+2. Если имя в списке — запомнить EA импорта (IAT).
+3. Собрать xref'ы `XrefsTo`:
+   - прямые `call`/`jmp` на IAT (`call ds:fread`);
+   - если на импорт ссылается thunk (`jmp ds:fread` как крошечная функция) — взять xref'ы ещё и на этот thunk (`call fread`).
+4. Тип xref: code flow (`fl_CN` / `fl_CF` / `fl_JN` / `fl_JF`). Data-xref в IAT без call не печатать как «вызов».
+5. Для каждого вызова: имя функции, адрес инструкции `call`, имя/адрес функции-владельца (`get_func_name`).
+
+### Вывод
+
+Консоль IDA и файл `lab1/ida/calls.txt` (путь от `__file__`, не cwd IDA).
+
+```text
+[input]  fread
+  call 0x0040....  in sub_401000 (0x00401000)
+[unsafe] memcpy
+  call 0x0040....  in sub_401200 (0x00401200)
+```
+
+Плюс в конце счётчики: сколько импортов из списков найдено, сколько call. Если `fread` или `memcpy` нет — явно напечатать «не найдено», не маскировать.
+
+### Чего нет в скрипте
+
+Псевдокод на C, комментарии к дыре, поиск `/start` — это этап 5 глазами в GUI. Скрипт только имена и адреса вызовов, как в ТЗ.
+
+### Готово
+
+На `vuln2.exe` в консоли и в `calls.txt` есть как минимум `fread` и `memcpy` с адресами `call`. Скрин консоли IDA — в отчёт.
 
 ---
 

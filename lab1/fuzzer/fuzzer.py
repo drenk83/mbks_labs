@@ -42,14 +42,46 @@ def assert_orig_untouched(cfg: dict, digest: str) -> None:
         raise SystemExit(f"оригинал vulns/config_2 изменился: {digest} -> {now}")
 
 
-def save_crash(cfg: dict, data: bytes, result: RunResult) -> Path:
-    """Пара bin+txt в lab1/crashes/; существующие файлы не затирает (штамп времени)."""
+def describe_replacements(orig: bytes, mutant: bytes, note: str = "") -> str:
+    """Список замен относительно оригинала — для краш-лога по ТЗ."""
+    lines = []
+    if note:
+        lines.append(f"note: {note}")
+    lines.append(f"orig_size: {len(orig)}")
+    lines.append(f"mutant_size: {len(mutant)}")
+    n = min(len(orig), len(mutant))
+    changed: list[str] = []
+    for i in range(n):
+        if orig[i] != mutant[i]:
+            changed.append(f"  +{i:04X}  {orig[i]:02X} -> {mutant[i]:02X}")
+    lines.append(f"changed_bytes: {len(changed)}")
+    if len(mutant) > len(orig):
+        tail = mutant[len(orig) :]
+        preview = tail[:32].hex()
+        extra = "..." if len(tail) > 32 else ""
+        lines.append(f"appended: {len(tail)} bytes  {preview}{extra}")
+    if len(mutant) < len(orig):
+        lines.append(f"truncated: {len(orig) - len(mutant)} bytes")
+    lines.append("replacements:")
+    lines.extend(changed[:120])
+    if len(changed) > 120:
+        lines.append(f"  ... and {len(changed) - 120} more")
+    return "\n".join(lines) + "\n"
+
+
+def save_crash(cfg: dict, data: bytes, result: RunResult, orig: bytes | None = None, note: str = "") -> Path:
+    """Пара bin+txt в lab1/crashes/: вход, замены, код исключения, регистры, стек."""
     stamp = datetime.now().strftime("%Y%m%d_%H%M%S")
     crashes = cfg["crashes_dir"]
     bin_path = crashes / f"crash_{stamp}.bin"
     txt_path = crashes / f"crash_{stamp}.txt"
     bin_path.write_bytes(data)
-    txt_path.write_text(format_crash_log(result), encoding="utf-8")
+    body = format_crash_log(result)
+    if orig is not None:
+        body += describe_replacements(orig, data, note)
+    elif note:
+        body += f"note: {note}\n"
+    txt_path.write_text(body, encoding="utf-8")
     print(f"[crash] сохранён {bin_path.name}  exception=0x{(result.exception_code or 0):08X}")
     if result.regs:
         print(
@@ -57,6 +89,15 @@ def save_crash(cfg: dict, data: bytes, result: RunResult) -> Path:
             f"ESP={result.regs['ESP']:08X} EBP={result.regs['EBP']:08X}"
         )
     return bin_path
+
+
+def save_corpus(cfg: dict, data: bytes, run_id: int, new_bb: int) -> Path:
+    """Сиды, давшие новое покрытие — «сохранение изменённых байт» из ТЗ."""
+    folder = Path(__file__).resolve().parent / "corpus"
+    folder.mkdir(parents=True, exist_ok=True)
+    path = folder / f"seed_{run_id:04d}_plus{new_bb}bb.bin"
+    path.write_bytes(data)
+    return path
 
 
 def replay_crash(cfg: dict, data: bytes) -> RunResult:
@@ -88,7 +129,13 @@ def cmd_seq(cfg: dict, orig: bytes) -> int:
         if n == 1 or n % 100 == 0:
             print(f"[seq] {n}/{total} off={offset} patch={patch.hex()} status={result.status}")
         if result.status == "crash":
-            save_crash(cfg, mutant, result)
+            save_crash(
+                cfg,
+                mutant,
+                result,
+                orig,
+                note=f"seq offset={offset} patch={patch.hex()}",
+            )
             return 0
         if result.status == "timeout":
             print(f"[seq] timeout off={offset}")
@@ -106,7 +153,7 @@ def cmd_cov(cfg: dict, orig: bytes, max_runs: int | None) -> int:
     base = run_cov(cfg, orig)
     if base.status == "crash":
         dumped = replay_crash(cfg, orig)
-        save_crash(cfg, orig, dumped if dumped.regs else base)
+        save_crash(cfg, orig, dumped if dumped.regs else base, orig, note="crash on original")
         return 0
     if base.status != "ok" or not base.coverage:
         print(f"[cov] не удалось снять покрытие оригинала: {base.status} {base.extra}")
@@ -127,7 +174,13 @@ def cmd_cov(cfg: dict, orig: bytes, max_runs: int | None) -> int:
             continue
         if result.status == "crash":
             dumped = replay_crash(cfg, mutant)
-            save_crash(cfg, mutant, dumped if dumped.status == "crash" else result)
+            save_crash(
+                cfg,
+                mutant,
+                dumped if dumped.status == "crash" else result,
+                orig,
+                note=f"cov run={i} strategy={sched.current}",
+            )
             return 0
         run_cov_set = result.coverage or set()
         bb_run = len(run_cov_set)
@@ -136,10 +189,11 @@ def cmd_cov(cfg: dict, orig: bytes, max_runs: int | None) -> int:
         if new:
             global_cov |= new
             queue.append((mutant, run_cov_set))
+            seed_path = save_corpus(cfg, mutant, i, len(new))
             signal = "gain"
             print(
                 f"[cov] #{i} GAIN +{len(new)} BB  total={len(global_cov)}  "
-                f"strategy={sched.current} seeds={len(queue)}"
+                f"strategy={sched.current} seeds={len(queue)}  {seed_path.name}"
             )
         elif bb_run < bb_parent:
             signal = "shrink"
@@ -170,7 +224,7 @@ def cmd_manual(cfg: dict, orig: bytes, strategy: str) -> int:
     result = run_debug(cfg, mutant)
     print(f"[manual] status={result.status} exit={result.exit_code}")
     if result.status == "crash":
-        save_crash(cfg, mutant, result)
+        save_crash(cfg, mutant, result, orig, note=f"manual strategy={strategy}")
         return 0
     write_config(cfg["work_dir"], orig)
     return 0 if result.status == "ok" else 1
@@ -183,7 +237,7 @@ def cmd_once(cfg: dict, orig: bytes) -> int:
     result = run_debug(cfg, data)
     print(f"[run] status={result.status} exit={result.exit_code}")
     if result.status == "crash":
-        save_crash(cfg, data, result)
+        save_crash(cfg, data, result, orig, note="run work/config_2")
         print(format_crash_log(result))
         return 0
     print("падение не зафиксировано")

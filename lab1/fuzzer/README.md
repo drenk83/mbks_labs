@@ -38,7 +38,8 @@ py -3.12 fuzzer.py run             один запуск текущего lab1/w
 |---|---|
 | `lab1/vulns/` | оригинал `vuln2.exe`, `func.dll`, `config_2` — **только чтение** |
 | `lab1/work/` | рабочие копии; мутант всегда имя `config_2` (так ищет exe). В git нет |
-| `lab1/crashes/` | `crash_YYYYMMDD_HHMMSS.bin` + `.txt` (код исключения, EAX…EIP, стек) |
+| `lab1/crashes/` | `crash_*.bin` — вход, который уронил; `crash_*.txt` — исключение, регистры, стек, **список замен** относительно оригинала |
+| `lab1/fuzzer/corpus/` | сиды, которые дали новые базовые блоки (обратная связь по покрытию) |
 | `adapt.log` | смены стратегии: номер прогона, from→to, причина, BB |
 | `config.json` | локальные пути; копируется с `config.json.example`, в git нет |
 

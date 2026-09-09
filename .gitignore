@@ -8,6 +8,9 @@ lab1/work/
 # Локальные пути к тулчейну
 lab1/fuzzer/config.json
 
+# Сиды покрытия (много мелких bin)
+lab1/fuzzer/corpus/*.bin
+
 # IDA Pro и её базы
 ida.key
 IDA Pro*/
