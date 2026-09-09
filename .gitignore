@@ -1,0 +1,35 @@
+# Чужие работы
+not_for_git/
+готовые/
+
+# Рабочие копии цели (оригинал — lab1/vulns/)
+lab1/work/
+
+# Локальные пути к тулчейну
+lab1/fuzzer/config.json
+
+# IDA Pro и её базы
+ida.key
+IDA Pro*/
+*.id0
+*.id1
+*.id2
+*.nam
+*.til
+*.idb
+*.i64
+
+# Python
+__pycache__/
+*.py[cod]
+venv/
+.venv/
+
+# IDE / VS
+.idea/
+.vs/
+*.suo
+*.user
+
+# Временные файлы Word
+~$*
