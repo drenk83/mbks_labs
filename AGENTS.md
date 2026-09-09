@@ -6,7 +6,7 @@
 
 - **Вариант 2** (порядковый номер в группе). Не менять без явной просьбы.
 - Цели lab1/lab2: `lab1/vulns/vuln2.exe`, `lab1/vulns/config_2`, `lab1/vulns/func.dll`.
-- Lab1 план утверждён в `lab1/PLAN.md`. Стек: Python 3.12 + DynamoRIO `drcov` + IDAPython 3 (IDA 7.7) + x32dbg. Фаззер слепой. Реализация — по «делаем», начиная с этапа 0 в том файле.
+- Lab1 план утверждён в `lab1/PLAN.md`. Стек: Python 3.12 + DynamoRIO `drcov` + IDAPython 3 (IDA 7.7) + x32dbg. Фаззер слепой. Доп. задание: `auto --cov` меняет стратегию мутаций при shrink/plateau (`adapt.py`), описание — в том же PLAN. Реализация — по «делаем», начиная с этапа 0 в том файле.
 - Lab2 payload: **список дисков в системе** через WinAPI (`GetLogicalDriveStrings` / `GetLogicalDrives`), вывод в файл. **Не** `cmd`, **не** `wmic`, **не** `WinExec` сторонних exe.
 - Lab3 (чётный номер): **RBAC**, права роли на **всю директорию**.
 - Lab4: язык **C#**, третье средство **SonarQube** (+ CodeQL и semgrep у всех).
@@ -36,8 +36,8 @@
 ## Окружение
 
 - Python 2.7: `C:\Python27\python.exe` (не используем в lab1). Python 3 из Store — заглушка; для lab1 ставить 3.12 x64 с python.org.
-- IDA Pro 7.7: сейчас на OneDrive (`…\Рабочий стол\MBKS\IDA Pro 7.7.220118 …`), рабочая копия по плану — `C:\Tools\IDA77\`. В git не класть, включая `ida.key`.
-- DynamoRIO / x32dbg — поставить в `C:\Tools\` по `lab1/PLAN.md`. Pin и Immunity не нужны.
+- IDA Pro 7.7: рабочая копия `C:\Tools\IDAPro77\` (`ida.exe`, не `ida64.exe`). `idapyswitch` на Python 3.12. В git не класть, включая `ida.key`. Оригинал на OneDrive не трогать.
+- DynamoRIO: `C:\Tools\DynamoRIO\bin32\drrun.exe` (`-t drcov`). x32dbg: `C:\Tools\x32dbg\x32\x32dbg.exe`. Pin и Immunity не нужны.
 - Все `vuln*.exe` — 32-bit, ASLR да, DEP нет. `func.dll` — без ASLR и без DEP.
 
 ## Git

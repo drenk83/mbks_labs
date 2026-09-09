@@ -1,0 +1,14 @@
+{
+  "drrun": "C:\\Tools\\DynamoRIO\\bin32\\drrun.exe",
+  "ida": "C:\\Tools\\IDAPro77\\ida.exe",
+  "x32dbg": "C:\\Tools\\x32dbg\\x32\\x32dbg.exe",
+  "work_dir": "../work",
+  "orig_exe": "../vulns/vuln2.exe",
+  "orig_dll": "../vulns/func.dll",
+  "orig_config": "../vulns/config_2",
+  "crashes_dir": "../crashes",
+  "timeout_sec": 5,
+  "max_runs": 2000,
+  "plateau_runs": 20,
+  "shrink_streak": 3
+}

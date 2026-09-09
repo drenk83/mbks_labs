@@ -1,0 +1,4 @@
+run	from	to	reason	bb_run	bb_parent	bb_global
+20	byte	delim	plateau	498	498	498
+40	delim	expand	plateau	498	498	498
+20	byte	delim	plateau	498	498	498
