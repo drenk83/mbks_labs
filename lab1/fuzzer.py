@@ -57,10 +57,16 @@ VARIANT_OFFSET = 0              # байт номера варианта — Н�
 TIMEOUT_NATIVE = 10.0           # сек
 TIMEOUT_DRCOV = 30.0            # сек
 
-# Граничные значения из ТЗ: (ширина в байтах, значение)
+# Граничные значения из ТЗ: (ширина в байтах, значение).
+# Для каждой ширины есть 0x00, 0xFF.., половина диапазона и половина ±1:
+#  1 байт : 00, 7E, 7F, 80, FF          (0xFF/2-1, 0xFF/2, 0xFF/2+1)
+#  2 байта: 0000, 7FFE, 7FFF, 8000, 8001, FFFE, FFFF   (0xFFFF/2±1)
+#  3 байта: 7FFFFF, 800000, FFFFFF
+#  4 байта: 00000000, 0000FFFF, 7FFFFFFE, 7FFFFFFF, 80000000, FFFFFFFE, FFFFFFFF
 BOUNDARY_SPEC = [
-    (1, 0x00), (1, 0x01), (1, 0x7F), (1, 0x80), (1, 0xFF),
-    (2, 0x0000), (2, 0x7FFF), (2, 0x8000), (2, 0x8001), (2, 0xFFFE), (2, 0xFFFF),
+    (1, 0x00), (1, 0x7E), (1, 0x7F), (1, 0x80), (1, 0xFF),
+    (2, 0x0000), (2, 0x7FFE), (2, 0x7FFF), (2, 0x8000), (2, 0x8001),
+    (2, 0xFFFE), (2, 0xFFFF),
     (3, 0x7FFFFF), (3, 0x800000), (3, 0xFFFFFF),
     (4, 0x00000000), (4, 0x0000FFFF), (4, 0x7FFFFFFE), (4, 0x7FFFFFFF),
     (4, 0x80000000), (4, 0xFFFFFFFE), (4, 0xFFFFFFFF),
@@ -258,6 +264,21 @@ def mut_delim(data: bytes, rng: random.Random) -> tuple[bytes, str]:
     return bytes(out), "delim: [%#06x] после '%s' вставлено %d байт" % (pos, marker, size)
 
 
+def mut_grow(data: bytes, rng: random.Random) -> tuple[bytes, str]:
+    """Расширение значения поля: увеличить 4-байтное поле шапки (×2, +100, +1000…)."""
+    offsets = header_field_offsets(data, 4)
+    if not offsets:
+        return data, "noop: шапка короче 8 байт"
+    off = rng.choice(offsets)
+    old = struct.unpack_from("<I", data, off)[0]
+    factor = rng.choice([2, 4, 10])
+    add = rng.choice([100, 1000, 0x1000])
+    new = (old * factor + add) & 0xFFFFFFFF
+    out = bytearray(data)
+    out[off:off + 4] = new.to_bytes(4, "little")
+    return bytes(out), "grow: поле [%#06x] %d -> %d (x%d+%d)" % (off, old, new, factor, add)
+
+
 def mut_inject(data: bytes, rng: random.Random) -> tuple[bytes, str]:
     """Ключевая мутация: длинные данные сразу за /start + завышенная длина в шапке."""
     off = find_data_offset(data)
@@ -278,6 +299,7 @@ MANUAL_MUTATIONS = {
     "multi": mut_multi,
     "boundary": mut_boundary,
     "field": mut_field,
+    "grow": mut_grow,
     "append": mut_append,
     "expand": mut_expand,
     "delim": mut_delim,
@@ -661,7 +683,7 @@ class Scheduler:
     """
 
     def __init__(self, fixed: str | None = None):
-        self.fixed = fixed
+        self.fixed = fixed          # None | имя стратегии | "cycle" (без обратной связи)
         self.index = 0
         self.shrink = 0
         self.since_gain = 0
@@ -669,10 +691,22 @@ class Scheduler:
 
     @property
     def current(self) -> str:
-        return self.fixed or STRATEGIES[self.index]
+        if self.fixed in (None, "cycle"):
+            return STRATEGIES[self.index]
+        return self.fixed
 
     def update(self, bb_run: int, bb_parent: int, gain: bool) -> tuple[str, str, str] | None:
         """Возвращает (было, стало, причина) при смене стратегии, иначе None."""
+        if self.fixed == "cycle":
+            # контрольный режим: стратегии меняются по кругу БЕЗ учёта покрытия
+            self.since_gain += 1
+            if self.since_gain < PLATEAU_LIMIT:
+                return None
+            previous = STRATEGIES[self.index]
+            self.index = (self.index + 1) % len(STRATEGIES)
+            self.since_gain = 0
+            self.switches += 1
+            return previous, STRATEGIES[self.index], "cycle"
         if gain:
             self.since_gain = 0
             self.shrink = 0
@@ -812,10 +846,10 @@ def mode_seq2(max_runs: int | None = None, rng: random.Random | None = None) -> 
 
 
 def mode_cov(max_runs: int = 300, fixed: str | None = None,
-             rng: random.Random | None = None) -> None:
+             rng: random.Random | None = None, seed: int = 7) -> None:
     """Режим с обратной связью по покрытию + адаптация алгоритма (доп. задание)."""
     _SAVED_SIGNATURES.clear()
-    rng = rng or random.Random(7)
+    rng = rng or random.Random(seed)
     orig = ORIG_CONFIG.read_bytes()
     stats = Stats()
 
@@ -833,6 +867,8 @@ def mode_cov(max_runs: int = 300, fixed: str | None = None,
     parents: list[dict] = [{"name": "orig", "data": orig, "bb": len(base_blocks)}]
     scheduler = Scheduler(fixed=fixed)
     mode = "фиксированная стратегия %s" % fixed if fixed else "адаптация по покрытию"
+    if fixed == "cycle":
+        mode = "контроль: 4 стратегии по кругу без обратной связи"
     print("[cov] режим: %s; лимит %d прогонов" % (mode, max_runs))
 
     header = "run\tfrom\tto\treason\tbb_run\tbb_parent\tbb_global"
@@ -971,10 +1007,12 @@ MENU = """
  4  COV-контроль: то же, но стратегия зафиксирована (для сравнения)
  5  замена одного байта (вручную)
  6  замена нескольких байт (вручную)
- 7  дописать в конец / расширить файл (вручную)
+ 7  дописать в конец файла (вручную)
  8  найти разделители ,:=; и мутировать вокруг них
  9  один запуск work/config_2 (вывод цели, регистры и стек при падении)
 10  статистика: журналы, краши, корпус
+11  вставить данные внутрь файла / увеличить длину строки (вручную)
+12  увеличить значение 4-байтного поля в шапке (вручную)
  0  выход
 ===========================================================
 """
@@ -1006,16 +1044,17 @@ def menu_loop() -> None:
             elif choice == "3":
                 mode_cov(ask_int("сколько прогонов (по умолчанию 300): ", 300))
             elif choice == "4":
-                fixed = {1: "boundary", 2: "byte", 3: "inject", 4: "append"}.get(
-                    ask_int("фиксированная стратегия: 1=boundary, 2=byte, 3=inject, 4=append: ", 1),
-                    "boundary")
+                fixed = {1: "boundary", 2: "byte", 3: "inject", 4: "append",
+                         5: "cycle"}.get(
+                    ask_int("контроль: 1=boundary, 2=byte, 3=inject, 4=append, "
+                            "5=все 4 по кругу без обратной связи: ", 5), "cycle")
                 mode_cov(ask_int("сколько прогонов (по умолчанию 300): ", 300), fixed=fixed)
             elif choice == "5":
                 mode_manual("byte", rng)
             elif choice == "6":
                 mode_manual("multi", rng)
             elif choice == "7":
-                mode_manual("expand", rng)
+                mode_manual("append", rng)
             elif choice == "8":
                 mode_lookup_delims()
                 mode_manual("delim", rng)
@@ -1023,6 +1062,10 @@ def menu_loop() -> None:
                 mode_run_once()
             elif choice == "10":
                 show_stats()
+            elif choice == "11":
+                mode_manual("expand", rng)
+            elif choice == "12":
+                mode_manual("grow", rng)
             elif choice == "0":
                 print("выход")
                 return
@@ -1042,6 +1085,8 @@ def main() -> int:
     parser.add_argument("--cov", action="store_true", help="режим покрытия с адаптацией")
     parser.add_argument("--cov-fixed", metavar="STRATEGY", help="режим покрытия без адаптации")
     parser.add_argument("--max-runs", type=int, default=None, help="лимит прогонов")
+    parser.add_argument("--seed", type=int, default=7,
+                        help="зерно ГПСЧ режима покрытия (для повторяемых прогонов)")
     parser.add_argument("--mutate", choices=sorted(MANUAL_MUTATIONS), help="одна ручная мутация")
     parser.add_argument("--run", action="store_true", help="один запуск текущего config_2")
     parser.add_argument("--stats", action="store_true", help="показать статистику")
@@ -1054,9 +1099,9 @@ def main() -> int:
     elif args.seq2:
         mode_seq2(args.max_runs)
     elif args.cov:
-        mode_cov(args.max_runs or 300)
+        mode_cov(args.max_runs or 300, seed=args.seed)
     elif args.cov_fixed:
-        mode_cov(args.max_runs or 300, fixed=args.cov_fixed)
+        mode_cov(args.max_runs or 300, fixed=args.cov_fixed, seed=args.seed)
     elif args.mutate:
         mode_manual(args.mutate, rng)
     elif args.run:

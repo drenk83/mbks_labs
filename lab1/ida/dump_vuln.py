@@ -135,6 +135,33 @@ def _decompile(func, lines):
         _log("ошибка декомпиляции: %s" % exc, lines)
 
 
+def _callees(func, lines, depth=2, seen=None):
+    """Выгружает функции, которые вызывает найденная функция (на depth уровней).
+
+    Нужно, чтобы в дамп попала реализация копирования (например, внутренняя
+    функция snprintf), а не только сама уязвимая функция.
+    """
+    seen = seen if seen is not None else set()
+    if depth <= 0:
+        return
+    targets = []
+    ea = func.start_ea
+    while ea < func.end_ea and ea != idaapi.BADADDR:
+        if (idc.print_insn_mnem(ea) or "").lower() in ("call", "jmp"):
+            target = idc.get_operand_value(ea, 0)
+            callee = idaapi.get_func(target)
+            if callee is not None and callee.start_ea not in seen \
+                    and callee.start_ea != func.start_ea:
+                targets.append(callee)
+        ea = idc.next_head(ea, func.end_ea)
+    for callee in targets:
+        if callee.start_ea in seen:
+            continue
+        seen.add(callee.start_ea)
+        _dump_function(callee, lines)
+        _callees(callee, lines, depth - 1, seen)
+
+
 def main():
     idaapi.auto_wait()
     lines = []
@@ -154,16 +181,24 @@ def main():
 
     _log("", lines)
     _log("функций-кандидатов: %d" % len(functions), lines)
-    # приоритет — функция, где есть вызовы memcpy/strncpy
+    seen = set()
     best = None
     for func in functions:
+        if func.start_ea in seen:
+            continue
+        seen.add(func.start_ea)
         calls = _dump_function(func, lines)
         if calls and best is None:
             best = func
     if best is not None:
         _decompile(best, lines)
-    else:
-        _log("небезопасных вызовов в найденных функциях нет — декомпиляция не выполнялась", lines)
+
+    # Функции, вызываемые из найденных: именно там оказывается реализация
+    # копирования (внутренняя snprintf), которая импортом не является.
+    _log("", lines)
+    _log("=== функции, вызываемые из найденных (реализация копирования) ===", lines)
+    for func in functions:
+        _callees(func, lines, depth=2, seen=seen)
 
     out_path = os.path.join(_script_dir(), "vuln_disasm.txt")
     try:

@@ -243,3 +243,155 @@
 небезопасные вызовы в функции: 1
   call 0x004016CF -> memcpy
 Hex-Rays не инициализирован
+
+=== функции, вызываемые из найденных (реализация копирования) ===
+
+=== функция strstr (0x00408280 .. 0x00408286) ===
+0x00408280  jmp     ds:__imp_strstr                   
+
+небезопасные вызовы в функции: 0
+
+=== функция strlen (0x00408288 .. 0x0040828E) ===
+0x00408288  jmp     ds:__imp_strlen                   
+
+небезопасные вызовы в функции: 0
+
+=== функция sub_401BD0 (0x00401BD0 .. 0x00401BEC) ===
+0x00401BD0  mov     ecx, ds:dword_40D028              
+0x00401BD6  test    ecx, ecx                          
+0x00401BD8  jz      short loc_401BE0                  
+0x00401BDA  rep retn                                  
+0x00401BDC  align 10h                                 
+0x00401BE0  mov     ds:dword_40D028, 1                
+0x00401BEA  jmp     short loc_401B80                  
+
+небезопасные вызовы в функции: 0
+
+=== функция puts (0x004082C0 .. 0x004082C6) ===
+0x004082C0  jmp     ds:__imp_puts                     
+
+небезопасные вызовы в функции: 0
+
+=== функция printf (0x004082C8 .. 0x004082CE) ===
+0x004082C8  jmp     ds:__imp_printf                   
+
+небезопасные вызовы в функции: 0
+
+=== функция Func1 (0x00401740 .. 0x00401746) ===
+0x00401740  jmp     ds:__imp_Func1                    
+
+небезопасные вызовы в функции: 0
+
+=== функция sprintf (0x004082A0 .. 0x004082A6) ===
+0x004082A0  jmp     ds:__imp_sprintf                     ; <== небезопасный вызов __imp_sprintf
+
+небезопасные вызовы в функции: 1
+  call 0x004082A0 -> __imp_sprintf
+
+=== функция memset (0x004082D0 .. 0x004082D6) ===
+0x004082D0  jmp     ds:__imp_memset                   
+
+небезопасные вызовы в функции: 0
+
+=== функция sub_402270 (0x00402270 .. 0x0040229B) ===
+0x00402270  sub     esp, 1Ch                          
+0x00402273  lea     eax, [esp+1Ch+arg_C]              
+0x00402277  mov     [esp+1Ch+var_10], eax             
+0x0040227B  mov     eax, [esp+1Ch+arg_8]              
+0x0040227F  mov     [esp+1Ch+var_14], eax             
+0x00402283  mov     eax, [esp+1Ch+arg_4]              
+0x00402287  mov     [esp+1Ch+var_18], eax             
+0x0040228B  mov     eax, [esp+1Ch+arg_0]              
+0x0040228F  mov     [esp+1Ch+var_1C], eax             
+0x00402292  call    sub_4022A0                        
+0x00402297  add     esp, 1Ch                          
+0x0040229A  retn                                      
+
+небезопасные вызовы в функции: 0
+
+=== функция sub_4022A0 (0x004022A0 .. 0x00402316) ===
+0x004022A0  push    esi                               
+0x004022A1  push    ebx                               
+0x004022A2  sub     esp, 24h                          
+0x004022A5  mov     eax, [esp+2Ch+arg_4]              
+0x004022A9  mov     ebx, [esp+2Ch+arg_0]              
+0x004022AD  mov     edx, [esp+2Ch+arg_8]              
+0x004022B1  mov     ecx, [esp+2Ch+arg_C]              
+0x004022B5  test    eax, eax                          
+0x004022B7  jz      short loc_4022F0                  
+0x004022B9  lea     esi, [eax-1]                      
+0x004022BC  mov     [esp+2Ch+var_20], edx             
+0x004022C0  mov     [esp+2Ch+var_1C], ecx             
+0x004022C4  mov     [esp+2Ch+var_24], esi             
+0x004022C8  mov     [esp+2Ch+var_28], ebx             
+0x004022CC  mov     [esp+2Ch+var_2C], 0               
+0x004022D3  call    sub_404E70                        
+0x004022D8  cmp     eax, esi                          
+0x004022DA  mov     edx, eax                          
+0x004022DC  ja      short loc_4022E8                  
+0x004022DE  mov     byte ptr [ebx+edx], 0             
+0x004022E2  add     esp, 24h                          
+0x004022E5  pop     ebx                               
+0x004022E6  pop     esi                               
+0x004022E7  retn                                      
+0x004022E8  mov     edx, esi                          
+0x004022EA  jmp     short loc_4022DE                  
+0x004022EC  align 10h                                 
+0x004022F0  mov     [esp+2Ch+var_28], ebx             
+0x004022F4  mov     [esp+2Ch+var_1C], ecx             
+0x004022F8  mov     [esp+2Ch+var_20], edx             
+0x004022FC  mov     [esp+2Ch+var_24], 0               
+0x00402304  mov     [esp+2Ch+var_2C], 0               
+0x0040230B  call    sub_404E70                        
+0x00402310  add     esp, 24h                          
+0x00402313  pop     ebx                               
+0x00402314  pop     esi                               
+0x00402315  retn                                      
+
+небезопасные вызовы в функции: 0
+
+=== функция fopen (0x00408338 .. 0x0040833E) ===
+0x00408338  jmp     ds:__imp_fopen                    
+
+небезопасные вызовы в функции: 0
+
+=== функция exit (0x00408350 .. 0x00408356) ===
+0x00408350  jmp     ds:__imp_exit                     
+
+небезопасные вызовы в функции: 0
+
+=== функция fseek (0x00408318 .. 0x0040831E) ===
+0x00408318  jmp     ds:__imp_fseek                    
+
+небезопасные вызовы в функции: 0
+
+=== функция ftell (0x00408310 .. 0x00408316) ===
+0x00408310  jmp     ds:__imp_ftell                    
+
+небезопасные вызовы в функции: 0
+
+=== функция malloc (0x004082E8 .. 0x004082EE) ===
+0x004082E8  jmp     ds:__imp_malloc                   
+
+небезопасные вызовы в функции: 0
+
+=== функция fread (0x00408328 .. 0x0040832E) ===
+0x00408328  jmp     ds:__imp_fread                    
+
+небезопасные вызовы в функции: 0
+
+=== функция memcpy (0x004082D8 .. 0x004082DE) ===
+0x004082D8  jmp     ds:__imp_memcpy                      ; <== небезопасный вызов __imp_memcpy
+
+небезопасные вызовы в функции: 1
+  call 0x004082D8 -> __imp_memcpy
+
+=== функция fflush (0x00408340 .. 0x00408346) ===
+0x00408340  jmp     ds:__imp_fflush                   
+
+небезопасные вызовы в функции: 0
+
+=== функция fclose (0x00408348 .. 0x0040834E) ===
+0x00408348  jmp     ds:__imp_fclose                   
+
+небезопасные вызовы в функции: 0

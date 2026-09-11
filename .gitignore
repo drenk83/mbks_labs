@@ -12,10 +12,15 @@ lab1/ida/*.i64
 lab1/corpus/*.bin
 
 # Журналы прогонов фаззера (генерируются заново);
-# adapt.log и adapt_control.log НЕ игнорируются — это доказательства доп. задания
+# перечисленные ниже НЕ игнорируются — это доказательства для отчёта
 lab1/logs/*.log
 !lab1/logs/adapt.log
 !lab1/logs/adapt_control.log
+!lab1/logs/adapt_cycle.log
+!lab1/logs/adapt_seed99.log
+!lab1/logs/adapt_cycle99.log
+!lab1/logs/repro.log
+!lab1/logs/drcov_sample.log
 
 # Черновики и инструменты анализа
 scratch/
