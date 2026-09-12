@@ -2,23 +2,22 @@
 not_for_git/
 готовые/
 
-# Рабочие копии цели (оригинал — lab1/vulns/)
+# Рабочие копии цели и базы IDA (оригинал — lab1/vulns/)
 lab1/work/
+lab1/ida/*.id0
+lab1/ida/*.id1
+lab1/ida/*.i64
 
-# Локальные пути к тулчейну
-lab1/fuzzer/config.json
+# Сиды покрытия (бинарники, генерируются заново)
+lab1/corpus/*.bin
 
-# Сиды покрытия (много мелких bin)
-lab1/fuzzer/corpus/*.bin
+# Журналы прогонов фаззера (генерируются заново);
+# adapt.log и adapt_control.log НЕ игнорируются — это доказательства доп. задания
+lab1/logs/*.log
+!lab1/logs/adapt.log
+!lab1/logs/adapt_control.log
 
-# Журналы прогонов фаззера (генерируются заново)
-lab1/fuzzer/seq.log
-lab1/fuzzer/cov.log
-lab1/fuzzer/*_run.log
-lab1/fuzzer/baseline_cov.log
-lab1/fuzzer/adapt_before*.log
-
-# Черновики и инструменты анализа (скрипты, логи, базы IDA)
+# Черновики и инструменты анализа
 scratch/
 
 # IDA Pro и её базы
@@ -46,5 +45,3 @@ venv/
 
 # Временные файлы Word
 ~$*
-lab1/fuzzer/cov_long.log
-lab1/work/dynamorio_config/

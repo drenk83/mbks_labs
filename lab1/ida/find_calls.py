@@ -63,6 +63,11 @@ CALL_XREF = {
     idaapi.fl_JF,
 }
 
+# Мнемоники, которыми вызывают заглушку импорта. Проверка по мнемонике надёжнее
+# фильтра по типу xref: у MinGW-заглушек `jmp ds:__imp_*` IDA отдаёт тип, который
+# в старом варианте скрипта отбрасывался, и вызовы не находились.
+CALL_MNEMS = {"call", "jmp", "ljmp", "lcall", "jmpq"}
+
 
 def _log(line, sink):
     """Печать в Output window IDA и в список для файла."""
@@ -138,25 +143,29 @@ def _iter_imports():
 
 
 def _is_thunk_at(ea):
-    """jmp на импорт в начале функции (обёртка fread)."""
+    """Заглушка импорта: `jmp ds:__imp_*` (в MinGW-сборке — отдельная, не функция)."""
+    mnem = (idc.print_insn_mnem(ea) or "").lower()
+    if mnem not in ("jmp", "ljmp", "jmpq"):
+        return False
     func = idaapi.get_func(ea)
     if func is None:
-        return False
+        # IDA не считает такую заглушку функцией — это и есть переход на импорт
+        return True
     if func.flags & idaapi.FUNC_THUNK:
         return True
-    if ea != func.start_ea:
-        return False
-    mnem = (idc.print_insn_mnem(ea) or "").lower()
-    return mnem in ("jmp", "ljmp")
+    return ea == func.start_ea
 
 
 def _code_xrefs_to(ea):
-    """Адреса call/jmp, ссылающихся на ea."""
+    """Адреса call/jmp, ссылающихся на ea (по мнемонике, а не по типу xref)."""
     addrs = []
     for xref in idautils.XrefsTo(ea, 0):
-        if xref.type in CALL_XREF:
+        mnem = (idc.print_insn_mnem(xref.frm) or "").lower()
+        if mnem in CALL_MNEMS:
             addrs.append(xref.frm)
-    return addrs
+        elif getattr(xref, "iscode", False) and xref.type in CALL_XREF:
+            addrs.append(xref.frm)
+    return sorted(set(addrs))
 
 
 def _collect_calls(import_ea):
@@ -226,6 +235,11 @@ def main():
         _log("written: %s" % out_path, lines)
     except OSError as exc:
         _log("не удалось записать %s: %s" % (out_path, exc), lines)
+
+    # в batch-режиме (idat64 -A -S) IDA сама не завершается — закрываем явно;
+    # в GUI переменная не выставлена и окно остаётся открытым
+    if os.environ.get("MBKS_IDA_BATCH") == "1":
+        idc.qexit(0)
 
 
 main()
