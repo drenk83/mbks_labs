@@ -1,6 +1,7 @@
 """Запуск vuln2.exe: напрямую, под drrun -t drcov, с таймаутом и без окна WER."""
 
 import ctypes
+import os
 import subprocess
 import time
 from dataclasses import dataclass, field
@@ -63,7 +64,8 @@ def write_config(work_dir: Path, data: bytes) -> None:
     (work_dir / "config_2").write_bytes(data)
 
 
-def _popen_wait(cmd: list, cwd: Path, timeout_sec: float, capture_stderr: bool = False) -> RunResult:
+def _popen_wait(cmd: list, cwd: Path, timeout_sec: float, capture_stderr: bool = False,
+                env: dict | None = None) -> RunResult:
     """Popen + communicate; по истечении timeout убивает всё дерево PID."""
     t0 = time.perf_counter()
     proc = subprocess.Popen(
@@ -72,6 +74,7 @@ def _popen_wait(cmd: list, cwd: Path, timeout_sec: float, capture_stderr: bool =
         stdout=subprocess.DEVNULL,
         stderr=subprocess.PIPE if capture_stderr else subprocess.DEVNULL,
         creationflags=CREATE_NO_WINDOW,
+        env=env,
     )
     try:
         _out, err = proc.communicate(timeout=timeout_sec)
@@ -101,13 +104,30 @@ def run_plain(work_dir: Path, timeout_sec: float) -> RunResult:
     return _popen_wait([str(work_dir / "vuln2.exe")], work_dir, timeout_sec)
 
 
+def _drrun_env(work_dir: Path) -> dict:
+    """Окружение для drrun: свой каталог конфигурации DynamoRIO в work/.
+
+    Без него DynamoRIO пишет конфиг в %TEMP%; если тот недоступен, регистрация
+    клиента падает, и drrun возвращает ошибку, которую легко принять за краш цели.
+    """
+    env = dict(os.environ)
+    cfg_dir = work_dir / "dynamorio_config"
+    try:
+        cfg_dir.mkdir(parents=True, exist_ok=True)
+        env["DYNAMORIO_CONFIGDIR"] = str(cfg_dir)
+    except OSError:
+        pass
+    return env
+
+
 def run_drcov(drrun: Path, work_dir: Path, timeout_sec: float) -> RunResult:
     """drrun -t drcov -- vuln2.exe, разбор лога, лог удаляется."""
     _silence_wer()
     exe = work_dir / "vuln2.exe"
     unlink_drcov_logs(work_dir)
     cmd = [str(drrun), "-t", "drcov", "-logdir", str(work_dir), "--", str(exe)]
-    result = _popen_wait(cmd, work_dir, timeout_sec, capture_stderr=True)
+    result = _popen_wait(cmd, work_dir, timeout_sec, capture_stderr=True,
+                         env=_drrun_env(work_dir))
     if result.status == "timeout":
         unlink_drcov_logs(work_dir)
         return result
@@ -115,4 +135,9 @@ def run_drcov(drrun: Path, work_dir: Path, timeout_sec: float) -> RunResult:
     unlink_drcov_logs(work_dir)
     result.coverage = cov if cov is not None else set()
     result.logs = logs
+    if result.status == "crash" and not logs:
+        # drrun сам вернул код исключения (например, клиент не зарегистрировался):
+        # это сбой инструментирования, а не падение цели — помечаем как ошибку прогона
+        result.status = "error"
+        result.extra = (result.extra or "") + " drrun failed without coverage log"
     return result

@@ -23,6 +23,7 @@ def load_config():
 
     cfg = {
         "drrun": Path(raw["drrun"]),
+        "fuzzer_dir": HERE,
         "work_dir": resolve("work_dir"),
         "orig_exe": resolve("orig_exe"),
         "orig_dll": resolve("orig_dll"),

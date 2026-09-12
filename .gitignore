@@ -11,6 +11,16 @@ lab1/fuzzer/config.json
 # Сиды покрытия (много мелких bin)
 lab1/fuzzer/corpus/*.bin
 
+# Журналы прогонов фаззера (генерируются заново)
+lab1/fuzzer/seq.log
+lab1/fuzzer/cov.log
+lab1/fuzzer/*_run.log
+lab1/fuzzer/baseline_cov.log
+lab1/fuzzer/adapt_before*.log
+
+# Черновики и инструменты анализа (скрипты, логи, базы IDA)
+scratch/
+
 # IDA Pro и её базы
 ida.key
 IDA Pro*/
@@ -36,3 +46,4 @@ venv/
 
 # Временные файлы Word
 ~$*
+lab1/fuzzer/cov_long.log

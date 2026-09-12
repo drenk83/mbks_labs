@@ -31,6 +31,10 @@ STATUS_WX86_SINGLE_STEP = 0x4000001E
 DBG_PRINTEXCEPTION_C = 0x40010006
 DBG_PRINTEXCEPTION_WIDE_C = 0x4001000A
 
+# WOW64 отдаёт 32-битные точки останова/шаги в 64-битном отладчике именно так.
+WOW64_BREAKPOINTS = (STATUS_WX86_BREAKPOINT, EXCEPTION_BREAKPOINT)
+WOW64_SINGLE_STEPS = (STATUS_WX86_SINGLE_STEP, EXCEPTION_SINGLE_STEP)
+
 FATAL_EXCEPTIONS = {
     0xC0000005,  # ACCESS_VIOLATION
     0xC0000006,  # IN_PAGE_ERROR
@@ -45,6 +49,7 @@ FATAL_EXCEPTIONS = {
 }
 
 THREAD_GET_CONTEXT = 0x0008
+THREAD_SET_CONTEXT = 0x0010
 THREAD_QUERY_INFORMATION = 0x0040
 THREAD_SUSPEND_RESUME = 0x0002
 
@@ -64,6 +69,9 @@ WOW64_CONTEXT_FULL = (
 )
 
 STACK_DUMP_SIZE = 128
+
+# отладочная печать событий отладчика (для диагностики инструментальных точек)
+_DEBUG_TRACE = False
 
 
 class SECURITY_ATTRIBUTES(ctypes.Structure):
@@ -113,7 +121,7 @@ class EXCEPTION_RECORD(ctypes.Structure):
         ("ExceptionRecord", ctypes.c_void_p),
         ("ExceptionAddress", ctypes.c_void_p),
         ("NumberParameters", wintypes.DWORD),
-        ("ExceptionInformation", ctypes.c_uint64 * 15),
+        ("ExceptionInformation", ctypes.c_uint32 * 15),
     ]
 
 
@@ -242,6 +250,18 @@ kernel32.OpenThread.argtypes = [wintypes.DWORD, wintypes.BOOL, wintypes.DWORD]
 kernel32.OpenThread.restype = wintypes.HANDLE
 kernel32.Wow64GetThreadContext.argtypes = [wintypes.HANDLE, ctypes.POINTER(WOW64_CONTEXT)]
 kernel32.Wow64GetThreadContext.restype = wintypes.BOOL
+kernel32.Wow64SetThreadContext.argtypes = [wintypes.HANDLE, ctypes.POINTER(WOW64_CONTEXT)]
+kernel32.Wow64SetThreadContext.restype = wintypes.BOOL
+kernel32.WriteProcessMemory.argtypes = [
+    wintypes.HANDLE,
+    wintypes.LPVOID,
+    wintypes.LPCVOID,
+    ctypes.c_size_t,
+    ctypes.POINTER(ctypes.c_size_t),
+]
+kernel32.WriteProcessMemory.restype = wintypes.BOOL
+kernel32.FlushInstructionCache.argtypes = [wintypes.HANDLE, wintypes.LPCVOID, ctypes.c_size_t]
+kernel32.FlushInstructionCache.restype = wintypes.BOOL
 kernel32.ReadProcessMemory.argtypes = [
     wintypes.HANDLE,
     wintypes.LPCVOID,
@@ -297,7 +317,7 @@ def _regs_and_stack(h_process, tid: int) -> tuple[dict | None, bytes | None]:
             "EIP": ctx.Eip,
             "EFLAGS": ctx.EFlags,
         }
-        buf = (ctypes.c_byte * STACK_DUMP_SIZE)()
+        buf = (ctypes.c_ubyte * STACK_DUMP_SIZE)()
         got = ctypes.c_size_t(0)
         stack = None
         if kernel32.ReadProcessMemory(
@@ -309,6 +329,57 @@ def _regs_and_stack(h_process, tid: int) -> tuple[dict | None, bytes | None]:
         ):
             stack = bytes(buf[: got.value])
         return regs, stack
+    finally:
+        kernel32.CloseHandle(h_thread)
+
+
+def _get_wow64_context(h_process, tid: int):
+    """32-битный контекст потока (WOW64) или None."""
+    h_thread = kernel32.OpenThread(
+        THREAD_GET_CONTEXT | THREAD_SET_CONTEXT | THREAD_QUERY_INFORMATION | THREAD_SUSPEND_RESUME,
+        False,
+        tid,
+    )
+    if not h_thread:
+        return None
+    try:
+        ctx = WOW64_CONTEXT()
+        ctx.ContextFlags = WOW64_CONTEXT_FULL
+        if not kernel32.Wow64GetThreadContext(h_thread, ctypes.byref(ctx)):
+            return None
+        return ctx
+    finally:
+        kernel32.CloseHandle(h_thread)
+
+
+def _rewind_breakpoint(h_process, addr: int, track: dict, tid: int) -> None:
+    """Восстановить оригинальный байт, откатить EIP на 1 и разрешить один шаг.
+
+    Нужно для инструментальных точек останова: без этого int3 выполнится снова.
+    """
+    h_thread = kernel32.OpenThread(
+        THREAD_GET_CONTEXT | THREAD_SET_CONTEXT | THREAD_QUERY_INFORMATION | THREAD_SUSPEND_RESUME,
+        False,
+        tid,
+    )
+    if not h_thread:
+        return
+    try:
+        ctx = WOW64_CONTEXT()
+        ctx.ContextFlags = WOW64_CONTEXT_FULL
+        if not kernel32.Wow64GetThreadContext(h_thread, ctypes.byref(ctx)):
+            return
+        old = track.get(addr)
+        if old is not None:
+            written = ctypes.c_size_t(0)
+            kernel32.WriteProcessMemory(
+                h_process, ctypes.c_void_p(addr), bytes([old & 0xFF]), 1, ctypes.byref(written)
+            )
+            kernel32.FlushInstructionCache(h_process, ctypes.c_void_p(addr), 1)
+        ctx.Eip = (ctx.Eip - 1) & 0xFFFFFFFF
+        ctx.EFlags |= 0x100  # трассировка: выполнить одну инструкцию
+        ctx.ContextFlags = WOW64_CONTEXT_FULL
+        kernel32.Wow64SetThreadContext(h_thread, ctypes.byref(ctx))
     finally:
         kernel32.CloseHandle(h_thread)
 
@@ -337,8 +408,17 @@ def format_crash_log(result: RunResult) -> str:
     return "\n".join(lines) + "\n"
 
 
-def run_under_debugger(work_dir: Path, timeout_sec: float) -> RunResult:
-    """DEBUG_ONLY_THIS_PROCESS: штатный выход, краш (AV/stack) или timeout."""
+def run_under_debugger(work_dir: Path, timeout_sec: float, track: dict | None = None,
+                       hook=None, on_create=None, persistent: bool = False) -> RunResult:
+    """DEBUG_ONLY_THIS_PROCESS: штатный выход, краш (AV/stack) или timeout.
+
+    track — {адрес: оригинальный байт}: инструментальные точки останова (int3),
+    hook(exc, addr, tid, ctx, h_process) вызывается на каждой из них.
+    persistent=True — точки останова не снимаются, а срабатывают на каждом вызове.
+    on_create(h_process, base_of_image) — колбэк после старта процесса: удобно
+    расставить точки останова по фактической базе образа (она не всегда равна
+    preferred base).
+    """
     import time
 
     kernel32.SetErrorMode(
@@ -392,13 +472,45 @@ def run_under_debugger(work_dir: Path, timeout_sec: float) -> RunResult:
             cont = DBG_CONTINUE
             if code == CREATE_PROCESS_DEBUG_EVENT:
                 _close_event_file(ev.u.CreateProcessInfo.hFile)
+                if on_create is not None:
+                    on_create(pi.hProcess, ev.u.CreateProcessInfo.lpBaseOfImage or 0)
             elif code == LOAD_DLL_DEBUG_EVENT:
                 _close_event_file(ev.u.LoadDll.hFile)
             elif code == EXCEPTION_DEBUG_EVENT:
                 rec = ev.u.Exception.ExceptionRecord
                 first = ev.u.Exception.dwFirstChance
                 exc = rec.ExceptionCode & 0xFFFFFFFF
-                if _ignore_exception(exc):
+                exc_addr = rec.ExceptionAddress or 0
+                hit_addr = exc_addr
+                # WOW64 отдаёт адрес своей 64-битной заглушки, а не наш int3:
+                # настоящий адрес берём из 32-битного контекста (Eip - 1).
+                if track and exc in WOW64_BREAKPOINTS and exc_addr not in track:
+                    ctx_probe = _get_wow64_context(pi.hProcess, ev.dwThreadId)
+                    if ctx_probe is not None and ((ctx_probe.Eip - 1) & 0xFFFFFFFF) in track:
+                        hit_addr = (ctx_probe.Eip - 1) & 0xFFFFFFFF
+                if _DEBUG_TRACE:
+                    print(
+                        f"[dbg] exc=0x{exc:08X} addr=0x{exc_addr:08X} first={first} "
+                        f"track={len(track) if track else 0} hit=0x{hit_addr:08X} "
+                        f"ours={bool(track and exc in WOW64_BREAKPOINTS and hit_addr in track)}"
+                    )
+                if track and exc in WOW64_BREAKPOINTS and hit_addr in track:
+                    # наша инструментальная точка останова: вернуть байт и перезапустить инструкцию
+                    if hook is not None:
+                        ctx = _get_wow64_context(pi.hProcess, ev.dwThreadId)
+                        if ctx is not None:
+                            hook(exc, hit_addr, ev.dwThreadId, ctx, pi.hProcess)
+                    _rewind_breakpoint(pi.hProcess, hit_addr, track, ev.dwThreadId)
+                    if persistent:
+                        # ВНИМАНИЕ: режим экспериментальный. Возврат int3 сразу после
+                        # восстановления байта конфликтует с трассировкой (Trap Flag)
+                        # и может увести поток на мусорный адрес.
+                        written = ctypes.c_size_t(0)
+                        kernel32.WriteProcessMemory(
+                            pi.hProcess, ctypes.c_void_p(hit_addr), b"\xCC", 1, ctypes.byref(written)
+                        )
+                    cont = DBG_CONTINUE
+                elif _ignore_exception(exc):
                     cont = DBG_CONTINUE
                 elif (not first) or exc in FATAL_EXCEPTIONS:
                     exception_code = exc

@@ -35,10 +35,12 @@
 
 ## Окружение
 
-- Python 2.7: `C:\Python27\python.exe` (не используем в lab1). Python 3 из Store — заглушка; для lab1 ставить 3.12 x64 с python.org.
-- IDA Pro 7.7: рабочая копия `C:\Tools\IDAPro77\` (`ida.exe`, не `ida64.exe`). `idapyswitch` на Python 3.12. В git не класть, включая `ida.key`. Оригинал на OneDrive не трогать.
-- DynamoRIO: `C:\Tools\DynamoRIO\bin32\drrun.exe` (`-t drcov`). x32dbg: `C:\Tools\x32dbg\x32\x32dbg.exe`. Pin и Immunity не нужны.
-- Все `vuln*.exe` — 32-bit, ASLR да, DEP нет. `func.dll` — без ASLR и без DEP.
+- Python 3.12 x64 с python.org — стоит: `C:\Users\winuser\AppData\Local\Programs\Python\Python312\python.exe` (`py -3.12`). Python 2.7 в lab1 не используется.
+- IDA Pro 7.7: `C:\Tools\IDAPro77\` (`ida.exe`; сборка 64-битная, есть `idat.exe`/`idat64.exe` и декомпилятор `hexrays.dll`). В git не класть, включая `ida.key`. Оригинал на OneDrive не трогать. **На этом устройстве IDA не стартует**: `idapyswitch` привязал Python 3.12, нужен Python 3.10 x64 (`idapyswitch --auto-apply`) либо ручной запуск GUI.
+- DynamoRIO 11.3.0: распакован в `C:\Tools\DynamoRIO-Windows-11.3.0-1\`, на него сделан junction `C:\Tools\DynamoRIO`. Работать через `bin32\drrun.exe` (`-t drcov`) — это PE32 i386, проверено `drrun -version`.
+- x32dbg: фактический путь `C:\Tools\x32dbg\release\x32\x32dbg.exe` (в snapshot'е x64dbg есть и `release\x64`). Pin и Immunity не нужны.
+- Бинарники целей: `vuln2.exe` — 32-бит, `DllCharacteristics = 0x0040` → **DEP включён, ASLR (DYNAMIC_BASE) выключен**, CFG нет. `func.dll` — без ASLR и DEP. Образ при загрузке смещается от preferred base (наблюдали базу `0x00970000` вместо `0x00400000`) — в отладчике адреса считать от фактической базы.
+- Прогон покрытия требует, чтобы DynamoRIO мог писать свой каталог конфигурации; иначе `drrun` возвращает AV и это легко принять за краш цели. Фаззер подставляет `work/dynamorio_config` через `DYNAMORIO_CONFIGDIR`.
 
 ## Git
 
