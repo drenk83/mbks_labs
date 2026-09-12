@@ -47,3 +47,4 @@ venv/
 # Временные файлы Word
 ~$*
 lab1/fuzzer/cov_long.log
+lab1/work/dynamorio_config/

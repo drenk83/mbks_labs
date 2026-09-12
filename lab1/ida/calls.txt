@@ -1,0 +1,19 @@
+[input]  fopen  (import 0x0040F240, raw fopen)
+  call 0x00401604
+[input]  fread  (import 0x0040F248, raw fread)
+  call 0x004016A2
+[unsafe]  memcpy  (import 0x0040F270, raw memcpy)
+  call 0x004016CF
+  call 0x00401FB4
+  call 0x00401FFE
+  call 0x004029A8
+  call 0x00402B29
+  call 0x00402D1A
+  call 0x00403689
+  call 0x0040706D
+  call 0x00407A33
+[unsafe]  sprintf  (import 0x0040F28C, raw sprintf)
+  call 0x0040154E
+
+imports matched: 4
+call sites: 12
