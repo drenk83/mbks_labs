@@ -2,6 +2,8 @@
 
 Лабы по «Моделям безопасности компьютерных систем». Пользователь пишет по-русски. Перед работой читай этот файл и `CONTEXT.md`. План lab1: `lab1/PLAN.md` — читать, когда сессия про lab1 или пользователь сказал «делаем».
 
+**Если lab1 переделывается с нуля — сначала читай `CONTEXT_HANDOFF_LAB1.md`:** там проверенные факты (условие краша, окружение, грабли IDA/DynamoRIO) и KISS-план «как студент».
+
 ## Зафиксированные решения
 
 - **Вариант 2** (порядковый номер в группе). Не менять без явной просьбы.
@@ -36,7 +38,7 @@
 ## Окружение
 
 - Python 3.12 x64 с python.org — стоит: `C:\Users\winuser\AppData\Local\Programs\Python\Python312\python.exe` (`py -3.12`). Python 2.7 в lab1 не используется.
-- IDA Pro 7.7: `C:\Tools\IDAPro77\` (`ida.exe`; сборка 64-битная, есть `idat.exe`/`idat64.exe` и декомпилятор `hexrays.dll`). В git не класть, включая `ida.key`. Оригинал на OneDrive не трогать. **На этом устройстве IDA не стартует**: `idapyswitch` привязал Python 3.12, нужен Python 3.10 x64 (`idapyswitch --auto-apply`) либо ручной запуск GUI.
+- IDA Pro 7.7: `C:\Tools\IDAPro77\` (`ida.exe`/`ida64.exe`; сборка 64-битная, есть `idat.exe`/`idat64.exe` и декомпилятор `hexrays.dll`). В git не класть, включая `ida.key`. Оригинал в облаке не трогать. **Запускать только из `C:\Tools\IDAPro77`** — копия из облачной папки падает с «MSVCP140.dll was not found». Причина падений: в системе не было VC++ рантайма; `msvcp140.dll`, `vcruntime140.dll`, `vcruntime140_1.dll` скопированы в папку IDA (правильнее — поставить Microsoft Visual C++ 2015–2022 Redistributable x64). Сейчас IDA стартует и просит **однократно принять лицензию в GUI** («I Agree»), после чего работает `idat64.exe -A ...`. Программно принять лицензию не удалось (реестр и `ida.reg` не помогают).
 - DynamoRIO 11.3.0: распакован в `C:\Tools\DynamoRIO-Windows-11.3.0-1\`, на него сделан junction `C:\Tools\DynamoRIO`. Работать через `bin32\drrun.exe` (`-t drcov`) — это PE32 i386, проверено `drrun -version`.
 - x32dbg: фактический путь `C:\Tools\x32dbg\release\x32\x32dbg.exe` (в snapshot'е x64dbg есть и `release\x64`). Pin и Immunity не нужны.
 - Бинарники целей: `vuln2.exe` — 32-бит, `DllCharacteristics = 0x0040` → **DEP включён, ASLR (DYNAMIC_BASE) выключен**, CFG нет. `func.dll` — без ASLR и DEP. Образ при загрузке смещается от preferred base (наблюдали базу `0x00970000` вместо `0x00400000`) — в отладчике адреса считать от фактической базы.
