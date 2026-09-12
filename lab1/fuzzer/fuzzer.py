@@ -26,13 +26,21 @@ from adapt import STRATEGIES, Scheduler
 from config import load_config
 from debugger import format_crash_log, run_under_debugger
 from mutations import (
+    ANCHOR_OFFSETS,
+    BIG_VALUES,
+    PAIR_VALUES,
     BOUNDARY_VALUES,
+    FILLER_STEPS,
     WORD_DWORD_VALUES,
     mutate,
     seq_pass_a,
     seq_pass_b,
     seq_pass_c,
     seq_pass_d,
+    seq_pass_e,
+    seq_pass_f,
+    seq_pass_g,
+    seq_pass_h,
 )
 from runner import RunResult, run_drcov, write_config
 
@@ -43,6 +51,10 @@ SEQ_PASSES = {
     "B": "удлинение файла блоками",
     "C": "граничные значения в 4-байтных полях на удлинённом файле",
     "D": "обрезка файла",
+    "E": "длинный файл × большие значения в 4-байтных полях",
+    "F": "длинный файл × ДВА испорченных поля за прогон",
+    "G": "файл ~вдвое больше буфера × поле = 0xFFFFFFFF",
+    "H": "вставка данных после маркера × два поля = 0xFFFFFFFF (найденное условие)",
 }
 
 
@@ -195,6 +207,16 @@ def count_seq_runs(orig: bytes, passes: str) -> int:
         total += 4 * (len(orig) // 4) * len(WORD_DWORD_VALUES)
     if "D" in passes:
         total += 4
+    if "E" in passes:
+        total += len(FILLER_STEPS) * (len(orig) // 4) * len(BIG_VALUES)
+    if "F" in passes:
+        total += len(ANCHOR_OFFSETS) * (len(orig) // 4) * len(PAIR_VALUES)
+    if "G" in passes:
+        total += (len(orig) // 4) * 2
+    if "H" in passes:
+        offsets = len(orig) // 4
+        anchors = len([o for o in ANCHOR_OFFSETS if o < len(orig) - 4])
+        total += offsets * anchors - anchors
     return total
 
 
@@ -208,6 +230,14 @@ def _seq_iter(orig: bytes, passes: str):
         yield from seq_pass_c(orig)
     if "D" in passes:
         yield from seq_pass_d(orig)
+    if "E" in passes:
+        yield from seq_pass_e(orig)
+    if "F" in passes:
+        yield from seq_pass_f(orig)
+    if "G" in passes:
+        yield from seq_pass_g(orig)
+    if "H" in passes:
+        yield from seq_pass_h(orig)
 
 
 def cmd_seq(cfg: dict, orig: bytes, passes: str, max_runs: int | None) -> int:
@@ -283,7 +313,7 @@ def cmd_cov(cfg: dict, orig: bytes, max_runs: int | None, deep: bool = False) ->
         else:
             parent_data, parent_cov = orig, set(base.coverage)
 
-        mutant = mutate(parent_data, sched.current, sched.energy, rng, field_cursor)
+        mutant = mutate(parent_data, sched.current, sched.energy, rng, field_cursor, orig)
         field_cursor += 1
         if mutant == parent_data:
             sched.on_run("noop", len(parent_cov), len(parent_cov), len(global_cov))
@@ -387,7 +417,7 @@ def cmd_once(cfg: dict, orig: bytes) -> int:
 def menu(cfg: dict, orig: bytes) -> int:
     """Интерактивное меню, если запустили без аргументов."""
     actions = {
-        "1": lambda: cmd_seq(cfg, orig, "ABCD", None),
+        "1": lambda: cmd_seq(cfg, orig, "ABCEFGH", None),
         "2": lambda: cmd_cov(cfg, orig, None),
         "3": lambda: cmd_manual(cfg, orig, "byte"),
         "3a": lambda: cmd_manual(cfg, orig, "multi"),
@@ -428,10 +458,10 @@ def parse_args(argv: list[str]) -> argparse.Namespace:
     g.add_argument("--cov", action="store_true",
                    help="очередь по покрытию drcov + адаптация стратегий")
     auto.add_argument("--max-runs", type=int, default=None)
-    auto.add_argument("--passes", default="ABC",
+    auto.add_argument("--passes", default="H",
                       help="проходы для --seq: A (граничные значения на месте), "
                            "B (удлинение), C (граничные значения в полях на длинном файле), "
-                           "D (обрезка)")
+                           "D (обрезка), E (длинный файл × большие значения — ключ к переполнению)")
     auto.add_argument("--deep", action="store_true",
                       help="для --cov: остановиться, когда все стратегии испробованы")
     auto.add_argument("--no-log", action="store_true", help="не писать seq.log/cov.log")

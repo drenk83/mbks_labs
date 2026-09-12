@@ -19,12 +19,13 @@ from __future__ import annotations
 import random
 from pathlib import Path
 
-# Восемь стратегий: шесть типов мутаций из ТЗ, перебор 4-байтных полей
-# граничными значениями и комбинация «удлинить + испортить поле».
-STRATEGIES = ["byte", "multi", "boundary", "append", "expand", "delim", "field", "combo"]
+# Девять стратегий: шесть типов мутаций из ТЗ, перебор 4-байтных полей граничными
+# значениями, вставка данных за маркером и комбинация «удлинить + испортить поле».
+STRATEGIES = ["byte", "multi", "boundary", "append", "expand", "delim", "field", "inject", "combo"]
 
 # Порядок отката при серии shrink: сначала то, что сохраняет исходные байты.
-SHRINK_FALLBACK = ["append", "expand", "combo", "field", "delim", "boundary", "byte", "multi"]
+SHRINK_FALLBACK = ["inject", "append", "expand", "combo", "field", "delim",
+                   "boundary", "byte", "multi"]
 
 LOG_HEADER = "run\tfrom\tto\treason\tbb_run\tbb_parent\tbb_global\tenergy\tweights\n"
 

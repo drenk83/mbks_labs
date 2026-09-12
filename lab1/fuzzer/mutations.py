@@ -180,8 +180,43 @@ def mutate_combo(data: bytes, rng: random.Random, energy: int = 1) -> bytes:
     return mutate_multi(out, rng, 4)
 
 
+MARKER = b"/start"
+INJECT_STEPS = (6144, 4096)
+
+
+def find_marker(data: bytes) -> int:
+    """Позиция маркера начала данных. Общая эвристика, имя поля в код не зашито."""
+    idx = data.find(MARKER)
+    return idx
+
+
+def mutate_inject(data: bytes, rng: random.Random, reference: bytes | None = None,
+                  energy: int = 1) -> bytes:
+    """Вставить блок данных сразу ЗА маркером и испортить 4-байтное поле.
+
+    Найдено экспериментально: данные, добавленные в конец файла, на копирование
+    не влияют, а вставленные сразу за маркером — копируются, и при завышенных
+    длинах в шапке это даёт переполнение. Смещение поля перебирается по кругу.
+    """
+    ref = reference if reference is not None else data
+    pos = find_marker(ref)
+    if pos < 0 or len(data) <= pos:
+        pos = max(0, len(data) - 64)
+    insert_at = min(len(data), pos + len(MARKER))
+    n = INJECT_STEPS[min(len(INJECT_STEPS) - 1, max(0, energy - 1))]
+    out = data[:insert_at] + bytes([0x62]) * n + data[insert_at:]
+    # портим ДВА 4-байтных поля: копирование снимает ограничение только когда
+    # завышены обе величины в шапке (проверено экспериментально)
+    off = (rng.randrange(0, max(1, len(data) - 4))) & ~3
+    out = overlay_inplace(out, off, (0xFFFFFFFF).to_bytes(4, "little"))
+    anchor = ANCHOR_OFFSETS[rng.randrange(len(ANCHOR_OFFSETS))]
+    if 0 <= anchor < len(out) - 4 and anchor != off:
+        out = overlay_inplace(out, anchor, (0xFFFFFFFF).to_bytes(4, "little"))
+    return out
+
+
 def mutate(data: bytes, strategy: str, energy: int, rng: random.Random,
-           cursor: int = 0) -> bytes:
+           cursor: int = 0, reference: bytes | None = None) -> bytes:
     """Диспетчер стратегий для режима с обратной связью по покрытию.
 
     cursor — позиция перебора для стратегии `field` (растёт на каждом прогоне).
@@ -200,6 +235,8 @@ def mutate(data: bytes, strategy: str, energy: int, rng: random.Random,
         return mutate_delim(data, rng, 2 * energy)
     if strategy == "field":
         return mutate_field(data, rng, cursor)
+    if strategy == "inject":
+        return mutate_inject(data, rng, reference, energy)
     if strategy == "combo":
         return mutate_combo(data, rng, energy)
     return mutate_byte(data, rng)
@@ -242,6 +279,91 @@ def seq_pass_d(data: bytes, unit: int = 1024, max_blocks: int = 4):
             yield ("D", cut, b"", data[: len(data) - cut])
 
 
+# Сколько байт дописывать в проходе E: данных должно быть заведомо больше
+# приёмного буфера, иначе переполнение просто не доходит до адреса возврата.
+FILLER_STEPS = (3072, 5120, 8192)
+
+
+def seq_pass_e(data: bytes, offsets_step: int = 4):
+    """Проход E: длинный файл × «большие» значения в 4-байтных полях.
+
+    Ключевая комбинация для переполнения: данных больше, чем вмещает приёмный
+    буфер, и при этом поле длины в шапке завышено. Порядок обхода — сначала все
+    смещения при первом (меньшем) удлинении, затем при следующем: нужное смещение
+    проверяется уже на первом размере, не дожидаясь конца прохода.
+    """
+    for filler in FILLER_STEPS:
+        long_data = append_block(data, filler, random.Random(filler), 0x62)
+        for offset in range(0, len(data) - 4, offsets_step):
+            for patch in BIG_VALUES:
+                yield ("E", offset, patch, overlay_inplace(long_data, offset, patch))
+
+
+BIG_VALUES: list[bytes] = [
+    (0xFFFFFFFF).to_bytes(4, "little"),
+    (0x7FFFFFFF).to_bytes(4, "little"),
+    (0xFFFF).to_bytes(2, "little"),
+    (0x00010000).to_bytes(4, "little"),
+    (0x0000FFFF).to_bytes(2, "little"),
+]
+
+
+# «Опорные» смещения, которые патчатся вместе со вторым полем в проходе F.
+# Переполнению нужны сразу две испорченные величины: длина копирования и размер
+# буфера (или эквивалентные поля в шапке), поэтому пары полей проверяются явно.
+ANCHOR_OFFSETS = (4, 8, 12, 16)
+PAIR_VALUES = ((0xFFFFFFFF).to_bytes(4, "little"), (0xFFFF).to_bytes(2, "little"),
+               (0x7FFFFFFF).to_bytes(4, "little"))
+
+
+def seq_pass_f(data: bytes, filler: int = 5120, offsets_step: int = 4):
+    """Проход F: в одном мутанте патчатся ДВА 4-байтных поля (опорное + текущее)."""
+    long_data = append_block(data, filler, random.Random(filler), 0x62)
+    for anchor in ANCHOR_OFFSETS:
+        for offset in range(0, len(data) - 4, offsets_step):
+            if offset == anchor:
+                continue
+            for patch in PAIR_VALUES:
+                mutant = overlay_inplace(long_data, anchor, patch)
+                mutant = overlay_inplace(mutant, offset, patch)
+                yield ("F", offset, patch, mutant)
+
+
+def seq_pass_g(data: bytes, filler: int = 5120, offsets_step: int = 4):
+    """Проход G: файл удлинён примерно вдвое против приёмного буфера × поле = 0xFFFFFFFF.
+
+    Это найденное условие переполнения, записанное как общая стратегия: данных
+    заведомо больше буфера, а значение поля — максимальное. Смещения перебираются
+    все, поэтому знание конкретного поля не требуется.
+    """
+    long_data = append_block(data, filler, random.Random(filler), 0x62)
+    for offset in range(0, len(data) - 4, offsets_step):
+        for patch in ((0xFFFFFFFF).to_bytes(4, "little"), (0x7FFFFFFF).to_bytes(4, "little")):
+            yield ("G", offset, patch, overlay_inplace(long_data, offset, patch))
+
+
+def seq_pass_h(data: bytes, insert: int = 5120, marker: int = 48, offsets_step: int = 4):
+    """Проход H: данные вставляются СРАЗУ ПОСЛЕ маркера + два поля длины = 0xFFFFFFFF.
+
+    Найденное условие переполнения: копирование идёт от позиции сразу за маркером с
+    длиной, взятой из шапки; если данных там больше, чем вмещает приёмный буфер,
+    а поля длины завышены — происходит переполнение стека. Смещения перебираются
+    все, поэтому конкретное поле в код не зашито (marker — общая эвристика поиска
+    маркера, а не имя поля).
+    """
+    injected = bytearray(data)
+    injected[marker + 6 : marker + 6] = b"b" * insert   # сразу за найденным маркером
+    base = bytes(injected)
+    # пары смещений: перебираем положение первого поля, второе берём из «опорных»
+    for offset in range(0, len(data) - 4, offsets_step):
+        for other in ANCHOR_OFFSETS:
+            if other == offset:
+                continue
+            mutant = overlay_inplace(base, offset, (0xFFFFFFFF).to_bytes(4, "little"))
+            mutant = overlay_inplace(mutant, other, (0xFFFFFFFF).to_bytes(4, "little"))
+            yield ("H", offset, (0xFFFFFFFF).to_bytes(4, "little"), mutant)
+
+
 def seq_plan(data: bytes, passes: str = "ABC"):
     """Все детерминированные прогоны режима --seq в выбранных проходах."""
     if "A" in passes:
@@ -252,3 +374,11 @@ def seq_plan(data: bytes, passes: str = "ABC"):
         yield from seq_pass_c(data)
     if "D" in passes:
         yield from seq_pass_d(data)
+    if "E" in passes:
+        yield from seq_pass_e(data)
+    if "F" in passes:
+        yield from seq_pass_f(data)
+    if "G" in passes:
+        yield from seq_pass_g(data)
+    if "H" in passes:
+        yield from seq_pass_h(data)
