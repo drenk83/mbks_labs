@@ -1,8 +1,8 @@
 run	from	to	reason	bb_run	bb_parent	bb_global	energy	weights
 20	byte	multi	plateau	499	499	499	2	byte=1 multi=1 boundary=1 append=1 expand=1 delim=1 field=1 inject=1 combo=1
-40	multi	boundary	plateau	499	499	499	3	byte=1 multi=0.5 boundary=1 append=1 expand=1 delim=1 field=1 inject=1 combo=1
-60	boundary	append	plateau	499	499	499	4	byte=1 multi=0.5 boundary=1 append=1 expand=1 delim=1 field=1 inject=1 combo=1
-80	append	expand	plateau	499	499	499	5	byte=1 multi=0.5 boundary=1 append=1 expand=1 delim=1 field=1 inject=1 combo=1
-100	expand	delim	plateau	499	499	499	5	byte=1 multi=0.5 boundary=1 append=1 expand=0.5 delim=1 field=1 inject=1 combo=1
-187	delim	field	plateau	499	499	499	5	byte=1 multi=0.5 boundary=1 append=1 expand=0.5 delim=1 field=1 inject=1 combo=1
-207	field	inject	plateau	499	499	499	5	byte=1 multi=0.5 boundary=1 append=1 expand=0.5 delim=1 field=1 inject=1 combo=1
+40	multi	boundary	plateau	499	499	499	3	byte=1 multi=1 boundary=1 append=1 expand=1 delim=1 field=1 inject=1 combo=1
+60	boundary	append	plateau	499	499	499	4	byte=1 multi=1 boundary=1 append=1 expand=1 delim=1 field=1 inject=1 combo=1
+80	append	expand	plateau	499	499	499	5	byte=1 multi=1 boundary=1 append=1 expand=1 delim=1 field=1 inject=1 combo=1
+100	expand	delim	plateau	499	499	499	5	byte=1 multi=1 boundary=1 append=1 expand=0.25 delim=1 field=1 inject=1 combo=1
+149	delim	field	plateau	499	499	499	5	byte=1 multi=1 boundary=1 append=1 expand=0.25 delim=1 field=1 inject=1 combo=1
+169	field	inject	plateau	499	499	499	5	byte=1 multi=1 boundary=1 append=1 expand=0.25 delim=1 field=1 inject=1 combo=1
