@@ -8,7 +8,7 @@
 
 - **Вариант 2** (порядковый номер в группе). Не менять без явной просьбы.
 - Цели lab1/lab2: `lab1/vulns/vuln2.exe`, `lab1/vulns/config_2`, `lab1/vulns/func.dll`.
-- Lab1 план утверждён в `lab1/PLAN.md`. Стек: Python 3.12 + DynamoRIO `drcov` + IDAPython 3 (IDA 7.7) + x32dbg. Фаззер слепой. Доп. задание: `auto --cov` меняет стратегию мутаций при shrink/plateau (`adapt.py`), описание — в том же PLAN. Реализация — по «делаем», начиная с этапа 0 в том файле.
+- Lab1 план утверждён в `lab1/PLAN.md` (документ исторический; реализация — `lab1/fuzzer/fuzzer.py`, меню без CLI, рабочие копии цели рядом с фаззером). Стек: Python 3.12 + DynamoRIO `drcov` + IDAPython 3 (IDA 7.7) + x32dbg. Фаззер слепой. Доп. задание: пункт меню 3 (`mode_cov`) меняет стратегию мутаций при shrink/plateau; контроль — `mode_cov(600, fixed='cycle'|'boundary')`. **Lab1 выполнена и перепроверена 14.09.2026** (см. `lab1/report/lab1_report.md`; порядок повторения — `lab1/REPEAT_GUIDE.md`).
 - Lab2 payload: **список дисков в системе** через WinAPI (`GetLogicalDriveStrings` / `GetLogicalDrives`), вывод в файл. **Не** `cmd`, **не** `wmic`, **не** `WinExec` сторонних exe.
 - Lab3 (чётный номер): **RBAC**, права роли на **всю директорию**.
 - Lab4: язык **C#**, третье средство **SonarQube** (+ CodeQL и semgrep у всех).
@@ -41,12 +41,14 @@
 - IDA Pro 7.7: `C:\Tools\IDAPro77\` (`ida.exe`/`ida64.exe`; сборка 64-битная, есть `idat.exe`/`idat64.exe` и декомпилятор `hexrays.dll`). В git не класть, включая `ida.key`. Оригинал в облаке не трогать. **Запускать только из `C:\Tools\IDAPro77`** — копия из облачной папки падает с «MSVCP140.dll was not found». Причина падений: в системе не было VC++ рантайма; `msvcp140.dll`, `vcruntime140.dll`, `vcruntime140_1.dll` скопированы в папку IDA (правильнее — поставить Microsoft Visual C++ 2015–2022 Redistributable x64). Сейчас IDA стартует и просит **однократно принять лицензию в GUI** («I Agree»), после чего работает `idat64.exe -A ...`. Программно принять лицензию не удалось (реестр и `ida.reg` не помогают).
 - DynamoRIO 11.3.0: распакован в `C:\Tools\DynamoRIO-Windows-11.3.0-1\`, на него сделан junction `C:\Tools\DynamoRIO`. Работать через `bin32\drrun.exe` (`-t drcov`) — это PE32 i386, проверено `drrun -version`.
 - x32dbg: фактический путь `C:\Tools\x32dbg\release\x32\x32dbg.exe` (в snapshot'е x64dbg есть и `release\x64`). Pin и Immunity не нужны.
-- Бинарники целей: `vuln2.exe` — 32-бит, `DllCharacteristics = 0x0040` → **DEP включён, ASLR (DYNAMIC_BASE) выключен**, CFG нет. `func.dll` — без ASLR и DEP. Образ при загрузке смещается от preferred base (наблюдали базу `0x00970000` вместо `0x00400000`) — в отладчике адреса считать от фактической базы.
-- Прогон покрытия требует, чтобы DynamoRIO мог писать свой каталог конфигурации; иначе `drrun` возвращает AV и это легко принять за краш цели. Фаззер подставляет `work/dynamorio_config` через `DYNAMORIO_CONFIGDIR`.
+- Бинарники целей: `vuln2.exe` — 32-бит, `DllCharacteristics = 0x0040` → **ASLR включён (`DYNAMIC_BASE`)**, **DEP не запрошен** (`NX_COMPAT` 0x0100 не выставлен), CFG нет. `func.dll` — без ASLR и DEP. Образ при загрузке смещается от preferred base (наблюдали базу `0x00970000` вместо `0x00400000`) — в отладчике адреса считать от фактической базы. **Проверено повторным разбором PE в lab1** — прежняя запись «DEP вкл., ASLR выкл.» была ошибкой (перепутаны флаги 0x0100 и 0x0040), см. `CONTEXT.md`.
+- Прогон покрытия требует, чтобы DynamoRIO мог писать свой каталог конфигурации; иначе `drrun` возвращает AV и это легко принять за краш цели. Фаззер подставляет `lab1/fuzzer/cov/dynamorio_config` через `DYNAMORIO_CONFIGDIR`.
+- **Песочница DSH (workspace-write) ломает оба инструмента анализа:** `drrun`/`drcov` пишет лог в `C:\Tools\DynamoRIO\logs` (вне workspace) → падает `0xC0000005`, drcov-лог пустой, фаззер печатает «покрытие не получено»; `idat64.exe` пишет настройки в реестр HKCU → `Fatal registry error: Access is denied`, выход 1. Запускать их с полным доступом (эскалация `danger-full-access`) либо из обычной консоли. Нативные запуски цели, сам фаззер и x32dbg работают и в workspace-write.
+- Порядок повторения lab1 «руками» (для отчёта) — `lab1/REPEAT_GUIDE.md`.
 
 ## Git
 
-Remote: `git@github.com:drenk83/mbks_labs.git`, **private**. В коммиты не класть IDA Pro, `ida.key`, `not_for_git/`, venv, базы IDA, `lab1/work/`. `lab1/vulns/` (цели), свои исходники, краш-конфиг и отчёты — да. Правила — в `.gitignore` (создать на этапе 1 lab1).
+Remote: `git@github.com:drenk83/mbks_labs.git`, **private**. В коммиты не класть IDA Pro, `ida.key`, `not_for_git/`, venv, базы IDA, рабочие копии цели (`lab1/fuzzer/{vuln2.exe,func.dll,config_2}`, `lab1/ida/vuln2.exe`) и `lab1/fuzzer/cov/`. `lab1/vulns/` (цели), исходники фаззера, краш-конфиги, журналы-доказательства и отчёты — да. Правила — в `.gitignore`.
 
 ## ФИО / группа
 

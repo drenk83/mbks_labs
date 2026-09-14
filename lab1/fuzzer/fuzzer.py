@@ -1,25 +1,5 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""Лабораторная работа №1 (МБКС, вариант 2) — мутационный фаззер формата файла.
-
-Один файл. Что внутри:
-  * мутации из ТЗ: замена 1 байта, замена нескольких байт, граничные значения,
-    допись в конец, расширение/вставка внутрь, работа с разделителями ",:=;";
-  * авторежим последовательной замены байт (SEQ-1) и проход по удлинённому файлу (SEQ-2);
-  * измерение покрытия средством динамической бинарной инструментации DynamoRIO (drcov);
-  * режим с обратной связью по покрытию: входы, давшие новые базовые блоки,
-    сохраняются и становятся родителями для дальнейших мутаций (COV);
-  * доп. задание: смена алгоритма мутирования по результатам покрытия (adapt);
-  * обнаружение ошибки, код ошибки, регистры и стек на момент падения;
-  * логирование ошибок вместе с произведёнными заменами.
-
-Запуск:  py -3.12 lab1/fuzzer.py          (откроется меню)
-          py -3.12 lab1/fuzzer.py --cov --max-runs 300   (без меню)
-"""
-
 from __future__ import annotations
 
-import argparse
 import ctypes
 import datetime
 import os
@@ -32,21 +12,17 @@ import time
 from ctypes import wintypes
 from pathlib import Path
 
-# ---------------------------------------------------------------------------
-# Пути и константы
-# ---------------------------------------------------------------------------
-
 LAB1 = Path(__file__).resolve().parent
-VULNS = LAB1 / "vulns"          # исходные цели — только чтение
-WORK = LAB1 / "work"            # рабочие копии + текущий config_2
-CRASHES = LAB1 / "crashes"      # найденные краши (.bin + .txt)
-CORPUS = LAB1 / "corpus"        # входы, давшие новое покрытие
-LOGS = LAB1 / "logs"            # журналы прогонов
+LOG_DIR = LAB1 / "log"          # журналы прогонов
+CRASH_DIR = LAB1 / "crash"      # найденные краши (.bin + .txt)
+COV_DIR = LAB1 / "cov"          # сиды и служебное DynamoRIO (создаётся в режиме покрытия)
 
 TARGET_NAME = "vuln2.exe"
 DLL_NAME = "func.dll"
 CONFIG_NAME = "config_2"
-ORIG_CONFIG = VULNS / CONFIG_NAME
+TARGET_PATH = LAB1 / TARGET_NAME
+DLL_PATH = LAB1 / DLL_NAME
+CONFIG_PATH = LAB1 / CONFIG_NAME
 
 DRRUN = Path(r"C:\Tools\DynamoRIO\bin32\drrun.exe")
 COVERED_MODULES = {TARGET_NAME.lower(), DLL_NAME.lower()}
@@ -79,34 +55,54 @@ STRATEGIES = ["byte", "boundary", "append", "inject"]   # порядок обх�
 SHRINK_LIMIT = 3        # столько прогонов подряд с падением покрытия -> смена
 PLATEAU_LIMIT = 30      # столько прогонов без нового покрытия -> смена
 
-SEQ_LOG = LOGS / "seq.log"
-COV_LOG = LOGS / "cov.log"
-ADAPT_LOG = LOGS / "adapt.log"
+SEQ_LOG = LOG_DIR / "seq.log"
+COV_LOG = LOG_DIR / "cov.log"
+ADAPT_LOG = LOG_DIR / "adapt.log"
 
 MAX_CRASH_SAVES = 20            # предохранитель: сколько крашей сохранять за сессию
 _SAVED_SIGNATURES: set[tuple] = set()   # подписи уже сохранённых крашей
+_ORIG_CONFIG: bytes | None = None       # снимок config_2 на старте сессии
 
 
 # ---------------------------------------------------------------------------
 # Мелкие утилиты
 # ---------------------------------------------------------------------------
 
+# Метка времени для имён crash_*.bin.
 def now_stamp() -> str:
     return datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
 
 
+# Дописать строку в журнал.
 def append_log(path: Path, text: str) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
     with path.open("a", encoding="utf-8") as fh:
         fh.write(text + "\n")
 
 
-def is_crash(code: int | None) -> bool:
-    """Крах — это исключение Windows 0xC000xxxx.
+# Начать сессию в журнале: заголовок и подпись колонок.
+def start_log(path: Path, title: str, columns: str) -> None:
+    append_log(path, "")
+    append_log(path, "# %s  %s" % (datetime.datetime.now().strftime("%Y-%m-%d %H:%M"), title))
+    append_log(path, "# %s" % columns)
 
-    Штатный выход цели с кодом -1 (несовпадение варианта) даёт 0xFFFFFFFF
-    и крахом НЕ считается.
-    """
+
+# Печать вывода цели без гигантской строки buffer:.
+def print_target_out(out: str) -> None:
+    if not out:
+        return
+    for line in out.splitlines():
+        text = line.strip()
+        if not text or text.startswith("===="):
+            continue
+        if text.startswith("buffer:"):
+            print("buffer: %d символов" % max(0, len(text) - 8))
+            continue
+        print(text)
+
+
+# True, если код возврата — исключение Windows 0xC000xxxx (не exit(-1) и не Ctrl+C).
+def is_crash(code: int | None) -> bool:
     if code is None:
         return False
     unsigned = code & 0xFFFFFFFF
@@ -115,71 +111,82 @@ def is_crash(code: int | None) -> bool:
     return 0xC0000000 <= unsigned <= 0xCFFFFFFF
 
 
+# Код возврата в виде 0x........; None → timeout.
 def code_str(code: int | None) -> str:
     if code is None:
         return "timeout"
     return "0x%08X" % (code & 0xFFFFFFFF)
 
 
+# Позиция сразу за маркером /start (оттуда цель копирует данные).
 def find_data_offset(data: bytes) -> int:
-    """Позиция сразу за маркером /start (оттуда цель копирует данные)."""
     pos = data.find(MARKER)
     return pos + len(MARKER) if pos >= 0 else HEADER_LEN
 
 
+# Смещения выровненных полей в шапке (4, 8, 12, ... 44).
 def header_field_offsets(data: bytes, width: int = 4) -> list[int]:
-    """Смещения выровненных полей в шапке (4, 8, 12, ... 44)."""
     limit = min(HEADER_LEN, len(data)) - width
     return [off for off in range(width, limit + 1, width)]
 
 
+# Снимок config_2, снятый в начале сессии.
+def orig_config() -> bytes:
+    if _ORIG_CONFIG is None:
+        raise RuntimeError("config_2 ещё не прочитан — сначала prepare_work")
+    return _ORIG_CONFIG
+
+
+# Создать log/ и crash/, если их нет.
 def ensure_dirs() -> None:
-    for path in (WORK, CRASHES, CORPUS, LOGS):
+    for path in (LOG_DIR, CRASH_DIR):
         path.mkdir(parents=True, exist_ok=True)
-    (WORK / "dynamorio_config").mkdir(parents=True, exist_ok=True)
 
 
+# Проверить файлы рядом со скриптом, снять снимок config_2, создать log/ и crash/.
 def prepare_work() -> None:
-    """Рабочие копии цели рядом с текущим config_2 (цель читает конфиг из cwd)."""
+    global _ORIG_CONFIG
+    missing = [path.name for path in (TARGET_PATH, DLL_PATH, CONFIG_PATH) if not path.exists()]
+    if missing:
+        print("Нет файлов рядом с fuzzer.py: %s" % ", ".join(missing))
+        print("Положите vuln2.exe, func.dll, config_2 в %s" % LAB1)
+        sys.exit(1)
     ensure_dirs()
-    # без диалогов Windows Error Reporting при падениях цели
-    _k32.SetErrorMode(0x0001 | 0x0002 | 0x8000)
-    for name in (TARGET_NAME, DLL_NAME):
-        src, dst = VULNS / name, WORK / name
-        if not dst.exists() or dst.stat().st_size != src.stat().st_size:
-            shutil.copy2(src, dst)
-    if not (WORK / CONFIG_NAME).exists():
-        shutil.copy2(ORIG_CONFIG, WORK / CONFIG_NAME)
+    _k32.SetErrorMode(0x0001 | 0x0002 | 0x8000)   # без диалогов WER
+    if _ORIG_CONFIG is None:
+        _ORIG_CONFIG = CONFIG_PATH.read_bytes()
 
 
+# Вернуть на диск снимок config_2 с начала сессии.
 def restore_config() -> None:
-    shutil.copy2(ORIG_CONFIG, WORK / CONFIG_NAME)
+    CONFIG_PATH.write_bytes(orig_config())
 
 
+# Записать мутант в config_2 рядом со скриптом.
 def write_config(data: bytes) -> None:
-    (WORK / CONFIG_NAME).write_bytes(data)
+    CONFIG_PATH.write_bytes(data)
 
 
 # ---------------------------------------------------------------------------
 # Мутации (все пункты ТЗ)
 # ---------------------------------------------------------------------------
 
+# Заменить один байт (не трогая номер варианта).
 def mut_byte(data: bytes, rng: random.Random) -> tuple[bytes, str]:
-    """Однобайтовая замена."""
     if len(data) <= 1:
-        return data, "noop: файл слишком мал"
+        return data, "файл слишком мал"
     off = rng.randrange(1, len(data))
     val = rng.choice([0x00, 0xFF, 0x7F, 0x80, rng.randrange(256)])
     out = bytearray(data)
     was = out[off]
     out[off] = val
-    return bytes(out), "byte: [%#06x] %02X -> %02X" % (off, was, val)
+    return bytes(out), "байт [0x%04X] %02X→%02X" % (off, was, val)
 
 
+# Заменить 2–8 случайных байт.
 def mut_multi(data: bytes, rng: random.Random) -> tuple[bytes, str]:
-    """Замена нескольких байт."""
     if len(data) <= 1:
-        return data, "noop: файл слишком мал"
+        return data, "файл слишком мал"
     count = rng.randint(2, 8)
     out = bytearray(data)
     first = None
@@ -189,86 +196,82 @@ def mut_multi(data: bytes, rng: random.Random) -> tuple[bytes, str]:
         if first is None:
             first = (off, out[off], val)
         out[off] = val
-    return bytes(out), "multi: %d байт, напр. [%#06x] %02X -> %02X" % (
+    return bytes(out), "%d байт, первый [0x%04X] %02X→%02X" % (
         count, first[0], first[1], first[2])
 
 
+# Подставить граничное значение (00, FF, FFFF, половины диапазона ±1, …).
 def mut_boundary(data: bytes, rng: random.Random) -> tuple[bytes, str]:
-    """Замена на граничное значение (0x00, 0xFF, 0xFFFF, 0xFFFFFFFF, половины ±1...)."""
     width, value = rng.choice(BOUNDARY_SPEC)
     candidates = [off for off in range(1, len(data) - width + 1)]
     if not candidates:
-        return data, "noop: нет места под %d байт" % width
+        return data, "нет места под %d байт" % width
     off = rng.choice(candidates)
     out = bytearray(data)
-    was = bytes(out[off:off + width])
     out[off:off + width] = value.to_bytes(width, "little")
-    return bytes(out), "boundary: [%#06x] %s -> %0*X (%d б)" % (
-        off, was.hex().upper(), width * 2, value, width)
+    return bytes(out), "граничное [0x%04X] %d байт → %0*X" % (off, width, width * 2, value)
 
 
+# Записать граничное DWORD в поле шапки (смещения 4, 8, …).
 def mut_field(data: bytes, rng: random.Random) -> tuple[bytes, str]:
-    """Граничное значение в 4-байтное поле шапки (там лежат длины)."""
     offsets = header_field_offsets(data, 4)
     if not offsets:
-        return data, "noop: шапка короче 8 байт"
+        return data, "шапка короче 8 байт"
     off = rng.choice(offsets)
     value = rng.choice(DWORD_VALUES)
     out = bytearray(data)
-    was = bytes(out[off:off + 4])
     out[off:off + 4] = value.to_bytes(4, "little")
-    return bytes(out), "field: [%#06x] %s -> %08X" % (off, was.hex().upper(), value)
+    return bytes(out), "поле шапки [0x%04X] → %08X" % (off, value)
 
 
+# Дописать байты в конец файла.
 def mut_append(data: bytes, rng: random.Random) -> tuple[bytes, str]:
-    """Допись в конец файла."""
     size = rng.choice([16, 64, 256, 1024, 5120])
     fill = rng.choice([b"b", b"A", b"z", b"\xff", b"\x00"])
-    return data + fill * size, "append: +%d байт %02X" % (size, fill[0])
+    return data + fill * size, "допись +%d байт" % size
 
 
+# Вставить байты внутрь файла (часто сразу за /start).
 def mut_expand(data: bytes, rng: random.Random) -> tuple[bytes, str]:
-    """Расширение: вставка внутрь файла (файл становится длиннее)."""
     if len(data) <= 1:
-        return data, "noop: файл слишком мал"
+        return data, "файл слишком мал"
     if rng.random() < 0.5:
-        off = find_data_offset(data)          # за маркером /start
+        off = find_data_offset(data)
     else:
         off = rng.randrange(1, len(data))
     size = rng.choice([64, 512, 1024, 5120])
     out = data[:off] + b"b" * size + data[off:]
-    return out, "expand: вставка %d байт в [%#06x]" % (size, off)
+    return out, "вставка %d байт [0x%04X]" % (size, off)
 
 
+# Найти ,:=; и испортить поле рядом с разделителем.
 def mut_delim(data: bytes, rng: random.Random) -> tuple[bytes, str]:
-    """Поиск разделителей полей ",:=;" и мутация вокруг них."""
     positions = [i for i, byte in enumerate(data) if byte in DELIMITERS]
     if not positions:
-        return data, "delim: разделители ,:=; не найдены"
+        return data, "разделители ,:=; не найдены"
     pos = rng.choice(positions)
     choice = rng.random()
     marker = chr(data[pos])
-    if choice < 0.4:                      # дублируем разделитель
+    if choice < 0.4:
         out = data[:pos] + data[pos:pos + 1] * rng.randint(2, 64) + data[pos:]
-        return out, "delim: [%#06x] '%s' размножен" % (pos, marker)
-    if choice < 0.7:                      # меняем соседний байт на граничный
+        return out, "разделитель [0x%04X] '%s' повторён" % (pos, marker)
+    if choice < 0.7:
         off = pos + 1 if pos + 1 < len(data) else pos - 1
         out = bytearray(data)
         was = out[off]
         out[off] = rng.choice([0x00, 0xFF])
-        return bytes(out), "delim: [%#06x] рядом с '%s' %02X -> %02X" % (
-            off, marker, was, out[off])
-    out = bytearray(data)                 # вставляем длинное значение после разделителя
+        return bytes(out), "рядом с '%s' [0x%04X] %02X→%02X" % (marker, off, was, out[off])
+    out = bytearray(data)
     size = rng.choice([512, 1024, 5120])
     out[pos + 1:pos + 1] = b"b" * size
-    return bytes(out), "delim: [%#06x] после '%s' вставлено %d байт" % (pos, marker, size)
+    return bytes(out), "после '%s' [0x%04X] вставка %d байт" % (marker, pos, size)
 
 
+# Увеличить число в 4-байтном поле шапки (×2/×4/×10 и слагаемое).
 def mut_grow(data: bytes, rng: random.Random) -> tuple[bytes, str]:
-    """Расширение значения поля: увеличить 4-байтное поле шапки (×2, +100, +1000…)."""
     offsets = header_field_offsets(data, 4)
     if not offsets:
-        return data, "noop: шапка короче 8 байт"
+        return data, "шапка короче 8 байт"
     off = rng.choice(offsets)
     old = struct.unpack_from("<I", data, off)[0]
     factor = rng.choice([2, 4, 10])
@@ -276,22 +279,22 @@ def mut_grow(data: bytes, rng: random.Random) -> tuple[bytes, str]:
     new = (old * factor + add) & 0xFFFFFFFF
     out = bytearray(data)
     out[off:off + 4] = new.to_bytes(4, "little")
-    return bytes(out), "grow: поле [%#06x] %d -> %d (x%d+%d)" % (off, old, new, factor, add)
+    return bytes(out), "поле [0x%04X] %d→%d" % (off, old, new)
 
 
+# Вставить длинные данные за /start и поставить dst_len=FFFFFFFF — типичный краш.
 def mut_inject(data: bytes, rng: random.Random) -> tuple[bytes, str]:
-    """Ключевая мутация: длинные данные сразу за /start + завышенная длина в шапке."""
     off = find_data_offset(data)
     size = rng.choice([3000, 5120, 8192, 16384])
     out = bytearray(data[:off]) + bytearray(b"b" * size) + bytearray(data[off:])
-    fields = [8]                                    # рабочее смещение поля длины
+    fields = [8]
     if rng.random() < 0.5 and 4 + 4 <= len(out):
         fields.append(4)
     for field in fields:
         if field + 4 <= len(out):
             out[field:field + 4] = (0xFFFFFFFF).to_bytes(4, "little")
-    return bytes(out), "inject: +%d байт за маркером [%#06x], поля %s = FFFFFFFF" % (
-        size, off, "/".join(str(f) for f in fields))
+    extra = " и shell_len" if 4 in fields else ""
+    return bytes(out), "вставка %d байт за /start, dst_len=FFFFFFFF%s" % (size, extra)
 
 
 MANUAL_MUTATIONS = {
@@ -311,12 +314,12 @@ MANUAL_MUTATIONS = {
 # Запуск цели
 # ---------------------------------------------------------------------------
 
+# Запуск vuln2.exe из папки скрипта (цель читает config_2 из cwd).
 def run_native(capture: bool = False) -> tuple[int | None, str, float, bool]:
-    """Обычный запуск work/vuln2.exe с рабочим каталогом work."""
     stdout = subprocess.PIPE if capture else subprocess.DEVNULL
     started = time.time()
     try:
-        proc = subprocess.run([str(WORK / TARGET_NAME)], cwd=str(WORK),
+        proc = subprocess.run([str(TARGET_PATH)], cwd=str(LAB1),
                               stdout=stdout, stderr=subprocess.STDOUT,
                               timeout=TIMEOUT_NATIVE)
         out = proc.stdout.decode("cp866", "replace") if (capture and proc.stdout) else ""
@@ -331,7 +334,6 @@ def run_native(capture: bool = False) -> tuple[int | None, str, float, bool]:
 # --- мини-отладчик (ctypes): код исключения, регистры, стек -----------------
 
 DEBUG_ONLY_THIS_PROCESS = 0x00000002
-CREATE_NO_WINDOW = 0x08000000
 DBG_CONTINUE = 0x00010002
 DBG_EXCEPTION_NOT_HANDLED = 0x80010001
 EXCEPTION_DEBUG_EVENT = 1
@@ -351,6 +353,7 @@ OFF_EXIT_CODE = OFF_UNION + 0
 OFF_IMAGE_BASE = OFF_UNION + 24      # CREATE_PROCESS_DEBUG_INFO.lpBaseOfImage
 
 
+# Параметры CreateProcessW.
 class STARTUPINFOW(ctypes.Structure):
     _fields_ = [
         ("cb", wintypes.DWORD), ("lpReserved", wintypes.LPWSTR),
@@ -365,6 +368,7 @@ class STARTUPINFOW(ctypes.Structure):
     ]
 
 
+# Дескрипторы созданного процесса.
 class PROCESS_INFORMATION(ctypes.Structure):
     _fields_ = [
         ("hProcess", wintypes.HANDLE), ("hThread", wintypes.HANDLE),
@@ -372,8 +376,8 @@ class PROCESS_INFORMATION(ctypes.Structure):
     ]
 
 
+# 32-битный контекст потока WOW64 (размер 716 байт).
 class WOW64_CONTEXT(ctypes.Structure):
-    """32-битный контекст потока WOW64 (размер 716 байт)."""
     _fields_ = [
         ("ContextFlags", ctypes.c_uint32),
         ("Dr0", ctypes.c_uint32), ("Dr1", ctypes.c_uint32),
@@ -417,6 +421,7 @@ _k32.SetErrorMode.argtypes = [wintypes.UINT]
 _k32.SetErrorMode.restype = wintypes.UINT
 
 
+# Снять 32-битные регистры потока WOW64.
 def _grab_context(tid: int) -> WOW64_CONTEXT | None:
     handle = _k32.OpenThread(THREAD_GET_CONTEXT | THREAD_QUERY_INFORMATION, False, tid)
     if not handle:
@@ -428,6 +433,7 @@ def _grab_context(tid: int) -> WOW64_CONTEXT | None:
     return ctx if ok else None
 
 
+# Прочитать size байт памяти процесса (стек).
 def _read_stack(hprocess, address: int, size: int = 128) -> bytes:
     buf = (ctypes.c_ubyte * size)()          # именно c_ubyte: c_byte даёт знаковые значения
     read = ctypes.c_size_t(0)
@@ -437,20 +443,41 @@ def _read_stack(hprocess, address: int, size: int = 128) -> bytes:
     return b""
 
 
+# Слить очередь отладчика. Иначе следующий сеанс получает чужой EXIT_PROCESS.
+def _drain_debug_events(timeout: float = 1.0) -> None:
+    event = ctypes.create_string_buffer(512)
+    deadline = time.time() + timeout
+    idle = 0
+    while time.time() < deadline:
+        if not _k32.WaitForDebugEvent(ctypes.byref(event), 30):
+            idle += 1
+            if idle >= 3:
+                break
+            continue
+        idle = 0
+        pid = struct.unpack_from("<I", event, OFF_EVENT_PID)[0]
+        tid = struct.unpack_from("<I", event, OFF_EVENT_TID)[0]
+        _k32.ContinueDebugEvent(pid, tid, DBG_CONTINUE)
+
+
+# Запускает цель под отладчиком и снимает регистры/стек на исключении.
 def debug_capture(timeout: float = 15.0) -> dict:
-    """Запускает цель под отладчиком и снимает регистры/стек на исключении."""
     result: dict = {"exception": None, "first_chance": None, "regs": None,
                     "stack": b"", "image_base": None, "exit_code": None,
                     "saved_eip_addr": None, "saved_eip_value": None,
                     "timeout": False, "error": None}
     _k32.SetErrorMode(0x0001 | 0x0002 | 0x8000)   # без диалогов WER
+    _drain_debug_events(0.3)                      # хвост прошлого сеанса, если был
     startup = STARTUPINFOW()
     startup.cb = ctypes.sizeof(STARTUPINFOW)
     info = PROCESS_INFORMATION()
-    cmdline = ctypes.create_unicode_buffer('"%s"' % (WORK / TARGET_NAME))
+    cmdline = ctypes.create_unicode_buffer('"%s"' % TARGET_PATH)
+    # CREATE_NO_WINDOW нельзя: без консоли цель проходит тот же конфиг
+    # без ACCESS_VIOLATION и выходит 0 — тогда в логе краша нет регистров.
+    # Окно не всплывает: дочерний процесс наследует консоль Python.
     started = _k32.CreateProcessW(None, cmdline, None, None, False,
-                                  DEBUG_ONLY_THIS_PROCESS | CREATE_NO_WINDOW,
-                                  None, str(WORK), ctypes.byref(startup),
+                                  DEBUG_ONLY_THIS_PROCESS,
+                                  None, str(LAB1), ctypes.byref(startup),
                                   ctypes.byref(info))
     if not started:
         result["error"] = "CreateProcessW: ошибка %d" % ctypes.get_last_error()
@@ -469,6 +496,10 @@ def debug_capture(timeout: float = 15.0) -> dict:
             code = struct.unpack_from("<I", event, OFF_EVENT_CODE)[0]
             pid = struct.unpack_from("<I", event, OFF_EVENT_PID)[0]
             tid = struct.unpack_from("<I", event, OFF_EVENT_TID)[0]
+            if pid != info.dwProcessId:
+                # хвост предыдущего сеанса — обязателен Continue, иначе очередь клинит
+                _k32.ContinueDebugEvent(pid, tid, DBG_CONTINUE)
+                continue
             cont = DBG_CONTINUE
             stop = False
             if code == EXCEPTION_DEBUG_EVENT:
@@ -505,6 +536,7 @@ def debug_capture(timeout: float = 15.0) -> dict:
                 break
     finally:
         _k32.TerminateProcess(info.hProcess, 0)
+        _drain_debug_events()
         _k32.CloseHandle(info.hThread)
         _k32.CloseHandle(info.hProcess)
     return result
@@ -514,93 +546,118 @@ def debug_capture(timeout: float = 15.0) -> dict:
 # Сохранение краша
 # ---------------------------------------------------------------------------
 
-def describe_changes(orig: bytes, mutant: bytes, limit: int = 40) -> list[str]:
-    lines = []
+# Краткий список отличий мутанта от оригинала.
+def describe_changes(orig: bytes, mutant: bytes, limit: int = 8) -> list[str]:
+    lines: list[str] = []
     shown = 0
     changed = 0
-    for i in range(min(len(orig), len(mutant))):
+    delta = len(mutant) - len(orig)
+    insert_at: int | None = None
+    delete_at: int | None = None
+    if delta > 0:
+        for off in range(len(orig) + 1):
+            if orig[off:] == mutant[off + delta:]:
+                insert_at = off
+                break
+    elif delta < 0:
+        for off in range(len(mutant) + 1):
+            if mutant[off:] == orig[off - delta:]:
+                delete_at = off
+                break
+    prefix = min(len(orig), len(mutant))
+    if insert_at is not None:
+        prefix = insert_at
+    elif delete_at is not None:
+        prefix = delete_at
+    for i in range(prefix):
         if orig[i] != mutant[i]:
             changed += 1
             if shown < limit:
-                lines.append("  +%04X  %02X -> %02X" % (i, orig[i], mutant[i]))
+                lines.append("  [0x%04X] %02X → %02X" % (i, orig[i], mutant[i]))
                 shown += 1
     if changed > shown:
-        lines.append("  ... и ещё %d изменённых байт" % (changed - shown))
-    if len(mutant) > len(orig):
-        lines.append("appended: %d байт %s..." % (len(mutant) - len(orig),
-                                                  mutant[len(orig):len(orig) + 32].hex()))
-    elif len(mutant) < len(orig):
-        lines.append("truncated: -%d байт" % (len(orig) - len(mutant)))
+        lines.append("  … ещё %d байт" % (changed - shown))
+    if insert_at is not None:
+        if insert_at == len(orig):
+            lines.append("  допись %d байт" % delta)
+        else:
+            lines.append("  вставка %d байт по смещению 0x%X" % (delta, insert_at))
+    elif delete_at is not None:
+        lines.append("  удалено %d байт с 0x%X" % (-delta, delete_at))
+    elif delta > 0:
+        lines.append("  файл длиннее на %d байт" % delta)
+    elif delta < 0:
+        lines.append("  файл короче на %d байт" % (-delta))
     return lines
 
 
+# Сохраняет краш-конфиг и лог с кодом ошибки, регистрами, стеком и заменами.
+# Одинаковые краши (по signature) сохраняются один раз — иначе режим покрытия
+# плодит сотни файлов на одну и ту же ошибку.
 def save_crash(data: bytes, orig: bytes, note: str, exit_code: int | None,
                elapsed: float, debugger: bool = True,
                signature: tuple | None = None) -> tuple[Path | None, Path | None]:
-    """Сохраняет краш-конфиг и лог с кодом ошибки, регистрами, стеком и заменами.
-
-    Одинаковые краши (по signature) сохраняются один раз — иначе режим покрытия
-    плодит сотни файлов на одну и ту же ошибку.
-    """
     if signature is None:
         signature = (exit_code, len(data))
     if signature in _SAVED_SIGNATURES or len(_SAVED_SIGNATURES) >= MAX_CRASH_SAVES:
         return None, None
     _SAVED_SIGNATURES.add(signature)
-    CRASHES.mkdir(parents=True, exist_ok=True)
+    CRASH_DIR.mkdir(parents=True, exist_ok=True)
     stamp = now_stamp()
-    bin_path = CRASHES / ("crash_%s.bin" % stamp)
-    txt_path = CRASHES / ("crash_%s.txt" % stamp)
+    bin_path = CRASH_DIR / ("crash_%s.bin" % stamp)
+    txt_path = CRASH_DIR / ("crash_%s.txt" % stamp)
     suffix = 1
     while bin_path.exists() or txt_path.exists():
-        bin_path = CRASHES / ("crash_%s_%d.bin" % (stamp, suffix))
-        txt_path = CRASHES / ("crash_%s_%d.txt" % (stamp, suffix))
+        bin_path = CRASH_DIR / ("crash_%s_%d.bin" % (stamp, suffix))
+        txt_path = CRASH_DIR / ("crash_%s_%d.txt" % (stamp, suffix))
         suffix += 1
     bin_path.write_bytes(data)
 
-    lines = ["status: crash",
-             "exit_code: %s (%s)" % (exit_code, code_str(exit_code)),
-             "exception: %s" % code_str(exit_code),
-             "elapsed_sec: %.3f" % elapsed,
-             "note: %s" % note,
-             "orig_size: %d" % len(orig),
-             "mutant_size: %d" % len(data)]
-    debugger_note = "не запускался"
+    lines = [
+        "крах %s" % code_str(exit_code),
+        "мутация: %s" % note,
+        "размер: %d → %d байт" % (len(orig), len(data)),
+        "время: %.3f с" % elapsed,
+        "",
+    ]
     if debugger:
-        info = debug_capture()
+        info = None
+        for _attempt in range(3):
+            info = debug_capture()
+            if info.get("error") or info.get("exception") is not None:
+                break
         if info.get("error"):
-            debugger_note = info["error"]
+            lines.append("отладчик: %s" % info["error"])
         elif info.get("exception") is not None:
             ctx = info.get("regs")
-            debugger_note = "confirmed=True first_chance=%s" % info.get("first_chance")
-            lines.append("exception_under_debugger: %s" % code_str(info["exception"]))
-            lines.append("image_base: %s" % (("0x%08X" % info["image_base"])
-                                             if info.get("image_base") else "?"))
+            base = info.get("image_base")
+            lines.append("исключение под отладчиком: %s" % code_str(info["exception"]))
+            if base:
+                lines.append("база модуля: 0x%08X" % base)
             if ctx is not None:
+                rel = ""
+                if base:
+                    rel = "  (= база+0x%X)" % ((ctx.Eip - (base & 0xFFFFFFFF)) & 0xFFFFFFFF)
                 lines += [
-                    "EAX=0x%08X" % ctx.Eax, "EBX=0x%08X" % ctx.Ebx,
-                    "ECX=0x%08X" % ctx.Ecx, "EDX=0x%08X" % ctx.Edx,
-                    "ESI=0x%08X" % ctx.Esi, "EDI=0x%08X" % ctx.Edi,
-                    "EBP=0x%08X" % ctx.Ebp, "ESP=0x%08X" % ctx.Esp,
-                    "EIP=0x%08X" % ctx.Eip, "EFLAGS=0x%08X" % ctx.EFlags,
+                    "EIP=0x%08X%s" % (ctx.Eip, rel),
+                    "EAX=0x%08X  EBX=0x%08X  ECX=0x%08X  EDX=0x%08X" % (
+                        ctx.Eax, ctx.Ebx, ctx.Ecx, ctx.Edx),
+                    "ESI=0x%08X  EDI=0x%08X  EBP=0x%08X  ESP=0x%08X" % (
+                        ctx.Esi, ctx.Edi, ctx.Ebp, ctx.Esp),
                 ]
-                # адрес сохранённого адреса возврата = EBP+4
-                lines.append("saved_eip_addr=0x%08X" % (info.get("saved_eip_addr")
-                                                        or ctx.Ebp + 4))
                 if info.get("saved_eip_value") is not None:
-                    lines.append("saved_eip_value=0x%08X" % info["saved_eip_value"])
+                    lines.append("saved EIP [EBP+4]=0x%08X" % info["saved_eip_value"])
                 stack = info.get("stack") or b""
                 if stack:
-                    lines.append("stack:")
-                    for row in range(0, min(len(stack), 128), 16):
+                    lines.append("стек:")
+                    for row in range(0, min(len(stack), 64), 16):
                         chunk = stack[row:row + 16]
                         lines.append("  +%02X  %s" % (row, " ".join("%02X" % b for b in chunk)))
         else:
-            debugger_note = "под отладчиком не воспроизвелось (timeout=%s exit=%s)" % (
-                info.get("timeout"), code_str(info.get("exit_code")))
-    lines.append("extra: %s" % debugger_note)
-    lines.append("replacements:")
-    lines += describe_changes(orig, data)
+            lines.append("под отладчиком не упало (exit %s)" % code_str(info.get("exit_code")))
+    lines.append("")
+    lines.append("правки к оригиналу:")
+    lines += describe_changes(orig, data) or ["  (нет отличий в префиксе)"]
     txt_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
     return bin_path, txt_path
 
@@ -609,8 +666,8 @@ def save_crash(data: bytes, orig: bytes, note: str, exit_code: int | None,
 # Покрытие: DynamoRIO drcov
 # ---------------------------------------------------------------------------
 
+# Разбор лога drcov: множество (имя модуля, смещение BB) для цели и func.dll.
 def parse_drcov(path: Path) -> set[tuple[str, int]]:
-    """Разбор лога drcov: множество (имя модуля, смещение BB) для цели и func.dll."""
     raw = path.read_bytes()
     table_at = raw.find(b"BB Table:")
     if table_at < 0:
@@ -635,20 +692,22 @@ def parse_drcov(path: Path) -> set[tuple[str, int]]:
     return blocks
 
 
+# Прогон цели под drrun -t drcov: покрытие + код возврата.
 def run_cov(keep_log: bool = False) -> tuple[set[tuple[str, int]], int | None, str, float, Path | None]:
-    """Прогон цели под drrun -t drcov: покрытие + код возврата."""
-    logdir = WORK / "drcov_logs"
+    COV_DIR.mkdir(parents=True, exist_ok=True)
+    (COV_DIR / "dynamorio_config").mkdir(parents=True, exist_ok=True)
+    logdir = COV_DIR / "drcov_logs"
     if logdir.exists():
         shutil.rmtree(logdir, ignore_errors=True)
     logdir.mkdir(parents=True, exist_ok=True)
     env = os.environ.copy()
-    env["DYNAMORIO_CONFIGDIR"] = str(WORK / "dynamorio_config")
-    cmd = [str(DRRUN), "-t", "drcov", "-logdir", str(logdir), "--", str(WORK / TARGET_NAME)]
+    env["DYNAMORIO_CONFIGDIR"] = str(COV_DIR / "dynamorio_config")
+    cmd = [str(DRRUN), "-t", "drcov", "-logdir", str(logdir), "--", str(TARGET_PATH)]
     started = time.time()
     code: int | None = None
     out = ""
     try:
-        proc = subprocess.run(cmd, cwd=str(WORK), env=env, stdout=subprocess.PIPE,
+        proc = subprocess.run(cmd, cwd=str(LAB1), env=env, stdout=subprocess.PIPE,
                               stderr=subprocess.STDOUT, timeout=TIMEOUT_DRCOV)
         code = proc.returncode
         out = proc.stdout.decode("cp866", "replace")
@@ -671,17 +730,14 @@ def run_cov(keep_log: bool = False) -> tuple[set[tuple[str, int]], int | None, s
 # Планировщик стратегий (доп. задание)
 # ---------------------------------------------------------------------------
 
+# Смена алгоритма мутирования по результатам покрытия.
+# Сигналы:
+# * gain    — появились новые базовые блоки (покрытие выросло);
+# * shrink  — покрытие прогона меньше покрытия родителя
+# (BB_run < BB_parent) — «покрытие стало меньше»;
+# * plateau — PLATEAU_LIMIT прогонов подряд без нового покрытия.
+# Реакция: следующая стратегия по кругу STRATEGIES.
 class Scheduler:
-    """Смена алгоритма мутирования по результатам покрытия.
-
-    Сигналы:
-      * gain    — появились новые базовые блоки (покрытие выросло);
-      * shrink  — покрытие прогона меньше покрытия родителя
-                  (BB_run < BB_parent) — «покрытие стало меньше»;
-      * plateau — PLATEAU_LIMIT прогонов подряд без нового покрытия.
-    Реакция: следующая стратегия по кругу STRATEGIES.
-    """
-
     def __init__(self, fixed: str | None = None):
         self.fixed = fixed          # None | имя стратегии | "cycle" (без обратной связи)
         self.index = 0
@@ -695,8 +751,8 @@ class Scheduler:
             return STRATEGIES[self.index]
         return self.fixed
 
+    # Возвращает (было, стало, причина) при смене стратегии, иначе None.
     def update(self, bb_run: int, bb_parent: int, gain: bool) -> tuple[str, str, str] | None:
-        """Возвращает (было, стало, причина) при смене стратегии, иначе None."""
         if self.fixed == "cycle":
             # контрольный режим: стратегии меняются по кругу БЕЗ учёта покрытия
             self.since_gain += 1
@@ -728,6 +784,7 @@ class Scheduler:
         return previous, STRATEGIES[self.index], reason
 
 
+# Применить одну из четырёх стратегий покрытия.
 def apply_strategy(name: str, data: bytes, rng: random.Random) -> tuple[bytes, str]:
     func = {"byte": mut_byte, "boundary": mut_boundary,
             "append": mut_append, "inject": mut_inject}[name]
@@ -738,6 +795,7 @@ def apply_strategy(name: str, data: bytes, rng: random.Random) -> tuple[bytes, s
 # Общий обработчик одного прогона
 # ---------------------------------------------------------------------------
 
+# Счётчики прогонов/крашей и скорость для прогресса в консоли.
 class Stats:
     def __init__(self):
         self.runs = 0
@@ -746,14 +804,13 @@ class Stats:
         self.started = time.time()
 
     def rate(self) -> float:
-        elapsed = max(1e-6, time.time() - self.started)
-        return self.runs / elapsed
+        return self.runs / max(1e-6, time.time() - self.started)
 
 
+# Записать мутант, запустить цель, при крахе сохранить вход и лог.
 def execute(data: bytes, orig: bytes, note: str, stats: Stats,
             log_path: Path | None = None, tag: str = "",
             capture: bool = False) -> tuple[str, int | None, str]:
-    """Записать конфиг, запустить цель, обработать результат и записать лог."""
     write_config(data)
     code, out, elapsed, timed_out = run_native(capture=capture)
     stats.runs += 1
@@ -768,15 +825,15 @@ def execute(data: bytes, orig: bytes, note: str, stats: Stats,
     else:
         status = "ok"
     if log_path is not None:
-        append_log(log_path, "%d\t%s\t%s\t%s\t%s\t%d" % (
-            stats.runs, tag, status, code_str(code), note, len(data)))
+        append_log(log_path, "%d  %s  %s  %s  %d  %s" % (
+            stats.runs, tag, status, code_str(code), len(data), note))
     if status == "crash":
         bin_path, _txt = save_crash(data, orig, note, code, elapsed,
                                     signature=(code & 0xFFFFFFFF, note))
         if bin_path is not None:
-            print("\n[crash] %s  %s  -> %s" % (code_str(code), note, bin_path.name))
+            print("  крах %s  %s  → %s" % (code_str(code), note, bin_path.name))
         else:
-            print("\n[crash] %s  %s  (дубликат — файл не создаётся)" % (code_str(code), note))
+            print("  крах %s  %s  (повтор, файл не пишем)" % (code_str(code), note))
     return status, code, out
 
 
@@ -784,43 +841,44 @@ def execute(data: bytes, orig: bytes, note: str, stats: Stats,
 # Режимы
 # ---------------------------------------------------------------------------
 
+# Перебрать все смещения файла × все граничные значения.
 def mode_seq1(max_runs: int | None = None, rng: random.Random | None = None) -> None:
-    """Авторежим: последовательная замена байт граничными значениями (ТЗ)."""
     _SAVED_SIGNATURES.clear()
-    rng = rng or random.Random(1)
-    orig = ORIG_CONFIG.read_bytes()
+    orig = orig_config()
     total = sum(1 for off in range(1, len(orig))
                 for width, _ in BOUNDARY_SPEC if off + width <= len(orig))
-    print("[seq-1] последовательная замена: %d смещений, до %d прогонов" % (len(orig) - 1, total))
+    print("Последовательная замена: %d смещений, до %d прогонов" % (len(orig) - 1, total))
+    start_log(SEQ_LOG, "последовательная замена",
+              "прогон  проход  статус  код  размер  мутация")
     stats = Stats()
     for off in range(1, len(orig)):
         for width, value in BOUNDARY_SPEC:
             if off + width > len(orig):
                 continue
             if max_runs and stats.runs >= max_runs:
-                print("[seq-1] достигнут лимит %d прогонов" % max_runs)
+                print("Стоп: лимит %d прогонов. Крашей: %d" % (max_runs, stats.crashes))
                 restore_config()
                 return
             data = bytearray(orig)
             data[off:off + width] = value.to_bytes(width, "little")
-            note = "seq1: [%#06x] %0*X (%d б)" % (off, width * 2, value, width)
+            note = "[0x%04X] %d байт → %0*X" % (off, width, width * 2, value)
             execute(bytes(data), orig, note, stats, SEQ_LOG, "A")
             if stats.runs % 500 == 0:
-                print("  [seq-1] прогонов %d/%d, крашей %d, %.1f зап/с"
-                      % (stats.runs, total, stats.crashes, stats.rate()))
-    print("[seq-1] готово: прогонов %d, крашей %d" % (stats.runs, stats.crashes))
+                print("  %d/%d  крашей %d  %.0f/с" % (
+                    stats.runs, total, stats.crashes, stats.rate()))
+    print("Готово: %d прогонов, крашей %d" % (stats.runs, stats.crashes))
     restore_config()
 
 
+# Вставить данные за /start и перебрать граничные значения полей шапки.
 def mode_seq2(max_runs: int | None = None, rng: random.Random | None = None) -> None:
-    """Удлинённый файл (вставка за /start) × граничные значения в полях шапки."""
     _SAVED_SIGNATURES.clear()
-    rng = rng or random.Random(2)
-    orig = ORIG_CONFIG.read_bytes()
+    orig = orig_config()
     data_off = find_data_offset(orig)
     lengths = [5120, 2500]
-    print("[seq-2] данные вставляются за маркером /start (offset %d), поля шапки — граничные"
-          % data_off)
+    print("Удлинённый файл: вставка за /start (смещение %d), перебор полей шапки" % data_off)
+    start_log(SEQ_LOG, "удлинённый файл",
+              "прогон  проход  статус  код  размер  мутация")
     stats = Stats()
     for size in lengths:
         base = orig[:data_off] + b"b" * size + orig[data_off:]
@@ -829,60 +887,68 @@ def mode_seq2(max_runs: int | None = None, rng: random.Random | None = None) -> 
             for value in [0xFFFFFFFF, 0x7FFFFFFF, 0x80000000, 0xFFFFFFFE,
                           0x0000FFFF, 0x00000000]:
                 if max_runs and stats.runs >= max_runs:
-                    print("[seq-2] достигнут лимит %d прогонов" % max_runs)
+                    print("Стоп: лимит %d прогонов. Крашей: %d" % (max_runs, stats.crashes))
                     restore_config()
                     return
                 data = bytearray(base)
                 data[field:field + 4] = value.to_bytes(4, "little")
-                note = "seq2: вставка %d б за /start, поле [%#06x] = %08X" % (
-                    size, field, value)
+                note = "вставка %d байт за /start, поле [0x%04X]=%08X" % (size, field, value)
                 execute(bytes(data), orig, note, stats, SEQ_LOG, "B")
                 if stats.crashes:
-                    print("[seq-2] краш найден на прогоне %d" % stats.runs)
+                    print("Крах на прогоне %d, config_2 восстановлен" % stats.runs)
                     restore_config()
                     return
-    print("[seq-2] готово: прогонов %d, крашей %d" % (stats.runs, stats.crashes))
+    print("Готово: %d прогонов, крашей %d" % (stats.runs, stats.crashes))
     restore_config()
 
 
+REASON_RU = {
+    "plateau": "нет новых блоков",
+    "shrink": "маршрут короче родителя",
+    "cycle": "по кругу",
+}
+
+
+# Фаззинг с измерением покрытия; при необходимости меняет стратегию.
 def mode_cov(max_runs: int = 300, fixed: str | None = None,
              rng: random.Random | None = None, seed: int = 7) -> None:
-    """Режим с обратной связью по покрытию + адаптация алгоритма (доп. задание)."""
     _SAVED_SIGNATURES.clear()
     rng = rng or random.Random(seed)
-    orig = ORIG_CONFIG.read_bytes()
+    orig = orig_config()
     stats = Stats()
 
     write_config(orig)
     base_blocks, base_code, _out, base_time, _log = run_cov()
     if not base_blocks:
-        print("[cov] покрытие не получено — проверьте DynamoRIO (%s)" % DRRUN)
+        print("Покрытие не получено. Проверьте DynamoRIO: %s" % DRRUN)
         restore_config()
         return
     bb_global = set(base_blocks)
-    print("[cov] базовое покрытие оригинала: %d BB (%.2f с)" % (len(bb_global), base_time))
+    print("Покрытие оригинала: %d блоков (%.2f с)" % (len(bb_global), base_time))
     if is_crash(base_code):
-        print("[cov] внимание: оригинальный конфиг даёт краш %s" % code_str(base_code))
+        print("Внимание: оригинальный конфиг уже даёт крах %s" % code_str(base_code))
 
-    parents: list[dict] = [{"name": "orig", "data": orig, "bb": len(base_blocks)}]
+    parents: list[dict] = [{"name": "оригинал", "data": orig, "bb": len(base_blocks)}]
     scheduler = Scheduler(fixed=fixed)
-    mode = "фиксированная стратегия %s" % fixed if fixed else "адаптация по покрытию"
     if fixed == "cycle":
-        mode = "контроль: 4 стратегии по кругу без обратной связи"
-    print("[cov] режим: %s; лимит %d прогонов" % (mode, max_runs))
+        mode = "4 стратегии по кругу, без обратной связи"
+    elif fixed:
+        mode = "только стратегия %s" % fixed
+    else:
+        mode = "смена стратегии по покрытию"
+    print("Режим: %s. Прогонов: %d" % (mode, max_runs))
 
-    header = "run\tfrom\tto\treason\tbb_run\tbb_parent\tbb_global"
-    append_log(ADAPT_LOG, "# %s | режим: %s | BB оригинала: %d" % (
-        datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"), mode, len(bb_global)))
-    append_log(ADAPT_LOG, header)
+    start_log(COV_LOG, mode,
+              "прогон  стратегия  статус  код  блоков/родитель/всего  мутация")
+    start_log(ADAPT_LOG, mode + ", база %d блоков" % len(bb_global),
+              "прогон  было → стало  почему  блоков/родитель/всего")
 
     for run in range(1, max_runs + 1):
         parent = rng.choice(parents)
         strategy = scheduler.current
         data, note = apply_strategy(strategy, parent["data"], rng)
         if data == parent["data"]:
-            append_log(COV_LOG, "%d\t%s\tnoop\t%s\t%s\t%d" % (
-                run, strategy, code_str(None), note, len(data)))
+            append_log(COV_LOG, "%d  %s  noop  —  —  %s" % (run, strategy, note))
             continue
         write_config(data)
         blocks, code, _out, elapsed, _log = run_cov()
@@ -891,133 +957,108 @@ def mode_cov(max_runs: int = 300, fixed: str | None = None,
         gain = bool(gain_blocks)
         if gain:
             bb_global |= blocks
-            seed_path = CORPUS / ("seed_%04d_%d.bin" % (run, bb_run))
+            seed_path = COV_DIR / ("seed_%04d_%d.bin" % (run, bb_run))
             seed_path.write_bytes(data)
             parents.append({"name": seed_path.name, "data": data, "bb": bb_run})
-        status = "crash" if is_crash(code) else "ok"
+        if is_crash(code):
+            status = "crash"
+        elif code is None:
+            status = "timeout"
+        else:
+            status = "ok"
         if status == "crash":
             stats.crashes += 1
             bin_path, _txt = save_crash(
-                data, orig, "cov run=%d strategy=%s %s" % (run, strategy, note),
+                data, orig, "прогон %d, %s, %s" % (run, strategy, note),
                 code, elapsed, signature=(code & 0xFFFFFFFF, strategy))
             if bin_path is not None:
-                print("\n[crash] %s strategy=%s -> %s" % (code_str(code), strategy, bin_path.name))
-        append_log(COV_LOG, "%d\t%s\t%s\t%s\t%s\t%d\t%d\t%d" % (
-            run, strategy, status, code_str(code), note, bb_run, parent["bb"], len(bb_global)))
+                print("  крах %s  прогон %d (%s)  → %s" % (
+                    code_str(code), run, strategy, bin_path.name))
+        append_log(COV_LOG, "%d  %s  %s  %s  %d/%d/%d  %s" % (
+            run, strategy, status, code_str(code),
+            bb_run, parent["bb"], len(bb_global), note))
         if gain:
-            print("  [cov] #%d GAIN +%d BB  всего=%d  стратегия=%s  родитель=%s  seeds=%d"
-                  % (run, len(gain_blocks), len(bb_global), strategy,
-                     parent["name"], len(parents) - 1))
+            print("  прогон %d: +%d новых блоков (всего %d), стратегия %s" % (
+                run, len(gain_blocks), len(bb_global), strategy))
         switch = scheduler.update(bb_run, parent["bb"], gain)
         if switch:
             prev, new, reason = switch
-            append_log(ADAPT_LOG, "%d\t%s\t%s\t%s\t%d\t%d\t%d" % (
-                run, prev, new, reason, bb_run, parent["bb"], len(bb_global)))
-            print("  [adapt] run %d: %s -> %s (%s) BB %d/%d/%d"
-                  % (run, prev, new, reason, bb_run, parent["bb"], len(bb_global)))
+            why = REASON_RU.get(reason, reason)
+            append_log(ADAPT_LOG, "%d  %s → %s  %s  %d/%d/%d" % (
+                run, prev, new, why, bb_run, parent["bb"], len(bb_global)))
+            print("  прогон %d: стратегия %s → %s (%s)" % (run, prev, new, why))
         if run % 25 == 0:
-            rate = run / max(1e-6, time.time() - stats.started)
-            print("  [cov] прогонов %d/%d, покрытие %d BB, сидов %d, смен %d, %.1f зап/с"
-                  % (run, max_runs, len(bb_global), len(parents) - 1,
-                     scheduler.switches, rate))
-    print("[cov] готово: прогонов %d, покрытие %d BB (старт %d), сидов %d, смен стратегии %d, крашей %d"
-          % (max_runs, len(bb_global), len(base_blocks), len(parents) - 1,
-             scheduler.switches, stats.crashes))
+            print("  %d/%d  блоков %d  сидов %d  смен %d  %.1f/с" % (
+                run, max_runs, len(bb_global), len(parents) - 1,
+                scheduler.switches, run / max(1e-6, time.time() - stats.started)))
+    print("Готово: %d прогонов, блоков %d → %d, сидов %d, смен %d, крашей %d" % (
+        max_runs, len(base_blocks), len(bb_global),
+        len(parents) - 1, scheduler.switches, stats.crashes))
     restore_config()
 
 
+# Ручной режим: одна мутация указанного типа по текущему config_2.
 def mode_manual(kind: str, rng: random.Random | None = None) -> None:
-    """Ручной режим: одна мутация указанного типа по текущему work/config_2."""
     rng = rng or random.Random()
-    orig = ORIG_CONFIG.read_bytes()
-    base = (WORK / CONFIG_NAME).read_bytes() if (WORK / CONFIG_NAME).exists() else orig
+    orig = orig_config()
+    base = CONFIG_PATH.read_bytes()
     data, note = MANUAL_MUTATIONS[kind](base, rng)
-    print("[manual:%s] %s" % (kind, note))
+    print("Мутация: %s" % note)
     stats = Stats()
-    status, code, out = execute(data, orig, "%s: %s" % (kind, note), stats,
-                                SEQ_LOG, kind, capture=True)
-    if out:
-        print(out.strip())
-    print("[manual:%s] статус=%s код=%s" % (kind, status, code_str(code)))
+    status, code, out = execute(data, orig, note, stats, SEQ_LOG, kind, capture=True)
+    print_target_out(out)
+    print("Результат: %s, код %s" % (status, code_str(code)))
 
 
+# Поиск разделителей полей ,:=; в текущем конфиге (требование ТЗ).
 def mode_lookup_delims() -> None:
-    """Поиск разделителей полей ,:=; в текущем конфиге (требование ТЗ)."""
-    data = (WORK / CONFIG_NAME).read_bytes()
+    data = CONFIG_PATH.read_bytes()
     found = [(i, chr(b)) for i, b in enumerate(data) if b in DELIMITERS]
-    print("[delim] файл %d байт, найдено разделителей: %d" % (len(data), len(found)))
+    print("Файл %d байт, разделителей ,:=;: %d" % (len(data), len(found)))
     for offset, symbol in found[:50]:
-        print("  [%#06x] '%s'" % (offset, symbol))
+        print("  [0x%04X] '%s'" % (offset, symbol))
     if not found:
-        print("  в этом конфиге разделителей ,:=; нет — стратегия delim фиксирует 'нет изменений'")
+        print("  в этом конфиге их нет")
 
 
+# Один запуск текущего config_2 с выводом цели и регистрами при падении.
 def mode_run_once() -> None:
-    """Один запуск текущего work/config_2 с выводом цели и регистрами при падении."""
     prepare_work()
-    orig = ORIG_CONFIG.read_bytes()
-    data = (WORK / CONFIG_NAME).read_bytes()
-    print("[run] %s, %d байт" % (WORK / CONFIG_NAME, len(data)))
+    orig = orig_config()
+    data = CONFIG_PATH.read_bytes()
+    print("Запуск %s (%d байт)" % (CONFIG_PATH.name, len(data)))
     code, out, elapsed, timed_out = run_native(capture=True)
-    if out:
-        print(out.strip())
-    print("[run] код возврата %s, %.3f с%s" % (code_str(code), elapsed,
-                                               ", таймаут" if timed_out else ""))
+    print_target_out(out)
+    print("Код %s, %.3f с%s" % (code_str(code), elapsed, ", таймаут" if timed_out else ""))
     if is_crash(code):
         stats = Stats()
-        execute(data, orig, "run: текущий config_2", stats, None, "run")
+        execute(data, orig, "текущий config_2", stats, None, "run")
     else:
-        print("[run] краха нет")
-
-
-def show_stats() -> None:
-    """Статистика: журналы, краши, корпус."""
-    def count_lines(path: Path) -> int:
-        return sum(1 for _ in path.open(encoding="utf-8")) if path.exists() else 0
-
-    print("--- статистика ---")
-    print("seq.log:   %d строк" % count_lines(SEQ_LOG))
-    print("cov.log:   %d строк" % count_lines(COV_LOG))
-    print("adapt.log: %d строк" % count_lines(ADAPT_LOG))
-    crashes = sorted(CRASHES.glob("crash_*.bin"))
-    print("крашей:    %d" % len(crashes))
-    for path in crashes[-5:]:
-        print("   %s  %d байт" % (path.name, path.stat().st_size))
-    seeds = sorted(CORPUS.glob("*.bin"))
-    print("сидов:     %d" % len(seeds))
-    for path in seeds[-5:]:
-        print("   %s  %d байт" % (path.name, path.stat().st_size))
-    if ADAPT_LOG.exists():
-        switches = [line for line in ADAPT_LOG.read_text(encoding="utf-8").splitlines()
-                    if line and not line.startswith("#") and not line.startswith("run\t")]
-        print("смен стратегии в adapt.log: %d" % len(switches))
-        for line in switches[-5:]:
-            print("   %s" % line)
+        print("Краха нет")
 
 
 # ---------------------------------------------------------------------------
-# Меню и командная строка
+# Меню
 # ---------------------------------------------------------------------------
 
 MENU = """
 ================= ФАЗЗЕР lab1 (вариант 2) =================
- 1  SEQ-1: последовательная замена байт граничными значениями (ТЗ, авторежим)
- 2  SEQ-2: удлинённый файл (вставка за /start) x поля шапки   <- находит краш
- 3  COV:   покрытие DynamoRIO + смена стратегий по покрытию   <- доп. задание
- 4  COV-контроль: то же, но стратегия зафиксирована (для сравнения)
- 5  замена одного байта (вручную)
- 6  замена нескольких байт (вручную)
- 7  дописать в конец файла (вручную)
- 8  найти разделители ,:=; и мутировать вокруг них
- 9  один запуск work/config_2 (вывод цели, регистры и стек при падении)
-10  статистика: журналы, краши, корпус
-11  вставить данные внутрь файла / увеличить длину строки (вручную)
-12  увеличить значение 4-байтного поля в шапке (вручную)
- 0  выход
+ 1  Последовательная замена байт
+ 2  Удлинённый файл
+ 3  Фаззинг с покрытием
+ 4  Замена одного байта
+ 5  Замена нескольких байт
+ 6  Допись в конец файла
+ 7  Разделители полей
+ 8  Вставка внутрь файла
+ 9  Увеличение поля шапки
+10  Запуск цели
+ 0  Выход
 ===========================================================
 """
 
 
+# Спросить целое; пустой ввод — default.
 def ask_int(prompt: str, default: int) -> int:
     try:
         raw = input(prompt).strip()
@@ -1026,6 +1067,7 @@ def ask_int(prompt: str, default: int) -> int:
         return default
 
 
+# Интерактивное меню режимов фаззера.
 def menu_loop() -> None:
     prepare_work()
     rng = random.Random()
@@ -1044,28 +1086,20 @@ def menu_loop() -> None:
             elif choice == "3":
                 mode_cov(ask_int("сколько прогонов (по умолчанию 300): ", 300))
             elif choice == "4":
-                fixed = {1: "boundary", 2: "byte", 3: "inject", 4: "append",
-                         5: "cycle"}.get(
-                    ask_int("контроль: 1=boundary, 2=byte, 3=inject, 4=append, "
-                            "5=все 4 по кругу без обратной связи: ", 5), "cycle")
-                mode_cov(ask_int("сколько прогонов (по умолчанию 300): ", 300), fixed=fixed)
-            elif choice == "5":
                 mode_manual("byte", rng)
-            elif choice == "6":
+            elif choice == "5":
                 mode_manual("multi", rng)
-            elif choice == "7":
+            elif choice == "6":
                 mode_manual("append", rng)
-            elif choice == "8":
+            elif choice == "7":
                 mode_lookup_delims()
                 mode_manual("delim", rng)
-            elif choice == "9":
-                mode_run_once()
-            elif choice == "10":
-                show_stats()
-            elif choice == "11":
+            elif choice == "8":
                 mode_manual("expand", rng)
-            elif choice == "12":
+            elif choice == "9":
                 mode_manual("grow", rng)
+            elif choice == "10":
+                mode_run_once()
             elif choice == "0":
                 print("выход")
                 return
@@ -1076,40 +1110,11 @@ def menu_loop() -> None:
             restore_config()
 
 
+# Точка входа: UTF-8 в консоли и меню.
 def main() -> int:
     if hasattr(sys.stdout, "reconfigure"):
         sys.stdout.reconfigure(encoding="utf-8", errors="replace")
-    parser = argparse.ArgumentParser(description="Фаззер формата файла (lab1, вариант 2)")
-    parser.add_argument("--seq1", action="store_true", help="авторежим последовательной замены")
-    parser.add_argument("--seq2", action="store_true", help="проход по удлинённому файлу")
-    parser.add_argument("--cov", action="store_true", help="режим покрытия с адаптацией")
-    parser.add_argument("--cov-fixed", metavar="STRATEGY", help="режим покрытия без адаптации")
-    parser.add_argument("--max-runs", type=int, default=None, help="лимит прогонов")
-    parser.add_argument("--seed", type=int, default=7,
-                        help="зерно ГПСЧ режима покрытия (для повторяемых прогонов)")
-    parser.add_argument("--mutate", choices=sorted(MANUAL_MUTATIONS), help="одна ручная мутация")
-    parser.add_argument("--run", action="store_true", help="один запуск текущего config_2")
-    parser.add_argument("--stats", action="store_true", help="показать статистику")
-    args = parser.parse_args()
-    prepare_work()
-    rng = random.Random()
-
-    if args.seq1:
-        mode_seq1(args.max_runs)
-    elif args.seq2:
-        mode_seq2(args.max_runs)
-    elif args.cov:
-        mode_cov(args.max_runs or 300, seed=args.seed)
-    elif args.cov_fixed:
-        mode_cov(args.max_runs or 300, fixed=args.cov_fixed, seed=args.seed)
-    elif args.mutate:
-        mode_manual(args.mutate, rng)
-    elif args.run:
-        mode_run_once()
-    elif args.stats:
-        show_stats()
-    else:
-        menu_loop()
+    menu_loop()
     return 0
 
 

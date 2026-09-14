@@ -1,6 +1,6 @@
 """IDAPython 3 / IDA 7.7: вызовы функций ввода и небезопасных копирований.
 
-Запуск: ida.exe → lab1/work/vuln2.exe → File → Script file.
+Запуск: ida.exe → lab1/ida/vuln2.exe → File → Script file (рабочая копия цели).
 Имена сверяются с белым списком (не подстрока mem/str).
 """
 

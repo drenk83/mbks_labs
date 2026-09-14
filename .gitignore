@@ -2,25 +2,23 @@
 not_for_git/
 готовые/
 
-# Рабочие копии цели и базы IDA (оригинал — lab1/vulns/)
-lab1/work/
-lab1/ida/*.id0
-lab1/ida/*.id1
-lab1/ida/*.i64
+# Рабочие копии цели рядом с фаззером (оригиналы — lab1/vulns/)
+lab1/fuzzer/vuln2.exe
+lab1/fuzzer/func.dll
+lab1/fuzzer/config_2
 
-# Сиды покрытия (бинарники, генерируются заново)
-lab1/corpus/*.bin
+# Рабочая копия цели для IDA (база .idb создаётся рядом, см. lab1/ida/)
+lab1/ida/vuln2.exe
+
+# Сиды покрытия и служебные каталоги DynamoRIO (генерируются заново)
+lab1/fuzzer/cov/
 
 # Журналы прогонов фаззера (генерируются заново);
 # перечисленные ниже НЕ игнорируются — это доказательства для отчёта
-lab1/logs/*.log
-!lab1/logs/adapt.log
-!lab1/logs/adapt_control.log
-!lab1/logs/adapt_cycle.log
-!lab1/logs/adapt_seed99.log
-!lab1/logs/adapt_cycle99.log
-!lab1/logs/repro.log
-!lab1/logs/drcov_sample.log
+lab1/fuzzer/log/*.log
+!lab1/fuzzer/log/adapt.log
+!lab1/fuzzer/log/drcov_sample.log
+!lab1/fuzzer/log/repro.log
 
 # Черновики и инструменты анализа
 scratch/

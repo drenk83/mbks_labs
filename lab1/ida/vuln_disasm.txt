@@ -1,4 +1,4 @@
-файл: C:\Users\winuser\Documents\mbks_labs\lab1\work\vuln2.exe
+файл: C:\Users\winuser\Documents\mbks_labs\lab1\ida\vuln2.exe
 найдено строк-маркеров: 4
   0x409000  '/start'
   0x40a0ea  'Variant: %d\n'

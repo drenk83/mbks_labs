@@ -7,7 +7,7 @@
   * список вызовов небезопасных функций с адресами.
 
 Запуск (batch):
-  MBKS_IDA_BATCH=1 idat64.exe -A -L<лог> -S<путь>\\dump_vuln.py <путь>\\work\\vuln2.exe
+  MBKS_IDA_BATCH=1 idat64.exe -A -L<лог> -S<путь>\\lab1\\ida\\dump_vuln.py <путь>\\lab1\\ida\\vuln2.exe
 """
 
 from __future__ import print_function
