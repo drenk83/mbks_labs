@@ -30,8 +30,12 @@ func BoundaryValues(width int) [][]byte {
 	return out
 }
 
+func fits(buf []byte, offset, n int) bool {
+	return offset >= 0 && n >= 0 && offset <= len(buf) && n <= len(buf)-offset
+}
+
 func replaceAt(buf []byte, offset int, value []byte) ([]byte, error) {
-	if offset < 0 || offset+len(value) > len(buf) {
+	if !fits(buf, offset, len(value)) {
 		return nil, fmt.Errorf("смещение %d и длина %d не входят в файл размера %d", offset, len(value), len(buf))
 	}
 	out := append([]byte(nil), buf...)
@@ -50,6 +54,9 @@ func ReplaceOne(buf []byte, offset int, b byte) ([]byte, Change, error) {
 func ReplaceMany(buf []byte, offset int, value []byte) ([]byte, Change, error) {
 	if len(value) == 0 {
 		return nil, Change{}, fmt.Errorf("пустая замена")
+	}
+	if !fits(buf, offset, len(value)) {
+		return nil, Change{}, fmt.Errorf("смещение %d и длина %d не входят в файл размера %d", offset, len(value), len(buf))
 	}
 	before := append([]byte(nil), buf[offset:offset+len(value)]...)
 	next, err := replaceAt(buf, offset, value)

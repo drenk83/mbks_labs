@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"strings"
 	"testing"
 )
 
@@ -32,6 +33,33 @@ func TestBoundaryWidths(t *testing.T) {
 	one := BoundaryValues(1)
 	if !bytes.Equal(one[0], []byte{0x00}) || !bytes.Equal(one[1], []byte{0xFF}) {
 		t.Fatalf("однобайтовые границы: %X", one)
+	}
+}
+
+func TestReplaceManyRejectsOutOfRange(t *testing.T) {
+	buf := []byte("abc")
+	_, _, err := ReplaceMany(buf, 2, []byte{1, 2})
+	if err == nil {
+		t.Fatal("замена за концом файла должна вернуть ошибку")
+	}
+	_, _, err = ReplaceMany(buf, -1, []byte{1})
+	if err == nil {
+		t.Fatal("отрицательное смещение должно вернуть ошибку")
+	}
+	if !bytes.Equal(buf, []byte("abc")) {
+		t.Fatal("исходный буфер изменился")
+	}
+}
+
+func TestRunChangeKeepsEdits(t *testing.T) {
+	a := &app{}
+	if a.runChange().Text != "ручной запуск текущего конфига" {
+		t.Fatalf("пустая история: %s", a.runChange().Text)
+	}
+	a.edits = []string{"расширение поля: 2000 байт со смещения 54", "один байт: смещение 10, было 00, стало 42"}
+	text := a.runChange().Text
+	if !strings.Contains(text, "2000") || !strings.Contains(text, "смещение 10") {
+		t.Fatalf("в запуске нет накопленных правок: %s", text)
 	}
 }
 

@@ -61,6 +61,7 @@ type app struct {
 	store    *Store
 	in       *bufio.Reader
 	buf      []byte
+	edits    []string
 }
 
 func (a *app) loop() error {
@@ -240,10 +241,16 @@ func (a *app) finishPass(original []byte, runs int) {
 }
 
 func (a *app) oneRun() {
-	change := Change{Text: "ручной запуск текущего конфига"}
-	if err := a.tryOnce(a.buf, change, true); err != nil {
+	if err := a.tryOnce(a.buf, a.runChange(), true); err != nil {
 		fmt.Println(err)
 	}
+}
+
+func (a *app) runChange() Change {
+	if len(a.edits) == 0 {
+		return Change{Text: "ручной запуск текущего конфига"}
+	}
+	return Change{Text: strings.Join(a.edits, "; ")}
 }
 
 func (a *app) separators() {
@@ -378,12 +385,13 @@ func (a *app) commit(next []byte, change Change) {
 		fmt.Println(err)
 		return
 	}
+	a.edits = append(a.edits, change.Text)
 	fmt.Println(change.Text)
 }
 
 func (a *app) tryOnce(data []byte, change Change, withCoverage bool) error {
-	_, err := a.exec(data, change)
-	if err != nil || !withCoverage {
+	crashed, err := a.exec(data, change)
+	if err != nil || !withCoverage || crashed {
 		return err
 	}
 	blocks, err := measureCoverage(a.exe, a.root, filepath.Join(a.root, "cov"))
@@ -428,6 +436,7 @@ func (a *app) restore() {
 		fmt.Println(err)
 		return
 	}
+	a.edits = nil
 	fmt.Println("config_3 возвращён из source")
 }
 

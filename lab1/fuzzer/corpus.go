@@ -4,6 +4,8 @@ import (
 	"fmt"
 	"os"
 	"path/filepath"
+	"strconv"
+	"strings"
 )
 
 type Store struct {
@@ -13,7 +15,32 @@ type Store struct {
 }
 
 func NewStore(root string) *Store {
-	return &Store{Root: root, seen: map[Block]struct{}{}}
+	return &Store{Root: root, seen: map[Block]struct{}{}, crashN: nextCrashIndex(root)}
+}
+
+func nextCrashIndex(root string) int {
+	matches, err := filepath.Glob(filepath.Join(root, "crashes", "crash*"))
+	if err != nil {
+		return 0
+	}
+	max := -1
+	for _, m := range matches {
+		name := strings.TrimSuffix(filepath.Base(m), ".log")
+		if !strings.HasPrefix(name, "crash") {
+			continue
+		}
+		n, err := strconv.Atoi(strings.TrimPrefix(name, "crash"))
+		if err != nil || n < 0 {
+			continue
+		}
+		if n > max {
+			max = n
+		}
+	}
+	if max < 0 {
+		return 0
+	}
+	return max + 1
 }
 
 func (s *Store) Remember(blocks map[Block]struct{}) []Block {
