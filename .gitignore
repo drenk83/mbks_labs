@@ -29,6 +29,10 @@ x86/
 
 # Прогоны фаззера и DynamoRIO
 lab1/fuzzer/cov/
+lab1/fuzzer/corpus/
+lab1/fuzzer/crashes/
+lab1/fuzzer/fuzz.log
+lab1/fuzzer/fuzzer.exe
 lab1/result_crash/
 lab1/result_config/crash_config_*
 drcov.*
