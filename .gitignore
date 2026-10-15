@@ -2,23 +2,40 @@
 not_for_git/
 готовые/
 
-# Рабочие копии цели рядом с фаззером (оригиналы — lab1/vulns/)
-lab1/fuzzer/vuln2.exe
+# Рабочие копии цели рядом с фаззером. Оригиналы лежат в lab1/vulns/ и lab1/source/.
+# config_3 фаззер перезаписывает на каждом запуске.
+lab1/fuzzer/vuln*.exe
 lab1/fuzzer/func.dll
-lab1/fuzzer/config_2
+lab1/fuzzer/config_*
 
-# Рабочая копия цели для IDA (база .idb создаётся рядом, см. lab1/ida/)
-lab1/ida/vuln2.exe
+# Сборка Visual Studio
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+.vs/
+*.obj
+*.pdb
+*.ilk
+*.iobj
+*.ipdb
+*.pch
+*.exp
+*.recipe
+*.lastbuildstate
+*.tlog
+*.suo
+*.user
 
-# Сиды покрытия и служебные каталоги DynamoRIO (генерируются заново)
+# Прогоны фаззера и DynamoRIO
 lab1/fuzzer/cov/
+lab1/result_crash/
+lab1/result_config/crash_config_*
+drcov.*
+*.proc.log
 
-# Журналы прогонов фаззера (генерируются заново);
-# перечисленные ниже НЕ игнорируются — это доказательства для отчёта
-lab1/fuzzer/log/*.log
-!lab1/fuzzer/log/adapt.log
-!lab1/fuzzer/log/drcov_sample.log
-!lab1/fuzzer/log/repro.log
+# Журнал пакетного запуска IDA
+lab1/ida/*.log
 
 # Черновики и инструменты анализа
 scratch/
@@ -40,11 +57,8 @@ __pycache__/
 venv/
 .venv/
 
-# IDE / VS
+# IDE
 .idea/
-.vs/
-*.suo
-*.user
 
 # Временные файлы Word
 ~$*
