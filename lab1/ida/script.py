@@ -45,4 +45,6 @@ def find_and_print_calls():
 # Дождаться автоанализа, иначе перекрёстных ссылок ещё нет.
 idaapi.auto_wait()
 find_and_print_calls()
-idaapi.qexit(0)
+# qexit закрывает IDA. Это нужно только при запуске idat -S, не из меню File → Script file.
+if idaapi.cvar.batch:
+    idaapi.qexit(0)

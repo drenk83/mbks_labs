@@ -203,12 +203,24 @@ func (a *app) autoMode() {
 	if width == 0 {
 		widths = []int{1, 2, 3, 4}
 	}
+	limitText := "весь проход"
+	if limit > 0 {
+		limitText = fmt.Sprintf("%d", limit)
+	}
+	fmt.Printf("авторежим: файл %d байт, лимит %s\n", len(original), limitText)
+	fmt.Println("каждая замена пишется в копию исходного конфига и сразу запускает цель. Замены не копятся.")
 	for _, w := range widths {
 		if w < 1 || w > 4 {
 			fmt.Println("ширина должна быть от 1 до 4")
 			return
 		}
-		for _, value := range BoundaryValues(w) {
+		values := BoundaryValues(w)
+		fmt.Printf("ширина %d, значений %d:", w, len(values))
+		for _, value := range values {
+			fmt.Printf(" [%s]", hexBytes(value))
+		}
+		fmt.Println()
+		for _, value := range values {
 			for off := 0; off+len(value) <= len(original); off++ {
 				if limit > 0 && runs >= limit {
 					a.finishPass(original, runs)
@@ -219,17 +231,26 @@ func (a *app) autoMode() {
 					fmt.Println(err)
 					return
 				}
-				if err := a.tryOnce(next, change, false); err != nil {
-					fmt.Println(err)
+				fmt.Printf("запуск %d: %s\n", runs+1, change.Text)
+				crashed, err := a.exec(next, change)
+				if err != nil {
+					fmt.Printf("  ошибка: %v\n", err)
+				} else if !crashed {
+					fmt.Println("  без падения")
 				}
 				runs++
-				if runs%20 == 0 {
-					fmt.Printf("авторежим: %d запусков\n", runs)
-				}
 			}
 		}
 	}
 	a.finishPass(original, runs)
+}
+
+func hexBytes(v []byte) string {
+	parts := make([]string, len(v))
+	for i, b := range v {
+		parts[i] = fmt.Sprintf("%02X", b)
+	}
+	return strings.Join(parts, " ")
 }
 
 func (a *app) finishPass(original []byte, runs int) {
@@ -300,42 +321,48 @@ func (a *app) coverageMode() {
 		fmt.Println(err)
 		return
 	}
+	fmt.Printf("режим покрытия: %d итераций\n", n)
+	fmt.Println("сначала снимается база с текущего конфига. Дальше мутация берётся от одного из сидов.")
+	fmt.Println("мутация одна из трёх: граничное значение, допись в конец, расширение поля после /start")
 	base, err := measureCoverage(a.exe, a.root, filepath.Join(a.root, "cov"))
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 	a.store.Remember(base)
-	fmt.Printf("базовое покрытие: %d блоков vuln3.exe\n", len(base))
+	fmt.Printf("база: %d блоков vuln3.exe и func.dll\n", len(base))
 	seeds := [][]byte{original}
 	for i := 0; i < n; i++ {
 		parent := seeds[rand.IntN(len(seeds))]
 		next, change := randomMutation(parent)
+		fmt.Printf("итерация %d/%d: %s\n", i+1, n, change.Text)
 		crashed, err := a.exec(next, change)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Printf("  ошибка запуска: %v\n", err)
 			continue
 		}
 		if crashed {
+			fmt.Println("  покрытие пропущено: цель упала, сид не сохраняется")
 			continue
 		}
 		blocks, err := measureCoverage(a.exe, a.root, filepath.Join(a.root, "cov"))
 		if err != nil {
-			fmt.Println(err)
+			fmt.Printf("  ошибка покрытия: %v\n", err)
 			continue
 		}
 		fresh := a.store.Remember(blocks)
 		if len(fresh) == 0 {
+			fmt.Printf("  покрытие %d блоков, новых 0, сид не сохранён\n", len(blocks))
 			continue
 		}
 		saved := cloneBytes(next)
 		seeds = append(seeds, saved)
 		path, err := a.store.SaveSeed(saved, len(fresh))
 		if err != nil {
-			fmt.Println(err)
+			fmt.Printf("  ошибка записи сида: %v\n", err)
 			continue
 		}
-		fmt.Printf("новые блоки +%d, всего %d, сид %s\n", len(fresh), a.store.SeenCount(), path)
+		fmt.Printf("  новые блоки +%d, всего %d, сид %s\n", len(fresh), a.store.SeenCount(), path)
 	}
 	a.buf = original
 	if err := writeFile(a.cfg, original); err != nil {
