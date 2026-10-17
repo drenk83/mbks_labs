@@ -66,3 +66,8 @@ venv/
 
 # Временные файлы Word
 ~$*
+
+# lab2: результат прогона и промежуточная сборка
+lab2/exploit/ports.txt
+lab2/payload/_build/
+
