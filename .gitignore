@@ -71,3 +71,12 @@ venv/
 lab2/exploit/ports.txt
 lab2/payload/_build/
 
+# lab3: журналы прогона на этой машине, тестовый сертификат и собранный драйвер.
+# Каталоги x64/ и Debug/ уже закрыты общими правилами Visual Studio выше.
+lab3/install-result.txt
+lab3/testsign-result.txt
+lab3/**/*.cer
+lab3/**/*.sys
+lab3/**/*.cat
+lab3/**/*.pfx
+

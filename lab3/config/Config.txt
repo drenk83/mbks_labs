@@ -1,0 +1,6 @@
+C:\DriverConfig\data\note.txt
+filetool.exe|1|0
+notepad.exe|0|0
+
+C:\DriverConfig\data\report.txt
+filetool.exe|1|1
