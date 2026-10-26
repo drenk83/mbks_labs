@@ -1,12 +1,12 @@
 CodeQL, libsndfile 1.0.30: пять штатных запросов
 
 запрос                                            находок
-cpp/integer-overflow-tainted                          289
+cpp/integer-overflow-tainted                          290
 cpp/unclear-array-index-validation                      8
 cpp/conditionally-uninitialized-variable                2
 cpp/suspicious-add-sizeof                               1
 cpp/unbounded-write                                     0
-ИТОГО                                                 300
+ИТОГО                                                 301
 
 Своё правило cpp/lab4-msadpcm-block-size:
   libsndfile 1.0.30: 1 находка
