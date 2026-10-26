@@ -1,0 +1,38 @@
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 144 files tracked by git with 1 Code rule:
+  Scanning 130 files.
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 1 (1 blocking)
+ • Rules run: 1
+ • Targets scanned: 130
+ • Parsed lines: ~99.9%
+ • Scan was limited to files tracked by git
+ • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
+Ran 1 rule on 130 files: 1 finding.
+                  
+                  
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+                  
+    src/ms_adpcm.c
+   ❯❯❱ home.drenk83.Projects.gitrepo.mbks_labs.lab4.rules.semgrep.lab4-msadpcm-block-size
+          ❰❰ Blocking ❱❱
+          MS ADPCM: проверяется только blockalign, а samplesperblock не ограничен. Это позволяет выйти за
+          границы буфера в msadpcm_decode_block (CVE-2021-3246 в libsndfile 1.0.30).                     
+                                                                                                         
+          131┆ if (blockalign < 7 * psf->sf.channels)
+          132┆ {  psf_log_printf (psf, "*** Error blockalign (%d) should be > %d.\n", blockalign, 7 *
+               psf->sf.channels) ;                                                                   
+          133┆    return SFE_INTERNAL ;
+          134┆    } ;
+

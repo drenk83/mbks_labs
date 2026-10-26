@@ -1,0 +1,7 @@
+$ clang-tidy --load=... --checks=-*,lab4-msadpcm-block-size .../1.0.30/src/ms_adpcm.c
+1 warning generated.
+/home/drenk83/Projects/gitrepo/mbks_labs/lab4/work/src/libsndfile-1.0.30/src/ms_adpcm.c:131:2: warning: MS ADPCM: blockalign проверяется вместо samplesperblock; возможен выход за границу буфера (CVE-2021-3246) [lab4-msadpcm-block-size]
+  131 |         if (blockalign < 7 * psf->sf.channels)
+
+$ .../1.1.0/src/ms_adpcm.c
+(правило не сработало — ожидаемо для исправленной версии)

@@ -1,0 +1,16 @@
+semgrep, libsndfile 1.0.30
+
+p/c (штатный C-набор): 0 находок (2 правил, 130 файлов)
+p/default: 0 находок (336 правил, 144 файлов)
+p/security-audit: 7 находок (88 правил, 144 файлов)
+
+p/security-audit по правилам:
+   2  c.lang.security.double-free.double-free
+   2  c.lang.security.use-after-free.use-after-free
+   1  c.lang.security.insecure-use-printf-fn.insecure-use-printf-fn
+   1  c.lang.security.insecure-use-strcat-fn.insecure-use-strcat-fn
+   1  c.lang.security.insecure-use-string-copy-fn.insecure-use-string-copy-fn
+
+Своё правило lab4-msadpcm-block-size:
+  libsndfile 1.0.30: 1 находок
+  libsndfile 1.1.0: 0 находок

@@ -1,0 +1,32 @@
+CodeChecker, libsndfile 1.0.30
+
+Штатный набор:
+Checker name                               | Severity | Number of reports
+-------------------------------------------------------------------------
+deadcode.DeadStores                        | LOW      |                51
+core.BitwiseShift                          | HIGH     |                 4
+security.ArrayBound                        | HIGH     |                 8
+core.UndefinedBinaryOperatorResult         | HIGH     |                 7
+core.DivideZero                            | HIGH     |                 1
+unix.Malloc                                | MEDIUM   |                 2
+core.uninitialized.ArraySubscript          | HIGH     |                 1
+core.uninitialized.UndefReturn             | HIGH     |                 1
+cert-err33-c                               | MEDIUM   |                67
+clang-diagnostic-float-conversion          | MEDIUM   |                24
+bugprone-signed-char-misuse                | MEDIUM   |                 3
+clang-diagnostic-double-promotion          | MEDIUM   |                83
+bugprone-switch-missing-default-case       | LOW      |                24
+clang-diagnostic-reserved-identifier       | MEDIUM   |                12
+clang-diagnostic-reserved-macro-identifier | MEDIUM   |                21
+readability-suspicious-call-argument       | LOW      |                15
+clang-diagnostic-unused-but-set-variable   | MEDIUM   |                 2
+clang-diagnostic-conditional-uninitialized | HIGH     |                 1
+bugprone-incorrect-roundings               | HIGH     |                 2
+-------------------------------------------------------------------------
+
+Number of analyzer reports                | 329
+-----------------------------------------------
+----=================----
+
+lab4-msadpcm-block-size: 1 отчёт
+lab4-msadpcm-block-size: 0 отчётов

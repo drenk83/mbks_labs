@@ -1,0 +1,10 @@
+libsndfile 1.0.30 + ASan (PoC 2660 байт):
+==277450==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x7dfce51e25d4 at pc 0x558ee21bb9ba bp 0x7fff79c90d30 sp 0x7fff79c90d20
+WRITE of size 2 at 0x7dfce51e25d4 thread T0
+    #0 0x558ee21bb9b9 in msadpcm_decode_block ../../src/libsndfile-1.0.30/src/ms_adpcm.c:279
+allocated by thread T0 here:
+SUMMARY: AddressSanitizer: heap-buffer-overflow ../../src/libsndfile-1.0.30/src/ms_adpcm.c:279 in msadpcm_decode_block
+
+libsndfile 1.1.0 + ASan (тот же файл):
+Error : Not able to open input file /home/drenk83/Projects/gitrepo/mbks_labs/lab4/poc/msadpcm_poc.wav.
+*** Error samplesperblock (10) should be >= 1582.

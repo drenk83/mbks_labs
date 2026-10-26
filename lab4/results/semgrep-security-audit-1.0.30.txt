@@ -1,0 +1,88 @@
+               
+               
+┌─────────────┐
+│ Scan Status │
+└─────────────┘
+  Scanning 144 files tracked by git with 225 Code rules:
+                                                                                                                        
+  Language      Rules   Files          Origin      Rules                                                                
+ ─────────────────────────────        ───────────────────                                                               
+  <multilang>       2     144          Community     225                                                                
+  c                 9     130                                                                                           
+  python           77       2                                                                                           
+                                                                                                                        
+                
+                
+┌──────────────┐
+│ Scan Summary │
+└──────────────┘
+✅ Scan completed successfully.
+ • Findings: 7 (7 blocking)
+ • Rules run: 88
+ • Targets scanned: 144
+ • Parsed lines: ~99.8%
+ • Scan was limited to files tracked by git
+ • For a detailed list of skipped files and lines, run semgrep with the --verbose flag
+Ran 88 rules on 144 files: 7 findings.
+                   
+                   
+┌─────────────────┐
+│ 7 Code Findings │
+└─────────────────┘
+                        
+    src/G72x/g72x_test.c
+    ❯❱ c.lang.security.insecure-use-printf-fn.insecure-use-printf-fn
+          ❰❰ Blocking ❱❱
+          Avoid using user-controlled format strings passed into 'sprintf', 'printf' and 'vsprintf'. These
+          functions put you at risk of buffer overflow vulnerabilities through the use of format string   
+          exploits. Instead, use 'snprintf' and 'vsnprintf'.                                              
+          Details: https://sg.run/ZvJx                                                                    
+                                                                                                          
+           78┆ printf ("Mono : *  No '%s' test defined.\n", argv [1]) ;
+              
+    src/alac.c
+   ❯❯❱ c.lang.security.double-free.double-free
+          ❰❰ Blocking ❱❱
+          Variable 'pakt_data' was freed twice. This can lead to undefined behavior.
+          Details: https://sg.run/eLl0                                              
+                                                                                    
+          871┆ free (pakt_data) ;
+                
+    src/common.h
+    ❯❱ c.lang.security.insecure-use-strcat-fn.insecure-use-strcat-fn
+          ❰❰ Blocking ❱❱
+          Finding triggers whenever there is a strcat or strncat used. This is an issue because strcat or
+          strncat can lead to buffer overflow vulns. Fix this by using strcat_s instead.                 
+          Details: https://sg.run/EkRP                                                                   
+                                                                                                         
+          991┆ {  strncat (dest, src, n - strlen (dest) - 1) ;
+   
+    ❯❱ c.lang.security.insecure-use-string-copy-fn.insecure-use-string-copy-fn
+          ❰❰ Blocking ❱❱
+          Finding triggers whenever there is a strcpy or strncpy used. This is an issue because strcpy does   
+          not affirm the size of the destination array and strncpy will not automatically NULL-terminate      
+          strings. This can lead to buffer overflows, which can cause program crashes and potentially let an  
+          attacker inject code in the program. Fix this by using strcpy_s instead (although note that strcpy_s
+          is an optional part of the C11 standard, and so may not be available).                              
+          Details: https://sg.run/7oNk                                                                        
+                                                                                                              
+          997┆ {  strncpy (dest, src, n - 1) ;
+                          
+    src/test_conversions.c
+   ❯❯❱ c.lang.security.double-free.double-free
+          ❰❰ Blocking ❱❱
+          Variable 'psf->header.ptr' was freed twice. This can lead to undefined behavior.
+          Details: https://sg.run/eLl0                                                    
+                                                                                          
+           88┆ free (psf->header.ptr) ;
+                 
+    src/wavlike.c
+    ❯❱ c.lang.security.use-after-free.use-after-free
+          ❰❰ Blocking ❱❱
+          Variable 'psf->channel_map' was used after being freed. This can lead to undefined behavior.
+          Details: https://sg.run/gL6e                                                                
+                                                                                                      
+          332┆ if ((psf->channel_map = calloc (psf->sf.channels, sizeof (psf->channel_map [0]))) == NULL)
+            ⋮┆----------------------------------------
+          346┆ psf->channel_map [k++] = channel_mask_bits [bit].id ;
+

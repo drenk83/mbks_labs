@@ -1,0 +1,4 @@
+name: lab4/codeql-rules
+version: 0.0.1
+dependencies:
+  codeql/cpp-all: "*"

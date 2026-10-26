@@ -1,0 +1,26 @@
+Error : Not able to open input file /home/drenk83/Projects/gitrepo/mbks_labs/lab4/poc/msadpcm_poc.wav.
+File : /home/drenk83/Projects/gitrepo/mbks_labs/lab4/poc/msadpcm_poc.wav
+Length : 2660
+RIFF : 2652
+WAVE
+fmt  : 40
+  Format        : 0xFFFE => WAVE_FORMAT_EXTENSIBLE
+  Channels      : 226
+  Sample Rate   : 8000
+  Block Align   : 2592
+  Bit Width     : 4
+  Bytes/sec     : 20736000
+  Valid Bits    : 10
+  Channel Mask  : 0x0 (should not be zero)
+  Subformat
+    esf_field1 : 0x2
+    esf_field2 : 0x0
+    esf_field3 : 0x10
+    esf_field4 : 0x80 0x0 0x0 0xAA 0x0 0x38 0x9B 0x71 
+    format : ms adpcm
+data : 2592
+End
+**** All non-PCM format files should have a 'fact' chunk.
+*** Error samplesperblock (10) should be >= 1582.
+
+Unspecified internal error.

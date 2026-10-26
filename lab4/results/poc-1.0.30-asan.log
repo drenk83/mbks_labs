@@ -1,0 +1,52 @@
+=================================================================
+==277450==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x7dfce51e25d4 at pc 0x558ee21bb9ba bp 0x7fff79c90d30 sp 0x7fff79c90d20
+WRITE of size 2 at 0x7dfce51e25d4 thread T0
+    #0 0x558ee21bb9b9 in msadpcm_decode_block ../../src/libsndfile-1.0.30/src/ms_adpcm.c:279
+    #1 0x558ee21bd32a in wavlike_msadpcm_init ../../src/libsndfile-1.0.30/src/ms_adpcm.c:171
+    #2 0x558ee217bf7a in wav_open ../../src/libsndfile-1.0.30/src/wav.c:258
+    #3 0x558ee213cdee in psf_open_file ../../src/libsndfile-1.0.30/src/sndfile.c:3079
+    #4 0x558ee213d0a7 in sf_open ../../src/libsndfile-1.0.30/src/sndfile.c:359
+    #5 0x558ee212e6bd in info_dump ../../src/libsndfile-1.0.30/programs/sndfile-info.c:226
+    #6 0x558ee212e6bd in main ../../src/libsndfile-1.0.30/programs/sndfile-info.c:101
+    #7 0x7face6427780  (/usr/lib/libc.so.6+0x27780) (BuildId: d320029ad1a23be2f4bce117fd321cbd23a2014b)
+    #8 0x7face64278b8 in __libc_start_main (/usr/lib/libc.so.6+0x278b8) (BuildId: d320029ad1a23be2f4bce117fd321cbd23a2014b)
+    #9 0x558ee212c664 in _start (/home/drenk83/Projects/gitrepo/mbks_labs/lab4/work/build/asan-1.0.30/programs/sndfile-info+0x2b664) (BuildId: a9a8e6760fd8b04f2b23a09083f85a50a7637fde)
+
+0x7dfce51e25d4 is located 0 bytes after 9428-byte region [0x7dfce51e0100,0x7dfce51e25d4)
+allocated by thread T0 here:
+    #0 0x7face692bea9 in calloc (/usr/lib/libasan.so.8+0x12bea9) (BuildId: b8a4241051a1621937fdc46e867ba7ecb56d96ea)
+    #1 0x558ee21bcf5d in wavlike_msadpcm_init ../../src/libsndfile-1.0.30/src/ms_adpcm.c:138
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow ../../src/libsndfile-1.0.30/src/ms_adpcm.c:279 in msadpcm_decode_block
+Shadow bytes around the buggy address:
+  0x7dfce51e2300: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7dfce51e2380: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7dfce51e2400: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7dfce51e2480: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x7dfce51e2500: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+=>0x7dfce51e2580: 00 00 00 00 00 00 00 00 00 00[04]fa fa fa fa fa
+  0x7dfce51e2600: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x7dfce51e2680: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x7dfce51e2700: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x7dfce51e2780: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x7dfce51e2800: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+==277450==ABORTING

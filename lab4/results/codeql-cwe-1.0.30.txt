@@ -1,0 +1,4 @@
+  289  cpp/integer-overflow-tainted
+    8  cpp/unclear-array-index-validation
+    2  cpp/conditionally-uninitialized-variable
+    1  cpp/suspicious-add-sizeof
