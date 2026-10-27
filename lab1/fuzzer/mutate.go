@@ -7,6 +7,8 @@ type Change struct {
 	Text string
 }
 
+// BoundaryValues готовит границы для целых шириной 1..4 байта:
+// ноль, максимум и окрестность половины. На них чаще ломается длина или счётчик.
 func BoundaryValues(width int) [][]byte {
 	if width < 1 || width > 4 {
 		return nil
@@ -22,6 +24,7 @@ func BoundaryValues(width int) [][]byte {
 		}
 		seen[v] = true
 		b := make([]byte, width)
+		// Младший байт первым, как shell_len и dst_len в заголовке config_3.
 		for i := 0; i < width; i++ {
 			b[i] = byte(v >> (8 * uint(i)))
 		}
@@ -34,6 +37,7 @@ func fits(buf []byte, offset, n int) bool {
 	return offset >= 0 && n >= 0 && offset <= len(buf) && n <= len(buf)-offset
 }
 
+// replaceAt возвращает копию. Исходный срез остаётся прежним, от него можно мутировать снова.
 func replaceAt(buf []byte, offset int, value []byte) ([]byte, error) {
 	if !fits(buf, offset, len(value)) {
 		return nil, fmt.Errorf("смещение %d и длина %d не входят в файл размера %d", offset, len(value), len(buf))
@@ -43,6 +47,7 @@ func replaceAt(buf []byte, offset int, value []byte) ([]byte, error) {
 	return out, nil
 }
 
+// ReplaceOne меняет один байт и отдаёт текст правки для журнала.
 func ReplaceOne(buf []byte, offset int, b byte) ([]byte, Change, error) {
 	next, err := replaceAt(buf, offset, []byte{b})
 	if err != nil {
@@ -51,6 +56,7 @@ func ReplaceOne(buf []byte, offset int, b byte) ([]byte, Change, error) {
 	return next, Change{Text: fmt.Sprintf("один байт: смещение %d, было %02X, стало %02X", offset, buf[offset], b)}, nil
 }
 
+// ReplaceMany пишет несколько байт подряд. Выход за конец файла — ошибка, а не допись.
 func ReplaceMany(buf []byte, offset int, value []byte) ([]byte, Change, error) {
 	if len(value) == 0 {
 		return nil, Change{}, fmt.Errorf("пустая замена")
@@ -66,11 +72,13 @@ func ReplaceMany(buf []byte, offset int, value []byte) ([]byte, Change, error) {
 	return next, Change{Text: fmt.Sprintf("несколько байт: смещение %d, длина %d, было %X, стало %X", offset, len(value), before, value)}, nil
 }
 
+// AppendBytes дописывает байты в хвост и не сдвигает поля, которые уже лежат в файле.
 func AppendBytes(buf, extra []byte) ([]byte, Change) {
 	out := append(append([]byte(nil), buf...), extra...)
 	return out, Change{Text: fmt.Sprintf("допись в конец: %d байт", len(extra))}
 }
 
+// FindSeparators собирает смещения разделителей полей из задания: , : = ;
 func FindSeparators(buf []byte) map[byte][]int {
 	hits := map[byte][]int{}
 	for _, sep := range []byte{',', ':', '=', ';'} {
@@ -112,6 +120,7 @@ func ExpandField(buf, extra []byte) ([]byte, Change, error) {
 	return out, Change{Text: fmt.Sprintf("расширение поля: %d байт со смещения %d", len(extra), insert)}, nil
 }
 
+// indexOf ищет первое вхождение маркера и возвращает -1, если его нет.
 func indexOf(buf, needle []byte) int {
 	if len(needle) == 0 || len(needle) > len(buf) {
 		return -1

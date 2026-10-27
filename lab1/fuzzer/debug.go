@@ -12,21 +12,24 @@ import (
 )
 
 const (
+	// Раскладка 32-битных DEBUG_EVENT и CONTEXT. На 64-битном фаззере эти числа неверны.
 	debugEventSize = 96
 	contextSize    = 716
-	contextFull    = 0x10007
+	contextFull    = 0x10007 // CONTEXT_CONTROL | CONTEXT_INTEGER | CONTEXT_SEGMENTS
 
 	exceptionDebugEvent     = 1
 	createProcessDebugEvent = 3
 	exitProcessDebugEvent   = 5
 	loadDLLDebugEvent       = 6
-	exceptionBreakpoint     = 0x80000003
-	exceptionSingleStep     = 0x80000004
-	dbgContinue             = 0x00010002
-	errorSemTimeout         = 121
-	threadGetContext        = 0x0008
-	threadQueryInformation  = 0x0040
-	createNoWindow          = 0x08000000
+	// Остановка на входе в процесс и одиночный шаг отладчика падением не считаются.
+	exceptionBreakpoint = 0x80000003
+	exceptionSingleStep = 0x80000004
+	dbgContinue         = 0x00010002 // DBG_CONTINUE, не DBG_EXCEPTION_NOT_HANDLED
+	errorSemTimeout     = 121        // WaitForDebugEvent исчерпал свой интервал
+	// Этих прав хватает, чтобы снять регистры потока и прочитать его стек.
+	threadGetContext       = 0x0008
+	threadQueryInformation = 0x0040
+	createNoWindow         = 0x08000000
 )
 
 var (
@@ -49,6 +52,7 @@ type Crash struct {
 	StackErr                string
 }
 
+// LogText собирает crashN.log: код исключения, мутация, регистры и дамп стека.
 func (c *Crash) LogText(change string) string {
 	var b stringsBuilder
 	b.WriteString("Program crashed.\n")
@@ -83,6 +87,8 @@ type stringsBuilder struct{ b []byte }
 func (s *stringsBuilder) WriteString(v string) { s.b = append(s.b, v...) }
 func (s *stringsBuilder) String() string       { return string(s.b) }
 
+// debugEvent повторяет DEBUG_EVENT: код, идентификаторы и сырой union на 84 байта.
+// Из union читаем только первые 4 байта — код исключения или хендл файла.
 type debugEvent struct {
 	Code uint32
 	Pid  uint32
@@ -138,6 +144,7 @@ func RunDebug(exe, workDir string, timeout time.Duration) (*Crash, error) {
 		}
 		switch ev.Code {
 		case createProcessDebugEvent, loadDLLDebugEvent:
+			// В событии лежит хендл файла образа. Его закрывает отладчик, не система.
 			closeDebugFile(ev.U[:4])
 			continueDebug(ev, dbgContinue)
 		case exceptionDebugEvent:
@@ -146,6 +153,7 @@ func RunDebug(exe, workDir string, timeout time.Duration) (*Crash, error) {
 				continueDebug(ev, dbgContinue)
 				continue
 			}
+			// Снимок берётся, пока процесс ещё жив. Дальше его завершаем сами.
 			crash = readCrash(pi.Process, ev.Tid, code)
 			procTerminateProcess.Call(uintptr(pi.Process), 1)
 			continueDebug(ev, dbgContinue)
@@ -174,6 +182,7 @@ func continueDebug(ev debugEvent, status uint32) {
 	procContinueDebug.Call(uintptr(ev.Pid), uintptr(ev.Tid), uintptr(status))
 }
 
+// closeDebugFile закрывает хендл из CREATE_PROCESS или LOAD_DLL.
 func closeDebugFile(handle []byte) {
 	h := binary.LittleEndian.Uint32(handle)
 	if h != 0 {
@@ -181,6 +190,7 @@ func closeDebugFile(handle []byte) {
 	}
 }
 
+// drainDebug дочитывает очередь до выхода процесса, чтобы порт отладчика освободился.
 func drainDebug(ev *debugEvent, deadline time.Time) {
 	for time.Now().Before(deadline) {
 		r, _, callErr := procWaitForDebugEvent.Call(uintptr(unsafe.Pointer(ev)), 200)
@@ -200,6 +210,7 @@ func drainDebug(ev *debugEvent, deadline time.Time) {
 	}
 }
 
+// readCrash снимает регистры упавшего потока и 256 байт стека от ESP.
 func readCrash(process windows.Handle, tid, code uint32) *Crash {
 	c := &Crash{Code: code}
 	thread, _, err := procOpenThread.Call(threadGetContext|threadQueryInformation, 0, uintptr(tid))
@@ -216,6 +227,7 @@ func readCrash(process windows.Handle, tid, code uint32) *Crash {
 		c.StackErr = fmt.Sprintf("GetThreadContext: %v", err)
 		return c
 	}
+	// Смещения полей в 32-битном CONTEXT. Первые 4 байта — флаг ContextFlags.
 	c.Edi = u32(ctx[156:])
 	c.Esi = u32(ctx[160:])
 	c.Ebx = u32(ctx[164:])

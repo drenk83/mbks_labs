@@ -24,6 +24,7 @@ var (
 	bbLine     = regexp.MustCompile(`^module\[\s*(\d+)\]:\s*0x([0-9a-fA-F]+)`)
 )
 
+// matchedModule узнаёт строку таблицы модулей по имени файла в пути.
 func matchedModule(line string, moduleNames []string) string {
 	lower := strings.ToLower(line)
 	for _, name := range moduleNames {
@@ -44,6 +45,7 @@ func ParseDrcov(r io.Reader, moduleNames ...string) (map[Block]struct{}, error) 
 	for sc.Scan() {
 		line := sc.Text()
 		if strings.HasPrefix(line, "BB Table:") {
+			// Выше этой строки — модули и их id, ниже — выполненные блоки.
 			inBB = true
 			continue
 		}
@@ -90,6 +92,8 @@ func ParseDrcov(r io.Reader, moduleNames ...string) (map[Block]struct{}, error) 
 	return blocks, nil
 }
 
+// measureCoverage гоняет цель под drcov и забирает блоки vuln3.exe и func.dll.
+// Каталог лога очищается, чтобы не прочитать журнал прошлого запуска.
 func measureCoverage(exe, workDir, logDir string) (map[Block]struct{}, error) {
 	if err := os.RemoveAll(logDir); err != nil {
 		return nil, err
@@ -116,6 +120,7 @@ func blocksFromRun(runErr error, runOut []byte, logDir string, modules ...string
 	return nil, err
 }
 
+// readDrcovDir открывает последний drcov.*.proc.log в каталоге этого запуска.
 func readDrcovDir(logDir string, modules ...string) (map[Block]struct{}, error) {
 	matches, err := filepath.Glob(filepath.Join(logDir, "drcov.*.proc.log"))
 	if err != nil {
@@ -132,6 +137,7 @@ func readDrcovDir(logDir string, modules ...string) (map[Block]struct{}, error) 
 	return ParseDrcov(f, modules...)
 }
 
+// newBlocks оставляет блоки, которых ещё не было. Пустой результат — покрытие не выросло.
 func newBlocks(seen, got map[Block]struct{}) []Block {
 	var fresh []Block
 	for b := range got {

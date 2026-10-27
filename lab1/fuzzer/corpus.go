@@ -8,16 +8,19 @@ import (
 	"strings"
 )
 
+// Store помнит уже виденные блоки и следующий номер краша, чтобы не затереть старые файлы.
 type Store struct {
 	Root   string
 	seen   map[Block]struct{}
 	crashN int
 }
 
+// NewStore продолжает нумерацию с крашей, которые уже лежат в каталоге.
 func NewStore(root string) *Store {
 	return &Store{Root: root, seen: map[Block]struct{}{}, crashN: nextCrashIndex(root)}
 }
 
+// nextCrashIndex смотрит crash0, crash1, … и возвращает следующий свободный номер.
 func nextCrashIndex(root string) int {
 	matches, err := filepath.Glob(filepath.Join(root, "crashes", "crash*"))
 	if err != nil {
@@ -43,6 +46,7 @@ func nextCrashIndex(root string) int {
 	return max + 1
 }
 
+// Remember добавляет блоки в общую базу и возвращает только новые.
 func (s *Store) Remember(blocks map[Block]struct{}) []Block {
 	fresh := newBlocks(s.seen, blocks)
 	for _, b := range fresh {
@@ -53,6 +57,7 @@ func (s *Store) Remember(blocks map[Block]struct{}) []Block {
 
 func (s *Store) SeenCount() int { return len(s.seen) }
 
+// Log дописывает текст мутации в fuzz.log, по одному запуску на строку.
 func (s *Store) Log(line string) error {
 	f, err := os.OpenFile(filepath.Join(s.Root, "fuzz.log"), os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0o644)
 	if err != nil {
@@ -63,6 +68,8 @@ func (s *Store) Log(line string) error {
 	return err
 }
 
+// SaveSeed кладёт вход с новым покрытием в corpus.
+// В имени файла — сколько блоков уже видно и сколько добавил этот сид.
 func (s *Store) SaveSeed(data []byte, added int) (string, error) {
 	dir := filepath.Join(s.Root, "corpus")
 	if err := os.MkdirAll(dir, 0o755); err != nil {
@@ -72,6 +79,7 @@ func (s *Store) SaveSeed(data []byte, added int) (string, error) {
 	return name, os.WriteFile(name, data, 0o644)
 }
 
+// SaveCrash пишет байты, которые уронили цель, и рядом crashN.log со снимком.
 func (s *Store) SaveCrash(data []byte, crash *Crash, change string) (string, error) {
 	dir := filepath.Join(s.Root, "crashes")
 	if err := os.MkdirAll(dir, 0o755); err != nil {
@@ -96,6 +104,7 @@ func writeFile(path string, data []byte) error {
 	return os.WriteFile(path, data, 0o644)
 }
 
+// cloneBytes отделяет копию от буфера, от которого считаются следующие мутации.
 func cloneBytes(b []byte) []byte {
 	out := make([]byte, len(b))
 	copy(out, b)

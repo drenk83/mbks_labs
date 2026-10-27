@@ -13,14 +13,17 @@ import (
 )
 
 const (
+	// Клиент drcov стоит отдельно. drrun берётся 32-битный, как и vuln3.exe.
 	drRoot     = `C:\tools\DynamoRIO`
 	drRun      = `C:\tools\DynamoRIO\bin32\drrun.exe`
 	targetName = "vuln3.exe"
 	configName = "config_3"
+	// Цель может зависнуть на вводе. Дольше этого отладчик её завершает.
 	runTimeout = 15 * time.Second
 )
 
 func main() {
+	// Смещения регистров в debug.go сняты с 32-битного CONTEXT.
 	if runtime.GOARCH != "386" {
 		fmt.Println("Фаззер собран не как 32-битный. Нужна сборка GOARCH=386, иначе регистры цели читаются неверно.")
 		os.Exit(1)
@@ -33,6 +36,7 @@ func main() {
 	exe := filepath.Join(root, targetName)
 	cfg := filepath.Join(root, configName)
 	original := filepath.Join(root, "..", "source", configName)
+	// Рабочей копии ещё нет: один раз берём эталон. Дальше source/ не трогаем.
 	if _, err := os.Stat(cfg); err != nil {
 		if err := copyFile(original, cfg); err != nil {
 			fmt.Println("нет рабочего config_3:", err)
@@ -53,17 +57,19 @@ func main() {
 	}
 }
 
+// app держит рабочую копию конфига. Эталон в source/ меняет только пункт 10.
 type app struct {
 	root     string
 	exe      string
-	cfg      string
-	original string
+	cfg      string // config_3 рядом с фаззером, его читает vuln3.exe
+	original string // эталон в ../source
 	store    *Store
 	in       *bufio.Reader
-	buf      []byte
-	edits    []string
+	buf      []byte   // текущие байты конфига
+	edits    []string // тексты правок с последнего восстановления
 }
 
+// loop читает номер пункта, пока не выбрано «выход» или не кончился ввод.
 func (a *app) loop() error {
 	var err error
 	a.buf, err = loadFile(a.cfg)
@@ -118,6 +124,7 @@ func (a *app) loop() error {
 	}
 }
 
+// show печатает размер и начало файла, чтобы сверить смещение перед правкой.
 func (a *app) show() {
 	at := indexOf(a.buf, []byte("/start"))
 	fmt.Printf("размер %d байт, /start смещение %d\n", len(a.buf), at)
@@ -128,6 +135,7 @@ func (a *app) show() {
 	fmt.Printf("первые %d байт: %X\n", n, a.buf[:n])
 }
 
+// oneByte меняет один байт и оставляет результат рабочим конфигом.
 func (a *app) oneByte() {
 	off, ok := a.askInt("смещение")
 	if !ok {
@@ -145,6 +153,7 @@ func (a *app) oneByte() {
 	a.commit(next, change)
 }
 
+// manyBytes записывает подряд несколько заданных байт с указанного смещения.
 func (a *app) manyBytes() {
 	off, ok := a.askInt("смещение")
 	if !ok {
@@ -171,6 +180,8 @@ func (a *app) manyBytes() {
 	a.commit(next, change)
 }
 
+// appendBytes дописывает один и тот же байт в хвост.
+// Для strcpy в vuln3 это обычно пустой ход: исходный файл уже кончается нулём.
 func (a *app) appendBytes() {
 	n, ok := a.askInt("сколько байт дописать")
 	if !ok || n < 1 {
@@ -188,6 +199,8 @@ func (a *app) appendBytes() {
 	a.commit(next, change)
 }
 
+// autoMode подставляет граничные значения по всем смещениям.
+// Каждая замена считается от копии на входе в режим, правки друг на друга не садятся.
 func (a *app) autoMode() {
 	width, ok := a.askInt("ширина граничного значения 1..4, 0 = все")
 	if !ok {
@@ -253,6 +266,7 @@ func hexBytes(v []byte) string {
 	return strings.Join(parts, " ")
 }
 
+// finishPass возвращает на диск конфиг, который был до авторежима.
 func (a *app) finishPass(original []byte, runs int) {
 	a.buf = original
 	if err := writeFile(a.cfg, original); err != nil {
@@ -261,12 +275,14 @@ func (a *app) finishPass(original []byte, runs int) {
 	fmt.Printf("авторежим закончен, запусков %d, рабочий конфиг возвращён\n", runs)
 }
 
+// oneRun гоняет текущий конфиг под отладчиком и без падения снимает покрытие.
 func (a *app) oneRun() {
 	if err := a.tryOnce(a.buf, a.runChange(), true); err != nil {
 		fmt.Println(err)
 	}
 }
 
+// runChange склеивает тексты накопленных правок для строки Mutation в логе краша.
 func (a *app) runChange() Change {
 	if len(a.edits) == 0 {
 		return Change{Text: "ручной запуск текущего конфига"}
@@ -274,6 +290,7 @@ func (a *app) runChange() Change {
 	return Change{Text: strings.Join(a.edits, "; ")}
 }
 
+// separators ищет символы, которыми в файле могут быть разделены поля.
 func (a *app) separators() {
 	hits := FindSeparators(a.buf)
 	any := false
@@ -294,6 +311,8 @@ func (a *app) separators() {
 	}
 }
 
+// expand удлиняет поле после /start байтами A и только сохраняет файл.
+// Запуск — отдельный пункт 6: так видно и правку, и затем само падение.
 func (a *app) expand() {
 	n, ok := a.askInt("на сколько байт удлинить поле")
 	if !ok || n < 1 {
@@ -311,6 +330,8 @@ func (a *app) expand() {
 	a.commit(next, change)
 }
 
+// coverageMode оставляет только мутации, которые открыли новые базовые блоки.
+// Упавший вход в корпус не пишется: после исключения покрытие не снимается.
 func (a *app) coverageMode() {
 	n, ok := a.askInt("сколько итераций")
 	if !ok || n < 1 {
@@ -371,9 +392,10 @@ func (a *app) coverageMode() {
 	fmt.Printf("режим покрытия закончен, уникальных блоков %d\n", a.store.SeenCount())
 }
 
+// randomMutation берёт одну из трёх мутаций задания: граница, допись или поле после /start.
 func randomMutation(buf []byte) ([]byte, Change) {
 	switch rand.IntN(3) {
-	case 0:
+	case 0: // граничное значение случайной ширины на случайном смещении
 		values := BoundaryValues(1 + rand.IntN(4))
 		value := values[rand.IntN(len(values))]
 		if len(buf) < len(value) {
@@ -385,14 +407,14 @@ func randomMutation(buf []byte) ([]byte, Change) {
 			return AppendBytes(buf, []byte{'A'})
 		}
 		return next, change
-	case 1:
+	case 1: // 1..32 ненулевых байта в хвост файла
 		n := 1 + rand.IntN(32)
 		extra := make([]byte, n)
 		for i := range extra {
 			extra[i] = byte(1 + rand.IntN(255))
 		}
 		return AppendBytes(buf, extra)
-	default:
+	default: // 1..24 байта A в поле после /start; без маркера откатываемся к дописи
 		n := 1 + rand.IntN(24)
 		extra := make([]byte, n)
 		for i := range extra {
@@ -406,6 +428,7 @@ func randomMutation(buf []byte) ([]byte, Change) {
 	}
 }
 
+// commit записывает правку на диск и копит её текст до восстановления эталона.
 func (a *app) commit(next []byte, change Change) {
 	a.buf = next
 	if err := writeFile(a.cfg, next); err != nil {
@@ -416,6 +439,8 @@ func (a *app) commit(next []byte, change Change) {
 	fmt.Println(change.Text)
 }
 
+// tryOnce запускает цель. Покрытие снимается только без падения:
+// упавший конфиг уже сохранён отладчиком, второй прогон под drcov не нужен.
 func (a *app) tryOnce(data []byte, change Change, withCoverage bool) error {
 	crashed, err := a.exec(data, change)
 	if err != nil || !withCoverage || crashed {
@@ -430,6 +455,8 @@ func (a *app) tryOnce(data []byte, change Change, withCoverage bool) error {
 	return nil
 }
 
+// exec подменяет config_3, дописывает мутацию в fuzz.log и ждёт исключение.
+// true значит, что цель упала. Ошибка поверх true — снимок не удалось записать.
 func (a *app) exec(data []byte, change Change) (bool, error) {
 	if err := writeFile(a.cfg, data); err != nil {
 		return false, err
@@ -452,6 +479,7 @@ func (a *app) exec(data []byte, change Change) (bool, error) {
 	return true, nil
 }
 
+// restore возвращает эталон из source и забывает список правок.
 func (a *app) restore() {
 	data, err := loadFile(a.original)
 	if err != nil {
@@ -482,6 +510,7 @@ func (a *app) askInt(label string) (int, bool) {
 	return n, true
 }
 
+// askByte читает один байт так, как его вводят в меню: FF, а не 255.
 func (a *app) askByte(label string) (byte, bool) {
 	fmt.Printf("%s: ", label)
 	line, err := a.readLine()
