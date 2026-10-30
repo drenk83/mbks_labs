@@ -1,1004 +1,973 @@
-﻿#include <fltKernel.h>
+/* FsFilterX — минифильтр дискреционного доступа к файлам.
+   Вариант 9: объекты файловой системы, права в XML, нотификатор загрузки образов.
+
+   Субъект — имя exe. Файла нет в policy.xml — доступ разрешён, иначе
+   действует список субъектов этого файла: нет строки или стоит 0 — отказ.
+   Сам policy.xml открывает только fsctl.exe и поток, который его перечитывает.
+   Правила перечитываются в DriverEntry и по IOCTL, не на каждой операции.
+*/
+#include <fltKernel.h>
 #include <dontuse.h>
 #include <suppress.h>
-#include <wdm.h>
-#include <wchar.h>
+#include "ioctl.h"
 
-#pragma prefast(disable:__WARNING_ENCODE_MEMBER_FUNCTION_POINTER, "Not valid for kernel mode drivers")
-#pragma warning(disable:4055)
-#pragma warning(disable:4616)
-//---------------------------------------------------------------------------
-//      Global variables
-//---------------------------------------------------------------------------
+#define MAX_NAME 256
+#define MAX_FILES 32
+#define MAX_SUBJECTS 8
+#define POLICY_BYTES 8192
 
-#define NULL_FILTER_FILTER_NAME     L"NullFilter"
+#define POLICY_PATH L"C:\\DriverConfig\\policy.xml"
+#define POLICY_NT_PATH L"\\DosDevices\\C:\\DriverConfig\\policy.xml"
+#define LOG_PATH L"C:\\DriverConfig\\image.log"
+#define LOG_NT_PATH L"\\DosDevices\\C:\\DriverConfig\\image.log"
+#define CONTROL_EXE L"fsctl.exe"
+#define DEVICE_NAME L"\\Device\\FsFilterX"
+#define DEVICE_LINK L"\\DosDevices\\FsFilterX"
 
-#define PTDBG_TRACE_ROUTINES            0x00000001
-#define PTDBG_TRACE_OPERATION_STATUS    0x00000002
+typedef struct _SUBJECT {
+    WCHAR Name[MAX_NAME];
+    WCHAR ReadFlag;
+    WCHAR WriteFlag;
+} SUBJECT;
 
-#define MAX_NAME_LENGTH 256
-#define MAX_PROCESSES 8
-#define MAX_FILES 8
-#define BUFFER_SIZE 1024
+typedef struct _FILE_RULE {
+    WCHAR Path[MAX_NAME];
+    SUBJECT Subjects[MAX_SUBJECTS];
+    int SubjectCount;
+} FILE_RULE;
 
-#define ACCESS_ALLOWED 88
-#define ACCESS_DENIED 44
+NTKERNELAPI PUCHAR PsGetProcessImageFileName(_In_ PEPROCESS Process);
 
-#define WCONFIG_FILE_OBJECT L"\\DosDevices\\C:\\DriverConfig\\Config.txt"
+typedef NTSTATUS(*QUERY_INFO_PROCESS)(
+    HANDLE ProcessHandle,
+    PROCESSINFOCLASS ProcessInformationClass,
+    PVOID ProcessInformation,
+    ULONG ProcessInformationLength,
+    PULONG ReturnLength);
 
-typedef NTSTATUS(*QUERY_INFO_PROCESS) (
-	__in HANDLE ProcessHandle,
-	__in PROCESSINFOCLASS ProcessInformationClass,
-	__out_bcount(ProcessInformationLength) PVOID ProcessInformation,
-	__in ULONG ProcessInformationLength,
-	__out_opt PULONG ReturnLength
-	);
-
-typedef struct ProcessPermision
-{
-	CHAR procname[MAX_NAME_LENGTH];
-	CHAR read_permission;
-	CHAR write_permission;
-}ProcPerm;
-
-typedef struct DatabaseElem
-{
-	CHAR filename[MAX_NAME_LENGTH];
-	ProcPerm proc_list[MAX_PROCESSES];
-}DbEl;
-
-DbEl gDatabase[MAX_FILES];
-DbEl gDatabase_for_change[MAX_FILES];
-int gFilesAmount = 0; // Actual
-int gFilesAmount_change = 0;
-int CountFiles = 0;
-int CountFiles_change = 0;
-QUERY_INFO_PROCESS ZwQueryInformationProcess;
-
-ULONG gTraceFlags = 0;
-
-typedef struct _NULL_FILTER_DATA {
-
-	//
-	//  The filter handle that results from a call to
-	//  FltRegisterFilter.
-	//
-
-	PFLT_FILTER FilterHandle;				//unique identifier for mini-filter
-
-} NULL_FILTER_DATA, * PNULL_FILTER_DATA;
-
-
-/*************************************************************************
-	Prototypes for the startup and unload routines used for
-	this Filter.
-
-	Implementation in nullFilter.c
-*************************************************************************/
+static PFLT_FILTER gFilter = NULL;
+static PDEVICE_OBJECT gDevice = NULL;
+static ERESOURCE gRuleLock;
+static ERESOURCE gLogLock;
+static FILE_RULE gRules[MAX_FILES];
+static int gRuleCount = 0;
+static FILE_RULE gStaging[MAX_FILES];
+static int gStagingCount = 0;
+static volatile LONG gLoadingPolicy = 0;
+static PEPROCESS gPolicyReader = NULL;
+static QUERY_INFO_PROCESS gQueryProcess = NULL;
+static HANDLE gLogHandle = NULL;
+static volatile LONG gNotifySet = 0;
+static volatile LONG gInsideNotify = 0;
 
 DRIVER_INITIALIZE DriverEntry;
-NTSTATUS
-DriverEntry(
-	_In_ PDRIVER_OBJECT DriverObject,
-	_In_ PUNICODE_STRING RegistryPath
-);
 
-NTSTATUS
-NullUnload(
-	_In_ FLT_FILTER_UNLOAD_FLAGS Flags
-);
+static NTSTATUS DispatchCreate(PDEVICE_OBJECT Device, PIRP Irp);
+static NTSTATUS DispatchClose(PDEVICE_OBJECT Device, PIRP Irp);
+static NTSTATUS DispatchCleanup(PDEVICE_OBJECT Device, PIRP Irp);
+static NTSTATUS DispatchIoctl(PDEVICE_OBJECT Device, PIRP Irp);
+static NTSTATUS FilterUnload(FLT_FILTER_UNLOAD_FLAGS Flags);
+static NTSTATUS QueryTeardown(PCFLT_RELATED_OBJECTS Objects, FLT_INSTANCE_QUERY_TEARDOWN_FLAGS Flags);
+static FLT_PREOP_CALLBACK_STATUS PreCreate(PFLT_CALLBACK_DATA Data, PCFLT_RELATED_OBJECTS Objects, PVOID* Context);
+static FLT_PREOP_CALLBACK_STATUS PreRead(PFLT_CALLBACK_DATA Data, PCFLT_RELATED_OBJECTS Objects, PVOID* Context);
+static FLT_PREOP_CALLBACK_STATUS PreWrite(PFLT_CALLBACK_DATA Data, PCFLT_RELATED_OBJECTS Objects, PVOID* Context);
 
-NTSTATUS
-NullQueryTeardown(
-	_In_ PCFLT_RELATED_OBJECTS FltObjects,
-	_In_ FLT_INSTANCE_QUERY_TEARDOWN_FLAGS Flags
-);
-
-FLT_PREOP_CALLBACK_STATUS
-FsFilterXPreOperationCreate(
-	_Inout_ PFLT_CALLBACK_DATA Data,
-	_In_ PCFLT_RELATED_OBJECTS FltObjects,
-	_Flt_CompletionContext_Outptr_ PVOID* CompletionContext
-);
-
-FLT_PREOP_CALLBACK_STATUS
-FsFilterXPreOperationRead(
-	_Inout_ PFLT_CALLBACK_DATA Data,
-	_In_ PCFLT_RELATED_OBJECTS FltObjects,
-	_Flt_CompletionContext_Outptr_ PVOID* CompletionContext
-);
-
-FLT_PREOP_CALLBACK_STATUS
-FsFilterXPreOperationWrite(
-	_Inout_ PFLT_CALLBACK_DATA Data,
-	_In_ PCFLT_RELATED_OBJECTS FltObjects,
-	_Flt_CompletionContext_Outptr_ PVOID* CompletionContext
-);
-
-VOID
-FsFilterXOperationStatusCallback(
-	_In_ PCFLT_RELATED_OBJECTS FltObjects,
-	_In_ PFLT_IO_PARAMETER_BLOCK ParameterSnapshot,
-	_In_ NTSTATUS OperationStatus,
-	_In_ PVOID RequesterContext
-);
-
-FLT_POSTOP_CALLBACK_STATUS
-FsFilterXPostOperation(
-	_Inout_ PFLT_CALLBACK_DATA Data,
-	_In_ PCFLT_RELATED_OBJECTS FltObjects,
-	_In_opt_ PVOID CompletionContext,
-	_In_ FLT_POST_OPERATION_FLAGS Flags
-);
-
-BOOLEAN
-FsFilterXDoRequestOperationStatus(
-	_In_ PFLT_CALLBACK_DATA Data
-);
-
-//
-//  Structure that contains all the global data structures
-//  used throughout NullFilter.
-//
-
-FLT_OPERATION_REGISTRATION Callbacks[] = {
-	{ IRP_MJ_READ,
-	0,
-	FsFilterXPreOperationRead,
-	FsFilterXPostOperation },
-
-	{ IRP_MJ_WRITE,
-	0,
-	FsFilterXPreOperationWrite,
-	FsFilterXPostOperation },
-
-	{ IRP_MJ_CREATE,
-	0,
-	FsFilterXPreOperationCreate,
-	NULL },
-
-	{ IRP_MJ_OPERATION_END }
+static CONST FLT_OPERATION_REGISTRATION gCallbacks[] = {
+    { IRP_MJ_CREATE, 0, PreCreate, NULL },
+    { IRP_MJ_READ, FLTFL_OPERATION_REGISTRATION_SKIP_PAGING_IO, PreRead, NULL },
+    { IRP_MJ_WRITE, FLTFL_OPERATION_REGISTRATION_SKIP_PAGING_IO, PreWrite, NULL },
+    { IRP_MJ_OPERATION_END }
 };
 
-NULL_FILTER_DATA NullFilterData;
-
-#ifdef ALLOC_PRAGMA
-#pragma alloc_text(INIT, DriverEntry)
-#pragma alloc_text(PAGE, NullUnload)
-#pragma alloc_text(PAGE, NullQueryTeardown)
-#pragma alloc_text(PAGE, FsFilterXPreOperationCreate)
-#pragma alloc_text(PAGE, FsFilterXPreOperationRead)
-#pragma alloc_text(PAGE, FsFilterXPreOperationWrite)
-#pragma alloc_text(PAGE, FsFilterXOperationStatusCallback)
-#pragma alloc_text(PAGE, FsFilterXPostOperation)
-#pragma alloc_text(PAGE, FsFilterXDoRequestOperationStatus)
-#endif
-
-CONST FLT_REGISTRATION FilterRegistration = {
-
-	sizeof(FLT_REGISTRATION),         //  Size
-	FLT_REGISTRATION_VERSION,           //  Version
-	0,                                  //  Flags
-
-	NULL,                               //  Context
-	Callbacks,                               //  Operation callbacks
-
-	NullUnload,                         //  FilterUnload
-
-	NULL,                               //  InstanceSetup
-	NullQueryTeardown,                  //  InstanceQueryTeardown
-	NULL,                               //  InstanceTeardownStart
-	NULL,                               //  InstanceTeardownComplete
-
-	NULL,                               //  GenerateFileName
-	NULL,                               //  GenerateDestinationFileName
-	NULL,                                //  NormalizeNameComponent
-	NULL								// KTMNotificationCallback
+static CONST FLT_REGISTRATION gRegistration = {
+    sizeof(FLT_REGISTRATION),
+    FLT_REGISTRATION_VERSION,
+    0,
+    NULL,
+    gCallbacks,
+    FilterUnload,
+    NULL,
+    QueryTeardown,
+    NULL,
+    NULL,
+    NULL,
+    NULL,
+    NULL
 };
 
-ULONG_PTR OperationStatusCtx = 1;
-
-/*************************************************************************
-	Filter initialization and unload routines.
-*************************************************************************/
-
-int NameEquals(const WCHAR* left, const WCHAR* right)
+static NTSTATUS CompleteIrp(PIRP Irp, NTSTATUS status)
 {
-	while (*left != L'\0' && *right != L'\0')
-	{
-		WCHAR a = *left;
-		WCHAR b = *right;
-		if (a >= L'A' && a <= L'Z')
-			a = (WCHAR)(a - L'A' + L'a');
-		if (b >= L'A' && b <= L'Z')
-			b = (WCHAR)(b - L'A' + L'a');
-		if (a != b)
-			return 0;
-		left++;
-		right++;
-	}
-	return *left == *right;
+    Irp->IoStatus.Status = status;
+    Irp->IoStatus.Information = 0;
+    IoCompleteRequest(Irp, IO_NO_INCREMENT);
+    return status;
 }
 
-int CheckPermissionWrite(WCHAR* file_path, WCHAR* process_name)
+static int SameText(const WCHAR* left, const WCHAR* right)
 {
-	WCHAR name_tmp[MAX_NAME_LENGTH] = { 0 };
-	for (int i = 0; i < gFilesAmount; i++)
-	{
-		swprintf_s(name_tmp, MAX_NAME_LENGTH, L"%hs", gDatabase[i].filename);
-
-		//DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "%d: Tmp str1: %ws \r\n", i, name_tmp);
-		//DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "file_path str2: %ws \r\n", file_path);
-
-		if (NameEquals(name_tmp, file_path))
-		{
-			for (int j = 0; j < MAX_PROCESSES; j++)
-			{
-				swprintf_s(name_tmp, MAX_NAME_LENGTH, L"%hs", gDatabase[i].proc_list[j].procname);
-				if (NameEquals(name_tmp, process_name))
-				{
-					//DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "%d, %d: MARK perm_write: %c \r\n", i, j, gDatabase[i].proc_list[j].write_permission);
-					if (gDatabase[i].proc_list[j].write_permission == '1') {
-						return ACCESS_ALLOWED;
-					}
-					else {
-						//DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "%d: Tmp str1: %ws \r\n", i, name_tmp);
-						//DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "file_path str2: %ws \r\n", file_path);
-						DbgPrintEx(0, 0, "ACCESS_DENIED write: %ws \r\n", file_path);
-						return ACCESS_DENIED;
-					}
-				}
-			}
-		}
-	}
-	return ACCESS_ALLOWED;
+    while (*left != 0 && *right != 0) {
+        WCHAR a = *left;
+        WCHAR b = *right;
+        if (a >= L'A' && a <= L'Z')
+            a = (WCHAR)(a - L'A' + L'a');
+        if (b >= L'A' && b <= L'Z')
+            b = (WCHAR)(b - L'A' + L'a');
+        if (a != b)
+            return 0;
+        left++;
+        right++;
+    }
+    return *left == *right;
 }
 
-int CheckPermissionRead(WCHAR* file_path, WCHAR* process_name)
+static void KeepFileName(WCHAR* path)
 {
-	WCHAR name_tmp[MAX_NAME_LENGTH] = { 0 };
-	for (int i = 0; i < gFilesAmount; i++)
-	{
-		swprintf_s(name_tmp, MAX_NAME_LENGTH, L"%hs", gDatabase[i].filename);
+    WCHAR* slash = NULL;
+    WCHAR* cursor = path;
+    int i;
 
-		//DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "%d: Tmp str1: %ws \r\n", i, name_tmp);
-		//DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "file_path str2: %ws \r\n", file_path);
-
-		if (NameEquals(name_tmp, file_path))
-		{
-			for (int j = 0; j < MAX_PROCESSES; j++)
-			{
-				swprintf_s(name_tmp, MAX_NAME_LENGTH, L"%hs", gDatabase[i].proc_list[j].procname);
-				if (NameEquals(name_tmp, process_name))
-				{
-					//DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "%d, %d: MARK perm_read: %c \r\n", i, j, gDatabase[i].proc_list[j].read_permission);
-					if (gDatabase[i].proc_list[j].read_permission == '1') {
-						return ACCESS_ALLOWED;
-					}
-					else {
-						DbgPrintEx(0, 0, "ACCESS_DENIED read: %ws \r\n", file_path);
-						return ACCESS_DENIED;
-					}
-				}
-			}
-		}
-	}
-	return ACCESS_ALLOWED;
+    while (*cursor != 0) {
+        if (*cursor == L'\\')
+            slash = cursor;
+        cursor++;
+    }
+    if (slash == NULL)
+        return;
+    slash++;
+    i = 0;
+    while (slash[i] != 0 && i < MAX_NAME - 1) {
+        path[i] = slash[i];
+        i++;
+    }
+    path[i] = 0;
 }
 
-VOID GetFilePath(WCHAR* file_name, WCHAR* file_path)
+static NTSTATUS QueryProcessImage(PEPROCESS process, WCHAR* dest, int destChars)
 {
-	/* \Device\HarddiskVolume<N>\... -> C:\... for any volume number. */
-	const WCHAR marker[] = L"HarddiskVolume";
-	const int marker_len = 14;
-	int start = -1;
+    HANDLE handle = NULL;
+    UNICODE_STRING* image = NULL;
+    ULONG bytes = 0;
+    NTSTATUS status;
+    size_t chars;
 
-	for (int i = 0; i < MAX_NAME_LENGTH - marker_len; i++)
-	{
-		int match = 1;
-		for (int k = 0; k < marker_len; k++)
-		{
-			if (file_name[i + k] != marker[k])
-			{
-				match = 0;
-				break;
-			}
-		}
-		if (match)
-		{
-			start = i + marker_len;
-			break;
-		}
-	}
+    dest[0] = 0;
+    if (process == NULL || destChars < 2)
+        return STATUS_INVALID_PARAMETER;
 
-	if (start < 0)
-	{
-		file_path[0] = L'\0';
-		return;
-	}
+    status = ObOpenObjectByPointer(process, OBJ_KERNEL_HANDLE, NULL, 0, NULL, KernelMode, &handle);
+    if (!NT_SUCCESS(status))
+        return status;
 
-	while (start < MAX_NAME_LENGTH && file_name[start] >= L'0' && file_name[start] <= L'9')
-		start++;
+    if (gQueryProcess == NULL) {
+        UNICODE_STRING name;
+        RtlInitUnicodeString(&name, L"ZwQueryInformationProcess");
+        gQueryProcess = (QUERY_INFO_PROCESS)MmGetSystemRoutineAddress(&name);
+        if (gQueryProcess == NULL) {
+            ZwClose(handle);
+            return STATUS_PROCEDURE_NOT_FOUND;
+        }
+    }
 
-	file_path[0] = L'C';
-	file_path[1] = L':';
-	int out = 2;
-	for (int i = start; i < MAX_NAME_LENGTH && out < MAX_NAME_LENGTH - 1; i++)
-	{
-		file_path[out++] = file_name[i];
-		if (file_name[i] == L'\0')
-			return;
-	}
-	file_path[MAX_NAME_LENGTH - 1] = L'\0';
+    status = gQueryProcess(handle, ProcessImageFileName, NULL, 0, &bytes);
+    if (status != STATUS_INFO_LENGTH_MISMATCH) {
+        ZwClose(handle);
+        return status;
+    }
+
+    image = ExAllocatePoolWithTag(NonPagedPoolNx, bytes, 'xsFF');
+    if (image == NULL) {
+        ZwClose(handle);
+        return STATUS_INSUFFICIENT_RESOURCES;
+    }
+
+    status = gQueryProcess(handle, ProcessImageFileName, image, bytes, &bytes);
+    if (!NT_SUCCESS(status) || image->Buffer == NULL) {
+        ExFreePoolWithTag(image, 'xsFF');
+        ZwClose(handle);
+        return NT_SUCCESS(status) ? STATUS_UNSUCCESSFUL : status;
+    }
+
+    chars = image->Length / sizeof(WCHAR);
+    if (chars >= (size_t)destChars)
+        chars = (size_t)destChars - 1;
+    RtlCopyMemory(dest, image->Buffer, chars * sizeof(WCHAR));
+    dest[chars] = 0;
+    ExFreePoolWithTag(image, 'xsFF');
+    ZwClose(handle);
+    return STATUS_SUCCESS;
 }
 
-VOID GetActualProcName(WCHAR* name)
+/* Короткое имя из EPROCESS, не длиннее 14 символов. Его можно читать на APC. */
+static void CopyShortName(PEPROCESS process, WCHAR* dest, int destChars)
 {
-	int zero_idx = 0, name_idx = 0;
-	for (int i = MAX_NAME_LENGTH - 1; i > 0; i--)
-	{
-		if (name[i] == L'\0' && name[i - 1] != L'\0')
-			zero_idx = i;
-		if (name[i] == L'\\')
-		{
-			name_idx = i + 1;
-			break;
-		}
-	}
-	for (int i = 0; i <= zero_idx - name_idx + 1; i++)
-	{
-		name[i] = name[i + name_idx];
-	}
+    const UCHAR* raw;
+    int i;
+
+    dest[0] = 0;
+    if (process == NULL || destChars < 2)
+        return;
+    raw = PsGetProcessImageFileName(process);
+    if (raw == NULL)
+        return;
+    for (i = 0; raw[i] != 0 && i < 14 && i < destChars - 1; i++)
+        dest[i] = (WCHAR)raw[i];
+    dest[i] = 0;
 }
 
-VOID ParseBuffer(CHAR* buffer)
+static void CurrentExeName(WCHAR* dest, int destChars)
 {
-	int count_files = 0;
-	int i = 0, j = 0, db_index = 0, proc_idx = 0;
-	while (buffer[i] != '\0')
-	{
-		if (i == 0 || (i > 3 && buffer[i - 3] == '\n' && buffer[i - 2] == '\r' && buffer[i - 1] == '\n')) // Path to file
-		{
-			j = i;
-			while (buffer[j] != '\r') j++;
-			memcpy(gDatabase[db_index].filename, &buffer[i], j - i);
-			DbgPrint("%d: file: %s\n", db_index, gDatabase[db_index].filename);
-			i = j + 2; // Start of the next line | 2 = \r, \n
-			count_files++;
-		}
-		else if (buffer[i] == '\r' && buffer[i - 1] == '\n' && buffer[i + 1] == '\n')
-		{
-			db_index++;
-			proc_idx = 0;
-			i += 2; // \r \n(here) \r \n
-		}
-		else if (buffer[i - 1] == '\n')
-		{
-			j = i;
-			while (buffer[j] != '|') j++;
-			memcpy(gDatabase[db_index].proc_list[proc_idx].procname, &buffer[i], j - i);
-			DbgPrint("proc: %s  ", gDatabase[db_index].proc_list[proc_idx].procname);
-			gDatabase[db_index].proc_list[proc_idx].read_permission = buffer[j + 1];
-			gDatabase[db_index].proc_list[proc_idx].write_permission = buffer[j + 3];
-			DbgPrint("perms: %c %c\n", gDatabase[db_index].proc_list[proc_idx].read_permission, gDatabase[db_index].proc_list[proc_idx].write_permission = buffer[j + 3]);
-			proc_idx++;
-			// j + 5 == '\n'; j + 4 == '\r'; j + 3 == write_permision
-			i = j + 6;
-		}
-	}
-	gFilesAmount = db_index + 1;
-	if (count_files != 0) {
-		CountFiles = count_files;
-	}
-
-	if (CountFiles_change < CountFiles && CountFiles_change != 0 && CountFiles != 0 && (CountFiles - CountFiles_change)>0) {
-		int count = CountFiles - CountFiles_change;
-		DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "%d files was added \r\n", count);
-	}
-	if (CountFiles_change > CountFiles && CountFiles_change != 0 && CountFiles != 0 && (CountFiles_change - CountFiles) > 0) {
-		int count = CountFiles_change - CountFiles;
-		DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "%d files was deleted \r\n", count);
-	}
-	CountFiles_change = CountFiles;
+    dest[0] = 0;
+    if (KeGetCurrentIrql() == PASSIVE_LEVEL &&
+        NT_SUCCESS(QueryProcessImage(PsGetCurrentProcess(), dest, destChars))) {
+        KeepFileName(dest);
+        if (dest[0] != 0)
+            return;
+    }
+    CopyShortName(PsGetCurrentProcess(), dest, destChars);
 }
 
-VOID FillDatabase();
-
-LONG gLoadingConfig = 0;
-
-VOID ReloadDatabase()
+static void RequestExeName(PFLT_CALLBACK_DATA data, WCHAR* dest, int destChars)
 {
-	/* ZwReadFile of the config re-enters the read callback. Skip that
-	   nested call, and skip anything above PASSIVE_LEVEL. */
-	if (KeGetCurrentIrql() != PASSIVE_LEVEL)
-		return;
-	if (InterlockedCompareExchange(&gLoadingConfig, 1, 0) != 0)
-		return;
+    PEPROCESS process;
 
-	memset(gDatabase, 0x00, sizeof(DbEl) * MAX_FILES);
-	gFilesAmount = 0;
-	FillDatabase();
-	InterlockedExchange(&gLoadingConfig, 0);
+    dest[0] = 0;
+    process = IoThreadToProcess(data->Thread);
+    if (KeGetCurrentIrql() == PASSIVE_LEVEL &&
+        NT_SUCCESS(QueryProcessImage(process, dest, destChars))) {
+        KeepFileName(dest);
+        if (dest[0] != 0)
+            return;
+    }
+    CopyShortName(process, dest, destChars);
 }
 
-VOID FillDatabase()
+static int IsControlProgram(const WCHAR* exeName)
 {
-	HANDLE handle;
-	NTSTATUS ntstatus;
-	IO_STATUS_BLOCK ioStatusBlock;
-	LARGE_INTEGER      byteOffset;
-	UNICODE_STRING     uniName;
-	OBJECT_ATTRIBUTES  objAttr;
-
-	CHAR buffer[BUFFER_SIZE] = { 0 };
-
-	RtlInitUnicodeString(&uniName, WCONFIG_FILE_OBJECT);  // or L"\\SystemRoot\\example.txt"
-	InitializeObjectAttributes(&objAttr, &uniName,
-		OBJ_CASE_INSENSITIVE | OBJ_KERNEL_HANDLE,
-		NULL, NULL);
-
-	ntstatus = ZwCreateFile(&handle,
-		GENERIC_READ,
-		&objAttr, &ioStatusBlock,
-		NULL,
-		FILE_ATTRIBUTE_NORMAL,
-		0,
-		FILE_OPEN,
-		FILE_SYNCHRONOUS_IO_NONALERT,
-		NULL, 0);
-
-	if (NT_SUCCESS(ntstatus))
-	{
-		byteOffset.LowPart = byteOffset.HighPart = 0;
-		ntstatus = ZwReadFile(handle, NULL, NULL, NULL, &ioStatusBlock,
-			(PVOID)buffer, BUFFER_SIZE, &byteOffset, NULL);
-		if (NT_SUCCESS(ntstatus)) {
-			buffer[BUFFER_SIZE - 1] = '\0';
-			//DbgPrint("Buffer infos: %s\n", buffer);
-		}
-		ZwClose(handle);
-	}
-
-	ParseBuffer(buffer);
+    return SameText(exeName, CONTROL_EXE);
 }
 
-NTSTATUS
-DriverEntry(
-	_In_ PDRIVER_OBJECT DriverObject,
-	_In_ PUNICODE_STRING RegistryPath
-)
-/*++
-Arguments:
-
-	DriverObject - Pointer to driver object created by the system to
-		represent this driver.
-	RegistryPath - Unicode string identifying where the parameters for this
-		driver are located in the registry.
---*/
+/* "\Device\HarddiskVolume3\dir\a.txt" -> "C:\dir\a.txt".
+   Буква всегда C:, защищаемые файлы лежат на этом диске. */
+static int VolumePathToC(const WCHAR* full, WCHAR* dest, int destChars)
 {
-	NTSTATUS status;
-	UNREFERENCED_PARAMETER(RegistryPath);
-	//  Register with FltMgr
-	status = FltRegisterFilter(DriverObject, &FilterRegistration, &NullFilterData.FilterHandle);
-	DbgPrintEx(0, 0, "Filter start\n");
-	FLT_ASSERT(NT_SUCCESS(status));
-	if (NT_SUCCESS(status))
-	{
-		ReloadDatabase();
-		//DbgPrint("Yey, working?!!\n");
-		//
-		//  Start filtering i/o
-		//
-		status = FltStartFiltering(NullFilterData.FilterHandle);
-		if (!NT_SUCCESS(status))
-		{
-			FltUnregisterFilter(NullFilterData.FilterHandle);
-		}
-	}
-	return status;
+    const WCHAR marker[] = L"HarddiskVolume";
+    const int markerLen = 14;
+    int i;
+    int start = -1;
+    int out;
+
+    dest[0] = 0;
+    for (i = 0; full[i] != 0 && i < MAX_NAME - markerLen; i++) {
+        int k;
+        int match = 1;
+        for (k = 0; k < markerLen; k++) {
+            if (full[i + k] != marker[k]) {
+                match = 0;
+                break;
+            }
+        }
+        if (match) {
+            start = i + markerLen;
+            break;
+        }
+    }
+    if (start < 0)
+        return 0;
+    while (full[start] >= L'0' && full[start] <= L'9')
+        start++;
+    if (destChars < 4)
+        return 0;
+    dest[0] = L'C';
+    dest[1] = L':';
+    out = 2;
+    for (i = start; full[i] != 0 && out < destChars - 1; i++)
+        dest[out++] = full[i];
+    dest[out] = 0;
+    return 1;
 }
 
-NTSTATUS GetProcessImageName(PEPROCESS eProcess, PUNICODE_STRING* ProcessImageName)
+/* У CREATE в FileObject->FileName путь без буквы диска: "\dir\a.txt". */
+static int CreatePathToC(PFLT_CALLBACK_DATA data, WCHAR* dest, int destChars)
 {
-	NTSTATUS status = STATUS_UNSUCCESSFUL;
-	ULONG returnedLength;
-	HANDLE hProcess = NULL; // Handle to needed process
+    PFILE_OBJECT file;
+    USHORT chars;
+    USHORT i;
+    int out;
 
-	PAGED_CODE(); // this eliminates the possibility of the IDLE Thread/Process 
-
-	if (eProcess == NULL)
-		return STATUS_INVALID_PARAMETER_1;
-
-	// function opens an object referenced by a pointer and returns a handle to the object
-	status = ObOpenObjectByPointer(eProcess, 0, NULL, 0, 0, KernelMode, &hProcess);
-	if (!NT_SUCCESS(status))
-	{
-		DbgPrint("ObOpenObjectByPointer Failed: %08x\n", status);
-		return status;
-	}
-
-	if (ZwQueryInformationProcess == NULL)
-	{
-		UNICODE_STRING routineName;
-		RtlInitUnicodeString(&routineName, L"ZwQueryInformationProcess");
-		// routine returns a pointer to a function specified by routineName
-		ZwQueryInformationProcess = (QUERY_INFO_PROCESS)MmGetSystemRoutineAddress(&routineName);
-		if (ZwQueryInformationProcess == NULL)
-		{
-			DbgPrint("Cannot resolve ZwQueryInformationProcess\n");
-			status = STATUS_UNSUCCESSFUL;
-			goto cleanUp;
-		}
-	}
-
-	// Step 1 - get the needed size
-	status = ZwQueryInformationProcess(hProcess,
-		ProcessImageFileName,
-		NULL, // buffer 
-		0, // buffer size 
-		&returnedLength);
-
-	if (STATUS_INFO_LENGTH_MISMATCH != status) {
-		DbgPrint("ZwQueryInformationProcess status = %x\n", status);
-		goto cleanUp;
-	}
-
-	*ProcessImageName = ExAllocatePoolWithTag(NonPagedPoolNx, returnedLength, '2gat');
-
-	if (ProcessImageName == NULL)
-	{
-		status = STATUS_INSUFFICIENT_RESOURCES;
-		goto cleanUp;
-	}
-
-	/* Retrieve the process path from the handle to the process */
-	status = ZwQueryInformationProcess(hProcess,
-		ProcessImageFileName,
-		*ProcessImageName,
-		returnedLength,
-		&returnedLength);
-
-	if (!NT_SUCCESS(status))
-		ExFreePoolWithTag(*ProcessImageName, '2gat');
-cleanUp:
-	ZwClose(hProcess);
-	return status;
+    dest[0] = 0;
+    file = data->Iopb->TargetFileObject;
+    if (file == NULL || file->RelatedFileObject != NULL)
+        return 0;
+    if (file->FileName.Buffer == NULL || file->FileName.Length == 0)
+        return 0;
+    chars = file->FileName.Length / sizeof(WCHAR);
+    if (chars == 0 || chars >= destChars - 2)
+        return 0;
+    dest[0] = L'C';
+    dest[1] = L':';
+    out = 2;
+    for (i = 0; i < chars; i++)
+        dest[out++] = file->FileName.Buffer[i];
+    dest[out] = 0;
+    return 1;
 }
 
-VOID GetProcName(WCHAR* process_name, _Inout_ PFLT_CALLBACK_DATA Data)
+static int OperationPath(PFLT_CALLBACK_DATA data, WCHAR* dest, int destChars)
 {
-	PUNICODE_STRING name = NULL;
-	NTSTATUS status;
+    PFLT_FILE_NAME_INFORMATION info = NULL;
+    NTSTATUS status;
+    WCHAR raw[MAX_NAME];
+    USHORT chars;
+    int ok = 0;
 
-	process_name[0] = L'\0';
-	status = GetProcessImageName(IoThreadToProcess(Data->Thread), &name);
-	if (!NT_SUCCESS(status) || name == NULL || name->Buffer == NULL)
-		return;
-
-	{
-		size_t chars = name->Length / sizeof(WCHAR);
-		if (chars >= MAX_NAME_LENGTH)
-			chars = MAX_NAME_LENGTH - 1;
-		RtlCopyMemory(process_name, name->Buffer, chars * sizeof(WCHAR));
-		process_name[chars] = L'\0';
-	}
-	ExFreePoolWithTag(name, '2gat');
+    dest[0] = 0;
+    status = FltGetFileNameInformation(data, FLT_FILE_NAME_NORMALIZED | FLT_FILE_NAME_QUERY_DEFAULT, &info);
+    if (!NT_SUCCESS(status))
+        return 0;
+    status = FltParseFileNameInformation(info);
+    if (NT_SUCCESS(status) && info->Name.Buffer != NULL) {
+        chars = info->Name.Length / sizeof(WCHAR);
+        if (chars > 0 && chars < MAX_NAME) {
+            RtlCopyMemory(raw, info->Name.Buffer, chars * sizeof(WCHAR));
+            raw[chars] = 0;
+            ok = VolumePathToC(raw, dest, destChars);
+        }
+    }
+    FltReleaseFileNameInformation(info);
+    return ok;
 }
 
-NTSTATUS
-NullUnload(
-	_In_ FLT_FILTER_UNLOAD_FLAGS Flags
-)
-/*++
-
-Routine Description:
-
-	This is the unload routine for this miniFilter driver. This is called
-	when the minifilter is about to be unloaded. We can fail this unload
-	request if this is not a mandatory unloaded indicated by the Flags
-	parameter.
-
-Arguments:
-
-	Flags - Indicating if this is a mandatory unload.
-
-Return Value:
-
-	Returns the final status of this operation.
-
---*/
+static const char* SkipSpace(const char* text)
 {
-	DbgPrint("Entered Unload!");
-	UNREFERENCED_PARAMETER(Flags);
-
-	PAGED_CODE();
-
-	FltUnregisterFilter(NullFilterData.FilterHandle);
-
-	return STATUS_SUCCESS;
+    while (*text == ' ' || *text == '\t')
+        text++;
+    return text;
 }
 
-NTSTATUS
-NullQueryTeardown(
-	_In_ PCFLT_RELATED_OBJECTS FltObjects,
-	_In_ FLT_INSTANCE_QUERY_TEARDOWN_FLAGS Flags
-)
-/*++
-
-Routine Description:
-
-	This is the instance detach routine for this miniFilter driver.
-	This is called when an instance is being manually deleted by a
-	call to FltDetachVolume or FilterDetach thereby giving us a
-	chance to fail that detach request.
-
-Arguments:
-
-	FltObjects - Pointer to the FLT_RELATED_OBJECTS data structure containing
-		opaque handles to this filter, instance and its associated volume.
-
-	Flags - Indicating where this detach request came from.
-
-Return Value:
-
-	Returns the status of this operation.
-
---*/
+static int HasPrefix(const char* text, const char* prefix)
 {
-	DbgPrint("Entered Query teardown");
-	UNREFERENCED_PARAMETER(FltObjects);
-	UNREFERENCED_PARAMETER(Flags);
-
-	PAGED_CODE();
-
-	return STATUS_SUCCESS;
+    while (*prefix != 0) {
+        if (*text != *prefix)
+            return 0;
+        text++;
+        prefix++;
+    }
+    return 1;
 }
 
-/* A full-path create carries the volume-relative name, for example
-   \DriverConfig\data\note.txt. The rules use C:\... . Relative opens
-   are left alone: filetool passes a full path. */
-int BuildCreatePath(PFLT_CALLBACK_DATA Data, WCHAR* file_path)
+/* Копирует значение attr="..." в широкую строку. Пути в работе — латиница. */
+static int ReadAttr(const char* line, const char* attr, WCHAR* dest, int destChars)
 {
-	PFILE_OBJECT fileObject;
-	USHORT chars;
-	USHORT i;
-	int out;
+    const char* cursor = line;
 
-	file_path[0] = L'\0';
-	fileObject = Data->Iopb->TargetFileObject;
-	if (fileObject == NULL || fileObject->RelatedFileObject != NULL)
-		return 0;
-	if (fileObject->FileName.Buffer == NULL || fileObject->FileName.Length == 0)
-		return 0;
-
-	chars = fileObject->FileName.Length / sizeof(WCHAR);
-	if (chars == 0 || chars >= MAX_NAME_LENGTH - 2)
-		return 0;
-
-	file_path[0] = L'C';
-	file_path[1] = L':';
-	out = 2;
-	for (i = 0; i < chars; i++)
-		file_path[out++] = fileObject->FileName.Buffer[i];
-	file_path[out] = L'\0';
-	return 1;
+    dest[0] = 0;
+    while (*cursor != 0) {
+        const char* a = attr;
+        const char* c = cursor;
+        while (*a != 0 && *c == *a) {
+            a++;
+            c++;
+        }
+        if (*a == 0 && *c == '"') {
+            int n = 0;
+            c++;
+            while (*c != 0 && *c != '"' && n < destChars - 1) {
+                if ((unsigned char)*c >= 128)
+                    return 0;
+                dest[n++] = (WCHAR)(unsigned char)*c;
+                c++;
+            }
+            if (*c != '"')
+                return 0;
+            dest[n] = 0;
+            return n > 0;
+        }
+        cursor++;
+    }
+    return 0;
 }
 
-FLT_PREOP_CALLBACK_STATUS
-FsFilterXPreOperationCreate(
-	_Inout_ PFLT_CALLBACK_DATA Data,
-	_In_ PCFLT_RELATED_OBJECTS FltObjects,
-	_Flt_CompletionContext_Outptr_ PVOID* CompletionContext
-)
+static NTSTATUS ParsePolicy(const char* text)
 {
-	WCHAR file_path[MAX_NAME_LENGTH];
-	WCHAR process_name[MAX_NAME_LENGTH];
-	ACCESS_MASK desired;
-	ULONG disposition;
-	int wants_write;
-	int wants_read;
-	int read_denied;
-	int write_denied;
+    char line[MAX_NAME * 2];
+    int fileIndex = -1;
 
-	UNREFERENCED_PARAMETER(FltObjects);
-	UNREFERENCED_PARAMETER(CompletionContext);
+    gStagingCount = 0;
+    RtlZeroMemory(gStaging, sizeof(gStaging));
 
-	PAGED_CODE();
+    while (*text != 0) {
+        int length = 0;
+        const char* start;
 
-	if (FlagOn(Data->Iopb->IrpFlags, IRP_PAGING_IO))
-		return FLT_PREOP_SUCCESS_NO_CALLBACK;
-	if (FlagOn(Data->Iopb->Parameters.Create.Options, FILE_DIRECTORY_FILE))
-		return FLT_PREOP_SUCCESS_NO_CALLBACK;
-	if (!BuildCreatePath(Data, file_path))
-		return FLT_PREOP_SUCCESS_NO_CALLBACK;
+        while (*text != 0 && *text != '\n' && *text != '\r' && length < (int)sizeof(line) - 1)
+            line[length++] = *text++;
+        line[length] = 0;
+        while (*text == '\n' || *text == '\r')
+            text++;
+        if (length == (int)sizeof(line) - 1 && *text != 0 && *text != '\n' && *text != '\r')
+            return STATUS_DATA_ERROR;
 
-	process_name[0] = L'\0';
-	GetProcName(process_name, Data);
-	GetActualProcName(process_name);
-	ReloadDatabase();
-
-	desired = 0;
-	if (Data->Iopb->Parameters.Create.SecurityContext != NULL)
-		desired = Data->Iopb->Parameters.Create.SecurityContext->DesiredAccess;
-	disposition = (Data->Iopb->Parameters.Create.Options >> 24) & 0xFF;
-
-	/* ofstream opens with CREATE_ALWAYS, which truncates in IRP_MJ_CREATE
-	   before any IRP_MJ_WRITE. Deny that open, otherwise a forbidden
-	   write wipes the file and the new bytes never arrive. */
-	wants_write = (desired & (FILE_WRITE_DATA | FILE_APPEND_DATA | GENERIC_WRITE)) != 0
-		|| disposition == FILE_SUPERSEDE
-		|| disposition == FILE_CREATE
-		|| disposition == FILE_OVERWRITE
-		|| disposition == FILE_OVERWRITE_IF;
-	wants_read = (desired & (FILE_READ_DATA | GENERIC_READ)) != 0;
-
-	read_denied = CheckPermissionRead(file_path, process_name) == ACCESS_DENIED;
-	write_denied = CheckPermissionWrite(file_path, process_name) == ACCESS_DENIED;
-	if ((wants_write && write_denied) || (wants_read && read_denied))
-	{
-		Data->IoStatus.Status = STATUS_ACCESS_DENIED;
-		Data->IoStatus.Information = 0;
-		return FLT_PREOP_COMPLETE;
-	}
-
-	return FLT_PREOP_SUCCESS_NO_CALLBACK;
+        start = SkipSpace(line);
+        if (HasPrefix(start, "<file ")) {
+            if (gStagingCount >= MAX_FILES)
+                return STATUS_DATA_ERROR;
+            fileIndex = gStagingCount;
+            if (!ReadAttr(start, "path=", gStaging[fileIndex].Path, MAX_NAME))
+                return STATUS_DATA_ERROR;
+            gStaging[fileIndex].SubjectCount = 0;
+            gStagingCount++;
+        } else if (HasPrefix(start, "<subject ")) {
+            SUBJECT* subject;
+            WCHAR flag[4];
+            if (fileIndex < 0)
+                return STATUS_DATA_ERROR;
+            if (gStaging[fileIndex].SubjectCount >= MAX_SUBJECTS)
+                return STATUS_DATA_ERROR;
+            subject = &gStaging[fileIndex].Subjects[gStaging[fileIndex].SubjectCount];
+            if (!ReadAttr(start, "name=", subject->Name, MAX_NAME))
+                return STATUS_DATA_ERROR;
+            if (!ReadAttr(start, "read=", flag, 4) || (flag[0] != L'0' && flag[0] != L'1') || flag[1] != 0)
+                return STATUS_DATA_ERROR;
+            subject->ReadFlag = flag[0];
+            if (!ReadAttr(start, "write=", flag, 4) || (flag[0] != L'0' && flag[0] != L'1') || flag[1] != 0)
+                return STATUS_DATA_ERROR;
+            subject->WriteFlag = flag[0];
+            gStaging[fileIndex].SubjectCount++;
+        }
+    }
+    return STATUS_SUCCESS;
 }
 
-FLT_PREOP_CALLBACK_STATUS
-FsFilterXPreOperationRead(
-	_Inout_ PFLT_CALLBACK_DATA Data,
-	_In_ PCFLT_RELATED_OBJECTS FltObjects,
-	_Flt_CompletionContext_Outptr_ PVOID* CompletionContext
-)
-/*++
-
-This is non-pageable because it could be called on the paging path
-Arguments:
-Data - Pointer to the filter callbackData that is passed to us.
-
-FltObjects - Pointer to the FLT_RELATED_OBJECTS data structure containing
-opaque handles to this filter, instance, its associated volume and
-file object.
-
-CompletionContext - The context for the completion routine for this
-operation.
---*/
+static void PublishRules(void)
 {
-	UNREFERENCED_PARAMETER(FltObjects);
-	UNREFERENCED_PARAMETER(CompletionContext);
-	//DbgPrint("FsFilterX!ssOperation: READ Entered\n");
-
-	NTSTATUS status;
-	PFLT_FILE_NAME_INFORMATION FileNameInfo;
-
-	WCHAR file_name[MAX_NAME_LENGTH] = { 0 };
-	WCHAR file_path[MAX_NAME_LENGTH] = { 0 };
-	WCHAR process_name[MAX_NAME_LENGTH] = { 0 };
-	// Retrives the info into PFLT_FILE_NAME_INFORMATION structure
-	status = FltGetFileNameInformation(Data, FLT_FILE_NAME_NORMALIZED | FLT_FILE_NAME_QUERY_DEFAULT, &FileNameInfo);
-
-	if (NT_SUCCESS(status))
-	{
-		status = FltParseFileNameInformation(FileNameInfo); // Parses the contents of a PFLT_FILE_NAME_INFORMATION structure
-		if (NT_SUCCESS(status))
-		{
-			if (FileNameInfo->Name.MaximumLength < MAX_NAME_LENGTH)
-			{
-				RtlCopyMemory(file_name, FileNameInfo->Name.Buffer, FileNameInfo->Name.MaximumLength); // <=> memcpy
-				// Example: \Device\HarddiskVolume3\Users\Virtual\Desktop\Commands.txt
-				GetProcName(process_name, Data);
-				GetActualProcName(process_name); // Example: Notepad.exe
-				//DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "Actual Proc Name: %ws \r\n", process_name);
-				GetFilePath(file_name, file_path);
-				ReloadDatabase();
-				if (CheckPermissionRead(file_path, process_name) == ACCESS_DENIED)
-				{
-					Data->IoStatus.Status = STATUS_ACCESS_DENIED;
-					Data->IoStatus.Information = 0;
-					FltReleaseFileNameInformation(FileNameInfo);
-					return FLT_PREOP_COMPLETE;
-				}
-			}
-		}
-		FltReleaseFileNameInformation(FileNameInfo);
-	}
-	return FLT_PREOP_SUCCESS_WITH_CALLBACK;
+    KeEnterCriticalRegion();
+    ExAcquireResourceExclusiveLite(&gRuleLock, TRUE);
+    RtlCopyMemory(gRules, gStaging, sizeof(gRules));
+    gRuleCount = gStagingCount;
+    ExReleaseResourceLite(&gRuleLock);
+    KeLeaveCriticalRegion();
 }
 
-FLT_PREOP_CALLBACK_STATUS
-FsFilterXPreOperationWrite(
-	_Inout_ PFLT_CALLBACK_DATA Data,
-	_In_ PCFLT_RELATED_OBJECTS FltObjects,
-	_Flt_CompletionContext_Outptr_ PVOID* CompletionContext
-)
+static NTSTATUS ReadWholeFile(const WCHAR* ntPath, char* buffer, ULONG bufferSize, ULONG* readBytes)
 {
-	UNREFERENCED_PARAMETER(FltObjects);
-	UNREFERENCED_PARAMETER(CompletionContext);
-	//DbgPrint("FsFilterX!FsFilterXPreOperation: READ Entered\n");
+    UNICODE_STRING name;
+    OBJECT_ATTRIBUTES attrs;
+    IO_STATUS_BLOCK io;
+    HANDLE handle = NULL;
+    LARGE_INTEGER offset;
+    NTSTATUS status;
 
-	NTSTATUS status;
-	PFLT_FILE_NAME_INFORMATION FileNameInfo;
+    *readBytes = 0;
+    RtlInitUnicodeString(&name, ntPath);
+    InitializeObjectAttributes(&attrs, &name, OBJ_CASE_INSENSITIVE | OBJ_KERNEL_HANDLE, NULL, NULL);
+    status = ZwCreateFile(
+        &handle,
+        GENERIC_READ,
+        &attrs,
+        &io,
+        NULL,
+        FILE_ATTRIBUTE_NORMAL,
+        FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE,
+        FILE_OPEN,
+        FILE_SYNCHRONOUS_IO_NONALERT | FILE_NON_DIRECTORY_FILE,
+        NULL,
+        0);
+    if (!NT_SUCCESS(status))
+        return status;
 
-	WCHAR file_name[MAX_NAME_LENGTH] = { 0 };
-	WCHAR file_path[MAX_NAME_LENGTH] = { 0 };
-	WCHAR process_name[MAX_NAME_LENGTH] = { 0 };
-
-
-	// Retrives the info into PFLT_FILE_NAME_INFORMATION structure
-	status = FltGetFileNameInformation(Data, FLT_FILE_NAME_NORMALIZED | FLT_FILE_NAME_QUERY_DEFAULT, &FileNameInfo);
-
-	if (NT_SUCCESS(status))
-	{
-		status = FltParseFileNameInformation(FileNameInfo); // Parses the contents of a PFLT_FILE_NAME_INFORMATION structure
-		if (NT_SUCCESS(status))
-		{
-			if (FileNameInfo->Name.MaximumLength < MAX_NAME_LENGTH)
-			{
-				RtlCopyMemory(file_name, FileNameInfo->Name.Buffer, FileNameInfo->Name.MaximumLength); // <=> memcpy
-																									   // Example: \Device\HarddiskVolume3\Users\Virtual\Desktop\Commands.txt
-				GetProcName(process_name, Data);
-				GetActualProcName(process_name); // Example: Notepad.exe
-				//DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "Actual Proc Name: %ws \r\n", process_name);
-				GetFilePath(file_name, file_path);
-				//DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "Actual Path: %ws \r\n", file_path);
-				//DbgPrintEx(DPFLTR_IHVDRIVER_ID, DPFLTR_ERROR_LEVEL, "Path with Volume: %ws \r\n", file_name);
-
-				ReloadDatabase();
-				if (CheckPermissionWrite(file_path, process_name) == ACCESS_DENIED)
-				{
-					Data->IoStatus.Status = STATUS_ACCESS_DENIED;
-					Data->IoStatus.Information = 0;
-					FltReleaseFileNameInformation(FileNameInfo);
-					return FLT_PREOP_COMPLETE;
-				}
-
-			}
-		}
-		FltReleaseFileNameInformation(FileNameInfo);
-	}
-	return FLT_PREOP_SUCCESS_WITH_CALLBACK;
+    offset.QuadPart = 0;
+    status = ZwReadFile(handle, NULL, NULL, NULL, &io, buffer, bufferSize - 1, &offset, NULL);
+    if (status == STATUS_END_OF_FILE) {
+        *readBytes = 0;
+        status = STATUS_SUCCESS;
+    } else if (NT_SUCCESS(status)) {
+        *readBytes = (ULONG)io.Information;
+        if (*readBytes >= bufferSize - 1)
+            status = STATUS_BUFFER_OVERFLOW;
+    }
+    ZwClose(handle);
+    return status;
 }
 
-
-
-FLT_POSTOP_CALLBACK_STATUS
-FsFilterXPostOperation(
-	_Inout_ PFLT_CALLBACK_DATA Data,
-	_In_ PCFLT_RELATED_OBJECTS FltObjects,
-	_In_opt_ PVOID CompletionContext,
-	_In_ FLT_POST_OPERATION_FLAGS Flags
-)
-/*++
-
-Routine Description:
-
-This routine is the post-operation completion routine for this
-miniFilter.
-
-This is non-pageable because it may be called at DPC level.
-
-Arguments:
-
-Data - Pointer to the filter callbackData that is passed to us.
-
-FltObjects - Pointer to the FLT_RELATED_OBJECTS data structure containing
-opaque handles to this filter, instance, its associated volume and
-file object.
-
-CompletionContext - The completion context set in the pre-operation routine.
-
-Flags - Denotes whether the completion is successful or is being drained.
-
-Return Value:
-
-The return value is the status of the operation.
-
---*/
+static NTSTATUS ReloadPolicy(void)
 {
-	UNREFERENCED_PARAMETER(Data);
-	UNREFERENCED_PARAMETER(FltObjects);
-	UNREFERENCED_PARAMETER(CompletionContext);
-	UNREFERENCED_PARAMETER(Flags);
+    char* buffer;
+    ULONG bytes = 0;
+    NTSTATUS status;
 
-	return FLT_POSTOP_FINISHED_PROCESSING;
+    if (KeGetCurrentIrql() != PASSIVE_LEVEL)
+        return STATUS_INVALID_DEVICE_STATE;
+    if (InterlockedCompareExchange(&gLoadingPolicy, 1, 0) != 0)
+        return STATUS_DEVICE_BUSY;
+
+    gPolicyReader = PsGetCurrentProcess();
+    buffer = ExAllocatePoolWithTag(NonPagedPoolNx, POLICY_BYTES, 'ploP');
+    if (buffer == NULL) {
+        gPolicyReader = NULL;
+        InterlockedExchange(&gLoadingPolicy, 0);
+        return STATUS_INSUFFICIENT_RESOURCES;
+    }
+    RtlZeroMemory(buffer, POLICY_BYTES);
+
+    status = ReadWholeFile(POLICY_NT_PATH, buffer, POLICY_BYTES, &bytes);
+    if (status == STATUS_OBJECT_NAME_NOT_FOUND || status == STATUS_OBJECT_PATH_NOT_FOUND) {
+        gStagingCount = 0;
+        RtlZeroMemory(gStaging, sizeof(gStaging));
+        PublishRules();
+        status = STATUS_SUCCESS;
+    } else if (NT_SUCCESS(status)) {
+        buffer[bytes] = 0;
+        status = ParsePolicy(buffer);
+        if (NT_SUCCESS(status))
+            PublishRules();
+    }
+
+    ExFreePoolWithTag(buffer, 'ploP');
+    gPolicyReader = NULL;
+    InterlockedExchange(&gLoadingPolicy, 0);
+    return status;
 }
 
-VOID
-FsFilterXOperationStatusCallback(
-	_In_ PCFLT_RELATED_OBJECTS FltObjects,
-	_In_ PFLT_IO_PARAMETER_BLOCK ParameterSnapshot,
-	_In_ NTSTATUS OperationStatus,
-	_In_ PVOID RequesterContext
-)
-/*++
-
-Routine Description:
-
-This routine is called when the given operation returns from the call
-to IoCallDriver.  This is useful for operations where STATUS_PENDING
-means the operation was successfully queued.  This is useful for OpLocks
-and directory change notification operations.
-
-This callback is called in the context of the originating thread and will
-never be called at DPC level.  The file object has been correctly
-referenced so that you can access it.  It will be automatically
-dereferenced upon return.
-
-This is non-pageable because it could be called on the paging path
-
-Arguments:
-
-FltObjects - Pointer to the FLT_RELATED_OBJECTS data structure containing
-opaque handles to this filter, instance, its associated volume and
-file object.
-
-RequesterContext - The context for the completion routine for this
-operation.
-
-OperationStatus -
-
-Return Value:
-
-The return value is the status of the operation.
-
---*/
+/* ALLOW, если файл не описан. DENY, если описан, но процесса в списке нет. */
+static int AccessAllowed(const WCHAR* path, const WCHAR* exeName, int isWrite)
 {
-	UNREFERENCED_PARAMETER(FltObjects);
+    int allowed = 1;
+    int i;
 
-	DbgPrint("FsFilterX!FsFilterXOperationStatusCallback: Status=%08x ctx=%p IrpMj=%02x.%02x \"%s\"\n",
-		OperationStatus,
-		RequesterContext,
-		ParameterSnapshot->MajorFunction,
-		ParameterSnapshot->MinorFunction,
-		FltGetIrpName(ParameterSnapshot->MajorFunction));
+    if (SameText(path, LOG_PATH))
+        return 1;
+
+    if (SameText(path, POLICY_PATH)) {
+        if (gLoadingPolicy && PsGetCurrentProcess() == gPolicyReader)
+            return 1;
+        return IsControlProgram(exeName);
+    }
+
+    KeEnterCriticalRegion();
+    ExAcquireResourceSharedLite(&gRuleLock, TRUE);
+    for (i = 0; i < gRuleCount; i++) {
+        int j;
+        if (!SameText(gRules[i].Path, path))
+            continue;
+        allowed = 0;
+        for (j = 0; j < gRules[i].SubjectCount; j++) {
+            WCHAR flag;
+            if (!SameText(gRules[i].Subjects[j].Name, exeName))
+                continue;
+            flag = isWrite ? gRules[i].Subjects[j].WriteFlag : gRules[i].Subjects[j].ReadFlag;
+            allowed = (flag == L'1');
+            break;
+        }
+        break;
+    }
+    ExReleaseResourceLite(&gRuleLock);
+    KeLeaveCriticalRegion();
+    return allowed;
 }
 
-BOOLEAN
-FsFilterXDoRequestOperationStatus(
-	_In_ PFLT_CALLBACK_DATA Data
-)
-/*++
-
-Routine Description:
-
-This identifies those operations we want the operation status for.  These
-are typically operations that return STATUS_PENDING as a normal completion
-status.
-
-Arguments:
-
-Return Value:
-
-TRUE - If we want the operation status
-FALSE - If we don't
-
---*/
+static FLT_PREOP_CALLBACK_STATUS Deny(PFLT_CALLBACK_DATA data)
 {
-	PFLT_IO_PARAMETER_BLOCK iopb = Data->Iopb;
+    data->IoStatus.Status = STATUS_ACCESS_DENIED;
+    data->IoStatus.Information = 0;
+    return FLT_PREOP_COMPLETE;
+}
 
-	//
-	//  return boolean state based on which operations we are interested in
-	//
+static FLT_PREOP_CALLBACK_STATUS PreCreate(PFLT_CALLBACK_DATA data, PCFLT_RELATED_OBJECTS objects, PVOID* context)
+{
+    WCHAR path[MAX_NAME];
+    WCHAR exeName[MAX_NAME];
+    ACCESS_MASK desired = 0;
+    ULONG disposition;
+    int wantsWrite;
+    int wantsRead;
 
-	return (BOOLEAN)
+    UNREFERENCED_PARAMETER(objects);
+    UNREFERENCED_PARAMETER(context);
 
-		//
-		//  Check for oplock operations
-		//
+    if (FlagOn(data->Iopb->IrpFlags, IRP_PAGING_IO))
+        return FLT_PREOP_SUCCESS_NO_CALLBACK;
+    if (FlagOn(data->Iopb->Parameters.Create.Options, FILE_DIRECTORY_FILE))
+        return FLT_PREOP_SUCCESS_NO_CALLBACK;
+    if (!CreatePathToC(data, path, MAX_NAME))
+        return FLT_PREOP_SUCCESS_NO_CALLBACK;
 
-		(((iopb->MajorFunction == IRP_MJ_FILE_SYSTEM_CONTROL) &&
-			((iopb->Parameters.FileSystemControl.Common.FsControlCode == FSCTL_REQUEST_FILTER_OPLOCK) ||
-				(iopb->Parameters.FileSystemControl.Common.FsControlCode == FSCTL_REQUEST_BATCH_OPLOCK) ||
-				(iopb->Parameters.FileSystemControl.Common.FsControlCode == FSCTL_REQUEST_OPLOCK_LEVEL_1) ||
-				(iopb->Parameters.FileSystemControl.Common.FsControlCode == FSCTL_REQUEST_OPLOCK_LEVEL_2)))
+    RequestExeName(data, exeName, MAX_NAME);
+    if (data->Iopb->Parameters.Create.SecurityContext != NULL)
+        desired = data->Iopb->Parameters.Create.SecurityContext->DesiredAccess;
+    disposition = (data->Iopb->Parameters.Create.Options >> 24) & 0xFF;
 
-			||
+    /* ofstream открывает файл с CREATE_ALWAYS и обнуляет его ещё до WRITE. */
+    wantsWrite = (desired & (FILE_WRITE_DATA | FILE_APPEND_DATA | GENERIC_WRITE | GENERIC_ALL)) != 0
+        || disposition == FILE_SUPERSEDE
+        || disposition == FILE_CREATE
+        || disposition == FILE_OVERWRITE
+        || disposition == FILE_OVERWRITE_IF;
+    wantsRead = (desired & (FILE_READ_DATA | GENERIC_READ | GENERIC_ALL)) != 0;
 
-			//
-			//    Check for directy change notification
-			//
+    if (wantsWrite && !AccessAllowed(path, exeName, 1))
+        return Deny(data);
+    if (wantsRead && !AccessAllowed(path, exeName, 0))
+        return Deny(data);
+    return FLT_PREOP_SUCCESS_NO_CALLBACK;
+}
 
-			((iopb->MajorFunction == IRP_MJ_DIRECTORY_CONTROL) &&
-				(iopb->MinorFunction == IRP_MN_NOTIFY_CHANGE_DIRECTORY))
-			);
+static FLT_PREOP_CALLBACK_STATUS CheckDataOp(PFLT_CALLBACK_DATA data, int isWrite)
+{
+    WCHAR path[MAX_NAME];
+    WCHAR exeName[MAX_NAME];
+
+    if (FlagOn(data->Iopb->IrpFlags, IRP_PAGING_IO))
+        return FLT_PREOP_SUCCESS_NO_CALLBACK;
+    if (!OperationPath(data, path, MAX_NAME))
+        return FLT_PREOP_SUCCESS_NO_CALLBACK;
+    RequestExeName(data, exeName, MAX_NAME);
+    if (!AccessAllowed(path, exeName, isWrite))
+        return Deny(data);
+    return FLT_PREOP_SUCCESS_NO_CALLBACK;
+}
+
+static FLT_PREOP_CALLBACK_STATUS PreRead(PFLT_CALLBACK_DATA data, PCFLT_RELATED_OBJECTS objects, PVOID* context)
+{
+    UNREFERENCED_PARAMETER(objects);
+    UNREFERENCED_PARAMETER(context);
+    return CheckDataOp(data, 0);
+}
+
+static FLT_PREOP_CALLBACK_STATUS PreWrite(PFLT_CALLBACK_DATA data, PCFLT_RELATED_OBJECTS objects, PVOID* context)
+{
+    UNREFERENCED_PARAMETER(objects);
+    UNREFERENCED_PARAMETER(context);
+    return CheckDataOp(data, 1);
+}
+
+static void AppendChar(char* line, int* used, int cap, char ch)
+{
+    if (*used < cap - 1)
+        line[(*used)++] = ch;
+}
+
+static void AppendText(char* line, int* used, int cap, const char* text)
+{
+    while (*text != 0)
+        AppendChar(line, used, cap, *text++);
+}
+
+static void AppendNumber(char* line, int* used, int cap, ULONG value)
+{
+    char digits[16];
+    int n = 0;
+    int i;
+    if (value == 0) {
+        AppendChar(line, used, cap, '0');
+        return;
+    }
+    while (value > 0 && n < (int)sizeof(digits)) {
+        digits[n++] = (char)('0' + (value % 10));
+        value /= 10;
+    }
+    for (i = n - 1; i >= 0; i--)
+        AppendChar(line, used, cap, digits[i]);
+}
+
+static void AppendWide(char* line, int* used, int cap, const WCHAR* text, int chars)
+{
+    int i;
+    if (text == NULL)
+        return;
+    for (i = 0; i < chars && text[i] != 0; i++) {
+        WCHAR ch = text[i];
+        AppendChar(line, used, cap, (ch >= 32 && ch < 127) ? (char)ch : '?');
+    }
+}
+
+static void AppendTwoDigits(char* line, int* used, int cap, USHORT value)
+{
+    AppendChar(line, used, cap, (char)('0' + (value / 10) % 10));
+    AppendChar(line, used, cap, (char)('0' + value % 10));
+}
+
+static void WriteLogLine(HANDLE processId, const WCHAR* exeName, const UNICODE_STRING* image)
+{
+    char line[1024];
+    int used = 0;
+    LARGE_INTEGER now;
+    LARGE_INTEGER local;
+    TIME_FIELDS fields;
+    IO_STATUS_BLOCK io;
+
+    KeQuerySystemTime(&now);
+    ExSystemTimeToLocalTime(&now, &local);
+    RtlTimeToTimeFields(&local, &fields);
+
+    AppendNumber(line, &used, sizeof(line), fields.Year);
+    AppendChar(line, &used, sizeof(line), '-');
+    AppendTwoDigits(line, &used, sizeof(line), fields.Month);
+    AppendChar(line, &used, sizeof(line), '-');
+    AppendTwoDigits(line, &used, sizeof(line), fields.Day);
+    AppendChar(line, &used, sizeof(line), ' ');
+    AppendTwoDigits(line, &used, sizeof(line), fields.Hour);
+    AppendChar(line, &used, sizeof(line), ':');
+    AppendTwoDigits(line, &used, sizeof(line), fields.Minute);
+    AppendChar(line, &used, sizeof(line), ':');
+    AppendTwoDigits(line, &used, sizeof(line), fields.Second);
+    AppendText(line, &used, sizeof(line), " pid=");
+    AppendNumber(line, &used, sizeof(line), HandleToUlong(processId));
+    AppendText(line, &used, sizeof(line), " process=");
+    AppendWide(line, &used, sizeof(line), exeName, MAX_NAME);
+    AppendText(line, &used, sizeof(line), " image=");
+    if (image != NULL && image->Buffer != NULL)
+        AppendWide(line, &used, sizeof(line), image->Buffer, image->Length / sizeof(WCHAR));
+    else
+        AppendText(line, &used, sizeof(line), "-");
+    AppendText(line, &used, sizeof(line), "\r\n");
+
+    KeEnterCriticalRegion();
+    ExAcquireResourceExclusiveLite(&gLogLock, TRUE);
+    if (gLogHandle != NULL)
+        ZwWriteFile(gLogHandle, NULL, NULL, NULL, &io, line, (ULONG)used, NULL, NULL);
+    ExReleaseResourceLite(&gLogLock);
+    KeLeaveCriticalRegion();
+}
+
+static VOID LoadImageNotify(PUNICODE_STRING fullImageName, HANDLE processId, PIMAGE_INFO imageInfo)
+{
+    PEPROCESS process = NULL;
+    WCHAR exeName[MAX_NAME];
+
+    UNREFERENCED_PARAMETER(imageInfo);
+    if (InterlockedCompareExchange(&gInsideNotify, 1, 0) != 0)
+        return;
+
+    exeName[0] = 0;
+    if (NT_SUCCESS(PsLookupProcessByProcessId(processId, &process))) {
+        CopyShortName(process, exeName, MAX_NAME);
+        ObDereferenceObject(process);
+    }
+    if (exeName[0] == 0)
+        RtlCopyMemory(exeName, L"-", 2 * sizeof(WCHAR));
+    WriteLogLine(processId, exeName, fullImageName);
+    InterlockedExchange(&gInsideNotify, 0);
+}
+
+static NTSTATUS OpenLog(void)
+{
+    UNICODE_STRING name;
+    OBJECT_ATTRIBUTES attrs;
+    IO_STATUS_BLOCK io;
+    NTSTATUS status;
+
+    RtlInitUnicodeString(&name, LOG_NT_PATH);
+    InitializeObjectAttributes(&attrs, &name, OBJ_CASE_INSENSITIVE | OBJ_KERNEL_HANDLE, NULL, NULL);
+    status = ZwCreateFile(
+        &gLogHandle,
+        FILE_APPEND_DATA | SYNCHRONIZE,
+        &attrs,
+        &io,
+        NULL,
+        FILE_ATTRIBUTE_NORMAL,
+        FILE_SHARE_READ,
+        FILE_OPEN_IF,
+        FILE_SYNCHRONOUS_IO_NONALERT | FILE_NON_DIRECTORY_FILE,
+        NULL,
+        0);
+    if (!NT_SUCCESS(status))
+        gLogHandle = NULL;
+    return status;
+}
+
+static void CloseLog(void)
+{
+    KeEnterCriticalRegion();
+    ExAcquireResourceExclusiveLite(&gLogLock, TRUE);
+    if (gLogHandle != NULL) {
+        ZwClose(gLogHandle);
+        gLogHandle = NULL;
+    }
+    ExReleaseResourceLite(&gLogLock);
+    KeLeaveCriticalRegion();
+}
+
+static NTSTATUS NotifyOn(void)
+{
+    NTSTATUS status;
+
+    if (gNotifySet)
+        return STATUS_SUCCESS;
+    status = OpenLog();
+    if (!NT_SUCCESS(status))
+        return status;
+    status = PsSetLoadImageNotifyRoutine(LoadImageNotify);
+    if (!NT_SUCCESS(status)) {
+        CloseLog();
+        return status;
+    }
+    gNotifySet = 1;
+    return STATUS_SUCCESS;
+}
+
+static NTSTATUS NotifyOff(void)
+{
+    LARGE_INTEGER pause;
+
+    if (!gNotifySet)
+        return STATUS_SUCCESS;
+    PsRemoveLoadImageNotifyRoutine(LoadImageNotify);
+    gNotifySet = 0;
+    /* Колбэк, который уже вошёл, дописывает строку и сам отпускает флаг. */
+    pause.QuadPart = -10 * 1000 * 10;
+    while (gInsideNotify)
+        KeDelayExecutionThread(KernelMode, FALSE, &pause);
+    CloseLog();
+    return STATUS_SUCCESS;
+}
+
+static NTSTATUS DispatchCreate(PDEVICE_OBJECT device, PIRP irp)
+{
+    UNREFERENCED_PARAMETER(device);
+    return CompleteIrp(irp, STATUS_SUCCESS);
+}
+
+static NTSTATUS DispatchClose(PDEVICE_OBJECT device, PIRP irp)
+{
+    UNREFERENCED_PARAMETER(device);
+    return CompleteIrp(irp, STATUS_SUCCESS);
+}
+
+static NTSTATUS DispatchCleanup(PDEVICE_OBJECT device, PIRP irp)
+{
+    UNREFERENCED_PARAMETER(device);
+    return CompleteIrp(irp, STATUS_SUCCESS);
+}
+
+static NTSTATUS DispatchIoctl(PDEVICE_OBJECT device, PIRP irp)
+{
+    PIO_STACK_LOCATION stack;
+    WCHAR exeName[MAX_NAME];
+    ULONG code;
+    NTSTATUS status;
+
+    UNREFERENCED_PARAMETER(device);
+    stack = IoGetCurrentIrpStackLocation(irp);
+    code = stack->Parameters.DeviceIoControl.IoControlCode;
+    CurrentExeName(exeName, MAX_NAME);
+    if (!IsControlProgram(exeName))
+        return CompleteIrp(irp, STATUS_ACCESS_DENIED);
+
+    switch (code) {
+    case IOCTL_FSFILTERX_RELOAD:
+        status = ReloadPolicy();
+        break;
+    case IOCTL_FSFILTERX_NOTIFY_ON:
+        status = NotifyOn();
+        break;
+    case IOCTL_FSFILTERX_NOTIFY_OFF:
+        status = NotifyOff();
+        break;
+    default:
+        status = STATUS_INVALID_DEVICE_REQUEST;
+        break;
+    }
+    return CompleteIrp(irp, status);
+}
+
+static NTSTATUS CreateControlDevice(PDRIVER_OBJECT driver)
+{
+    UNICODE_STRING deviceName;
+    UNICODE_STRING linkName;
+    NTSTATUS status;
+
+    RtlInitUnicodeString(&deviceName, DEVICE_NAME);
+    RtlInitUnicodeString(&linkName, DEVICE_LINK);
+    status = IoCreateDevice(driver, 0, &deviceName, FILE_DEVICE_UNKNOWN, 0, FALSE, &gDevice);
+    if (!NT_SUCCESS(status))
+        return status;
+    status = IoCreateSymbolicLink(&linkName, &deviceName);
+    if (!NT_SUCCESS(status)) {
+        IoDeleteDevice(gDevice);
+        gDevice = NULL;
+        return status;
+    }
+    gDevice->Flags |= DO_BUFFERED_IO;
+    gDevice->Flags &= ~DO_DEVICE_INITIALIZING;
+    return STATUS_SUCCESS;
+}
+
+static void DeleteControlDevice(void)
+{
+    UNICODE_STRING linkName;
+    RtlInitUnicodeString(&linkName, DEVICE_LINK);
+    IoDeleteSymbolicLink(&linkName);
+    if (gDevice != NULL) {
+        IoDeleteDevice(gDevice);
+        gDevice = NULL;
+    }
+}
+
+static NTSTATUS FilterUnload(FLT_FILTER_UNLOAD_FLAGS flags)
+{
+    UNREFERENCED_PARAMETER(flags);
+    NotifyOff();
+    DeleteControlDevice();
+    FltUnregisterFilter(gFilter);
+    ExDeleteResourceLite(&gRuleLock);
+    ExDeleteResourceLite(&gLogLock);
+    return STATUS_SUCCESS;
+}
+
+static NTSTATUS QueryTeardown(PCFLT_RELATED_OBJECTS objects, FLT_INSTANCE_QUERY_TEARDOWN_FLAGS flags)
+{
+    UNREFERENCED_PARAMETER(objects);
+    UNREFERENCED_PARAMETER(flags);
+    return STATUS_SUCCESS;
+}
+
+NTSTATUS DriverEntry(PDRIVER_OBJECT driver, PUNICODE_STRING registryPath)
+{
+    NTSTATUS status;
+
+    UNREFERENCED_PARAMETER(registryPath);
+
+    /* Диспетчер фильтров запоминает эти процедуры и вызывает их для
+       управляющего устройства. Поставить их нужно до FltRegisterFilter. */
+    driver->MajorFunction[IRP_MJ_CREATE] = DispatchCreate;
+    driver->MajorFunction[IRP_MJ_CLOSE] = DispatchClose;
+    driver->MajorFunction[IRP_MJ_CLEANUP] = DispatchCleanup;
+    driver->MajorFunction[IRP_MJ_DEVICE_CONTROL] = DispatchIoctl;
+
+    status = ExInitializeResourceLite(&gRuleLock);
+    if (!NT_SUCCESS(status))
+        return status;
+    status = ExInitializeResourceLite(&gLogLock);
+    if (!NT_SUCCESS(status)) {
+        ExDeleteResourceLite(&gRuleLock);
+        return status;
+    }
+
+    status = FltRegisterFilter(driver, &gRegistration, &gFilter);
+    if (!NT_SUCCESS(status)) {
+        ExDeleteResourceLite(&gRuleLock);
+        ExDeleteResourceLite(&gLogLock);
+        return status;
+    }
+
+    status = CreateControlDevice(driver);
+    if (!NT_SUCCESS(status)) {
+        FltUnregisterFilter(gFilter);
+        ExDeleteResourceLite(&gRuleLock);
+        ExDeleteResourceLite(&gLogLock);
+        return status;
+    }
+
+    status = ReloadPolicy();
+    if (!NT_SUCCESS(status))
+        DbgPrint("FsFilterX: policy was not applied, code 0x%08x\n", status);
+
+    status = FltStartFiltering(gFilter);
+    if (!NT_SUCCESS(status)) {
+        DeleteControlDevice();
+        FltUnregisterFilter(gFilter);
+        ExDeleteResourceLite(&gRuleLock);
+        ExDeleteResourceLite(&gLogLock);
+    }
+    return status;
 }

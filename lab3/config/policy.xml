@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<policy>
+  <file path="C:\DriverConfig\data\note.txt">
+    <subject name="filetool.exe" read="1" write="0"/>
+    <subject name="notepad.exe" read="0" write="0"/>
+  </file>
+  <file path="C:\DriverConfig\data\report.txt">
+    <subject name="filetool.exe" read="1" write="1"/>
+  </file>
+</policy>
