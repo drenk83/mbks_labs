@@ -92,10 +92,53 @@ def write_poc_summary() -> None:
     (RESULTS / "poc-summary.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def write_joern_summary() -> None:
+    text = (RESULTS / "joern-builtin-1.0.30.txt").read_text(encoding="utf-8", errors="replace")
+    counts: Counter[tuple[str, str]] = Counter()
+    for line in text.splitlines():
+        if not line.startswith("Result: "):
+            continue
+        rest = line[len("Result: ") :]
+        score, _, tail = rest.partition(" : ")
+        title_file, _, _ = tail.rpartition(":")
+        title_file, _, _ = title_file.rpartition(":")
+        title, _, _ = title_file.rpartition(": ")
+        if title:
+            counts[(score, title)] += 1
+
+    lines = [
+        "joern-scan --language c, libsndfile 1.0.30, каталог src/",
+        f"строк Result: {sum(counts.values())}",
+        "",
+        f"{'находок':>7}  {'балл':4}  запрос",
+    ]
+    for (score, title), count in counts.most_common():
+        lines.append(f"{count:7d}  {score:4}  {title}")
+    lines += [
+        "",
+        "CVE-2021-3246 в штатном наборе нет.",
+        "Своё правило, 1.0.30:",
+        (RESULTS / "joern-custom-1.0.30.txt").read_text(encoding="utf-8").rstrip(),
+        "Своё правило, 1.1.0:",
+        (RESULTS / "joern-custom-1.1.0.txt").read_text(encoding="utf-8").rstrip(),
+    ]
+    (RESULTS / "joern-summary.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
+
+    custom = [
+        "libsndfile 1.0.30",
+        (RESULTS / "joern-custom-1.0.30.txt").read_text(encoding="utf-8").rstrip(),
+        "",
+        "libsndfile 1.1.0",
+        (RESULTS / "joern-custom-1.1.0.txt").read_text(encoding="utf-8").rstrip(),
+    ]
+    (RESULTS / "joern-custom-summary.txt").write_text("\n".join(custom) + "\n", encoding="utf-8")
+
+
 def main() -> None:
     write_codeql_summary()
     write_semgrep_summary()
     write_poc_summary()
+    write_joern_summary()
     print("сводки записаны в", RESULTS)
 
 

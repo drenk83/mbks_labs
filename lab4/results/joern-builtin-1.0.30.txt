@@ -1,0 +1,378 @@
+Writing logs to: /tmp/joern-scan-log.txt
+=======================================================================================================
+Invoking CPG generator in a separate process. Note that the new process will consume additional memory.
+If you are importing a large codebase (and/or running into memory issues), please try the following:
+1) exit joern
+2) invoke the frontend: /home/drenk83/Projects/gitrepo/mbks_labs/lab4/work/tools/joern/joern-cli/c2cpg.sh -J-Xmx7880m /home/drenk83/Projects/gitrepo/mbks_labs/lab4/work/src/libsndfile-1.0.30/src --output /home/drenk83/Projects/gitrepo/mbks_labs/lab4/work/joern-runs/scan-1.0.30/workspace/src/cpg.bin.zip
+3) start joern, import the cpg: `importCpg("path/to/cpg")`
+=======================================================================================================
+
+Result: 2.0 : Truncation in assignment involving `strlen` call: aiff.c:1440:aiff_write_header
+Result: 2.0 : Truncation in assignment involving `strlen` call: aiff.c:1534:aiff_write_strings
+Result: 2.0 : Truncation in assignment involving `strlen` call: common.c:165:psf_log_printf
+Result: 2.0 : Truncation in assignment involving `strlen` call: common.c:391:psf_asciiheader_printf
+Result: 2.0 : Truncation in assignment involving `strlen` call: sd2.c:282:sd2_write_rsrc_fork
+Result: 2.0 : Truncation in assignment involving `strlen` call: sd2.c:283:sd2_write_rsrc_fork
+Result: 2.0 : Copy loop detected: ALAC/alac_decoder.c:239:alac_decode
+Result: 2.0 : Copy loop detected: ALAC/alac_decoder.c:276:alac_decode
+Result: 2.0 : Copy loop detected: ALAC/alac_decoder.c:287:alac_decode
+Result: 2.0 : Copy loop detected: ALAC/alac_decoder.c:303:alac_decode
+Result: 2.0 : Copy loop detected: ALAC/alac_decoder.c:390:alac_decode
+Result: 2.0 : Copy loop detected: ALAC/alac_decoder.c:400:alac_decode
+Result: 2.0 : Copy loop detected: ALAC/alac_decoder.c:454:alac_decode
+Result: 2.0 : Copy loop detected: ALAC/alac_decoder.c:458:alac_decode
+Result: 2.0 : Copy loop detected: ALAC/alac_decoder.c:469:alac_decode
+Result: 2.0 : Copy loop detected: ALAC/alac_decoder.c:473:alac_decode
+Result: 2.0 : Copy loop detected: ALAC/alac_decoder.c:491:alac_decode
+Result: 2.0 : Copy loop detected: ALAC/alac_decoder.c:492:alac_decode
+Result: 2.0 : Copy loop detected: ALAC/alac_decoder.c:650:Zero32
+Result: 2.0 : Copy loop detected: ALAC/alac_encoder.c:1206:alac_encoder_init
+Result: 2.0 : Copy loop detected: ALAC/dp_dec.c:90:unpc_block
+Result: 2.0 : Copy loop detected: ALAC/dp_dec.c:98:unpc_block
+Result: 2.0 : Copy loop detected: ALAC/dp_dec.c:133:unpc_block
+Result: 2.0 : Copy loop detected: ALAC/dp_dec.c:227:unpc_block
+Result: 2.0 : Copy loop detected: ALAC/dp_dec.c:351:unpc_block
+Result: 2.0 : Copy loop detected: ALAC/dp_enc.c:52:init_coefs
+Result: 2.0 : Copy loop detected: ALAC/dp_enc.c:61:copy_coefs
+Result: 2.0 : Copy loop detected: ALAC/dp_enc.c:100:pc_block
+Result: 2.0 : Copy loop detected: ALAC/dp_enc.c:108:pc_block
+Result: 2.0 : Copy loop detected: ALAC/dp_enc.c:137:pc_block
+Result: 2.0 : Copy loop detected: ALAC/dp_enc.c:230:pc_block
+Result: 2.0 : Copy loop detected: ALAC/dp_enc.c:355:pc_block
+Result: 2.0 : Copy loop detected: ALAC/matrix_enc.c:69:mix16
+Result: 2.0 : Copy loop detected: ALAC/matrix_enc.c:70:mix16
+Result: 2.0 : Copy loop detected: ALAC/matrix_enc.c:78:mix16
+Result: 2.0 : Copy loop detected: ALAC/matrix_enc.c:79:mix16
+Result: 2.0 : Copy loop detected: ALAC/matrix_enc.c:106:mix20
+Result: 2.0 : Copy loop detected: ALAC/matrix_enc.c:107:mix20
+Result: 2.0 : Copy loop detected: ALAC/matrix_enc.c:115:mix20
+Result: 2.0 : Copy loop detected: ALAC/matrix_enc.c:116:mix20
+Result: 2.0 : Copy loop detected: ALAC/matrix_enc.c:166:mix24
+Result: 2.0 : Copy loop detected: ALAC/matrix_enc.c:167:mix24
+Result: 2.0 : Copy loop detected: ALAC/matrix_enc.c:250:mix32
+Result: 2.0 : Copy loop detected: ALAC/matrix_enc.c:251:mix32
+Result: 2.0 : Copy loop detected: G72x/g72x.c:123:private_init_state
+Result: 2.0 : Copy loop detected: G72x/g72x.c:124:private_init_state
+Result: 2.0 : Copy loop detected: G72x/g72x.c:125:private_init_state
+Result: 2.0 : Copy loop detected: G72x/g72x.c:128:private_init_state
+Result: 2.0 : Copy loop detected: G72x/g72x.c:129:private_init_state
+Result: 2.0 : Copy loop detected: G72x/g72x.c:249:g72x_decode_block
+Result: 2.0 : Copy loop detected: G72x/g72x.c:258:g72x_encode_block
+Result: 2.0 : Copy loop detected: G72x/g72x.c:542:update
+Result: 2.0 : Copy loop detected: G72x/g72x.c:617:unpack_bytes
+Result: 2.0 : Copy loop detected: G72x/g72x_test.c:119:g723_test
+Result: 2.0 : Copy loop detected: G72x/g72x_test.c:126:g723_test
+Result: 2.0 : Copy loop detected: G72x/g72x_test.c:166:gen_signal_double
+Result: 2.0 : Copy loop detected: GSM610/code.c:78:Gsm_Coder
+Result: 2.0 : Copy loop detected: GSM610/decode.c:52:Gsm_Decoder
+Result: 2.0 : Copy loop detected: GSM610/long_term.c:502:Calculation_of_the_LTP_parameters<duplicate>0
+Result: 2.0 : Copy loop detected: GSM610/long_term.c:503:Calculation_of_the_LTP_parameters<duplicate>0
+Result: 2.0 : Copy loop detected: GSM610/long_term.c:718:Fast_Calculation_of_the_LTP_parameters
+Result: 2.0 : Copy loop detected: GSM610/long_term.c:719:Fast_Calculation_of_the_LTP_parameters
+Result: 2.0 : Copy loop detected: GSM610/long_term.c:846:Long_term_analysis_filtering
+Result: 2.0 : Copy loop detected: GSM610/long_term.c:846:Long_term_analysis_filtering
+Result: 2.0 : Copy loop detected: GSM610/long_term.c:847:Long_term_analysis_filtering
+Result: 2.0 : Copy loop detected: GSM610/long_term.c:847:Long_term_analysis_filtering
+Result: 2.0 : Copy loop detected: GSM610/long_term.c:848:Long_term_analysis_filtering
+Result: 2.0 : Copy loop detected: GSM610/long_term.c:848:Long_term_analysis_filtering
+Result: 2.0 : Copy loop detected: GSM610/long_term.c:849:Long_term_analysis_filtering
+Result: 2.0 : Copy loop detected: GSM610/long_term.c:849:Long_term_analysis_filtering
+Result: 2.0 : Copy loop detected: GSM610/long_term.c:923:Gsm_Long_Term_Synthesis_Filtering
+Result: 2.0 : Copy loop detected: GSM610/long_term.c:931:Gsm_Long_Term_Synthesis_Filtering
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:74:Autocorrelation
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:74:Autocorrelation
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:75:Autocorrelation
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:75:Autocorrelation
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:76:Autocorrelation
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:76:Autocorrelation
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:77:Autocorrelation
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:77:Autocorrelation
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:82:Autocorrelation
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:103:Autocorrelation
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:130:Autocorrelation
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:155:Fast_Autocorrelation
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:160:Fast_Autocorrelation
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:165:Fast_Autocorrelation
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:196:Reflection_coefficients
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:201:Reflection_coefficients
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:202:Reflection_coefficients
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:228:Reflection_coefficients
+Result: 2.0 : Copy loop detected: GSM610/lpc.c:231:Reflection_coefficients
+Result: 2.0 : Copy loop detected: GSM610/rpe.c:101:Weighting_filter
+Result: 2.0 : Copy loop detected: GSM610/rpe.c:206:RPE_grid_selection
+Result: 2.0 : Copy loop detected: GSM610/rpe.c:322:APCM_quantization
+Result: 2.0 : Copy loop detected: GSM610/short_term.c:200:Short_term_analysis_filtering
+Result: 2.0 : Copy loop detected: GSM610/short_term.c:231:Fast_Short_term_analysis_filtering
+Result: 2.0 : Copy loop detected: GSM610/short_term.c:232:Fast_Short_term_analysis_filtering
+Result: 2.0 : Copy loop detected: GSM610/short_term.c:240:Fast_Short_term_analysis_filtering
+Result: 2.0 : Copy loop detected: GSM610/short_term.c:247:Fast_Short_term_analysis_filtering
+Result: 2.0 : Copy loop detected: GSM610/short_term.c:284:Short_term_synthesis_filtering
+Result: 2.0 : Copy loop detected: GSM610/short_term.c:308:Fast_Short_term_synthesis_filtering
+Result: 2.0 : Copy loop detected: GSM610/short_term.c:309:Fast_Short_term_synthesis_filtering
+Result: 2.0 : Copy loop detected: GSM610/short_term.c:321:Fast_Short_term_synthesis_filtering
+Result: 2.0 : Copy loop detected: GSM610/short_term.c:325:Fast_Short_term_synthesis_filtering
+Result: 2.0 : Copy loop detected: aiff.c:521:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:522:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:666:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:813:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:814:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:815:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:816:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:817:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:818:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:836:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:837:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:921:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:922:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:923:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:933:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:934:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:935:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:936:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:937:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:938:aiff_read_header
+Result: 2.0 : Copy loop detected: aiff.c:940:aiff_read_header
+Result: 2.0 : Copy loop detected: alac.c:479:alac_read_s
+Result: 2.0 : Copy loop detected: alac.c:509:alac_read_i
+Result: 2.0 : Copy loop detected: alac.c:542:alac_read_f
+Result: 2.0 : Copy loop detected: alac.c:575:alac_read_d
+Result: 2.0 : Copy loop detected: alac.c:656:alac_write_s
+Result: 2.0 : Copy loop detected: alac.c:687:alac_write_i
+Result: 2.0 : Copy loop detected: caf.c:432:caf_read_header
+Result: 2.0 : Copy loop detected: caf.c:433:caf_read_header
+Result: 2.0 : Copy loop detected: command.c:395:psf_get_max_all_channels
+Result: 2.0 : Copy loop detected: common.c:934:header_gets
+Result: 2.0 : Copy loop detected: common.c:939:header_gets
+Result: 2.0 : Copy loop detected: common.c:1189:psf_hexdump
+Result: 2.0 : Copy loop detected: dither.c:401:dither_short
+Result: 2.0 : Copy loop detected: dither.c:411:dither_int
+Result: 2.0 : Copy loop detected: dither.c:421:dither_float
+Result: 2.0 : Copy loop detected: dither.c:431:dither_double
+Result: 2.0 : Copy loop detected: double64.c:449:double64_peak_update
+Result: 2.0 : Copy loop detected: double64.c:450:double64_peak_update
+Result: 2.0 : Copy loop detected: dwvw.c:204:dwvw_read_s
+Result: 2.0 : Copy loop detected: dwvw.c:261:dwvw_read_f
+Result: 2.0 : Copy loop detected: dwvw.c:293:dwvw_read_d
+Result: 2.0 : Copy loop detected: dwvw.c:347:dwvw_decode_data
+Result: 2.0 : Copy loop detected: dwvw.c:574:dwvw_write_s
+Result: 2.0 : Copy loop detected: dwvw.c:631:dwvw_write_f
+Result: 2.0 : Copy loop detected: dwvw.c:663:dwvw_write_d
+Result: 2.0 : Copy loop detected: float32.c:400:float32_peak_update
+Result: 2.0 : Copy loop detected: float32.c:401:float32_peak_update
+Result: 2.0 : Copy loop detected: g72x.c:271:g72x_read_i
+Result: 2.0 : Copy loop detected: g72x.c:303:g72x_read_f
+Result: 2.0 : Copy loop detected: g72x.c:335:g72x_read_d
+Result: 2.0 : Copy loop detected: g72x.c:510:g72x_write_i
+Result: 2.0 : Copy loop detected: g72x.c:541:g72x_write_f
+Result: 2.0 : Copy loop detected: g72x.c:573:g72x_write_d
+Result: 2.0 : Copy loop detected: gsm610.c:308:gsm610_read_i
+Result: 2.0 : Copy loop detected: gsm610.c:337:gsm610_read_f
+Result: 2.0 : Copy loop detected: gsm610.c:366:gsm610_read_d
+Result: 2.0 : Copy loop detected: gsm610.c:537:gsm610_write_i
+Result: 2.0 : Copy loop detected: gsm610.c:566:gsm610_write_f
+Result: 2.0 : Copy loop detected: gsm610.c:597:gsm610_write_d
+Result: 2.0 : Copy loop detected: ima_adpcm.c:291:aiff_ima_decode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:292:aiff_ima_decode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:316:aiff_ima_decode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:362:aiff_ima_encode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:364:aiff_ima_encode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:368:aiff_ima_encode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:409:wavlike_ima_decode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:410:wavlike_ima_decode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:416:wavlike_ima_decode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:471:wavlike_ima_decode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:484:wavlike_ima_encode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:485:wavlike_ima_encode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:487:wavlike_ima_encode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:488:wavlike_ima_encode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:490:wavlike_ima_encode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:531:wavlike_ima_encode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:632:ima_read_i
+Result: 2.0 : Copy loop detected: ima_adpcm.c:663:ima_read_f
+Result: 2.0 : Copy loop detected: ima_adpcm.c:694:ima_read_d
+Result: 2.0 : Copy loop detected: ima_adpcm.c:931:ima_write_i
+Result: 2.0 : Copy loop detected: ima_adpcm.c:962:ima_write_f
+Result: 2.0 : Copy loop detected: ima_adpcm.c:993:ima_write_d
+Result: 2.0 : Copy loop detected: ima_oki_adpcm.c:127:ima_oki_adpcm_decode_block
+Result: 2.0 : Copy loop detected: ima_oki_adpcm.c:128:ima_oki_adpcm_decode_block
+Result: 2.0 : Copy loop detected: ima_oki_adpcm.c:152:ima_oki_adpcm_encode_block
+Result: 2.0 : Copy loop detected: ms_adpcm.c:307:msadpcm_decode_block
+Result: 2.0 : Copy loop detected: ms_adpcm.c:385:msadpcm_read_i
+Result: 2.0 : Copy loop detected: ms_adpcm.c:417:msadpcm_read_f
+Result: 2.0 : Copy loop detected: ms_adpcm.c:449:msadpcm_read_d
+Result: 2.0 : Copy loop detected: ms_adpcm.c:568:msadpcm_encode_block
+Result: 2.0 : Copy loop detected: ms_adpcm.c:624:msadpcm_encode_block
+Result: 2.0 : Copy loop detected: ms_adpcm.c:704:msadpcm_write_i
+Result: 2.0 : Copy loop detected: ms_adpcm.c:734:msadpcm_write_f
+Result: 2.0 : Copy loop detected: ms_adpcm.c:764:msadpcm_write_d
+Result: 2.0 : Copy loop detected: ms_adpcm.c:845:choose_predictor
+Result: 2.0 : Copy loop detected: ms_adpcm.c:846:choose_predictor
+Result: 2.0 : Copy loop detected: nms_adpcm.c:211:nms_adpcm_update
+Result: 2.0 : Copy loop detected: nms_adpcm.c:257:nms_adpcm_update
+Result: 2.0 : Copy loop detected: nms_adpcm.c:466:nms_adpcm_block_unpack_16
+Result: 2.0 : Copy loop detected: nms_adpcm.c:467:nms_adpcm_block_unpack_16
+Result: 2.0 : Copy loop detected: nms_adpcm.c:468:nms_adpcm_block_unpack_16
+Result: 2.0 : Copy loop detected: nms_adpcm.c:469:nms_adpcm_block_unpack_16
+Result: 2.0 : Copy loop detected: nms_adpcm.c:503:nms_adpcm_block_unpack_24
+Result: 2.0 : Copy loop detected: nms_adpcm.c:504:nms_adpcm_block_unpack_24
+Result: 2.0 : Copy loop detected: nms_adpcm.c:505:nms_adpcm_block_unpack_24
+Result: 2.0 : Copy loop detected: nms_adpcm.c:506:nms_adpcm_block_unpack_24
+Result: 2.0 : Copy loop detected: nms_adpcm.c:529:nms_adpcm_block_unpack_32
+Result: 2.0 : Copy loop detected: nms_adpcm.c:530:nms_adpcm_block_unpack_32
+Result: 2.0 : Copy loop detected: nms_adpcm.c:531:nms_adpcm_block_unpack_32
+Result: 2.0 : Copy loop detected: nms_adpcm.c:532:nms_adpcm_block_unpack_32
+Result: 2.0 : Copy loop detected: nms_adpcm.c:658:nms_adpcm_decode_block
+Result: 2.0 : Copy loop detected: nms_adpcm.c:678:nms_adpcm_encode_block
+Result: 2.0 : Copy loop detected: nms_adpcm.c:792:nms_adpcm_read_i
+Result: 2.0 : Copy loop detected: nms_adpcm.c:824:nms_adpcm_read_f
+Result: 2.0 : Copy loop detected: nms_adpcm.c:856:nms_adpcm_read_d
+Result: 2.0 : Copy loop detected: nms_adpcm.c:950:nms_adpcm_write_i
+Result: 2.0 : Copy loop detected: nms_adpcm.c:981:nms_adpcm_write_f
+Result: 2.0 : Copy loop detected: nms_adpcm.c:1013:nms_adpcm_write_d
+Result: 2.0 : Copy loop detected: paf.c:507:paf24_read_block
+Result: 2.0 : Copy loop detected: paf.c:555:paf24_read_s
+Result: 2.0 : Copy loop detected: paf.c:597:paf24_read_f
+Result: 2.0 : Copy loop detected: paf.c:625:paf24_read_d
+Result: 2.0 : Copy loop detected: paf.c:723:paf24_write_s
+Result: 2.0 : Copy loop detected: paf.c:777:paf24_write_f
+Result: 2.0 : Copy loop detected: paf.c:808:paf24_write_d
+Result: 2.0 : Copy loop detected: sd2.c:220:sd2_write_rsrc_fork
+Result: 2.0 : Copy loop detected: sd2.c:364:read_rsrc_str
+Result: 2.0 : Copy loop detected: sds.c:458:sds_2byte_read
+Result: 2.0 : Copy loop detected: sds.c:502:sds_3byte_read
+Result: 2.0 : Copy loop detected: sds.c:546:sds_4byte_read
+Result: 2.0 : Copy loop detected: sds.c:571:sds_read_s
+Result: 2.0 : Copy loop detected: sds.c:617:sds_read_f
+Result: 2.0 : Copy loop detected: sds.c:649:sds_read_d
+Result: 2.0 : Copy loop detected: sds.c:785:sds_2byte_write
+Result: 2.0 : Copy loop detected: sds.c:786:sds_2byte_write
+Result: 2.0 : Copy loop detected: sds.c:826:sds_3byte_write
+Result: 2.0 : Copy loop detected: sds.c:827:sds_3byte_write
+Result: 2.0 : Copy loop detected: sds.c:828:sds_3byte_write
+Result: 2.0 : Copy loop detected: sds.c:868:sds_4byte_write
+Result: 2.0 : Copy loop detected: sds.c:869:sds_4byte_write
+Result: 2.0 : Copy loop detected: sds.c:870:sds_4byte_write
+Result: 2.0 : Copy loop detected: sds.c:871:sds_4byte_write
+Result: 2.0 : Copy loop detected: sds.c:913:sds_write_s
+Result: 2.0 : Copy loop detected: sds.c:961:sds_write_f
+Result: 2.0 : Copy loop detected: sds.c:994:sds_write_d
+Result: 2.0 : Copy loop detected: strings.c:56:psf_store_string
+Result: 2.0 : Copy loop detected: test_binheader_writef.c:44:test_binheader_writef
+Result: 2.0 : Copy loop detected: test_file_io.c:477:make_data
+Result: 2.0 : Copy loop detected: test_strncpy_crlf.c:46:test_psf_strlcpy_crlf
+Result: 2.0 : Copy loop detected: vox_adpcm.c:192:vox_read_i
+Result: 2.0 : Copy loop detected: vox_adpcm.c:223:vox_read_f
+Result: 2.0 : Copy loop detected: vox_adpcm.c:254:vox_read_d
+Result: 2.0 : Copy loop detected: vox_adpcm.c:328:vox_write_i
+Result: 2.0 : Copy loop detected: vox_adpcm.c:359:vox_write_f
+Result: 2.0 : Copy loop detected: vox_adpcm.c:390:vox_write_d
+Result: 2.0 : Copy loop detected: wav.c:1365:wav_read_smpl_chunk
+Result: 2.0 : Copy loop detected: wav.c:1366:wav_read_smpl_chunk
+Result: 2.0 : Copy loop detected: wav.c:1367:wav_read_smpl_chunk
+Result: 2.0 : Copy loop detected: wav.c:1371:wav_read_smpl_chunk
+Result: 2.0 : Copy loop detected: wav.c:1374:wav_read_smpl_chunk
+Result: 2.0 : Copy loop detected: wav.c:1377:wav_read_smpl_chunk
+Result: 2.0 : Copy loop detected: wav.c:1380:wav_read_smpl_chunk
+Result: 2.0 : Copy loop detected: wavlike.c:346:wavlike_read_fmt_chunk
+Result: 2.0 : Copy loop detected: wavlike.c:1209:wavlike_read_peak_chunk
+Result: 2.0 : Copy loop detected: wavlike.c:1210:wavlike_read_peak_chunk
+Result: 2.0 : Copy loop detected: xi.c:356:xi_read_header
+Result: 2.0 : Copy loop detected: xi.c:364:xi_read_header
+Result: 2.0 : Copy loop detected: xi.c:981:dsc2s_array
+Result: 2.0 : Copy loop detected: xi.c:996:dsc2i_array
+Result: 2.0 : Copy loop detected: xi.c:1011:dsc2f_array
+Result: 2.0 : Copy loop detected: xi.c:1026:dsc2d_array
+Result: 2.0 : Copy loop detected: xi.c:1044:s2dsc_array
+Result: 2.0 : Copy loop detected: xi.c:1060:i2dsc_array
+Result: 2.0 : Copy loop detected: xi.c:1076:f2dsc_array
+Result: 2.0 : Copy loop detected: xi.c:1092:d2dsc_array
+Result: 2.0 : Copy loop detected: xi.c:1111:dles2s_array
+Result: 2.0 : Copy loop detected: xi.c:1126:dles2i_array
+Result: 2.0 : Copy loop detected: xi.c:1141:dles2f_array
+Result: 2.0 : Copy loop detected: xi.c:1156:dles2d_array
+Result: 2.0 : Copy loop detected: xi.c:1174:s2dles_array
+Result: 2.0 : Copy loop detected: xi.c:1190:i2dles_array
+Result: 2.0 : Copy loop detected: xi.c:1207:f2dles_array
+Result: 2.0 : Copy loop detected: xi.c:1224:d2dles_array
+Result: 2.0 : Copy loop detected: ALAC/dp_dec.c:371:unpc_block
+Result: 2.0 : Copy loop detected: ALAC/dp_enc.c:377:pc_block
+Result: 2.0 : Copy loop detected: G72x/g72x.c:534:update
+Result: 2.0 : Copy loop detected: ima_adpcm.c:359:aiff_ima_encode_block
+Result: 2.0 : Copy loop detected: ima_adpcm.c:366:aiff_ima_encode_block
+Result: 2.0 : Copy loop detected: nms_adpcm.c:213:nms_adpcm_update
+Result: 2.0 : Copy loop detected: ALAC/dp_dec.c:359:unpc_block
+Result: 2.0 : Copy loop detected: ALAC/dp_enc.c:365:pc_block
+Result: 2.0 : Copy loop detected: G72x/g72x.c:529:update
+Result: 2.0 : Copy loop detected: G72x/g72x.c:531:update
+Result: 2.0 : Copy loop detected: G72x/g72x.c:536:update
+Result: 2.0 : Copy loop detected: nms_adpcm.c:215:nms_adpcm_update
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/ag_dec.c:302:dyn_decomp
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/ag_dec.c:330:dyn_decomp
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/ag_dec.c:331:dyn_decomp
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/ag_enc.c:112:dyn_code
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/ag_enc.c:119:dyn_code
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/ag_enc.c:125:dyn_code
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/ag_enc.c:150:dyn_code_32bit
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/ag_enc.c:158:dyn_code_32bit
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/ag_enc.c:272:dyn_comp
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/ag_enc.c:334:dyn_comp
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/ag_enc.c:335:dyn_comp
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/dp_dec.c:62:unpc_block
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/dp_enc.c:46:init_coefs
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/dp_enc.c:84:pc_block
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/matrix_enc.c:57:mix16
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/matrix_enc.c:97:mix20
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/matrix_enc.c:137:mix24
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/matrix_enc.c:220:mix32
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: G72x/g72x.c:364:quantize
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: G72x/g72x.c:366:quantize
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: G72x/g72x.c:559:update
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: G72x/g72x.c:585:update
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: G72x/g72x.c:617:unpack_bytes
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: double64.c:368:double64_be_write
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: double64.c:408:double64_le_write
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: dwvw.c:330:dwvw_decode_data
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: dwvw.c:399:dwvw_decode_load_bits
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: dwvw.c:407:dwvw_decode_load_bits
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: dwvw.c:423:dwvw_read_reset
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: dwvw.c:424:dwvw_read_reset
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: id3.c:39:id3_skip
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: id3.c:40:id3_skip
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: id3.c:41:id3_skip
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: ima_oki_adpcm.c:150:ima_oki_adpcm_encode_block
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: sds.c:609:sds_read_f
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: sds.c:641:sds_read_d
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: sds.c:954:sds_write_f
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: sds.c:987:sds_write_d
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: wavlike.c:340:wavlike_read_fmt_chunk
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: wavlike.c:496:wavlike_gen_channel_mask
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: G72x/g72x_priv.h:123:arith_shift_right
+Result: 2.0 : Signed Shift May Cause Undefined Behavior: nms_adpcm.c:343:nms_adpcm_encode_sample
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:91:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:94:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:94:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:97:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:97:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:97:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:100:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:100:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:100:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:91:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:94:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:94:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:97:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:97:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:97:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:100:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:100:vote_for_format
+Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:100:vote_for_format
+Result: 3.0 : Unchecked read/recv/malloc: alac.c:826:alac_pakt_read_decode
+Result: 3.0 : Unchecked read/recv/malloc: cart.c:42:cart_var_alloc
+Result: 3.0 : Two file operations on the same path can act on different files: file_io.c:575:psf_open_fd
+Result: 3.0 : Two file operations on the same path can act on different files: file_io.c:577:psf_open_fd
+Result: 3.0 : Two file operations on the same path can act on different files: test_file_io.c:94:file_open_test
+Result: 3.0 : Two file operations on the same path can act on different files: test_file_io.c:108:file_open_test
+Result: 3.0 : Two file operations on the same path can act on different files: common.c:1754:psf_open_tmpfile
+Result: 3.0 : Two file operations on the same path can act on different files: common.c:1759:psf_open_tmpfile
+Result: 4.0 : Non-constant format string passed to printf/sprintf/vsprintf: common.c:1188:psf_hexdump
+Run `joern --for-input-path /home/drenk83/Projects/gitrepo/mbks_labs/lab4/work/src/libsndfile-1.0.30/src` to explore interactively

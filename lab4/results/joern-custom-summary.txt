@@ -1,0 +1,6 @@
+libsndfile 1.0.30
+находок: 1
+ms_adpcm.c:131: blockalign < 7 * psf->sf.channels
+
+libsndfile 1.1.0
+находок: 0

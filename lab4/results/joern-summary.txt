@@ -1,0 +1,18 @@
+joern-scan --language c, libsndfile 1.0.30, каталог src/
+строк Result: 368
+
+находок  балл  запрос
+    293  2.0   Copy loop detected
+     42  2.0   Signed Shift May Cause Undefined Behavior
+     18  3.0   Array access at fixed offset but sufficient length check not determined
+      6  2.0   Truncation in assignment involving `strlen` call
+      6  3.0   Two file operations on the same path can act on different files
+      2  3.0   Unchecked read/recv/malloc
+      1  4.0   Non-constant format string passed to printf/sprintf/vsprintf
+
+CVE-2021-3246 в штатном наборе нет.
+Своё правило, 1.0.30:
+находок: 1
+ms_adpcm.c:131: blockalign < 7 * psf->sf.channels
+Своё правило, 1.1.0:
+находок: 0

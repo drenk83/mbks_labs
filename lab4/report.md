@@ -33,10 +33,10 @@
 6. Proof of Concept
 7. Уязвимый код и код исправления
 8. Штатные правила semgrep: формат и принципы работы
-9. Штатные правила CodeChecker: формат и принципы работы
+9. Штатные правила joern: формат и принципы работы
 10. Результаты анализа средством CodeQL
 11. Результаты анализа средством semgrep
-12. Результаты анализа средством CodeChecker
+12. Результаты анализа средством joern
 13. Разработанные правила обнаружения уязвимости
 14. Выводы
 15. Список источников
@@ -45,7 +45,7 @@
 
 Приложение Б. Полный текст генератора PoC
 
-Приложение В. Полный текст checker'а для CodeChecker
+Приложение В. Полный текст правила joern
 
 ---
 
@@ -57,12 +57,12 @@
 
 ## 2. Формулировка задания и выбранный вариант
 
-Вариант 3 по таблице 1 задания:
+Вариант 4 по таблице 1 задания:
 
 | Параметр | Значение |
 |---|---|
 | Язык программирования | C/C++ |
-| Третье средство анализа | CodeChecker |
+| Третье средство анализа | joern |
 | Исследуемое ПО | libsndfile 1.0.30 |
 | Исследуемая уязвимость | CVE-2021-3246 |
 
@@ -74,7 +74,7 @@
 4. Исследована CVE-2021-3246: причина, условия эксплуатации, PoC, уязвимый код и код исправления.
 5. Разработано правило CodeQL, выявляющее уязвимость в 1.0.30.
 6. Проведён анализ средством semgrep штатными наборами и разработано своё правило.
-7. Проведён анализ средством CodeChecker штатным набором и разработано своё правило (checker для clang-tidy, загружаемый в CodeChecker).
+7. Проведён анализ средством joern штатным набором joern-scan и разработано своё правило на Scala.
 8. Подготовлен отчёт с результатами, текстами правил и командами воспроизведения.
 
 ## 3. Выбранные типы ошибок (CWE) и правила CodeQL
@@ -108,7 +108,7 @@
 | src/GSM610/gsm_decode.c | 153 |
 | src/sfendian.h | 23 |
 | src/nms_adpcm.c | 17 |
-| src/sd2.c | 14 |
+| src/sd2.c | 15 |
 | src/ms_adpcm.c | 13 |
 | src/double64.c | 12 |
 
@@ -117,7 +117,7 @@
     sr |= (uint16_t) *c++ << 2 ;
     xmc [3] = sr & 0x7 ; sr >>= 3 ;
 
-Здесь sr — 16-битный регистр, сдвиги и маски являются частью распаковки битового потока; переполнение если и возможно, то является ожидаемым усечением. Большинство из 290 срабатываний относятся к таким местам и помечены как ложные. Несколько срабатываний в ALACBitUtilities.c и double64.c требуют ручной проверки, но прямого отношения к исследуемой CVE не имеют. Вывод: штатный запрос CWE-190 для этой библиотеки слишком шумный; для практического использования его нужно сужать до мест выделения памяти и индексации, как это сделано в собственном правиле для CVE.
+Здесь sr — 16-битный регистр, сдвиги и маски являются частью распаковки битового потока; переполнение если и возможно, то является ожидаемым усечением. Большинство из 290 срабатываний относятся к таким местам и помечены как ложные. Несколько срабатываний в ALACBitUtilities.c и double64.c требуют ручной проверки, но прямого отношения к исследуемой CVE не имеют. Вывод: штатный запрос CWE-190 для этой библиотеки слишком шумный. Само правило не изменялось. Сужение до выделения памяти и индексации уменьшило бы число отчётов, но исследуемая CVE всё равно не является целочисленным переполнением, и штатный запрос её не описывает. Срабатывания разобраны вручную в этом разделе.
 
 ### 3.3. CWE-129: непроверенный индекс массива
 
@@ -175,7 +175,7 @@ pnms->block имеет тип unsigned short *, поэтому pnms->block + k *
 |---|---|
 | Версия | 1.0.30 (тег v1.0.30, 2021) |
 | Язык | C |
-| Объём | 104 файла .c, около 47 тыс. строк в src/ |
+| Объём | 104 файла .c, 56 150 строк в src/ |
 | Сборка | autotools, --disable-external-libs --disable-shared --enable-static |
 | Компилятор | clang 23.1.3, -std=gnu11 |
 | Утилита для PoC | programs/sndfile-info |
@@ -208,10 +208,12 @@ pnms->block имеет тип unsigned short *, поэтому pnms->block + k *
 | CVE | CVE-2021-3246 |
 | Тип ошибки | CWE-787 (out-of-bounds write), CWE-122 (heap-based buffer overflow) |
 | CVSS 3.1 | 8.8 High (AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H) |
-| Уязвимая версия | 1.0.30; по коду старая проверка есть и в 1.0.31 |
+| Уязвимая версия | 1.0.30; в теге upstream 1.0.31 проверка та же |
 | Исправленная версия | 1.1.0 (коммит deb669ee, 18.02.2021; релиз 27.03.2022) |
 | Функции | wavlike_msadpcm_init, msadpcm_decode_block в src/ms_adpcm.c |
 | PoC | WAV-файл 2660 байт, генератор в Приложении Б |
+
+Пакеты дистрибутивов с номером 1.0.31 иногда уже содержат этот патч отдельно: Debian помечает исправление как 1.0.31-2, Ubuntu — как 1.0.31-1ubuntu1.1. В работе сравнивались теги upstream v1.0.30 и 1.1.0.
 
 Описание: при открытии специально сформированного WAV-файла с кодеком MS ADPCM в msadpcm_decode_block происходит запись за границу кучи. Уязвимость позволяет вызвать отказ в обслуживании и, в зависимости от окружения, выполнить произвольный код. Атака требует, чтобы пользователь открыл вредоносный файл (UI:R), но не требует привилегий (PR:N).
 
@@ -274,15 +276,25 @@ pnms->block имеет тип unsigned short *, поэтому pnms->block + k *
     samplesperblock = 10
     count = 2 * (2592 - 6 * 226) / 226 = 2472 / 226 = 10
 
-При этом msadpcm_decode_block для любого числа каналов, кроме одного, использует ветку, рассчитанную на два канала: пишет 4 сэмпла заголовка, ставит blockindx = 14 и затем распаковывает по два сэмпла на каждый байт до blockalign. Итого записывается
+При channels, отличном от 1, декодер берёт ветку преамбулы на два канала: пишет четыре отсчёта в индексы 0…3 и ставит blockindx = 14. Дальше запись не продолжается с индекса 4. Индекс задаётся заново:
 
-    4 + 2 * (2592 - 14) = 5160 сэмплов,
+    sampleindx = 2 * pms->channels ;   /* 2 * 226 = 452 */
+    while (blockindx < pms->blocksize)
+    {   bytecode = pms->block [blockindx++] ;
+        pms->samples [sampleindx++] = (bytecode >> 4) & 0x0F ;
+        pms->samples [sampleindx++] = bytecode & 0x0F ;
+        } ;
 
-а под сэмплы выделено
+В блоке остаётся 2592 − 14 = 2578 байт, на каждый байт пишутся два short. Это 5156 записей в индексы 452…5607.
 
-    channels * samplesperblock = 226 * 10 = 2260 сэмплов.
+Под отсчёты отведено channels * samplesperblock = 2260 элементов short: указатель block стоит сразу за ними. Выделение больше, в него входят и сам блок, и запас:
 
-Разница 2900 сэмплов (5800 байт) и даёт переполнение кучи.
+    pmssize = sizeof (MSADPCM_PRIVATE) + blockalign
+            + 3 * channels * samplesperblock
+            = 56 + 2592 + 3 * 226 * 10
+            = 9428 байт.
+
+ASan сообщает о регионе ровно в 9428 байт и о записи WRITE of size 2 сразу за его концом, в ms_adpcm.c:279. Первая запись за конец объекта приходится на индекс 4686: после заголовка структуры в куске остаётся (9428 − 56) / 2 = 4686 элементов short с индексами 0…4685.
 
 ### 5.2. Исправление
 
@@ -474,83 +486,84 @@ semgrep видит free и последующее обращение к psf->cha
 
 ![semgrep: штатные наборы и своё правило](screenshots/04-semgrep.png)
 
-## 9. Штатные правила CodeChecker: формат и принципы работы
+## 9. Штатные правила joern: формат и принципы работы
 
-CodeChecker — оболочка и инфраструктура для статических анализаторов Clang. Он не имеет собственного DSL правил: «правила» — это checker'ы двух анализаторов:
+joern строит по исходникам граф свойств кода (Code Property Graph) и выполняет по нему запросы на Scala. Для языка C граф собирает фронтенд c2cpg. Запрос в штатной базе — запись с именем, автором, заголовком, описанием, баллом, метками, языком и обходом графа. В исходниках joern такая запись собирается вызовом Query.make; обход передаётся в withStrRep({ cpg => ... }), чтобы вместе с функцией сохранить её текст.
 
-1. **Clang Static Analyzer** (clangsa) — символьное исполнение, исследование путей, межпроцедурный анализ в пределах единицы трансляции. Примеры checker'ов: core.DivideZero, core.NullDereference, core.uninitialized.*, security.ArrayBound, unix.Malloc.
-2. **clang-tidy** — анализ AST по шаблонам (matcher'ы), проверки bugprone-*, cert-*, readability-*, clang-diagnostic-*.
+База запросов joern 4.0.669 содержит 58 запросов: C — 27, Android — 10, PHP — 9, Java — 7, Kotlin — 3, Ghidra — 2. Метка default стоит на 32 запросах, из них для C — 16. Команда joern-scan --language c запускает именно эти 16: запросы других языков и запросы C без метки default в штатный прогон не входят.
 
-Процесс работы CodeChecker:
+Строка результата имеет вид Result: балл : заголовок: файл:строка:функция.
 
-1. CodeChecker log перехватывает вызовы компилятора и создаёт compile_commands.json — базу компиляции.
-2. CodeChecker analyze запускает выбранные анализаторы для каждой единицы трансляции и складывает отчёты в plist.
-3. CodeChecker parse печатает отчёты в терминал; CodeChecker store сохраняет их в сервер для веб-интерфейса.
+Короткий пример из установленной базы — запрос format-controlled-printf, балл 4. Он выбирает вызовы printf, у которых первый аргумент не литерал, и вызовы sprintf или vsprintf, у которых второй аргумент не литерал:
 
-Каждый checker имеет метки: severity:HIGH/MEDIUM/LOW, profile:default/security/extreme, guideline:sei-cert-c и другие. Отчёты идентифицируются хешем, поддерживается подавление через комментарии // codechecker_suppress [...] и файл подавлений. Штатный набор — это профиль default; в него входят clangsa-проверки по умолчанию и набор clang-tidy, который CodeChecker считает включённым.
+    { cpg =>
+        val printfFns = cpg
+          .method("(?i)printf")
+          .callIn
+          .whereNot(_.argument.order(1).isLiteral)
+        val sprintsFns = cpg
+          .method("(?i)(sprintf|vsprintf)")
+          .callIn
+          .whereNot(_.argument.order(2).isLiteral)
+        printfFns ++ sprintsFns
+    }
 
-Анализ выполнялся по базе компиляции, созданной из сборки 1.0.30:
+Другой запрос той же базы, copy-loop, балл 2, устроен как эвристика. Он помечает запись в элемент массива, если индекс этого обращения встречается среди присваиваний в заголовке цикла for. Любой цикл кодека, который пишет отсчёт в буфер и увеличивает индекс, попадает в отчёт, даже когда границы цикла заданы размером буфера.
 
-    cd work/build/normal-1.0.30
-    CC=../../venvs/codechecker/bin/CodeChecker
-    $CC log -o ../../compile_commands-1.0.30.json \
-      -b "make -j8 programs/sndfile-info"
-    $CC analyze ../../compile_commands-1.0.30.json \
-      -o ../../../results/codechecker-builtin-1.0.30 \
-      --analyzers clangsa clang-tidy -j 4
-    $CC parse ../../../results/codechecker-builtin-1.0.30 \
-      > ../../../results/codechecker-builtin-1.0.30.txt
+Анализ запускался так (в scripts/06-joern.sh то же самое, с JAVA_HOME на локальный Temurin 21.0.13+9):
+
+    export JAVA_HOME=work/tools/jdk-21
+    export PATH="$JAVA_HOME/bin:$PATH"
+    joern-scan --language c work/src/libsndfile-1.0.30/src
+
+Рабочий каталог joern — work/joern-runs/scan-1.0.30, он закрыт .gitignore вместе с остальным work/. На вход отдан каталог src/ целиком, 104 файла .c. Отдельного списка файлов, которые фронтенд не разобрал, joern-scan не напечатал. Файл ms_adpcm.c в граф попал: своё правило, запущенное по тому же каталогу, нашло в нём функцию wavlike_msadpcm_init.
 
 ### 9.1. Результаты штатного набора
 
-Всего получено **329 отчётов** по 92 единицам трансляции. Распределение по checker'ам:
+Получено **368 срабатываний**. Распределение по запросам:
 
-| Checker | Важность | Отчётов |
+| Запрос | Балл | Находок |
 |---|---|---|
-| clang-diagnostic-double-promotion | MEDIUM | 83 |
-| cert-err33-c | MEDIUM | 67 |
-| deadcode.DeadStores | LOW | 51 |
-| clang-diagnostic-float-conversion | MEDIUM | 24 |
-| bugprone-switch-missing-default-case | LOW | 24 |
-| clang-diagnostic-reserved-macro-identifier | MEDIUM | 21 |
-| readability-suspicious-call-argument | LOW | 15 |
-| clang-diagnostic-unused-but-set-variable | MEDIUM | 2 |
-| clang-diagnostic-reserved-identifier | MEDIUM | 12 |
-| security.ArrayBound | HIGH | 8 |
-| core.UndefinedBinaryOperatorResult | HIGH | 7 |
-| core.BitwiseShift | HIGH | 4 |
-| bugprone-signed-char-misuse | MEDIUM | 3 |
-| unix.Malloc | MEDIUM | 2 |
-| core.uninitialized.ArraySubscript | HIGH | 1 |
-| core.uninitialized.UndefReturn | HIGH | 1 |
-| core.DivideZero | HIGH | 1 |
-| clang-diagnostic-conditional-uninitialized | HIGH | 1 |
-| bugprone-incorrect-roundings | HIGH | 2 |
+| Copy loop detected | 2.0 | 293 |
+| Signed Shift May Cause Undefined Behavior | 2.0 | 42 |
+| Array access at fixed offset but sufficient length check not determined | 3.0 | 18 |
+| Truncation in assignment involving strlen call | 2.0 | 6 |
+| Two file operations on the same path can act on different files | 3.0 | 6 |
+| Unchecked read/recv/malloc | 3.0 | 2 |
+| Non-constant format string passed to printf/sprintf/vsprintf | 4.0 | 1 |
+| **Итого** | | **368** |
 
-Большая часть отчётов — стилевые замечания и предупреждения компилятора (double-promotion, float-conversion, cert-err33-c, deadcode). Для безопасности наиболее интересны группы security.ArrayBound, core.DivideZero, core.uninitialized.*, core.BitwiseShift и unix.Malloc.
+Остальные девять запросов метки default для C срабатываний не дали: gets, strtok, getwd, strncpy, send, смена uid и gid, копирование в буфер из кучи, освобождение поля параметра без записи на всех путях.
 
-Примеры:
+Примеры строк из results/joern-builtin-1.0.30.txt:
 
-    [HIGH] src/gsm610.c:483: Out of bound access to memory preceding 'ubuf.sbuf'
-           [security.ArrayBound]
-    [HIGH] src/ms_adpcm.c:651: Out of bound access to memory preceding 'ubuf.sbuf'
-           [security.ArrayBound]
-    [HIGH] src/ms_adpcm.c:599: Division by zero [core.DivideZero]
-    [HIGH] src/ALAC/ag_dec.c:248: Right shift by '32' overflows the capacity
-           of 'uint32_t' [core.BitwiseShift]
-    [MEDIUM] src/alac.c:871: Potential leak of memory pointed to by 'info'
-           [unix.Malloc]
+    Result: 2.0 : Copy loop detected: ms_adpcm.c:307:msadpcm_decode_block
+    Result: 2.0 : Signed Shift May Cause Undefined Behavior: ALAC/ag_dec.c:302:dyn_decomp
+    Result: 3.0 : Array access at fixed offset but sufficient length check not determined: audio_detect.c:97:vote_for_format
+    Result: 2.0 : Truncation in assignment involving `strlen` call: aiff.c:1440:aiff_write_header
+    Result: 3.0 : Two file operations on the same path can act on different files: file_io.c:575:psf_open_fd
+    Result: 3.0 : Unchecked read/recv/malloc: alac.c:826:alac_pakt_read_decode
+    Result: 4.0 : Non-constant format string passed to printf/sprintf/vsprintf: common.c:1188:psf_hexdump
+
+В файле результата у запроса про strlen заголовок содержит обратные кавычки вокруг имени функции; в таблице выше они убраны, место срабатывания то же.
 
 Комментарии:
 
-- Восемь security.ArrayBound относятся к одному шаблону memcpy из union-буфера ubuf.sbuf/ubuf.ibuf в разных кодеках. Анализатор не отслеживает, что ptr уже указывает внутрь ubuf, и сообщает о доступе «перед буфером». Для gsm610.c, vox_adpcm.c, paf.c, sds.c, xi.c это, скорее всего, ложные срабатывания; ms_adpcm.c:651 и ima_adpcm.c:878 требуют отдельной проверки.
-- core.DivideZero в ms_adpcm.c:599 — деление на idelta[chan], которое может оказаться нулевым после распаковки блока. Это истинное неопределённое поведение, хотя и не исследуемая CVE.
-- core.BitwiseShift и core.UndefinedBinaryOperatorResult в sfendian.h, common.c, dwvw.c — сдвиги и битовые операции старого кода; часть срабатываний указывает на реальное UB, часть является следствием неполного анализа.
-- unix.Malloc в alac.c:871 — потенциальная утечка info; на success-пути info возвращается, на error-пути освобождается, поэтому срабатывание требует ручной проверки и, вероятно, является ложным.
+- 293 срабатывания Copy loop — циклы кодеков ALAC, G.72x, GSM, IMA ADPCM, MS ADPCM и NMS ADPCM. В ms_adpcm.c:307 функция msadpcm_decode_block пишет отсчёт в pms->samples[k] внутри цикла по блоку. Это обычная работа декодера. Запрос не проверяет выход за границу и исследуемую CVE не описывает.
+- 42 срабатывания Signed Shift — левый сдвиг значения типа int или long, у которого не оба операнда литералы. Основная масса в ALAC (dyn_decomp, dyn_code) и в nms_adpcm.c. Запрос отмечает форму операции, а не доказанное переполнение.
+- 18 срабатываний Array access относятся к одной функции audio_detect.c, vote_for_format, строки 91, 94, 97 и 100, с повторами. Внутри цикла по k код читает data[0], data[2] и data[3]. Перед циклом длина уменьшается до кратной 4, но запрос такую проверку достаточной не считает.
+- 6 срабатываний про strlen — присваивание результата strlen в переменную типа int: aiff.c:1440 и aiff.c:1534, common.c:165 и common.c:391, sd2.c:282 и sd2.c:283. На 64-битной платформе size_t шире int. Для имён cue-точек и строк журнала усечение длины не выглядит достижимым; замечание формальное.
+- 6 срабатываний про две файловые операции: file_io.c:575 и file_io.c:577 — две ветки одного if/else вокруг open, на одном пути исполнения выполняется только один вызов; common.c:1754 и common.c:1759 — два fopen в psf_open_tmpfile, второй строится уже с другим именем и только если первый путь не вернул файл; test_file_io.c:94 и test_file_io.c:108 — unlink в тесте после закрытия файла. К уязвимости библиотеки это не сводится.
+- 2 срабатывания Unchecked read/recv/malloc: alac.c:826 — malloc без проверки результата до вызова get_chunk_data; cart.c:42 — функция cart_var_alloc возвращает результат malloc вызывающему, проверка может стоять снаружи. К CVE-2021-3246 оба места не относятся.
+- Единственное срабатывание с баллом 4 — common.c:1188, функция psf_hexdump:
 
-Штатный набор CodeChecker даёт полезную картину, но требует фильтрации: из 329 отчётов непосредственно к безопасности относятся около 20, остальное — стиль, переносимость и предупреждения компилятора. Для отчёта это нормально: задание требует описать результаты и выделить значимые.
+    printf (m == 8 ? " %02X " : "%02X ", data [k + m] & 0xFF) ;
 
-![CodeChecker: штатный набор и своё правило](screenshots/05-codechecker.png)
+Первый аргумент — условное выражение, а не строковый литерал, хотя обе ветки являются константными форматами. Запрос проверяет только isLiteral, поэтому тернарный оператор он считает неконстантной форматной строкой. Это ложное срабатывание.
+
+Штатный набор CVE-2021-3246 не нашёл. В базе нет запроса про слабую проверку blockalign в разборе MS ADPCM, а срабатывания в ms_adpcm.c относятся к циклам копирования отсчётов. Для отчёта это полезный результат: универсальные запросы дают первичный список, но конкретную ошибку согласования размеров ловит отдельное правило.
+
+![joern: штатный набор и своё правило](screenshots/05-joern.png)
 
 ## 10. Результаты анализа средством CodeQL
 
@@ -626,46 +639,35 @@ CodeChecker — оболочка и инфраструктура для стат
     work/src/libsndfile-1.0.30/src/ms_adpcm.c
       131┆ if (blockalign < 7 * psf->sf.channels)
 
-## 12. Результаты анализа средством CodeChecker
+## 12. Результаты анализа средством joern
 
-Штатный прогон описан в разделе 9: 329 отчётов, из них 8 security.ArrayBound, 1 core.DivideZero, 2 unix.Malloc, 2 core.uninitialized.*, 4 core.BitwiseShift, 7 core.UndefinedBinaryOperatorResult.
+Штатный прогон описан в разделе 9: 368 срабатываний joern-scan, из них 293 — эвристика Copy loop. CVE-2021-3246 в этом списке нет.
 
-Собственное правило реализовано как checker clang-tidy lab4-msadpcm-block-size и загружается в CodeChecker:
+Собственное правило — скрипт rules/joern/msadpcm-block-size.sc. Его запускает тот же scripts/06-joern.sh, отдельно на src/ версии 1.0.30 и на src/ версии 1.1.0:
 
-    clang++ -shared -fPIC -std=c++17 -O2 \
-      rules/clang-tidy/MsadpcmBlockCheck.cpp \
-      -o work/plugins/lab4-msadpcm-tidy.so \
-      -lclang-cpp -lLLVM -Wl,--unresolved-symbols=ignore-all
-    
-    echo "--load=$PWD/work/plugins/lab4-msadpcm-tidy.so" > work/tidy-args.txt
-    
-    cd work/build/normal-1.0.30
-    CC=../../venvs/codechecker/bin/CodeChecker
-    $CC analyze ../../compile_commands-1.0.30.json \
-      -o ../../../results/codechecker-custom-1.0.30 \
-      --analyzers clang-tidy \
-      --analyzer-config clang-tidy:take-config-from-directory=true \
-      --analyzer-config clang-tidy:cc-verbatim-args-file=$PWD/../../tidy-args.txt
+    export JAVA_HOME=work/tools/jdk-21
+    export PATH="$JAVA_HOME/bin:$PATH"
+    joern --script rules/joern/msadpcm-block-size.sc \
+      --param inputPath=work/src/libsndfile-1.0.30/src \
+      --param outFile=results/joern-custom-1.0.30.txt
 
-В каталоге исходников создаётся .clang-tidy:
+Для 1.1.0 меняется только каталог исходников и имя файла результата. joern при этом работает из work/joern-runs/custom-1.0.30 и work/joern-runs/custom-1.1.0, чтобы каталог workspace не появился в корне репозитория.
 
-    Checks: '-*,lab4-msadpcm-block-size'
+Результат:
 
-CodeChecker при take-config-from-directory=true не передаёт свой --checks, поэтому clang-tidy читает .clang-tidy, а --load подхватывает плагин. Результат:
-
-| Версия | Отчётов | Checker |
+| Версия | Находок | Место |
 |---|---|---|
-| libsndfile 1.0.30 | 1 | lab4-msadpcm-block-size |
+| libsndfile 1.0.30 | 1 | ms_adpcm.c:131, условие blockalign < 7 * psf->sf.channels |
 | libsndfile 1.1.0 | 0 | — |
 
-В выводе CodeChecker parse:
+Файл results/joern-custom-1.0.30.txt:
 
-    Checker name            | Severity    | Number of reports
-    lab4-msadpcm-block-size | UNSPECIFIED |                 1
+    находок: 1
+    ms_adpcm.c:131: blockalign < 7 * psf->sf.channels
 
-Важность UNSPECIFIED — потому что CodeChecker не знает checker из плагина и не имеет для него метки severity. Это ограничение интеграции: сообщение диагностики является предупреждением, но в статистике CodeChecker оно не попадает в HIGH/MEDIUM/LOW. При необходимости severity можно задать через конфигурацию CodeChecker или через аннотацию в исходнике, но для демонстрации правила это не требуется.
+Файл results/joern-custom-1.1.0.txt содержит одну строку: находок: 0.
 
-![Правило CodeChecker (clang-tidy plugin)](screenshots/06-clang-tidy.png)
+![joern: своё правило на 1.0.30 и 1.1.0](screenshots/06-joern-custom.png)
 
 ## 13. Разработанные правила обнаружения уязвимости
 
@@ -752,41 +754,32 @@ CodeChecker при take-config-from-directory=true не передаёт сво�
 
 Ограничение: semgrep не анализирует поток управления и не проверяет, что найденное условие действительно является единственной проверкой; правило намеренно синтаксическое. Это типично для semgrep: он быстро и точно находит шаблон, но не доказывает уязвимость.
 
-### 13.3. Правило CodeChecker
+### 13.3. Правило joern
 
-CodeChecker не имеет собственного DSL, поэтому правило реализовано как checker clang-tidy lab4-msadpcm-block-size (полный текст — в Приложении В). Ключевой matcher:
+Правило записано скриптом rules/joern/msadpcm-block-size.sc (полный текст — в Приложении В). Это отдельный запуск joern --script, а не запись Query.make в общей базе: скрипту нужны параметры пути к исходникам и файла результата. Ключевой фильтр:
 
-    Finder->addMatcher(
-        ifStmt(
-            hasAncestor(functionDecl(hasName("wavlike_msadpcm_init"))),
-            hasCondition(binaryOperator(
-                hasOperatorName("<"),
-                hasLHS(ignoringImplicit(
-                    declRefExpr(to(varDecl(hasName("blockalign")))))),
-                hasRHS(ignoringImplicit(binaryOperator(
-                    hasOperatorName("*"),
-                    hasLHS(integerLiteral(equals(7)))))))))
-            .bind("weak-check"),
-        this);
+    val hits = cpg.method
+      .nameExact("wavlike_msadpcm_init")
+      .controlStructure
+      .controlStructureType(ControlStructureTypes.IF)
+      .filter { cs =>
+        cs.condition.l.exists { cond =>
+          val kids = cond.astChildren.l
+          kids.length >= 2 &&
+          kids.head.code == "blockalign" &&
+          kids(1).code.startsWith("7 *")
+        }
+      }
 
 Принцип работы:
 
-- matcher ищет if внутри функции wavlike_msadpcm_init;
-- условие должно быть <, слева — blockalign, справа — умножение на 7;
-- checker регистрируется в ClangTidyModule под именем lab4-msadpcm-block-size;
-- плагин загружается в clang-tidy через --load, а CodeChecker передаёт этот аргумент через cc-verbatim-args-file;
-- .clang-tidy с Checks: '-*,lab4-msadpcm-block-size' включает только наше правило, а take-config-from-directory=true не даёт CodeChecker перезаписать список checker'ов.
+- importCode.c строит граф по переданному каталогу src/;
+- обход оставляет только функцию wavlike_msadpcm_init и её операторы if;
+- у условия первый ребёнок AST должен иметь код blockalign, второй — текст, начинающийся с 7 *;
+- в libsndfile 1.1.0 слева стоит samplesperblock, а проверка blockalign записана как 2 * blockalign, поэтому фильтр на исправленной версии молчит;
+- скрипт пишет в outFile строку с числом находок и список файл:строка: условие.
 
-Сборка:
-
-    clang++ -shared -fPIC -std=c++17 -O2 \
-      rules/clang-tidy/MsadpcmBlockCheck.cpp \
-      -o work/plugins/lab4-msadpcm-tidy.so \
-      -lclang-cpp -lLLVM -Wl,--unresolved-symbols=ignore-all
-
-Символы clang-tidy (ClangTidyCheck, реестр модулей) не входят в libclang-cpp, поэтому при линковке используется --unresolved-symbols=ignore-all: они разрешаются при загрузке плагина из бинарника clang-tidy. Это стандартный приём для out-of-tree clang-tidy плагинов.
-
-Результат: 1 отчёт в 1.0.30, 0 в 1.1.0. Ограничение — CodeChecker не знает checker из плагина, поэтому в его статистике важность UNSPECIFIED; сообщение диагностики всё равно выводится и сохраняется в plist.
+Результат: 1 находка в 1.0.30, 0 в 1.1.0. Ограничение то же, что у правила semgrep: проверка синтаксическая. Скрипт не доказывает выход за границу буфера, а узнаёт уязвимую форму условия. Сравнение второго ребёнка сделано по тексту кода узла, а не по типу «литерал 7».
 
 ### 13.4. Сравнение правил
 
@@ -794,7 +787,7 @@ CodeChecker не имеет собственного DSL, поэтому пра�
 |---|---|---|---|---|---|
 | CodeQL | AST + CFG, QL | if с blockalign в wavlike_msadpcm_init | 1 | 0 | нет |
 | semgrep | AST-шаблоны | тот же if по текстовому шаблону | 1 | 0 | нет |
-| CodeChecker + clang-tidy | AST matcher | тот же if по matcher'у | 1 | 0 | нет |
+| joern | обход CPG на Scala | тот же if по детям AST условия | 1 | 0 | нет |
 
 Все три правила дают одинаковый результат на двух версиях, что подтверждает правильность выбранной сигнатуры.
 
@@ -806,9 +799,9 @@ CodeChecker не имеет собственного DSL, поэтому пра�
 
 1. **CodeQL.** Пять штатных запросов дали 301 срабатывание: 290 — CWE-190, 8 — CWE-129, 2 — CWE-457, 1 — CWE-468, 0 — CWE-120. Штатные запросы хорошо показывают общие классы дефектов, но CWE-190 оказался очень шумным, а CWE-120 не увидел исследуемую CVE, потому что она является ошибкой согласования размеров. Собственное правило точно нашло уязвимую проверку в 1.0.30 и не сработало в 1.1.0.
 2. **semgrep.** Штатный C-набор p/c содержит всего два правила и не дал находок; p/default (336 правил) — тоже 0; p/security-audit дал 7 находок, из которых после ручного разбора два use-after-free в wavlike.c оказались ложными, double-free в alac.c требует проверки, а предупреждения о strcpy/strcat — общими. Собственное правило дало 1 находку в 1.0.30 и 0 в 1.1.0.
-3. **CodeChecker.** Штатный набор (clangsa + clang-tidy) дал 329 отчётов, из которых к безопасности непосредственно относятся security.ArrayBound (8), core.DivideZero (1), core.uninitialized.* (2), core.BitwiseShift (4), unix.Malloc (2). Часть ArrayBound — ложные срабатывания из-за union-буфера. Собственное правило реализовано как clang-tidy checker, загружено в CodeChecker и дало 1 отчёт в 1.0.30 и 0 в 1.1.0.
-4. **Сравнение средств.** CodeQL даёт самый богатый анализ и позволяет писать компактные AST/CFG-запросы; semgrep быстрее и проще, но без анализа потока управления даёт много ложных срабатываний; CodeChecker удобен как инфраструктура для clangsa/clang-tidy, но не имеет собственного DSL, поэтому «своё правило» — это checker clang-tidy или clangsa.
-5. **Практический вывод.** Для поиска конкретной CVE эффективнее узкое правило по сигнатуре уязвимого кода, чем штатные универсальные запросы. Универсальные правила полезны для первичного аудита, но требуют ручной триаги; в отчёте это показано на примерах CWE-190 и security.ArrayBound.
+3. **joern.** Штатный joern-scan по 16 запросам метки default для C дал 368 срабатываний. 293 из них — эвристика Copy loop на циклах кодеков. Остальное: левый сдвиг знакового числа (42), доступ к массиву по константному смещению (18), усечение strlen в int (6), пара файловых операций по пути (6), непроверенный malloc (2) и одна форматная строка, которая на самом деле константная. CVE-2021-3246 штатный набор не увидел. Собственное правило нашло условие в ms_adpcm.c:131 на версии 1.0.30 и промолчало на 1.1.0.
+4. **Сравнение средств.** CodeQL даёт самый богатый анализ и позволяет писать компактные запросы по AST и CFG. semgrep быстрее и проще, но без анализа потока управления даёт ложные срабатывания. joern тоже отвечает запросом по графу, своё правило пишется на Scala; штатная база для C короче набора CodeQL, и на libsndfile её основной объём — шум эвристики Copy loop.
+5. **Практический вывод.** Для поиска конкретной CVE эффективнее узкое правило по сигнатуре уязвимого кода, чем штатные универсальные запросы. Универсальные правила полезны для первичного аудита, но требуют ручной триаги; в отчёте это показано на примерах CWE-190 и Copy loop.
 
 ## 15. Список источников
 
@@ -825,9 +818,9 @@ CodeChecker не имеет собственного DSL, поэтому пра�
 11. CodeQL query packs: <https://github.com/github/codeql>
 12. semgrep documentation: <https://semgrep.dev/docs/>
 13. semgrep registry: <https://semgrep.dev/explore>
-14. CodeChecker documentation: <https://codechecker.readthedocs.io/>
-15. Clang-Tidy documentation: <https://clang.llvm.org/extra/clang-tidy/>
-16. Clang Static Analyzer documentation: <https://clang-analyzer.llvm.org/>
+14. Joern documentation: <https://docs.joern.io/>
+15. Joern Scan и формат Query.make: <https://docs.joern.io/scan>
+16. Релиз joern v4.0.669: <https://github.com/joernio/joern/releases/tag/v4.0.669>
 
 ---
 
@@ -844,7 +837,9 @@ CodeChecker не имеет собственного DSL, поэтому пра�
     │   ├── 03-poc.sh              генерация PoC и прогон
     │   ├── 04-codeql.sh           база CodeQL, пять CWE, своё правило
     │   ├── 05-semgrep.sh          штатные наборы и своё правило
-    │   ├── 06-codechecker.sh      log/analyze, сборка плагина
+    │   ├── 06-joern.sh            joern-scan и своё правило
+    │   ├── 07-screenshots.sh      сводки и PNG для отчёта
+    │   ├── run-all.sh             всё подряд
     │   ├── codeql-build.sh        обёртка сборки для CodeQL
     │   ├── make-shot.sh           рендер вывода в PNG
     │   └── summarize.py           сводки по результатам
@@ -854,9 +849,8 @@ CodeChecker не имеет собственного DSL, поэтому пра�
     │   │   └── qlpack.yml
     │   ├── semgrep/
     │   │   └── msadpcm-block-size.yaml
-    │   └── clang-tidy/
-    │       ├── MsadpcmBlockCheck.cpp
-    │       └── Makefile
+    │   └── joern/
+    │       └── msadpcm-block-size.sc
     ├── poc/
     │   ├── gen_msadpcm_poc.py
     │   └── msadpcm_poc.wav        генерируется скриптом
@@ -864,7 +858,7 @@ CodeChecker не имеет собственного DSL, поэтому пра�
     ├── screenshots/               PNG для отчёта
     └── work/                      исходники, сборки, базы, venv (в git не входит)
 
-Окружение: Omarchy/Arch Linux, clang 23.1.3, CodeQL 2.27.3 (bundle), semgrep 1.182.1, CodeChecker 6.26.2. WSL и Docker не использовались: все инструменты работают нативно на Linux.
+Окружение: Omarchy/Arch Linux, clang 23.1.3 (сборка libsndfile), CodeQL 2.27.3 (bundle), semgrep 1.182.1, joern 4.0.669, JDK Temurin 21.0.13+9. WSL и Docker не использовались: все инструменты работают нативно на Linux. JDK и joern лежат в work/tools/ и в git не входят.
 
 Основные команды (все шаги автоматизированы в scripts/, ниже — минимум для проверки вручную):
 
@@ -892,14 +886,10 @@ CodeChecker не имеет собственного DSL, поэтому пра�
     $SEMGREP --config=rules/semgrep/msadpcm-block-size.yaml --metrics=off \
       work/src/libsndfile-1.0.30/src
     
-    # 5. CodeChecker (из каталога сборки)
-    cd work/build/normal-1.0.30
-    CC=../../venvs/codechecker/bin/CodeChecker
-    $CC log -o ../../compile_commands-1.0.30.json \
-      -b "make -j8 programs/sndfile-info"
-    $CC analyze ../../compile_commands-1.0.30.json \
-      -o ../../../results/codechecker-builtin-1.0.30 \
-      --analyzers clangsa clang-tidy
+    # 5. joern
+    export JAVA_HOME=work/tools/jdk-21
+    export PATH="$JAVA_HOME/bin:$PATH"
+    ./scripts/06-joern.sh
 
 Полные команды с абсолютными путями и параметрами — в скриптах scripts/ и README.md.
 
@@ -962,63 +952,41 @@ CodeChecker не имеет собственного DSL, поэтому пра�
     if __name__ == "__main__":
         main()
 
-## Приложение В. Полный текст checker'а для CodeChecker
+## Приложение В. Полный текст правила joern
 
-    // Правило CodeChecker: checker для clang-tidy, который ищет слабую проверку
-    // размера блока MS ADPCM в libsndfile 1.0.30 (CVE-2021-3246).
+Файл rules/joern/msadpcm-block-size.sc:
+
+    // Ищет слабую проверку размера блока MS ADPCM (CVE-2021-3246):
+    // внутри wavlike_msadpcm_init условие вида `blockalign < 7 * ...`.
+    // В libsndfile 1.1.0 слева стоит samplesperblock или `2 * blockalign`,
+    // поэтому правило на исправленной версии молчит.
     
-    #include "clang/ASTMatchers/ASTMatchFinder.h"
-    #include "clang/ASTMatchers/ASTMatchers.h"
-    #include "clang-tidy/ClangTidy.h"
-    #include "clang-tidy/ClangTidyCheck.h"
-    #include "clang-tidy/ClangTidyModule.h"
+    @main def main(inputPath: String, outFile: String) = {
+      importCode.c(inputPath)
     
-    using namespace clang;
-    using namespace clang::tidy;
-    using namespace clang::ast_matchers;
+      val hits = cpg.method
+        .nameExact("wavlike_msadpcm_init")
+        .controlStructure
+        .controlStructureType(ControlStructureTypes.IF)
+        .filter { cs =>
+          cs.condition.l.exists { cond =>
+            val kids = cond.astChildren.l
+            kids.length >= 2 &&
+            kids.head.code == "blockalign" &&
+            kids(1).code.startsWith("7 *")
+          }
+        }
+        .map { cs =>
+          val file = cs.file.name.l.headOption.getOrElse("?")
+          val line = cs.lineNumber.map(_.toString).getOrElse("?")
+          val code = cs.condition.code.l.headOption.getOrElse(cs.code)
+          s"$file:$line: $code"
+        }
+        .l
+        .distinct
+        .sorted
     
-    namespace {
-    
-    class MsadpcmBlockCheck : public ClangTidyCheck {
-    public:
-      MsadpcmBlockCheck(StringRef Name, ClangTidyContext *Context)
-          : ClangTidyCheck(Name, Context) {}
-    
-      void registerMatchers(MatchFinder *Finder) override {
-        Finder->addMatcher(
-            ifStmt(
-                hasAncestor(functionDecl(hasName("wavlike_msadpcm_init"))),
-                hasCondition(binaryOperator(
-                    hasOperatorName("<"),
-                    hasLHS(ignoringImplicit(
-                        declRefExpr(to(varDecl(hasName("blockalign")))))),
-                    hasRHS(ignoringImplicit(binaryOperator(
-                        hasOperatorName("*"),
-                        hasLHS(integerLiteral(equals(7)))))))))
-                .bind("weak-check"),
-            this);
-      }
-    
-      void check(const MatchFinder::MatchResult &Result) override {
-        const auto *Check = Result.Nodes.getNodeAs<IfStmt>("weak-check");
-        if (Check == nullptr)
-          return;
-    
-        diag(Check->getIfLoc(),
-             "MS ADPCM: blockalign проверяется вместо samplesperblock; "
-             "возможен выход за границу буфера (CVE-2021-3246)");
-      }
-    };
-    
-    class Lab4Module : public ClangTidyModule {
-    public:
-      void addCheckFactories(ClangTidyCheckFactories &CheckFactories) override {
-        CheckFactories.registerCheck<MsadpcmBlockCheck>(
-            "lab4-msadpcm-block-size");
-      }
-    };
-    
-    } // namespace
-    
-    static ClangTidyModuleRegistry::Add<Lab4Module> Lab4ModuleRegistration(
-        "lab4-module", "Правила лабораторной работы № 4");
+      val text = s"находок: ${hits.size}\n" + hits.map(h => s"$h\n").mkString
+      java.nio.file.Files.writeString(java.nio.file.Paths.get(outFile), text)
+      println(text)
+    }

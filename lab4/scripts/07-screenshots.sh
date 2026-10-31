@@ -16,11 +16,15 @@ python3 "$ROOT/scripts/summarize.py"
     printf "semgrep: "
     "$ROOT/work/venvs/semgrep/bin/semgrep" --version
     if [ -x "$JOERN" ]; then
-        printf "joern: "
-        "$JOERN" --version 2>/dev/null | head -1
+        # joern --version открывает REPL, поэтому версия берётся из имени jar.
+        querydb=$(printf '%s\n' "$ROOT"/work/tools/joern/joern-cli/lib/joernext-querydb-io.joern.querydb-*.jar)
+        ver=${querydb##*-}
+        printf "joern: %s\n" "${ver%.jar}"
+        printf "JDK: "
+        "$ROOT/work/tools/jdk-21/bin/java" -version 2>&1 | head -1
     fi
     printf "clang: "
-    clang --version | head -1
+    grep -m1 "clang version" "$ROOT/work/build/normal-1.0.30/config.log"
     printf "libsndfile vulnerable: "
     grep -m1 AC_INIT "$ROOT/work/src/libsndfile-1.0.30/configure.ac"
     printf "libsndfile fixed: "
@@ -35,5 +39,9 @@ python3 "$ROOT/scripts/summarize.py"
     "CodeQL: пять CWE и своё правило" "$RES/codeql-summary.txt" 1100
 "$ROOT/scripts/make-shot.sh" "$SHOT/04-semgrep.png" \
     "semgrep: штатные наборы и своё правило" "$RES/semgrep-summary.txt" 1100
+"$ROOT/scripts/make-shot.sh" "$SHOT/05-joern.png" \
+    "joern: штатный набор и своё правило" "$RES/joern-summary.txt" 1200
+"$ROOT/scripts/make-shot.sh" "$SHOT/06-joern-custom.png" \
+    "joern: своё правило на 1.0.30 и 1.1.0" "$RES/joern-custom-summary.txt" 1100
 
 echo "готово: $SHOT"

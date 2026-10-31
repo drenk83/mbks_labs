@@ -1,10 +1,10 @@
-# Лабораторная работа № 4 — SAST, вариант 3
+# Лабораторная работа № 4 — SAST, вариант 4
 
 **Тема:** использование средств статического анализа кода для оценки безопасности приложений.
 
 | Параметр | Значение |
 |---|---|
-| Вариант | 3 — C/C++, третье средство **CodeChecker** |
+| Вариант | 4 — C/C++, третье средство **joern** |
 | Исследуемое ПО | **libsndfile 1.0.30** |
 | Уязвимость | **CVE-2021-3246** (CWE-787, CVSS 8.8) |
 | Исправление | libsndfile 1.1.0, коммит `deb669ee` |
@@ -19,10 +19,10 @@
 - Написаны три правила, которые срабатывают на 1.0.30 и молчат на 1.1.0:
   - CodeQL: `cpp/lab4-msadpcm-block-size`;
   - semgrep: `lab4-msadpcm-block-size`;
-  - CodeChecker: checker clang-tidy `lab4-msadpcm-block-size`, загружаемый в CodeChecker.
+  - joern: `rules/joern/msadpcm-block-size.sc`, запуск через `joern --script`.
 - CodeQL: 5 штатных CWE-запросов дали 301 срабатывание (290 — CWE-190, 8 — CWE-129, 2 — CWE-457, 1 — CWE-468, 0 — CWE-120), своё правило — 1/0.
 - semgrep: `p/c` — 0 находок (2 правила), `p/default` — 0 (336 правил), `p/security-audit` — 7 находок; своё правило — 1/0.
-- CodeChecker: штатный набор — 329 отчётов; своё правило — 1/0.
+- joern 4.0.669: `joern-scan --language c` — 368 срабатываний (293 из них — эвристика Copy loop); своё правило — 1/0, место `ms_adpcm.c:131`. Штатный набор CVE-2021-3246 не находит.
 
 ## Состав каталога
 
@@ -36,7 +36,7 @@ lab4/
 │   ├── 03-poc.sh              генерация PoC и прогон
 │   ├── 04-codeql.sh           база, пять CWE, своё правило
 │   ├── 05-semgrep.sh          штатные наборы и своё правило
-│   ├── 06-codechecker.sh      log/analyze, сборка плагина
+│   ├── 06-joern.sh            joern-scan и своё правило
 │   ├── 07-screenshots.sh      сводки и PNG для отчёта
 │   ├── run-all.sh             всё подряд
 │   ├── codeql-build.sh        обёртка сборки для CodeQL
@@ -48,18 +48,17 @@ lab4/
 │   │   └── qlpack.yml
 │   ├── semgrep/
 │   │   └── msadpcm-block-size.yaml
-│   └── clang-tidy/
-│       ├── MsadpcmBlockCheck.cpp
-│       └── Makefile
+│   └── joern/
+│       └── msadpcm-block-size.sc
 ├── poc/
 │   ├── gen_msadpcm_poc.py
 │   └── msadpcm_poc.wav        генерируется скриптом
 ├── results/                   SARIF, txt/json, сводки
 ├── screenshots/               PNG с выводом команд
-└── work/                      исходники, сборки, базы, venv (в git не входит)
+└── work/                      исходники, сборки, базы, venv, JDK, joern (в git не входит)
 ```
 
-Исходники libsndfile в git **не коммитятся**: они скачиваются скриптом `01-fetch.sh` в `work/`, который закрыт `.gitignore`.
+Исходники libsndfile в git **не коммитятся**: они скачиваются скриптом `01-fetch.sh` в `work/`, который закрыт `.gitignore`. Туда же ставятся JDK и joern.
 
 ## Окружение
 
@@ -67,24 +66,28 @@ lab4/
 
 | Инструмент | Версия |
 |---|---|
-| clang | 23.1.3 |
+| clang | 23.1.3 (сборка libsndfile, `config.log`) |
 | CodeQL | 2.27.3 (bundle с пакетом `codeql/cpp-queries`) |
 | semgrep | 1.182.1 (venv на Python 3.13) |
-| CodeChecker | 6.26.2 (venv на Python 3.13) |
+| joern | 4.0.669 |
+| JDK | Temurin 21.0.13+9 (нужен joern) |
 | libsndfile | 1.0.30 (уязвимая), 1.1.0 (исправленная) |
 
 Инструменты поставлены в пользовательский каталог `work/`, поэтому `sudo` не требуется:
 
 ```sh
 # CodeQL: bundle распаковывается в work/tools/codeql
-# semgrep и CodeChecker: uv venv + uv pip install
+# semgrep: uv venv + uv pip install
 uv venv --python 3.13 work/venvs/semgrep
 uv pip install --python work/venvs/semgrep/bin/python semgrep==1.182.1
-uv venv --python 3.13 work/venvs/codechecker
-uv pip install --python work/venvs/codechecker/bin/python codechecker==6.26.2
+
+# JDK и joern лежат в work/tools/jdk-21 и work/tools/joern/joern-cli.
+# Перед joern:
+export JAVA_HOME="$PWD/work/tools/jdk-21"
+export PATH="$JAVA_HOME/bin:$PATH"
 ```
 
-Для сборки libsndfile нужны `autoconf`, `automake`, `libtool`, `pkg-config`, `clang`; они уже есть в системе. CMake и bear не требуются: CodeChecker сам умеет писать compilation database.
+Для сборки libsndfile нужны `autoconf`, `automake`, `libtool`, `pkg-config`, `clang`; они уже есть в системе. База запросов joern для версии 4.0.669 ставится командой `joern-scan --updatedb --dbversion 4.0.669` (58 запросов). Флаг `joern --version` версию не печатает: он открывает REPL.
 
 ## Воспроизведение
 
@@ -102,7 +105,7 @@ uv pip install --python work/venvs/codechecker/bin/python codechecker==6.26.2
 ./scripts/03-poc.sh
 ./scripts/04-codeql.sh
 ./scripts/05-semgrep.sh
-./scripts/06-codechecker.sh
+./scripts/06-joern.sh
 ./scripts/07-screenshots.sh
 ```
 
@@ -110,7 +113,7 @@ uv pip install --python work/venvs/codechecker/bin/python codechecker==6.26.2
 
 - `04-codeql.sh` при первом запуске скачивает bundle CodeQL (~560 МБ) в `work/tools/`.
 - `05-semgrep.sh` обращается к реестру semgrep.dev; нужен интернет.
-- `06-codechecker.sh` собирает clang-tidy-плагин через системные заголовки clang 23; плагин загружается в clang-tidy, который вызывает CodeChecker.
+- `06-joern.sh` требует уже установленные JDK и joern в `work/tools/`. Штатный прогон по `src/` занимает около половины минуты и пишет `results/joern-builtin-1.0.30.txt`, `results/joern-custom-1.0.30.txt` и `results/joern-custom-1.1.0.txt`. Каталог `workspace` joern создаёт внутри `work/joern-runs/`.
 - Скрипты используют `work/` и `results/`; пути абсолютные, запускать можно из любого каталога.
 
 ## Проверка PoC вручную
@@ -138,7 +141,7 @@ if (blockalign < 7 * psf->sf.channels)
 
 - CodeQL: запрос ограничен функцией `wavlike_msadpcm_init`, ищет `if` с `blockalign` слева от `<`.
 - semgrep: `pattern-inside` функции + шаблон условия.
-- CodeChecker: checker clang-tidy, matcher на `ifStmt` внутри функции; подключается через `.clang-tidy` и `cc-verbatim-args-file`.
+- joern: обход CPG, оператор `if` в той же функции; первый ребёнок AST условия — `blockalign`, второй начинается с `7 *`.
 
 ## Отчёт
 
@@ -155,5 +158,5 @@ if (blockalign < 7 * psf->sf.channels)
 - Штатный C-набор semgrep (`p/c`) содержит всего два правила и на libsndfile не дал находок; для содержательного анализа использован `p/security-audit`.
 - Штатный запрос CodeQL CWE-190 дал 290 срабатываний с низкой точностью; большинство — битовые операции, требующие ручной триаги.
 - Штатный запрос CWE-120 не увидел CVE-2021-3246: уязвимость является ошибкой согласования размеров, а не неограниченным копированием.
-- CodeChecker не знает checker из плагина, поэтому его важность в статистике — `UNSPECIFIED`; сообщение диагностики при этом сохраняется и выводится.
-- Часть срабатываний `security.ArrayBound` в CodeChecker и `use-after-free` в semgrep — ложные; это разобрано в отчёте.
+- Штатный `joern-scan` тоже не видит CVE-2021-3246. Из 368 срабатываний 293 — запрос Copy loop: он помечает цикл, который пишет в массив и увеличивает индекс, без проверки границы. Срабатывание форматной строки в `psf_hexdump` ложное: формат константный, но записан тернарным оператором.
+- Часть срабатываний `use-after-free` в semgrep — ложные; это разобрано в отчёте.
