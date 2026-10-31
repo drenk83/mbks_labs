@@ -1,0 +1,339 @@
+<com.yandex.metrica.impl.ac.CrashpadHelper: void cancelSetUpNativeUncaughtExceptionHandler()> -> _SINK_
+<com.yandex.metrica.impl.ac.CrashpadHelper: java.lang.String getLibDirInsideApk()> -> _SINK_
+<com.yandex.metrica.impl.ac.CrashpadHelper: java.lang.String getLibraryVersion()> -> _SINK_
+<com.yandex.metrica.impl.ac.CrashpadHelper: void logsEnabled(boolean)> -> _SINK_
+<com.yandex.metrica.impl.ac.CrashpadHelper: void setUpNativeUncaughtExceptionHandler(android.os.Bundle)> -> _SINK_
+<com.yandex.metrica.impl.ac.CrashpadHelper: void updateRuntimeConfig(java.lang.String)> -> _SINK_
+<com.yandex.metrica.impl.ac.CrashpadServiceHelper: void cancelSetUpServiceHelper()> -> _SINK_
+<com.yandex.metrica.impl.ac.CrashpadServiceHelper: boolean deleteCompletedReports()> -> _SINK_
+<com.yandex.metrica.impl.ac.CrashpadServiceHelper: boolean markCrashCompleted(java.lang.String)> -> _SINK_
+<com.yandex.metrica.impl.ac.CrashpadServiceHelper: android.os.Bundle readCrash(java.lang.String)> -> _SINK_
+<com.yandex.metrica.impl.ac.CrashpadServiceHelper: java.util.List readOldCrashes()> -> _SINK_
+<com.yandex.metrica.impl.ac.CrashpadServiceHelper: void setUpServiceHelper(java.lang.String)> -> _SINK_
+<com.yandex.metrica.impl.ac.HandlerRunner: void runHandler(java.lang.String[])> -> _SINK_
+<com.yandex.metrica.impl.ac.NativeCrashesHelper: void cancelSetUpNativeUncaughtExceptionHandler()> -> _SINK_
+<com.yandex.metrica.impl.ac.NativeCrashesHelper: void logsEnabled(boolean)> -> _SINK_
+<com.yandex.metrica.impl.ac.NativeCrashesHelper: void setUpNativeUncaughtExceptionHandler(java.lang.String)> -> _SINK_
+<com.yandex.eye.nativebits.EyeNative: boolean isArmv7()> -> _SINK_
+<com.yandex.eye.nativebits.EyeNative: boolean isArmv8()> -> _SINK_
+<com.yandex.eye.nativebits.EyeNative: boolean isX86()> -> _SINK_
+<com.yandex.eye.nativebits.EyeNative: boolean isX8664()> -> _SINK_
+# пропущен Lcom/yandex/eye/nativebits/EyeNative;->processBufferBug: плохой дескриптор '(I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; I I I I I I)V' на 2
+# пропущен Lcom/yandex/eye/nativebits/EyeNative;->processLut: плохой дескриптор '(I I I I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer;)V' на 2
+# пропущен Lcom/yandex/eye/nativebits/EyeNative;->setCameraRGBABuffer: плохой дескриптор '(I I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer;)V' на 2
+# пропущен Lcom/yandex/eye/nativebits/EyeNative;->setCameraYUVBuffer: плохой дескриптор '(I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; I I I I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer;)V' на 2
+<org.webrtc.BuiltinAudioDecoderFactoryFactory: long nativeCreateBuiltinAudioDecoderFactory()> -> _SINK_
+<org.webrtc.BuiltinAudioEncoderFactoryFactory: long nativeCreateBuiltinAudioEncoderFactory()> -> _SINK_
+# пропущен Lorg/webrtc/H264Utils;->nativeIsSameH264Profile: плохой дескриптор '(Ljava/util/Map; Ljava/util/Map;)Z' на 16
+# пропущен Lorg/webrtc/Histogram;->nativeAddSample: плохой дескриптор '(J I)V' на 2
+# пропущен Lorg/webrtc/Histogram;->nativeCreateCounts: плохой дескриптор '(Ljava/lang/String; I I I)J' на 19
+# пропущен Lorg/webrtc/Histogram;->nativeCreateEnumeration: плохой дескриптор '(Ljava/lang/String; I)J' на 19
+<org.webrtc.JniCommon: void nativeAddRef(long)> -> _SINK_
+<org.webrtc.JniCommon: java.nio.ByteBuffer nativeAllocateByteBuffer(int)> -> _SINK_
+<org.webrtc.JniCommon: void nativeFreeByteBuffer(java.nio.ByteBuffer)> -> _SINK_
+<org.webrtc.JniCommon: void nativeReleaseRef(long)> -> _SINK_
+<org.webrtc.MediaStream: java.lang.String nativeGetId(long)> -> _SINK_
+# пропущен Lorg/webrtc/MediaStream;->nativeRemoveAudioTrack: плохой дескриптор '(J J)Z' на 2
+# пропущен Lorg/webrtc/MediaStream;->nativeRemoveVideoTrack: плохой дескриптор '(J J)Z' на 2
+<org.webrtc.MediaStreamTrack: java.lang.String nativeGetId(long)> -> _SINK_
+<org.webrtc.MediaStreamTrack: java.lang.String nativeGetKind(long)> -> _SINK_
+# пропущен Lorg/webrtc/MediaStreamTrack;->nativeSetEnabled: плохой дескриптор '(J Z)Z' на 2
+# пропущен Lorg/webrtc/NativeAndroidVideoTrackSource;->nativeAdaptFrame: плохой дескриптор '(J I I I J)Lorg/webrtc/VideoProcessor$FrameAdaptationParameters;' на 2
+# пропущен Lorg/webrtc/NativeAndroidVideoTrackSource;->nativeOnFrameCaptured: плохой дескриптор '(J I J Lorg/webrtc/VideoFrame$Buffer;)V' на 2
+# пропущен Lorg/webrtc/NativeAndroidVideoTrackSource;->nativeSetState: плохой дескриптор '(J Z)V' на 2
+<org.webrtc.NetworkMonitor: void nativeNotifyConnectionTypeChanged(long)> -> _SINK_
+# пропущен Lorg/webrtc/NetworkMonitor;->nativeNotifyOfActiveNetworkList: плохой дескриптор '(J [Lorg/webrtc/NetworkChangeDetector$NetworkInformation;)V' на 2
+# пропущен Lorg/webrtc/NetworkMonitor;->nativeNotifyOfNetworkConnect: плохой дескриптор '(J Lorg/webrtc/NetworkChangeDetector$NetworkInformation;)V' на 2
+# пропущен Lorg/webrtc/NetworkMonitor;->nativeNotifyOfNetworkDisconnect: плохой дескриптор '(J J)V' на 2
+# пропущен Lorg/webrtc/PeerConnection;->nativeAddIceCandidate: плохой дескриптор '(Ljava/lang/String; I Ljava/lang/String;)Z' на 19
+# пропущен Lorg/webrtc/PeerConnection;->nativeAddTrack: плохой дескриптор '(J Ljava/util/List;)Lorg/webrtc/RtpSender;' на 2
+# пропущен Lorg/webrtc/PeerConnection;->nativeAddTransceiverOfType: плохой дескриптор '(Lorg/webrtc/MediaStreamTrack$MediaType; Lorg/webrtc/RtpTransceiver$RtpTransceiverInit;)Lorg/webrtc/RtpTransceiver;' на 40
+<org.webrtc.PeerConnection: void nativeClose()> -> _SINK_
+# пропущен Lorg/webrtc/PeerConnection;->nativeCreateAnswer: плохой дескриптор '(Lorg/webrtc/SdpObserver; Lorg/webrtc/MediaConstraints;)V' на 25
+# пропущен Lorg/webrtc/PeerConnection;->nativeCreateOffer: плохой дескриптор '(Lorg/webrtc/SdpObserver; Lorg/webrtc/MediaConstraints;)V' на 25
+<org.webrtc.PeerConnection: long nativeCreatePeerConnectionObserver(org.webrtc.PeerConnection$Observer)> -> _SINK_
+<org.webrtc.PeerConnection: void nativeFreeOwnedPeerConnection(long)> -> _SINK_
+<org.webrtc.PeerConnection: java.util.List nativeGetSenders()> -> _SINK_
+<org.webrtc.PeerConnection: java.util.List nativeGetTransceivers()> -> _SINK_
+<org.webrtc.PeerConnection: org.webrtc.PeerConnection$IceConnectionState nativeIceConnectionState()> -> _SINK_
+<org.webrtc.PeerConnection: org.webrtc.PeerConnection$IceGatheringState nativeIceGatheringState()> -> _SINK_
+<org.webrtc.PeerConnection: void nativeNewGetStats(org.webrtc.RTCStatsCollectorCallback)> -> _SINK_
+<org.webrtc.PeerConnection: boolean nativeRemoveIceCandidates(org.webrtc.IceCandidate[])> -> _SINK_
+<org.webrtc.PeerConnection: void nativeRemoveLocalStream(long)> -> _SINK_
+<org.webrtc.PeerConnection: boolean nativeSetConfiguration(org.webrtc.PeerConnection$RTCConfiguration)> -> _SINK_
+# пропущен Lorg/webrtc/PeerConnection;->nativeSetLocalDescription: плохой дескриптор '(Lorg/webrtc/SdpObserver; Lorg/webrtc/SessionDescription;)V' на 25
+# пропущен Lorg/webrtc/PeerConnection;->nativeSetRemoteDescription: плохой дескриптор '(Lorg/webrtc/SdpObserver; Lorg/webrtc/SessionDescription;)V' на 25
+# пропущен Lorg/webrtc/PeerConnectionFactory;->nativeCreateAudioSource: плохой дескриптор '(J Lorg/webrtc/MediaConstraints;)J' на 2
+# пропущен Lorg/webrtc/PeerConnectionFactory;->nativeCreateAudioTrack: плохой дескриптор '(J Ljava/lang/String; J)J' на 2
+# пропущен Lorg/webrtc/PeerConnectionFactory;->nativeCreatePeerConnection: плохой дескриптор '(J Lorg/webrtc/PeerConnection$RTCConfiguration; Lorg/webrtc/MediaConstraints; J Lorg/webrtc/SSLCertificateVerifier;)J' на 2
+# пропущен Lorg/webrtc/PeerConnectionFactory;->nativeCreatePeerConnectionFactory: плохой дескриптор '(Landroid/content/Context; Lorg/webrtc/PeerConnectionFactory$Options; J J J Lorg/webrtc/VideoEncoderFactory; Lorg/webrtc/VideoDecoderFactory; J J J J J)Lorg/webrtc/PeerConnectionFactory;' на 26
+# пропущен Lorg/webrtc/PeerConnectionFactory;->nativeCreateVideoSource: плохой дескриптор '(J Z Z)J' на 2
+# пропущен Lorg/webrtc/PeerConnectionFactory;->nativeCreateVideoTrack: плохой дескриптор '(J Ljava/lang/String; J)J' на 2
+<org.webrtc.PeerConnectionFactory: void nativeDeleteLoggable()> -> _SINK_
+<org.webrtc.PeerConnectionFactory: java.lang.String nativeFindFieldTrialsFullName(java.lang.String)> -> _SINK_
+<org.webrtc.PeerConnectionFactory: void nativeFreeFactory(long)> -> _SINK_
+<org.webrtc.PeerConnectionFactory: void nativeInitializeAndroidGlobals()> -> _SINK_
+<org.webrtc.PeerConnectionFactory: void nativeInitializeFieldTrials(java.lang.String)> -> _SINK_
+# пропущен Lorg/webrtc/PeerConnectionFactory;->nativeInjectLoggable: плохой дескриптор '(Lorg/webrtc/JNILogging; I)V' на 24
+<org.webrtc.RtpReceiver: long nativeGetTrack(long)> -> _SINK_
+<org.webrtc.RtpSender: long nativeGetDtmfSender(long)> -> _SINK_
+<org.webrtc.RtpSender: long nativeGetTrack(long)> -> _SINK_
+# пропущен Lorg/webrtc/RtpSender;->nativeSetTrack: плохой дескриптор '(J J)Z' на 2
+<org.webrtc.RtpTransceiver: org.webrtc.RtpTransceiver$RtpTransceiverDirection nativeDirection(long)> -> _SINK_
+<org.webrtc.RtpTransceiver: org.webrtc.MediaStreamTrack$MediaType nativeGetMediaType(long)> -> _SINK_
+<org.webrtc.RtpTransceiver: org.webrtc.RtpReceiver nativeGetReceiver(long)> -> _SINK_
+<org.webrtc.RtpTransceiver: org.webrtc.RtpSender nativeGetSender(long)> -> _SINK_
+<org.webrtc.TimestampAligner: long nativeCreateTimestampAligner()> -> _SINK_
+<org.webrtc.TimestampAligner: void nativeReleaseTimestampAligner(long)> -> _SINK_
+# пропущен Lorg/webrtc/TimestampAligner;->nativeTranslateTimestamp: плохой дескриптор '(J J)J' на 2
+# пропущен Lorg/webrtc/VideoDecoderWrapper;->nativeOnDecodedFrame: плохой дескриптор '(J Lorg/webrtc/VideoFrame; Ljava/lang/Integer; Ljava/lang/Integer;)V' на 2
+# пропущен Lorg/webrtc/VideoEncoderWrapper;->nativeOnEncodedFrame: плохой дескриптор '(J Lorg/webrtc/EncodedImage;)V' на 2
+# пропущен Lorg/webrtc/YuvHelper;->nativeCopyPlane: плохой дескриптор '(Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I)V' на 22
+# пропущен Lorg/webrtc/YuvHelper;->nativeI420Copy: плохой дескриптор '(Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I)V' на 22
+# пропущен Lorg/webrtc/YuvHelper;->nativeI420ToNV12: плохой дескриптор '(Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I)V' на 22
+# пропущен Lorg/webrtc/audio/WebRtcAudioRecord;->nativeCacheDirectBufferAddress: плохой дескриптор '(J Ljava/nio/ByteBuffer;)V' на 2
+# пропущен Lorg/webrtc/audio/WebRtcAudioRecord;->nativeDataIsRecorded: плохой дескриптор '(J I)V' на 2
+# пропущен Lorg/webrtc/audio/WebRtcAudioTrack;->nativeCacheDirectBufferAddress: плохой дескриптор '(J Ljava/nio/ByteBuffer;)V' на 2
+# пропущен Lorg/webrtc/audio/WebRtcAudioTrack;->nativeGetPlayoutData: плохой дескриптор '(J I)V' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->TImage_H_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TImage;)I' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->TImage_W_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TImage;)I' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->TImage_getData: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TImage;)[B' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->TPoint_X_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)I' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->TPoint_X_set: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TPoint; I)V' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->TPoint_Y_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)I' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->TPoint_Y_set: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TPoint; I)V' на 2
+<ru.yandex.dict.mt.libs.mobile.android.CVMobileCommonJNI: void delete_TImage(long)> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.CVMobileCommonJNI: void delete_TPoint(long)> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.CVMobileCommonJNI: long new_TPoint()> -> _SINK_
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileCommonJNI;->TOperationResult_GetData: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TOperationResult;)Ljava/lang/String;' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileCommonJNI;->TOperationResult_IsError: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TOperationResult;)Z' на 2
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileCommonJNI: void delete_TOperationResult(long)> -> _SINK_
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDetectionResult_GetEdges: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TDetectionResult;)J' на 2
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileScannerJNI: long TDetectionResult_SWIGUpcast(long)> -> _SINK_
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_BottomLeft_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_BottomLeft_set: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges; J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)V' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_BottomRight_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_BottomRight_set: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges; J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)V' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_TopLeft_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_TopLeft_set: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges; J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)V' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_TopRight_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_TopRight_set: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges; J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)V' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentScanner_DetectDocumentEdges: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentScanner; I I [B I)J' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentScanner_GetEnhancedImage: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentScanner; I)J' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentScanner_SetEnhanceImage: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentScanner; I I [B I J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TEnhanceImageResult_GetImage: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TEnhanceImageResult;)J' на 2
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileScannerJNI: long TEnhanceImageResult_SWIGUpcast(long)> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileScannerJNI: void delete_TDetectionResult(long)> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileScannerJNI: void delete_TDocumentEdges(long)> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileScannerJNI: void delete_TDocumentScanner(long)> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileScannerJNI: void delete_TEnhanceImageResult(long)> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileScannerJNI: long new_TDocumentEdges()> -> _SINK_
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->new_TDocumentScanner: плохой дескриптор '(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; I I Z)J' на 19
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: int AKAZE_get()> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: int KLT_FAST_get()> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: int KLT_get()> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: int ORB_get()> -> _SINK_
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->THomographyMatrix_AnchorSim_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)F' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->THomographyMatrix_MotionMagnitude_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)F' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->THomographyMatrix_Success_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)Z' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->THomographyMatrix_contrast_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)F' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->THomographyMatrix_matrix_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)J' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Set: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D; D D D D D D D D D)V' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value0_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value1_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value2_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value3_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value4_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value5_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value6_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value7_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value8_get: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TRect_Set: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TRect; F F F F)V' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerParams_Set: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerParams; I F I I I I I I D Z Z D D)V' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerResult_GetKeyPointId: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult; I)I' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerResult_GetKeyPointX: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult; I)I' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerResult_GetKeyPointY: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult; I)I' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerResult_GetKeyPointsSize: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult;)I' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerResult_GetMatrix: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult;)J' на 2
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: long TTrackerResult_SWIGUpcast(long)> -> _SINK_
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerSetAnchorResult_GetResult: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerSetAnchorResult;)Z' на 2
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: long TTrackerSetAnchorResult_SWIGUpcast(long)> -> _SINK_
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTracker_ActivatePendingAnchor: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TTracker;)V' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTracker_GetHomography: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TTracker; I I [B I Z Z Z)J' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTracker_SetAnchor__SWIG_0: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TTracker; I I [B I J Lru/yandex/dict/mt/libs/mobile/android/TRect; J Lru/yandex/dict/mt/libs/mobile/android/TRect; F J Lru/yandex/dict/mt/libs/mobile/android/TRect;)J' на 2
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTracker_SetPendingAnchor: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TTracker; I I [B I J Lru/yandex/dict/mt/libs/mobile/android/TRect; J Lru/yandex/dict/mt/libs/mobile/android/TRect; F J Lru/yandex/dict/mt/libs/mobile/android/TRect; J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)J' на 2
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: void delete_THomographyMatrix(long)> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: void delete_TMatrix3D(long)> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: void delete_TRect(long)> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: void delete_TTracker(long)> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: void delete_TTrackerParams(long)> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: void delete_TTrackerResult(long)> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: void delete_TTrackerSetAnchorResult(long)> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: long new_TMatrix3D()> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: long new_TRect()> -> _SINK_
+<ru.yandex.dict.mt.libs.mobile.android.MTMobileTrackerJNI: long new_TTrackerParams()> -> _SINK_
+# пропущен Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->new_TTracker__SWIG_1: плохой дескриптор '(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerParams;)J' на 2
+<ru.yandex.speechkit.BaseSpeechKit: java.lang.String native_getUuid()> -> _SINK_
+# пропущен Lru/yandex/speechkit/BaseSpeechKit;->native_init: плохой дескриптор '(Landroid/content/Context; Ljava/lang/String;)V' на 26
+<ru.yandex.speechkit.BaseSpeechKit: void native_setEventLogger(ru.yandex.speechkit.EventLogger)> -> _SINK_
+<ru.yandex.speechkit.BaseSpeechKit: void native_setPlatformInfo(ru.yandex.speechkit.PlatformInfo)> -> _SINK_
+<ru.yandex.speechkit.BaseSpeechKit: void native_setUuid(java.lang.String)> -> _SINK_
+<ru.yandex.speechkit.SoundInfo: ru.yandex.speechkit.SoundInfo native_parseMime(java.lang.String)> -> _SINK_
+<ru.yandex.speechkit.internal.NetworkReachabilityHelper: void native_Destroy(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/NetworkReachabilityHelper;->native_ReachabilityChanged: плохой дескриптор '(J Z Ljava/lang/String;)V' на 2
+# пропущен Lru/yandex/speechkit/internal/SoundLoggerJniImpl;->native_send: плохой дескриптор '(I I I Ljava/nio/ByteBuffer; Ljava/lang/String; J)Ljava/lang/String;' на 2
+# пропущен Lru/yandex/speechkit/internal/SoundLoggerJniImpl;->native_setSettings: плохой дескриптор '(Ljava/lang/String; J)V' на 19
+<ru.yandex.speechkit.internal.SoundLoggerJniImpl: void native_setSubThresholdSendRate(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/TCPConnection;->call_onConnectionDataReceived: плохой дескриптор '(J [B I)V' на 2
+# пропущен Lru/yandex/speechkit/internal/TCPConnection;->call_onConnectionDataSent: плохой дескриптор '(J J)V' на 2
+# пропущен Lru/yandex/speechkit/internal/TCPConnection;->call_onConnectionError: плохой дескриптор '(J Ljava/lang/String;)V' на 2
+<ru.yandex.speechkit.internal.TCPConnection: void call_onConnectionEstablished(long)> -> _SINK_
+<ru.yandex.speechkit.internal.TCPConnection: void call_onConnectionFinished(long)> -> _SINK_
+<ru.yandex.speechkit.internal.TCPConnection: void native_Destroy(long)> -> _SINK_
+<ru.yandex.speechkit.internal.TCPConnection: void native_releaseData(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/Timings;->native_addEvent: плохой дескриптор '(Ljava/lang/String; Ljava/lang/String;)V' на 19
+<ru.yandex.speechkit.internal.Timings: void native_createFlow(java.lang.String)> -> _SINK_
+<ru.yandex.speechkit.internal.Timings: void native_deleteFlow(java.lang.String)> -> _SINK_
+<org.sqlite.core.NativeDB: void _close()> -> _SINK_
+<org.sqlite.core.NativeDB: int _exec_utf8(byte[])> -> _SINK_
+# пропущен Lorg/sqlite/core/NativeDB;->_open_utf8: плохой дескриптор '([B I)V' на 3
+# пропущен Lorg/sqlite/core/NativeDB;->backup: плохой дескриптор '([B [B Lorg/sqlite/core/DB$ProgressObserver;)I' на 3
+# пропущен Lorg/sqlite/core/NativeDB;->bind_blob: плохой дескриптор '(J I [B)I' на 2
+# пропущен Lorg/sqlite/core/NativeDB;->bind_double: плохой дескриптор '(J I D)I' на 2
+# пропущен Lorg/sqlite/core/NativeDB;->bind_int: плохой дескриптор '(J I I)I' на 2
+# пропущен Lorg/sqlite/core/NativeDB;->bind_long: плохой дескриптор '(J I J)I' на 2
+# пропущен Lorg/sqlite/core/NativeDB;->bind_null: плохой дескриптор '(J I)I' на 2
+<org.sqlite.core.NativeDB: int bind_parameter_count(long)> -> _SINK_
+# пропущен Lorg/sqlite/core/NativeDB;->bind_text_utf8: плохой дескриптор '(J I [B)I' на 2
+<org.sqlite.core.NativeDB: void busy_timeout(int)> -> _SINK_
+<org.sqlite.core.NativeDB: int changes()> -> _SINK_
+<org.sqlite.core.NativeDB: int clear_bindings(long)> -> _SINK_
+# пропущен Lorg/sqlite/core/NativeDB;->column_blob: плохой дескриптор '(J I)[B' на 2
+<org.sqlite.core.NativeDB: int column_count(long)> -> _SINK_
+# пропущен Lorg/sqlite/core/NativeDB;->column_decltype_utf8: плохой дескриптор '(J I)Ljava/nio/ByteBuffer;' на 2
+# пропущен Lorg/sqlite/core/NativeDB;->column_double: плохой дескриптор '(J I)D' на 2
+# пропущен Lorg/sqlite/core/NativeDB;->column_int: плохой дескриптор '(J I)I' на 2
+# пропущен Lorg/sqlite/core/NativeDB;->column_long: плохой дескриптор '(J I)J' на 2
+<org.sqlite.core.NativeDB: boolean[][] column_metadata(long)> -> _SINK_
+# пропущен Lorg/sqlite/core/NativeDB;->column_name_utf8: плохой дескриптор '(J I)Ljava/nio/ByteBuffer;' на 2
+# пропущен Lorg/sqlite/core/NativeDB;->column_table_name_utf8: плохой дескриптор '(J I)Ljava/nio/ByteBuffer;' на 2
+# пропущен Lorg/sqlite/core/NativeDB;->column_text_utf8: плохой дескриптор '(J I)Ljava/nio/ByteBuffer;' на 2
+# пропущен Lorg/sqlite/core/NativeDB;->column_type: плохой дескриптор '(J I)I' на 2
+<org.sqlite.core.NativeDB: int enable_load_extension(boolean)> -> _SINK_
+<org.sqlite.core.NativeDB: java.nio.ByteBuffer errmsg_utf8()> -> _SINK_
+<org.sqlite.core.NativeDB: int finalize(long)> -> _SINK_
+<org.sqlite.core.NativeDB: void free_functions()> -> _SINK_
+<org.sqlite.core.NativeDB: void interrupt()> -> _SINK_
+<org.sqlite.core.NativeDB: java.nio.ByteBuffer libversion_utf8()> -> _SINK_
+# пропущен Lorg/sqlite/core/NativeDB;->limit: плохой дескриптор '(I I)I' на 2
+<org.sqlite.core.NativeDB: long prepare_utf8(byte[])> -> _SINK_
+<org.sqlite.core.NativeDB: int reset(long)> -> _SINK_
+# пропущен Lorg/sqlite/core/NativeDB;->restore: плохой дескриптор '([B [B Lorg/sqlite/core/DB$ProgressObserver;)I' на 3
+<org.sqlite.core.NativeDB: int shared_cache(boolean)> -> _SINK_
+<org.sqlite.core.NativeDB: int step(long)> -> _SINK_
+<org.sqlite.core.NativeDB: int total_changes()> -> _SINK_
+# пропущен Lorg/webrtc/VideoTrack;->nativeAddSink: плохой дескриптор '(J J)V' на 2
+<org.webrtc.VideoTrack: void nativeFreeSink(long)> -> _SINK_
+# пропущен Lorg/webrtc/VideoTrack;->nativeRemoveSink: плохой дескриптор '(J J)V' на 2
+<org.webrtc.VideoTrack: long nativeWrapSink(org.webrtc.VideoSink)> -> _SINK_
+# пропущен Lorg/webrtc/audio/JavaAudioDeviceModule;->nativeCreateAudioDeviceModule: плохой дескриптор '(Landroid/content/Context; Landroid/media/AudioManager; Lorg/webrtc/audio/WebRtcAudioRecord; Lorg/webrtc/audio/WebRtcAudioTrack; I I Z Z)J' на 26
+# пропущен Lru/yandex/speechkit/EchoCancellingAudioSource;->native_AppendCancellationBuffer: плохой дескриптор '(J I I I Ljava/nio/ByteBuffer;)V' на 2
+<ru.yandex.speechkit.EchoCancellingAudioSource: long native_Create(long)> -> _SINK_
+<ru.yandex.speechkit.EchoCancellingAudioSource: void native_Destroy(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/EchoCancellingAudioSource;->native_Subscribe: плохой дескриптор '(J J)V' на 2
+# пропущен Lru/yandex/speechkit/EchoCancellingAudioSource;->native_Unsubsribe: плохой дескриптор '(J J)V' на 2
+<ru.yandex.speechkit.internal.AudioPlayerJniAdapter: long native_AudioPlayerCreate()> -> _SINK_
+<ru.yandex.speechkit.internal.AudioPlayerJniAdapter: long native_AudioPlayerDestroy(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/AudioSourceJniAdapter;->native_AudioSourceCreate: плохой дескриптор '(I I I I)J' на 2
+<ru.yandex.speechkit.internal.AudioSourceJniAdapter: long native_AudioSourceDestroy(long)> -> _SINK_
+<ru.yandex.speechkit.internal.JavaToNativeAudioPlayerListenerAdapter: void native_destroyHandle(long)> -> _SINK_
+<ru.yandex.speechkit.internal.JavaToNativeAudioPlayerListenerAdapter: void native_onBufferUnderrun(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;->native_onPlayerError: плохой дескриптор '(J I Ljava/lang/String;)V' на 2
+<ru.yandex.speechkit.internal.JavaToNativeAudioPlayerListenerAdapter: void native_onPlayingBegin(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;->native_onPlayingData: плохой дескриптор '(J Ljava/nio/ByteBuffer; Ljava/lang/String; I I I)V' на 2
+<ru.yandex.speechkit.internal.JavaToNativeAudioPlayerListenerAdapter: void native_onPlayingDone(long)> -> _SINK_
+<ru.yandex.speechkit.internal.JavaToNativeAudioPlayerListenerAdapter: void native_onPlayingPaused(long)> -> _SINK_
+<ru.yandex.speechkit.internal.JavaToNativeAudioPlayerListenerAdapter: void native_onPlayingResumed(long)> -> _SINK_
+<ru.yandex.speechkit.internal.JavaToNativeAudioSourceListenerAdapter: void native_Destroy(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/JavaToNativeAudioSourceListenerAdapter;->native_onAudioSourceData: плохой дескриптор '(J Ljava/nio/ByteBuffer;)V' на 2
+# пропущен Lru/yandex/speechkit/internal/JavaToNativeAudioSourceListenerAdapter;->native_onAudioSourceError: плохой дескриптор '(J I Ljava/lang/String;)V' на 2
+<ru.yandex.speechkit.internal.JavaToNativeAudioSourceListenerAdapter: void native_onAudioSourceStarted(long)> -> _SINK_
+<ru.yandex.speechkit.internal.JavaToNativeAudioSourceListenerAdapter: void native_onAudioSourceStopped(long)> -> _SINK_
+<ru.yandex.speechkit.internal.NativeToJavaAudioSourceListenerAdapter: long native_Create()> -> _SINK_
+<ru.yandex.speechkit.internal.NativeToJavaAudioSourceListenerAdapter: void native_Destroy(long)> -> _SINK_
+<ru.yandex.speechkit.internal.OggOpusDecoder: long native_create()> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/OggOpusDecoder;->native_decodeData: плохой дескриптор '(Ljava/nio/ByteBuffer; J)Lru/yandex/speechkit/SoundBuffer;' на 22
+<ru.yandex.speechkit.internal.OggOpusDecoder: long native_destroy(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/OggOpusEncoder;->native_create: плохой дескриптор '(I I I I I)J' на 2
+<ru.yandex.speechkit.internal.OggOpusEncoder: void native_destroy(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/OggOpusEncoder;->native_encodeData: плохой дескриптор '(Ljava/nio/ByteBuffer; J)Lru/yandex/speechkit/SoundBuffer;' на 22
+<ru.yandex.speechkit.internal.OggOpusEncoder: ru.yandex.speechkit.SoundBuffer native_getStreamHeader(long)> -> _SINK_
+<ru.yandex.speechkit.internal.OggOpusEncoder: ru.yandex.speechkit.Error native_init(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/PhraseSpotterJniImpl;->native_Create: плохой дескриптор '(J J Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; I I J J Z Z)J' на 2
+<ru.yandex.speechkit.internal.PhraseSpotterJniImpl: void native_Destroy(long)> -> _SINK_
+<ru.yandex.speechkit.internal.PhraseSpotterJniImpl: void native_Prepare(long)> -> _SINK_
+<ru.yandex.speechkit.internal.PhraseSpotterJniImpl: void native_Start(long)> -> _SINK_
+<ru.yandex.speechkit.internal.PhraseSpotterJniImpl: void native_Stop(long)> -> _SINK_
+<ru.yandex.speechkit.internal.PhraseSpotterListenerJniAdapter: long native_listenerBindingCreate()> -> _SINK_
+<ru.yandex.speechkit.internal.PhraseSpotterListenerJniAdapter: void native_listenerBindingDestroy(long)> -> _SINK_
+<ru.yandex.speechkit.internal.RecognizerJniImpl: void native_Cancel(long)> -> _SINK_
+<ru.yandex.speechkit.internal.RecognizerJniImpl: void native_Destroy(long)> -> _SINK_
+<ru.yandex.speechkit.internal.RecognizerJniImpl: void native_Prepare(long)> -> _SINK_
+<ru.yandex.speechkit.internal.RecognizerJniImpl: void native_StartRecording(long)> -> _SINK_
+<ru.yandex.speechkit.internal.RecognizerJniImpl: void native_StopRecording(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/RecognizerJniImpl;->native_Create: плохой дескриптор '(J J Ljava/lang/String; Ljava/lang/String; Z Z J J J Ljava/lang/String; I I Z Z J Z Z Z Ljava/lang/String; F J Z Z Z Ljava/lang/String; Ljava/lang/String; J Z Z Ljava/lang/String;)J' на 2
+<ru.yandex.speechkit.internal.RecognizerListenerJniAdapter: long native_ListenerBindingCreate()> -> _SINK_
+<ru.yandex.speechkit.internal.RecognizerListenerJniAdapter: void native_ListenerBindingDestroy(long)> -> _SINK_
+<ru.yandex.speechkit.internal.SoundLoggerListenerJniAdapter: long native_createHandle()> -> _SINK_
+<ru.yandex.speechkit.internal.SoundLoggerListenerJniAdapter: void native_destroyHandle(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_closeStream: плохой дескриптор '(J I Lru/yandex/speechkit/internal/UniProxyStreamControl$Reason;)V' на 2
+# пропущен Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_create: плохой дескриптор '(J Ljava/lang/String; Ljava/lang/String; J J)J' на 2
+# пропущен Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_deleteStream: плохой дескриптор '(J I)V' на 2
+<ru.yandex.speechkit.internal.UniProxyClientJniImpl: void native_destroy(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_openWriteStream: плохой дескриптор '(J Ljava/lang/String; Ljava/lang/String;)I' на 2
+# пропущен Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_sendEvent: плохой дескриптор '(J Ljava/lang/String; Ljava/lang/String;)V' на 2
+<ru.yandex.speechkit.internal.UniProxyClientJniImpl: void native_start(long)> -> _SINK_
+<ru.yandex.speechkit.internal.UniProxyClientJniImpl: void native_stop(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_writeStream: плохой дескриптор '(J I [B)V' на 2
+<ru.yandex.speechkit.internal.UniProxyClientListenerJniAdapter: long native_listenerBindingCreate()> -> _SINK_
+<ru.yandex.speechkit.internal.UniProxyClientListenerJniAdapter: void native_listenerBindingDestroy(long)> -> _SINK_
+<ru.yandex.speechkit.internal.VocalizerJniImpl: void native_Cancel(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/VocalizerJniImpl;->native_Create: плохой дескриптор '(J Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; F Ljava/lang/String; Z Z Ljava/lang/String; J J Ljava/lang/String; Ljava/lang/String; J)J' на 2
+<ru.yandex.speechkit.internal.VocalizerJniImpl: void native_Destroy(long)> -> _SINK_
+<ru.yandex.speechkit.internal.VocalizerJniImpl: void native_Pause(long)> -> _SINK_
+<ru.yandex.speechkit.internal.VocalizerJniImpl: void native_Play(long)> -> _SINK_
+<ru.yandex.speechkit.internal.VocalizerJniImpl: void native_Prepare(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/VocalizerJniImpl;->native_Synthesize: плохой дескриптор '(J Ljava/lang/String; I Ljava/lang/String;)V' на 2
+<ru.yandex.speechkit.internal.VocalizerListenerJniAdapter: long native_ListenerBindingCreate()> -> _SINK_
+<ru.yandex.speechkit.internal.VocalizerListenerJniAdapter: void native_ListenerBindingDestroy(long)> -> _SINK_
+<ru.yandex.speechkit.internal.VoiceDialogJniImpl: void native_cancel(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/VoiceDialogJniImpl;->native_create: плохой дескриптор '(J J Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; J J J Z Z Z Ljava/lang/String; J J J J J F Ljava/lang/String; Ljava/lang/String; I Ljava/lang/String; I I J J J J J J J Z Z Z [Ljava/lang/Object; [Ljava/lang/Object; Ljava/lang/String; Ljava/lang/String; Z J Z Z Z Z Ljava/lang/String; J J Z Ljava/lang/String; I J Ljava/lang/String; J)J' на 2
+<ru.yandex.speechkit.internal.VoiceDialogJniImpl: void native_destroy(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/VoiceDialogJniImpl;->native_sendEvent: плохой дескриптор '(J Ljava/lang/String; Ljava/lang/String;)V' на 2
+<ru.yandex.speechkit.internal.VoiceDialogJniImpl: void native_startConnection(long)> -> _SINK_
+<ru.yandex.speechkit.internal.VoiceDialogJniImpl: void native_startPhraseSpotter(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/VoiceDialogJniImpl;->native_startVinsRequest: плохой дескриптор '(J Ljava/lang/String;)V' на 2
+# пропущен Lru/yandex/speechkit/internal/VoiceDialogJniImpl;->native_startVoiceInput: плохой дескриптор '(J Ljava/lang/String; Ljava/lang/String;)V' на 2
+<ru.yandex.speechkit.internal.VoiceDialogJniImpl: void native_stopConnection(long)> -> _SINK_
+<ru.yandex.speechkit.internal.VoiceDialogJniImpl: void native_stopRecognition(long)> -> _SINK_
+<ru.yandex.speechkit.internal.VoiceDialogListenerJniAdapter: long native_listenerBindingCreate()> -> _SINK_
+<ru.yandex.speechkit.internal.VoiceDialogListenerJniAdapter: void native_listenerBindingDestroy(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/WebSocket;->call_onByteMessageReceived: плохой дескриптор '(J [B)V' на 2
+<ru.yandex.speechkit.internal.WebSocket: void call_onConnectionClosed(long)> -> _SINK_
+<ru.yandex.speechkit.internal.WebSocket: void call_onConnectionOpened(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/WebSocket;->call_onConnectionStateChanged: плохой дескриптор '(J Ljava/lang/String;)V' на 2
+<ru.yandex.speechkit.internal.WebSocket: void call_onDestroy(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/WebSocket;->call_onFailure: плохой дескриптор '(J I Ljava/lang/String;)V' на 2
+<ru.yandex.speechkit.internal.WebSocket: void call_onPongMessageReceived(long)> -> _SINK_
+# пропущен Lru/yandex/speechkit/internal/WebSocket;->call_onTextMessageReceived: плохой дескриптор '(J Ljava/lang/String;)V' на 2
+<org.webrtc.LibvpxVp8Decoder: long nativeCreateDecoder()> -> _SINK_
+<org.webrtc.LibvpxVp8Encoder: long nativeCreateEncoder()> -> _SINK_
+<org.webrtc.LibvpxVp9Decoder: long nativeCreateDecoder()> -> _SINK_
+<org.webrtc.LibvpxVp9Decoder: boolean nativeIsSupported()> -> _SINK_
+<org.webrtc.LibvpxVp9Encoder: long nativeCreateEncoder()> -> _SINK_
+<org.webrtc.LibvpxVp9Encoder: boolean nativeIsSupported()> -> _SINK_
+# пропущен Lorg/webrtc/NV12Buffer;->nativeCropAndScale: плохой дескриптор '(I I I I I I Ljava/nio/ByteBuffer; I I I I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I)V' на 2
+# пропущен Lorg/webrtc/NV21Buffer;->nativeCropAndScale: плохой дескриптор '(I I I I I I [B I I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I)V' на 2
+# пропущен Lorg/webrtc/VideoDecoderFallback;->nativeCreateDecoder: плохой дескриптор '(Lorg/webrtc/VideoDecoder; Lorg/webrtc/VideoDecoder;)J' на 26
+# пропущен Lorg/webrtc/VideoEncoderFallback;->nativeCreateEncoder: плохой дескриптор '(Lorg/webrtc/VideoEncoder; Lorg/webrtc/VideoEncoder;)J' на 26
+# пропущен Lorg/webrtc/JavaI420Buffer;->nativeCropAndScaleI420: плохой дескриптор '(Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I I I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I)V' на 22

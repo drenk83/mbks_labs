@@ -1,0 +1,551 @@
+[
+  {
+    "class": "La5/a;",
+    "method": "a",
+    "descriptor": "(Ljava/io/File;)Ljava/nio/MappedByteBuffer;",
+    "strings": [
+      "r",
+      "File unsuitable for memory mapping",
+      "File too large to map into memory"
+    ],
+    "invokes": [
+      "v0, Ljava/nio/MappedByteBuffer;->load()Ljava/nio/MappedByteBuffer;"
+    ]
+  },
+  {
+    "class": "Landroidx/appcompat/widget/i1;",
+    "method": "run",
+    "descriptor": "()V",
+    "strings": [
+      "$it",
+      "this$0",
+      "this$0",
+      "onSetSuccess()",
+      "this$0",
+      "logout_tokens",
+      "this$0",
+      "this$0",
+      "this$0",
+      "Message with sequenceNumber=(",
+      ") is lost.",
+      "this$0",
+      "",
+      "this$0",
+      "this$0",
+      "this$0",
+      "contentBinding.filterListProgress",
+      "this$0",
+      "fetchFonts result is not OK. (",
+      "EmojiCompat.FontRequestEmojiCompatConfig.buildTypeface"
+    ],
+    "invokes": [
+      "v0, v4, Landroid/media/MediaActionSound;->load(I)V"
+    ]
+  },
+  {
+    "class": "Landroidx/test/internal/platform/ServiceLoaderWrapper;",
+    "method": "a",
+    "descriptor": "(Ljava/lang/Class;)Ljava/util/ArrayList;",
+    "strings": [],
+    "invokes": [
+      "v3, Ljava/util/ServiceLoader;->load(Ljava/lang/Class;)Ljava/util/ServiceLoader;"
+    ]
+  },
+  {
+    "class": "Lbiweekly/Biweekly;",
+    "method": "<clinit>",
+    "descriptor": "()V",
+    "strings": [
+      "biweekly.properties",
+      "version",
+      "groupId",
+      "artifactId",
+      "url"
+    ],
+    "invokes": [
+      "v1, v0, Ljava/util/Properties;->load(Ljava/io/InputStream;)V"
+    ]
+  },
+  {
+    "class": "Lcom/google/android/gms/internal/play_billing/a0;",
+    "method": "b",
+    "descriptor": "()Lcom/google/android/gms/internal/play_billing/t;",
+    "strings": [
+      "%s.BlazeGenerated%sLoader",
+      "com.google.protobuf.GeneratedExtensionRegistryLoader",
+      "load",
+      "Unable to load ",
+      "combine"
+    ],
+    "invokes": [
+      "v0, v1, Ljava/util/ServiceLoader;->load(Ljava/lang/Class; Ljava/lang/ClassLoader;)Ljava/util/ServiceLoader;"
+    ]
+  },
+  {
+    "class": "Lf5/e;",
+    "method": "c",
+    "descriptor": "(Landroid/content/Context; Ljava/lang/String; Ljava/lang/String;)V",
+    "strings": [
+      "%s already loaded previously!",
+      "%s (%s) was loaded normally!",
+      "Loading the library normally failed: %s",
+      "%s (%s) was not loaded normally, re-linking...",
+      "lib",
+      "Found %s! Extracting...",
+      "%s (%s) was re-linked!"
+    ],
+    "invokes": [
+      "v20, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V",
+      "v0, Ljava/lang/System;->load(Ljava/lang/String;)V"
+    ]
+  },
+  {
+    "class": "Landroidx/appcompat/app/AppCompatDelegateImpl;",
+    "method": "d0",
+    "descriptor": "(Landroidx/appcompat/app/AppCompatDelegateImpl$PanelFeatureState; Landroid/view/KeyEvent;)Z",
+    "strings": [],
+    "invokes": [
+      "v14, Landroid/view/KeyCharacterMap;->load(I)Landroid/view/KeyCharacterMap;"
+    ]
+  },
+  {
+    "class": "Landroidx/appcompat/app/a0;",
+    "method": "j",
+    "descriptor": "(I Landroid/view/KeyEvent;)Z",
+    "strings": [],
+    "invokes": [
+      "v2, Landroid/view/KeyCharacterMap;->load(I)Landroid/view/KeyCharacterMap;"
+    ]
+  },
+  {
+    "class": "Landroidx/appcompat/app/x;",
+    "method": "j",
+    "descriptor": "(I Landroid/view/KeyEvent;)Z",
+    "strings": [],
+    "invokes": [
+      "v2, Landroid/view/KeyCharacterMap;->load(I)Landroid/view/KeyCharacterMap;"
+    ]
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/HandlerRunner;",
+    "method": "a",
+    "descriptor": "(Ljava/lang/String;)V",
+    "strings": [
+      "java.class.path",
+      "java.library.path"
+    ],
+    "invokes": [
+      "v4, Ljava/lang/System;->load(Ljava/lang/String;)V"
+    ]
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/HandlerRunner;",
+    "method": "main",
+    "descriptor": "([Ljava/lang/String;)V",
+    "strings": [
+      "appmetrica-native-runner"
+    ],
+    "invokes": [
+      "v1, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+    ]
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ob/B7;",
+    "method": "b",
+    "descriptor": "()Z",
+    "strings": [
+      "appmetrica-service-native"
+    ],
+    "invokes": [
+      "v3, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+    ]
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ob/j7;",
+    "method": "a",
+    "descriptor": "()V",
+    "strings": [],
+    "invokes": [
+      "v3, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+    ]
+  },
+  {
+    "class": "Lcom/yandex/mobile/ads/impl/to1;",
+    "method": "a",
+    "descriptor": "()V",
+    "strings": [
+      "YandexTrustManager",
+      "Custom KeyStore is null, failed to add certs",
+      "custom_cert_",
+      "Failed to store certificate"
+    ],
+    "invokes": [
+      "v1, v0, Ljava/security/KeyStore;->load(Ljava/security/KeyStore$LoadStoreParameter;)V"
+    ]
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ob/bi;",
+    "method": "a",
+    "descriptor": "(I)Ljava/net/ServerSocket;",
+    "strings": [
+      "`0l}%01ny{jl~;|&",
+      "TLS",
+      "PKCS12",
+      "https_open_error"
+    ],
+    "invokes": [
+      "v3, v4, v5, Ljava/security/KeyStore;->load(Ljava/io/InputStream; [C)V"
+    ]
+  },
+  {
+    "class": "Lio/qameta/allure/internal/shadowed/jackson/databind/l;",
+    "method": "run",
+    "descriptor": "()Ljava/lang/Object;",
+    "strings": [],
+    "invokes": [
+      "v0, Ljava/util/ServiceLoader;->load(Ljava/lang/Class;)Ljava/util/ServiceLoader;",
+      "v0, v1, Ljava/util/ServiceLoader;->load(Ljava/lang/Class; Ljava/lang/ClassLoader;)Ljava/util/ServiceLoader;"
+    ]
+  },
+  {
+    "class": "Lio/appmetrica/analytics/impl/a3;",
+    "method": "b",
+    "descriptor": "()Lio/appmetrica/analytics/networktasks/internal/BaseRequestConfig;",
+    "strings": [],
+    "invokes": [
+      "v0, v1, Lio/appmetrica/analytics/networktasks/internal/BaseRequestConfig$RequestConfigLoader;->load(Ljava/lang/Object;)Lio/appmetrica/analytics/networktasks/internal/BaseRequestConfig;"
+    ]
+  },
+  {
+    "class": "Lio/appmetrica/analytics/localsocket/impl/h;",
+    "method": "a",
+    "descriptor": "(I)Ljava/net/ServerSocket;",
+    "strings": [
+      "`0l}%01ny{jl~;|&",
+      "TLS",
+      "PKCS12"
+    ],
+    "invokes": [
+      "v3, v4, v5, Ljava/security/KeyStore;->load(Ljava/io/InputStream; [C)V"
+    ]
+  },
+  {
+    "class": "Lio/appmetrica/analytics/networktasks/internal/BaseRequestConfig$ComponentLoader;",
+    "method": "load",
+    "descriptor": "(Ljava/lang/Object;)Lio/appmetrica/analytics/networktasks/internal/BaseRequestConfig;",
+    "strings": [],
+    "invokes": [
+      "v0, v1, Lio/appmetrica/analytics/networktasks/internal/BaseRequestConfig$ComponentLoader;->load(Lio/appmetrica/analytics/networktasks/internal/BaseRequestConfig$DataSource;)Lio/appmetrica/analytics/networktasks/internal/BaseRequestConfig;"
+    ]
+  },
+  {
+    "class": "Lio/appmetrica/analytics/impl/n3$b;",
+    "method": "a",
+    "descriptor": "(Lio/appmetrica/analytics/impl/n3$a;)Lio/appmetrica/analytics/impl/n3;",
+    "strings": [
+      "1",
+      "0"
+    ],
+    "invokes": [
+      "v6, v7, Lio/appmetrica/analytics/networktasks/internal/BaseRequestConfig$ComponentLoader;->load(Lio/appmetrica/analytics/networktasks/internal/BaseRequestConfig$DataSource;)Lio/appmetrica/analytics/networktasks/internal/BaseRequestConfig;"
+    ]
+  },
+  {
+    "class": "Lio/appmetrica/analytics/locationinternal/impl/C1$a;",
+    "method": "a",
+    "descriptor": "(Lio/appmetrica/analytics/locationinternal/impl/J0;)Lio/appmetrica/analytics/locationinternal/impl/C1;",
+    "strings": [],
+    "invokes": [
+      "v2, v3, Lio/appmetrica/analytics/networktasks/internal/BaseRequestConfig$ComponentLoader;->load(Lio/appmetrica/analytics/networktasks/internal/BaseRequestConfig$DataSource;)Lio/appmetrica/analytics/networktasks/internal/BaseRequestConfig;"
+    ]
+  },
+  {
+    "class": "Lio/qameta/allure/internal/shadowed/jackson/databind/ObjectMapper;",
+    "method": "findModules",
+    "descriptor": "(Ljava/lang/ClassLoader;)Ljava/util/List;",
+    "strings": [],
+    "invokes": [
+      "v1, Ljava/util/ServiceLoader;->load(Ljava/lang/Class;)Ljava/util/ServiceLoader;",
+      "v1, v2, Ljava/util/ServiceLoader;->load(Ljava/lang/Class; Ljava/lang/ClassLoader;)Ljava/util/ServiceLoader;"
+    ]
+  },
+  {
+    "class": "Lio/qameta/allure/internal/shadowed/jackson/databind/ext/NioPathDeserializer;",
+    "method": "deserialize",
+    "descriptor": "(Lio/qameta/allure/internal/shadowed/jackson/core/JsonParser; Lio/qameta/allure/internal/shadowed/jackson/databind/DeserializationContext;)Ljava/nio/file/Path;",
+    "strings": [],
+    "invokes": [
+      "v3, Ljava/util/ServiceLoader;->load(Ljava/lang/Class;)Ljava/util/ServiceLoader;"
+    ]
+  },
+  {
+    "class": "Lcom/yandex/browser/ssl/a;",
+    "method": "a",
+    "descriptor": "()V",
+    "strings": [
+      "YandexTrustManager",
+      "Custom KeyStore is null, failed to add certs",
+      "certBytes",
+      "custom_cert_",
+      "Failed to store certificate"
+    ],
+    "invokes": [
+      "v1, v0, Ljava/security/KeyStore;->load(Ljava/security/KeyStore$LoadStoreParameter;)V"
+    ]
+  },
+  {
+    "class": "Lcom/yandex/eye/nativebits/EyeNative;",
+    "method": "<clinit>",
+    "descriptor": "()V",
+    "strings": [
+      "eye"
+    ],
+    "invokes": [
+      "v0, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+    ]
+  },
+  {
+    "class": "Lcom/yandex/messaging/calls/f;",
+    "method": "<init>",
+    "descriptor": "(Landroid/content/Context;)V",
+    "strings": [
+      "Builder()\n            .s…s(1)\n            .build()"
+    ],
+    "invokes": [
+      "v0, v4, v1, v2, Landroid/media/SoundPool;->load(Landroid/content/Context; I I)I",
+      "v0, v4, v1, v2, Landroid/media/SoundPool;->load(Landroid/content/Context; I I)I",
+      "v0, v4, v1, v2, Landroid/media/SoundPool;->load(Landroid/content/Context; I I)I",
+      "v0, v4, v1, v2, Landroid/media/SoundPool;->load(Landroid/content/Context; I I)I"
+    ]
+  },
+  {
+    "class": "Lcom/yandex/messaging/calls/h;",
+    "method": "<init>",
+    "descriptor": "(Landroid/content/Context; I)V",
+    "strings": [
+      "Builder()\n            .s…s(1)\n            .build()"
+    ],
+    "invokes": [
+      "v0, v4, v5, v2, Landroid/media/SoundPool;->load(Landroid/content/Context; I I)I"
+    ]
+  },
+  {
+    "class": "Lcom/yandex/mail360/camera/doc/scanner/DocScannerCameraActivity;",
+    "method": "onCreate",
+    "descriptor": "(Landroid/os/Bundle;)V",
+    "strings": [
+      "camera360-arcadia",
+      "Shared client already initialized and cannot be modified",
+      "mail360_browser_state_uid",
+      "track_enabled_extra",
+      "findViewById(R.id.scan_permission_layout_stub)",
+      "findViewById<View>(R.id.…_activity_gallery_button)",
+      "for_append_result",
+      "openScanButton",
+      "openScanButton",
+      "from_camera",
+      "android.permission.CAMERA"
+    ],
+    "invokes": [
+      "v0, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+    ]
+  },
+  {
+    "class": "Lk00/c;",
+    "method": "b",
+    "descriptor": "()Ljava/lang/String;",
+    "strings": [
+      "/META-INF/maven/org.xerial/sqlite-jdbc/pom.properties",
+      "/META-INF/maven/org.xerial/sqlite-jdbc/VERSION",
+      "unknown",
+      "version",
+      "[^0-9\\.]",
+      ""
+    ],
+    "invokes": [
+      "v2, v0, Ljava/util/Properties;->load(Ljava/io/InputStream;)V"
+    ]
+  },
+  {
+    "class": "Lk00/c;",
+    "method": "c",
+    "descriptor": "(Ljava/lang/String; Ljava/lang/String;)Z",
+    "strings": [
+      "Failed to load native library:",
+      ". osinfo: "
+    ],
+    "invokes": [
+      "v4, Ljava/lang/System;->load(Ljava/lang/String;)V"
+    ]
+  },
+  {
+    "class": "Lkotlin/reflect/jvm/internal/impl/descriptors/o;",
+    "method": "<clinit>",
+    "descriptor": "()V",
+    "strings": [],
+    "invokes": [
+      "v9, v10, Ljava/util/ServiceLoader;->load(Ljava/lang/Class; Ljava/lang/ClassLoader;)Ljava/util/ServiceLoader;"
+    ]
+  },
+  {
+    "class": "Lkotlin/reflect/jvm/internal/impl/resolve/OverridingUtil;",
+    "method": "<clinit>",
+    "descriptor": "()V",
+    "strings": [],
+    "invokes": [
+      "v0, v1, Ljava/util/ServiceLoader;->load(Ljava/lang/Class; Ljava/lang/ClassLoader;)Ljava/util/ServiceLoader;"
+    ]
+  },
+  {
+    "class": "Lkotlinx/coroutines/internal/e;",
+    "method": "<clinit>",
+    "descriptor": "()V",
+    "strings": [],
+    "invokes": [
+      "v0, v1, Ljava/util/ServiceLoader;->load(Ljava/lang/Class; Ljava/lang/ClassLoader;)Ljava/util/ServiceLoader;"
+    ]
+  },
+  {
+    "class": "Lkotlinx/coroutines/internal/k;",
+    "method": "<clinit>",
+    "descriptor": "()V",
+    "strings": [
+      "kotlinx.coroutines.fast.service.loader",
+      "Module with the Main dispatcher is missing. Add dependency providing the Main dispatcher, e.g. 'kotlinx-coroutines-android' and ensure it has the same version as 'kotlinx-coroutines-core'"
+    ],
+    "invokes": [
+      "v0, v2, Ljava/util/ServiceLoader;->load(Ljava/lang/Class; Ljava/lang/ClassLoader;)Ljava/util/ServiceLoader;"
+    ]
+  },
+  {
+    "class": "Lkotlinx/coroutines/reactive/g;",
+    "method": "<clinit>",
+    "descriptor": "()V",
+    "strings": [],
+    "invokes": [
+      "v0, v1, Ljava/util/ServiceLoader;->load(Ljava/lang/Class; Ljava/lang/ClassLoader;)Ljava/util/ServiceLoader;"
+    ]
+  },
+  {
+    "class": "Lorg/simpleframework/xml/strategy/ReadGraph;",
+    "method": "read",
+    "descriptor": "(Lorg/simpleframework/xml/strategy/Type; Lorg/simpleframework/xml/stream/NodeMap;)Lorg/simpleframework/xml/strategy/Value;",
+    "strings": [],
+    "invokes": [
+      "v1, v0, Lorg/simpleframework/xml/strategy/Loader;->load(Ljava/lang/String;)Ljava/lang/Class;"
+    ]
+  },
+  {
+    "class": "Lorg/threeten/bp/chrono/e;",
+    "method": "a",
+    "descriptor": "()V",
+    "strings": [
+      "Hijrah",
+      "islamic"
+    ],
+    "invokes": [
+      "v1, v3, Ljava/util/ServiceLoader;->load(Ljava/lang/Class; Ljava/lang/ClassLoader;)Ljava/util/ServiceLoader;"
+    ]
+  },
+  {
+    "class": "Lp10/c;",
+    "method": "doInBackground",
+    "descriptor": "([Ljava/lang/Object;)Ljava/lang/Object;",
+    "strings": [
+      "x509-certificate",
+      "Extracted certificate from SslError is null",
+      "Expected HTTPS connection, but found ",
+      "Failed to open connection",
+      "SSL",
+      "Failed to establish connection",
+      "Illegal certificate transformation. Was %s, but found %s",
+      "Found a mismatch between the leaf certificate in the chain and the certificate from the original SSLError.",
+      "custom_cert_",
+      "Failed to store certificate in custom KeyStore",
+      "Failed to extract certificate from bytes",
+      "Failed to create TrustManager",
+      "Failed to create KeyStore",
+      "Empty TrustManager",
+      "RSA",
+      "Failed to verify certificate chain",
+      "Empty certificate chain",
+      "Failed to extract X509 certificate from original SslError"
+    ],
+    "invokes": [
+      "v3, v2, Ljava/security/KeyStore;->load(Ljava/security/KeyStore$LoadStoreParameter;)V"
+    ]
+  },
+  {
+    "class": "Lm00/a;",
+    "method": "<clinit>",
+    "descriptor": "()V",
+    "strings": [
+      "sqlite-jdbc.properties",
+      "name",
+      "version",
+      "Cannot load sqlite-jdbc.properties from jar",
+      "SQLite JDBC",
+      "3.0.0-UNKNOWN",
+      ".*(INT|BOOL).*",
+      ".*(CHAR|CLOB|TEXT|BLOB).*",
+      ".*(REAL|FLOA|DOUB|DEC|NUM).*",
+      "NO ACTION",
+      "CASCADE",
+      "RESTRICT",
+      "SET NULL",
+      "SET DEFAULT",
+      ".*PRIMARY\\s+KEY\\s*\\((.*?)\\).*",
+      ".*CONSTRAINT\\s*(.*?)\\s*PRIMARY\\s+KEY\\s*\\((.*?)\\).*"
+    ],
+    "invokes": [
+      "v1, v0, Ljava/util/Properties;->load(Ljava/io/InputStream;)V"
+    ]
+  },
+  {
+    "class": "Lorg/simpleframework/xml/strategy/TreeStrategy;",
+    "method": "readValue",
+    "descriptor": "(Lorg/simpleframework/xml/strategy/Type; Lorg/simpleframework/xml/stream/NodeMap;)Ljava/lang/Class;",
+    "strings": [],
+    "invokes": [
+      "v3, v2, Lorg/simpleframework/xml/strategy/Loader;->load(Ljava/lang/String;)Ljava/lang/Class;"
+    ]
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "method": "<clinit>",
+    "descriptor": "()V",
+    "strings": [
+      "java.vm.vendor",
+      "The Android Project",
+      "sqlitejdbc"
+    ],
+    "invokes": [
+      "v0, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+    ]
+  },
+  {
+    "class": "Lorg/webrtc/s0$a;",
+    "method": "a",
+    "descriptor": "()Z",
+    "strings": [
+      "jingle_peerconnection_so",
+      "Loading library: jingle_peerconnection_so",
+      "Failed to load native library: jingle_peerconnection_so"
+    ],
+    "invokes": [
+      "v0, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+    ]
+  },
+  {
+    "class": "Lkotlin/reflect/jvm/internal/impl/builtins/BuiltInsLoader$Companion$Instance$2;",
+    "method": "invoke",
+    "descriptor": "()Lkotlin/reflect/jvm/internal/impl/builtins/BuiltInsLoader;",
+    "strings": [
+      "implementations",
+      "No BuiltInsLoader implementation was found. Please ensure that the META-INF/services/ is not stripped from your application and that the Java virtual machine is not running under a security manager"
+    ],
+    "invokes": [
+      "v0, v1, Ljava/util/ServiceLoader;->load(Ljava/lang/Class; Ljava/lang/ClassLoader;)Ljava/util/ServiceLoader;"
+    ]
+  }
+]

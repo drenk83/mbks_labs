@@ -1,0 +1,15 @@
+     ____
+    / _  |   Frida 17.4.0 - A world-class dynamic instrumentation toolkit
+   | (_| |
+    > _  |   Commands:
+   /_/ |_|       help      -> Displays the help system
+   . . . .       object?   -> Display information about 'object'
+   . . . .       exit/quit -> Exit
+   . . . .
+   . . . .   More info at https://frida.re/docs/home/
+   . . . .
+   . . . .   Connected to Android Emulator 5554 (id=emulator-5554)
+Spawning `ru.yandex.mail`...
+Spawned `ru.yandex.mail`. Resuming main thread!
+[Android Emulator 5554::ru.yandex.mail ]-> 
+Thank you for using Frida!

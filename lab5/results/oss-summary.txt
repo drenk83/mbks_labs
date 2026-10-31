@@ -1,0 +1,148 @@
+summary 2026-10-31T18:18:16+03:00
+
+===== libcamera360-arcadia.so =====
+libcamera360-arcadia.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, for Android 21, built by NDK r22 (7026061), stripped
+Java_ exports: 235
+JNI_OnLoad: 0
+-- path and banner strings --
+libcamera360-arcadia.so
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/include/opencv2/../../modules/flann/include/opencv2/flann.hpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/calib3d/src/fundam.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/calib3d/src/levmarq.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/calib3d/src/ptsetreg.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/include/opencv2/core/core_c.h
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/include/opencv2/core/mat.inl.hpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/include/opencv2/core/persistence.hpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/include/opencv2/core/private.cuda.hpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/include/opencv2/core/utility.hpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/algorithm.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/alloc.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/arithm.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/arithm.simd.hpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/array.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/batch_distance.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/channels.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/convert.dispatch.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/convert_scale.dispatch.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/convert.simd.hpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/copy.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/count_non_zero.dispatch.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/datastructs.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/dxt.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/kmeans.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/lapack.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/lut.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/mathfuncs_core.dispatch.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/mathfuncs_core.simd.hpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/mathfuncs.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/matmul.dispatch.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/matmul.simd.hpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/matrix_c.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/matrix.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/matrix_decomp.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/matrix_expressions.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/matrix_iterator.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/matrix_operations.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/matrix_wrap.cpp
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/libs/opencv/modules/core/src/mean.dispatch.cpp
+
+===== libeye.so =====
+libeye.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, for Android 21, built by NDK r21e (7075529), BuildID[sha1]=619564560c8fc1343932638d95409731916b1ba3, stripped
+Java_ exports: 8
+JNI_OnLoad: 0
+-- path and banner strings --
+
+===== libjingle_peerconnection_so.so =====
+libjingle_peerconnection_so.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, for Android 21, built by NDK r20 (5594570), BuildID[xxHash]=d62e16edf2ed315a, stripped
+Java_ exports: 170
+JNI_OnLoad:    344: 000000000029b458    73 FUNC    GLOBAL DEFAULT   15 JNI_OnLoad
+-- path and banner strings --
+0 == libyuv::I420Rotate( src.DataY(), src.StrideY(), src.DataU(), src.StrideU(), src.DataV(), src.StrideV(), buffer->MutableDataY(), buffer->StrideY(), buffer->MutableDataU(), buffer->StrideU(), buffer->MutableDataV(), buffer->StrideV(), src.width(), src.height(), static_cast<libyuv::RotationMode>(rotation))
+0 == libyuv::I420ToI010( source.DataY(), source.StrideY(), source.DataU(), source.StrideU(), source.DataV(), source.StrideV(), buffer->MutableDataY(), buffer->StrideY(), buffer->MutableDataU(), buffer->StrideU(), buffer->MutableDataV(), buffer->StrideV(), width, height)
+AES-128 counter mode using openssl
+AES-128 GCM using openssl
+AES-192 counter mode using openssl
+AES-256 counter mode using openssl
+AES-256 GCM using openssl
+AES for Intel AES-NI, CRYPTOGAMS by <appro@openssl.org>
+AES-NI GCM module for x86_64, CRYPTOGAMS by <appro@openssl.org>
+ChaCha20 for x86_64, CRYPTOGAMS by <appro@openssl.org>
+->Connect(): Failed usrsctp_connect. got errno=
+error:%08x:%s:OPENSSL_internal:%s
+ exceeded maximum protobuf size of 2GB: 
+Failed to create the peer connection factory; WebRTC/libjingle init likely failed on this device
+Failed to shutdown usrsctp.
+Failed usrsctp_bind
+ frame since WebRTC-SpsPpsIdrIsH264Keyframe is 
+GetTransportFromSocket called after usrsctp uninitialized?
+GHASH for x86_64, CRYPTOGAMS by <appro@openssl.org>
+HISTOGRAM(WebRTC.Audio.RecordedOnlyZeros): 
+HISTOGRAM(WebRTC.Audio.SourceMatchesRecordingSession): 
+hmac sha-1 openssl
+../../../../home/dbrylev/webrtc/src/modules/video_coding/codecs/vp8/libvpx_vp8_encoder.cc
+../../../../home/dbrylev/webrtc/src/rtc_base/openssl_adapter.cc
+../../../../home/dbrylev/webrtc/src/rtc_base/openssl_certificate.cc
+../../../../home/dbrylev/webrtc/src/rtc_base/openssl_digest.cc
+../../../../home/dbrylev/webrtc/src/rtc_base/openssl_identity.cc
+../../../../home/dbrylev/webrtc/src/rtc_base/openssl_stream_adapter.cc
+../../../../home/dbrylev/webrtc/src/rtc_base/openssl_utility.cc
+../../../../home/dbrylev/webrtc/src/third_party/abseil-cpp/absl/base/internal/throw_delegate.cc
+../../../../home/dbrylev/webrtc/src/third_party/abseil-cpp/absl/types/bad_optional_access.cc
+../../../../home/dbrylev/webrtc/src/third_party/abseil-cpp/absl/types/bad_variant_access.cc
+../../../../home/dbrylev/webrtc/src/third_party/boringssl/src/crypto/asn1/a_bitstr.c
+../../../../home/dbrylev/webrtc/src/third_party/boringssl/src/crypto/asn1/a_dup.c
+../../../../home/dbrylev/webrtc/src/third_party/boringssl/src/crypto/asn1/a_enum.c
+../../../../home/dbrylev/webrtc/src/third_party/boringssl/src/crypto/asn1/a_gentm.c
+../../../../home/dbrylev/webrtc/src/third_party/boringssl/src/crypto/asn1/a_i2d_fp.c
+../../../../home/dbrylev/webrtc/src/third_party/boringssl/src/crypto/asn1/a_int.c
+../../../../home/dbrylev/webrtc/src/third_party/boringssl/src/crypto/asn1/a_mbstr.c
+../../../../home/dbrylev/webrtc/src/third_party/boringssl/src/crypto/asn1/a_object.c
+
+===== libYandexSpeechKitJni.4.15.7.so =====
+libYandexSpeechKitJni.4.15.7.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=7a7d54d94df078dd8c5be851ab348dc3467049be, stripped
+Java_ exports: 115
+JNI_OnLoad:    226: 0000000000113ac7   908 FUNC    GLOBAL DEFAULT   11 JNI_OnLoad
+-- path and banner strings --
+bool SpeechKit::{anonymous}::encodeChannel(std::list<std::shared_ptr<SpeechKit::SoundBuffer> >&, int, int, bool)
+bool SpeechKit::ConcurrentEvent::waitFor(unsigned int)
+bool SpeechKit::File::write(size_t, const void*, size_t)
+bool SpeechKit::JClass::assign(const string&, bool)
+bool SpeechKit::JField::assign(jclass, const char*, const char*)
+bool SpeechKit::JMethod::assign(jclass, const char*, const char*)
+bool SpeechKit::JStaticMethod::assign(jclass, const char*, const char*)
+bool SpeechKit::OggOpusDecoder::tryReadOpusHeader(const char*, long int)
+bool SpeechKit::PhraseSpotterState::prepareImpl(const string&)
+bool SpeechKit::RequestStatSender::ackRequestStat(const SpeechKit::UniProxy::Header&)
+bool SpeechKit::TTSStreamer::needData() const
+bool SpeechKit::VocalizerState::trySendFromQueue()
+bool SpeechKit::VoiceDialogState::canStartRequest(SpeechKit::VoiceDialogState::State)
+Can't use protobuf without USE_UNIPROXY_PROTOBUF! Fallback to old streams.
+const SpeechKit::SoundLoggingSettings& SpeechKit::SoundLogSchedulerState::selectLoggingSettings()
+../../../../../../core/src/speechkit/factory/SpeechKitFactory.cpp
+../../../../../../core/src/speechkit/SpeechKitInternalImpl.cpp
+../../../../../../core/src/speechkit/vad/VoiceActivityDetectorWebRTC.cpp
+double SpeechKit::SoundAnalyzer::calcEnergy2(SpeechKit::SoundBuffer::SharedPtr)
+FbRKN9SpeechKit14SoundBufferTagEE
+int32_t SpeechKit::UniProxyClientState::openWriteStream(const SpeechKit::UniProxy::Header&, const string&)
+libSpeechKit v
+libYandexSpeechKitJni.4.15.7.so
+N9SpeechKit10EchoPingerE
+N9SpeechKit10JByteArrayE
+N9SpeechKit10JThrowableE
+N9SpeechKit10OggEncoderE
+N9SpeechKit10PingThreadE
+N9SpeechKit10Recognizer18RecognizerListenerE
+N9SpeechKit10RecognizerE
+N9SpeechKit11AudioPlayer19AudioPlayerListenerE
+N9SpeechKit11AudioPlayerE
+N9SpeechKit11AudioSource19AudioSourceListenerE
+N9SpeechKit11AudioSourceE
+N9SpeechKit11AudioStreamE
+N9SpeechKit11BufferedVADE
+N9SpeechKit11EventLoggerE
+N9SpeechKit11JStackFrameE
+N9SpeechKit11OpusEncoderE
+N9SpeechKit11SoundBufferE
+
+-- libpng/png_read/png_create hits in all four x86_64 --
+0

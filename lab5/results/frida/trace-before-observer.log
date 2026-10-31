@@ -1,0 +1,29 @@
+     ____
+    / _  |   Frida 17.4.0 - A world-class dynamic instrumentation toolkit
+   | (_| |
+    > _  |   Commands:
+   /_/ |_|       help      -> Displays the help system
+   . . . .       object?   -> Display information about 'object'
+   . . . .       exit/quit -> Exit
+   . . . .
+   . . . .   More info at https://frida.re/docs/home/
+   . . . .
+   . . . .   Connected to Android Emulator 5554 (id=emulator-5554)
+Attaching...
+message:[Android Emulator 5554::PID::7116 ]->  {'type': 'send', 'payload': {'event': 'script-loaded'}} data: None
+message: {'type': 'send', 'payload': {'event': 'main', 't': 1793461232761, 'javaAvailable': True, 'reason': ''}} data: None
+message: {'type': 'send', 'payload': {'event': 'java-ready', 't': 1793461232776}} data: None
+message: {'type': 'send', 'payload': {'event': 'stage', 't': 1793461232776, 'name': 'intents'}} data: None
+message: {'type': 'send', 'payload': {'event': 'stage', 't': 1793461232849, 'name': 'modules'}} data: None
+message: {'type': 'send', 'payload': {'event': 'stage', 't': 1793461232849, 'name': 'exports'}} data: None
+message: {'type': 'send', 'payload': {'event': 'hooks-installed', 't': 1793461232850}} data: None
+message: {'type': 'send', 'payload': {'event': 'activity.onCreate', 't': 1793461233205, 'class': 'com.yandex.mail.eml.EmlActivity', 'intent': 'action=android.intent.action.VIEW type=message/rfc822 data=file:///data/data/ru.yandex.mail/files/lab5-external.eml text='}} data: None
+message: {'type': 'send', 'payload': {'event': 'openInputStream', 't': 1793461233598, 'uri': 'file:///data/data/ru.yandex.mail/files/lab5-external.eml'}} data: None
+message: {'type': 'send', 'payload': {'event': 'activity.onCreate', 't': 1793461238316, 'class': 'com.yandex.mail360.camera.doc.scanner.DocScannerCameraActivity', 'intent': 'action=null type=null data=null text='}} data: None
+
+Thank you for using Frida!
+Fatal Python error: _enter_buffered_busy: could not acquire lock for <_io.BufferedReader name='<stdin>'> at interpreter shutdown, possibly due to daemon threads
+Python runtime state: finalizing (tstate=0x00005633417a7ab0)
+
+Current thread 0x00007fe763d1db80 (most recent call first):
+  <no Python frame>

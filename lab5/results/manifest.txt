@@ -1,0 +1,249 @@
+package ru.yandex.mail
+versionName 8.81.2 versionCode 105397
+minSdk 26 targetSdk 33
+application {"debuggable": null, "allowBackup": "false", "usesCleartextTraffic": null, "networkSecurityConfig": null, "extractNativeLibs": "false", "name": "com.yandex.mail.MailApplication", "testOnly": null}
+uses-permission 63
+  android.permission.ACCESS_MEDIA_LOCATION
+  android.permission.ACCESS_NETWORK_STATE
+  android.permission.ACCESS_WIFI_STATE
+  android.permission.AUTHENTICATE_ACCOUNTS
+  android.permission.BLUETOOTH_CONNECT
+  android.permission.CALL_PHONE
+  android.permission.CAMERA
+  android.permission.CHANGE_WIFI_STATE
+  android.permission.DOWNLOAD_WITHOUT_NOTIFICATION
+  android.permission.FLASHLIGHT
+  android.permission.FOREGROUND_SERVICE
+  android.permission.GET_ACCOUNTS
+  android.permission.INTERNET
+  android.permission.MANAGE_ACCOUNTS
+  android.permission.MODIFY_AUDIO_SETTINGS
+  android.permission.POST_NOTIFICATIONS
+  android.permission.READ_APP_BADGE
+  android.permission.READ_CALENDAR
+  android.permission.READ_CONTACTS
+  android.permission.READ_EXTERNAL_STORAGE
+  android.permission.READ_MEDIA_IMAGES
+  android.permission.READ_MEDIA_VIDEO
+  android.permission.READ_PHONE_STATE
+  android.permission.READ_SYNC_SETTINGS
+  android.permission.READ_SYNC_STATS
+  android.permission.RECEIVE_BOOT_COMPLETED
+  android.permission.RECORD_AUDIO
+  android.permission.REORDER_TASKS
+  android.permission.REQUEST_INSTALL_PACKAGES
+  android.permission.SCHEDULE_EXACT_ALARM
+  android.permission.SEND_DOWNLOAD_COMPLETED_INTENTS
+  android.permission.USE_BIOMETRIC
+  android.permission.USE_CREDENTIALS
+  android.permission.USE_FINGERPRINT
+  android.permission.VIBRATE
+  android.permission.WAKE_LOCK
+  android.permission.WRITE_CALENDAR
+  android.permission.WRITE_EXTERNAL_STORAGE
+  android.permission.WRITE_SYNC_SETTINGS
+  com.anddoes.launcher.permission.UPDATE_COUNT
+  com.android.vending.BILLING
+  com.google.android.c2dm.permission.RECEIVE
+  com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE
+  com.google.android.gms.permission.AD_ID
+  com.htc.launcher.permission.READ_SETTINGS
+  com.htc.launcher.permission.UPDATE_SHORTCUT
+  com.huawei.android.launcher.permission.CHANGE_BADGE
+  com.huawei.android.launcher.permission.READ_SETTINGS
+  com.huawei.android.launcher.permission.WRITE_SETTINGS
+  com.majeur.launcher.permission.UPDATE_BADGE
+  com.oppo.launcher.permission.READ_SETTINGS
+  com.oppo.launcher.permission.WRITE_SETTINGS
+  com.sec.android.provider.badge.permission.READ
+  com.sec.android.provider.badge.permission.WRITE
+  com.sonyericsson.home.permission.BROADCAST_BADGE
+  com.sonymobile.home.permission.PROVIDER_INSERT_BADGE
+  com.yandex.messaging.permission.ONLINE_CHECK
+  com.yandex.permission.AM_COMMUNICATION
+  com.yandex.permission.READ_CREDENTIALS
+  me.everything.badger.permission.BADGE_COUNT_READ
+  me.everything.badger.permission.BADGE_COUNT_WRITE
+  ru.yandex.mail.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION
+  ru.yandex.mail.permission.C2D_MESSAGE
+declared permission 4
+  ru.yandex.mail.permission.C2D_MESSAGE protectionLevel=0x00000002
+  com.yandex.messaging.permission.ONLINE_CHECK protectionLevel=0x00000002
+  com.yandex.permission.READ_CREDENTIALS protectionLevel=0x00000002
+  ru.yandex.mail.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION protectionLevel=0x00000002
+activity: всего 108, с exported=true или intent-filter 20
+  com.yandex.mail.eml.EmlActivity exported=true permission=None
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT data=[{"scheme": "content"}, {"host": "*"}, {"mimeType": "message/rfc822"}, {"mimeType": "application/eml"}]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT,android.intent.category.BROWSABLE data=[{"scheme": "file"}, {"scheme": "content"}, {"mimeType": "*/*"}, {"host": "*"}, {"pathPattern": ".*\\.eml"}, {"pathPattern": ".*\\..*\\.eml"}, {"pathPattern": ".*\\..*\\..*\\.eml"}, {"pathPattern": ".*\\..*\\..*\\..*\\.eml"}, {"pathPattern": ".*\\..*\\..*\\..*\\..*\\.eml"}, {"pathPattern": ".*\\..*\\..*\\..*\\..*\\..*\\.eml"}, {"pathPattern": ".*\\..*\\..*\\..*\\..*\\..*\\..*\\.eml"}]
+  com.yandex.mail.widget.configuration.MailWidgetConfigureActivity exported=true permission=None
+    filter actions=android.appwidget.action.APPWIDGET_CONFIGURE categories= data=[]
+  com.yandex.messaging.activity.MessengerNotificationActivity exported=false permission=None
+    filter actions=com.yandex.messenger.Chat.NOTIFICATION_CLICK categories=android.intent.category.DEFAULT data=[]
+  com.yandex.passport.internal.ui.router.LoginRouterActivity exported=true permission=com.yandex.permission.READ_CREDENTIALS
+    filter actions=com.yandex.intent.ADD_ACCOUNT categories=android.intent.category.DEFAULT data=[]
+    filter actions=com.yandex.passport.ACTION_SYSTEM_ADD_ACCOUNT categories=android.intent.category.DEFAULT data=[]
+  com.yandex.passport.internal.links.LinksHandlingActivity exported=true permission=None
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT,android.intent.category.BROWSABLE data=[{"scheme": "http"}, {"scheme": "https"}, {"host": "passport.yandex.ru"}, {"host": "passport-rc.yandex.ru"}, {"host": "passport.yandex-team.ru"}, {"pathPrefix": "/am/push/qrsecure"}]
+  com.yandex.passport.internal.ui.browser.SocialBrowserDataActivity exported=true permission=None
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT,android.intent.category.BROWSABLE data=[{"scheme": "ru.yandex.mail.passport", "host": "social"}]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT,android.intent.category.BROWSABLE data=[{"scheme": "ru.yandex.mail.passport", "host": "n2b_auth"}]
+  com.yandex.passport.internal.ui.SocialApplicationBindActivity exported=true permission=com.yandex.permission.READ_CREDENTIALS
+  com.yandex.passport.internal.ui.SocialBindActivity exported=true permission=com.yandex.permission.READ_CREDENTIALS
+  com.yandex.passport.internal.social.VkNativeSocialAuthActivity exported=false permission=None
+    filter actions=com.yandex.passport.action.NATIVE_SOCIAL_VKONTAKTE_AUTH categories=android.intent.category.DEFAULT data=[]
+  com.yandex.passport.internal.social.GoogleNativeSocialAuthActivity exported=false permission=None
+    filter actions=com.yandex.passport.action.NATIVE_SOCIAL_GOOGLE_AUTH categories=android.intent.category.DEFAULT data=[]
+    filter actions=com.yandex.passport.action.NATIVE_MAILISH_GOOGLE_AUTH categories=android.intent.category.DEFAULT data=[]
+  com.yandex.passport.internal.ui.authwithtrack.SendAuthToTrackActivity exported=false permission=None
+    filter actions=com.yandex.passport.action.SEND_AUTH_TO_TRACK categories=android.intent.category.DEFAULT data=[]
+  com.yandex.passport.internal.ui.account_upgrade.AccountUpgraderActivity exported=true permission=com.yandex.permission.READ_CREDENTIALS
+  com.yandex.passport.internal.ui.YxAuthActivity exported=true permission=None
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT,android.intent.category.BROWSABLE data=[{"scheme": "https", "host": "yx7a54f58d4ebe431caaaa53895522bf2d.oauth.yandex.ru", "path": "/magic-link/ru.yandex.mail/finish"}]
+  com.yandex.passport.internal.ui.bouncer.BouncerActivity exported=true permission=com.yandex.permission.READ_CREDENTIALS
+  androidx.compose.ui.tooling.PreviewActivity exported=true permission=None
+  androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity exported=true permission=None
+    filter actions= categories=android.intent.category.LAUNCHER data=[]
+  androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity exported=true permission=None
+    filter actions= categories=android.intent.category.LAUNCHER data=[]
+  androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity exported=true permission=None
+    filter actions= categories=android.intent.category.LAUNCHER data=[]
+  io.appmetrica.analytics.push.internal.activity.AppMetricaPushDummyActivity exported=false permission=None
+    filter actions=io.appmetrica.analytics.push.action.NOTIFICATION_ACTION categories= data=[]
+  ru.yandex.speechkit.gui.RecognizerActivity exported=false permission=None
+    filter actions=ru.yandex.speechkit.action.voice_recognition categories=android.intent.category.DEFAULT data=[]
+activity-alias: всего 7, с exported=true или intent-filter 7
+  ru.yandex.mail.ui.LoginActivity_ny exported=true permission=None
+    filter actions=android.intent.action.MAIN categories=android.intent.category.DEFAULT,android.intent.category.LAUNCHER data=[]
+  ru.yandex.mail.ui.LoginActivity exported=true permission=None
+    filter actions=android.intent.action.MAIN categories=android.intent.category.DEFAULT,android.intent.category.LAUNCHER data=[]
+  ru.yandex.mail.ui.LoginActivity_common exported=true permission=None
+    filter actions= categories=android.intent.category.APP_EMAIL data=[]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT,android.intent.category.BROWSABLE data=[{"scheme": "@7F151000"}]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT data=[{"scheme": "@7F151000", "host": "@7F1507D8"}]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT data=[{"scheme": "@7F151000", "host": "@7F150E17"}]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT data=[{"scheme": "@7F151000", "host": "@7F150454"}]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT data=[{"scheme": "@7F151000", "host": "@7F1507B2"}]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT data=[{"scheme": "@7F151000", "host": "@7F15012D"}]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT data=[{"scheme": "@7F151000", "host": "@7F15016B"}]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT data=[{"scheme": "@7F151000", "host": "@7F1504FB"}]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT data=[{"scheme": "@7F151000", "host": "@7F150DDC"}]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT data=[{"scheme": "@7F151000", "host": "@7F1503A4"}]
+    filter actions=android.intent.action.VIEW,android.intent.action.SENDTO categories=android.intent.category.DEFAULT,android.intent.category.BROWSABLE data=[{"scheme": "mailto"}]
+    filter actions=android.intent.action.SEND categories=android.intent.category.DEFAULT data=[{"mimeType": "*/*"}]
+    filter actions=android.intent.action.SEND_MULTIPLE categories=android.intent.category.DEFAULT data=[{"mimeType": "*/*"}]
+    filter actions=com.yandex.passport.ACTION_LOGIN_RESULT categories=android.intent.category.DEFAULT data=[]
+    filter actions=com.yandex.messenger.Chat.OPEN categories=android.intent.category.DEFAULT data=[]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT,android.intent.category.BROWSABLE data=[{"scheme": "http"}, {"scheme": "https"}, {"host": "yandex.ru", "pathPrefix": "/chat"}, {"host": "yandex.ru", "pathPrefix": "/messenger"}, {"host": "ya.ru", "pathPrefix": "/m/"}]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT,android.intent.category.BROWSABLE data=[{"scheme": "messenger"}, {"host": "chat"}, {"host": "newyear"}]
+  com.yandex.mail.YandexTeamLinkActivity exported=true permission=None
+    filter actions=android.intent.action.VIEW categories=android.intent.category.BROWSABLE,android.intent.category.DEFAULT data=[{"scheme": "https", "host": "telemost.yandex-team.ru", "pathPattern": "/j/.*"}]
+    filter actions=android.intent.action.VIEW categories=android.intent.category.BROWSABLE,android.intent.category.DEFAULT data=[{"scheme": "telemost", "host": "yandex-team"}]
+  com.yandex.messaging.ChatOpenAlias exported=true permission=None
+    filter actions=com.yandex.messenger.Chat.OPEN,com.yandex.messenger.ChatSummary.OPEN,com.yandex.messenger.Sharing.OPEN categories=android.intent.category.DEFAULT data=[]
+  com.yandex.passport.QrWithoutQr exported=true permission=None
+    filter actions=android.intent.action.VIEW categories=android.intent.category.DEFAULT,android.intent.category.BROWSABLE data=[{"scheme": "http"}, {"scheme": "https"}, {"host": "passport.yandex.ru"}, {"host": "passport-rc.yandex.ru"}, {"host": "passport.yandex-team.ru"}, {"pathPrefix": "/am/pssp/browser/account"}]
+  com.yandex.passport.AuthSdk exported=true permission=None
+    filter actions=com.yandex.auth.action.YA_SDK_LOGIN categories=android.intent.category.DEFAULT data=[]
+service: всего 32, с exported=true или intent-filter 12
+  com.yandex.mail.notifications.NotificationBarBroadcastService exported=false permission=None
+    filter actions=ru.yandex.mail.receiver.notification.delete,ru.yandex.mail.receiver.notification.message.read,ru.yandex.mail.receiver.notification.message.reply_calendar_invite,ru.yandex.mail.receiver.notification.message.archive_delete,ru.yandex.mail.receiver.notification.message.smart_reply categories= data=[]
+  com.yandex.mail.push.MailFirebaseMessagingService exported=false permission=None
+    filter actions=com.google.firebase.MESSAGING_EVENT categories= data=[]
+  com.yandex.mail.calendar_sync.SyncService exported=true permission=None
+    filter actions=android.content.SyncAdapter categories= data=[]
+  com.yandex.messaging.NotificationActionService exported=false permission=None
+    filter actions=com.yandex.messenger.Chat.DISMISS,com.yandex.messenger.ChatSummary.DISMISS categories= data=[]
+  com.yandex.passport.internal.core.auth.AuthenticationService exported=true permission=com.yandex.permission.READ_CREDENTIALS
+    filter actions=android.accounts.AccountAuthenticator,com.yandex.accounts.AccountAuthenticator categories= data=[]
+  com.yandex.passport.internal.core.sync.SyncService exported=false permission=None
+    filter actions=android.content.SyncAdapter categories= data=[]
+  com.google.android.gms.auth.api.signin.RevocationBoundService exported=true permission=com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION
+  com.google.firebase.messaging.FirebaseMessagingService exported=false permission=None
+    filter actions=com.google.firebase.MESSAGING_EVENT categories= data=[]
+  io.appmetrica.analytics.internal.AppMetricaService exported=false permission=None
+    filter actions=io.appmetrica.analytics.IAppMetricaService categories=android.intent.category.DEFAULT data=[{"scheme": "appmetrica"}]
+  com.yandex.metrica.MetricaService exported=false permission=None
+    filter actions=com.yandex.metrica.IMetricaService categories=android.intent.category.DEFAULT data=[{"scheme": "metrica"}]
+  androidx.work.impl.background.systemjob.SystemJobService exported=true permission=android.permission.BIND_JOB_SERVICE
+  androidx.sharetarget.ChooserTargetServiceCompat exported=true permission=android.permission.BIND_CHOOSER_TARGET_SERVICE
+    filter actions=android.service.chooser.ChooserTargetService categories= data=[]
+receiver: всего 35, с exported=true или intent-filter 29
+  com.yandex.mail.receiver.DownloadNotificationClickReceiver exported=true permission=None
+    filter actions=android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED categories= data=[]
+  com.yandex.mail.receiver.DeviceBootReceiver exported=true permission=None
+    filter actions=android.intent.action.BOOT_COMPLETED,android.intent.action.QUICKBOOT_POWERON categories= data=[]
+  com.yandex.mail.movie_tickets.MovieNotificationButtonsReceiver exported=false permission=None
+    filter actions=ru.yandex.mail.ACTION_MOVIE_NOTIFICATION_DISMISS,ru.yandex.mail.ACTION_MOVIE_NOTIFICATION_CLICK,ru.yandex.mail.ACTION_MOVIE_NOTIFICATION_MAPS,ru.yandex.mail.ACTION_MOVIE_NOTIFICATION_SHARE_VIEW categories= data=[]
+  com.yandex.mail.LoginAccountsChangedReceiver exported=true permission=None
+    filter actions=com.yandex.passport.client.ACCOUNT_REMOVED,com.yandex.passport.client.TOKEN_CHANGED,com.yandex.passport.client.ACCOUNT_ADDED categories= data=[]
+  com.yandex.mail.notifications.NotificationBarBroadcastReceiver exported=false permission=None
+    filter actions=ru.yandex.mail.receiver.notification.create,ru.yandex.mail.receiver.notification.folder.delete,ru.yandex.mail.receiver.notification.tab.delete,ru.yandex.mail.receiver.notification.account.delete,ru.yandex.mail.receiver.notification.drop,ru.yandex.mail.receiver.notification.restore,ru.yandex.mail.receiver.notification.refresh categories= data=[]
+  com.yandex.mail.movie_tickets.MovieReminderBroadcast exported=false permission=None
+    filter actions=ru.yandex.mail.ACTION_SHOW_REMINDER categories= data=[]
+  com.yandex.mail.abook.birthday_reminder.BirthdayReminderReceiver exported=false permission=None
+    filter actions=ru.yandex.mail.ACTION_BIRTHDAY categories= data=[]
+  com.yandex.mail.compose.delay.DelayErrorReminderReceiver exported=false permission=None
+    filter actions=ru.yandex.mail.ACTION_DELAY_ERROR categories= data=[]
+  com.yandex.mail.widget.MailWidgetProvider exported=true permission=None
+    filter actions=android.appwidget.action.APPWIDGET_UPDATE,android.appwidget.action.APPWIDGET_DELETED categories= data=[]
+  com.yandex.mail.widget.AppUpdateBroadcastReceiver exported=true permission=None
+    filter actions=android.intent.action.MY_PACKAGE_REPLACED categories= data=[]
+  com.yandex.mail.shortcut.LocaleChangedReceiver exported=true permission=None
+    filter actions=android.intent.action.LOCALE_CHANGED categories= data=[]
+  com.yandex.passport.internal.core.announcing.AccountsChangedReceiver exported=true permission=com.yandex.permission.READ_CREDENTIALS
+    filter actions=android.accounts.LOGIN_ACCOUNTS_CHANGED,com.yandex.accounts.LOGIN_ACCOUNTS_CHANGED categories= data=[]
+  com.yandex.passport.internal.core.announcing.PackageRemovedReceiver exported=false permission=None
+    filter actions=android.intent.action.PACKAGE_FULLY_REMOVED categories= data=[{"scheme": "package"}, {"scheme": "package"}]
+  com.yandex.passport.internal.smsretriever.SmsRetrieverReceiver exported=true permission=com.google.android.gms.auth.api.phone.permission.SEND
+    filter actions=com.google.android.gms.auth.api.phone.SMS_RETRIEVED categories= data=[]
+  com.yandex.passport.internal.sso.announcing.SsoAnnouncingReceiver exported=true permission=None
+    filter actions=com.yandex.passport.ACTION_SSO_ANNOUNCEMENT categories= data=[]
+  com.yandex.passport.internal.push.NotificationDismissedReceiver exported=true permission=None
+    filter actions=com.yandex.passport.NOTIFICATION_DISMISS categories= data=[]
+  com.yandex.alice.reminders.notifications.RemindersBroadcastReceiver exported=false permission=None
+    filter actions=android.intent.action.BOOT_COMPLETED,android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED categories= data=[]
+  com.google.firebase.iid.FirebaseInstanceIdReceiver exported=true permission=com.google.android.c2dm.permission.SEND
+    filter actions=com.google.android.c2dm.intent.RECEIVE categories= data=[]
+  androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy exported=false permission=None
+    filter actions=android.intent.action.ACTION_POWER_CONNECTED,android.intent.action.ACTION_POWER_DISCONNECTED categories= data=[]
+  androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy exported=false permission=None
+    filter actions=android.intent.action.BATTERY_OKAY,android.intent.action.BATTERY_LOW categories= data=[]
+  androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy exported=false permission=None
+    filter actions=android.intent.action.DEVICE_STORAGE_LOW,android.intent.action.DEVICE_STORAGE_OK categories= data=[]
+  androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy exported=false permission=None
+    filter actions=android.net.conn.CONNECTIVITY_CHANGE categories= data=[]
+  androidx.work.impl.background.systemalarm.RescheduleReceiver exported=false permission=None
+    filter actions=android.intent.action.BOOT_COMPLETED,android.intent.action.TIME_SET,android.intent.action.TIMEZONE_CHANGED categories= data=[]
+  androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver exported=false permission=None
+    filter actions=androidx.work.impl.background.systemalarm.UpdateProxies categories= data=[]
+  androidx.work.impl.diagnostics.DiagnosticsReceiver exported=true permission=android.permission.DUMP
+    filter actions=androidx.work.diagnostics.REQUEST_DIAGNOSTICS categories= data=[]
+  androidx.profileinstaller.ProfileInstallReceiver exported=true permission=android.permission.DUMP
+    filter actions=androidx.profileinstaller.action.INSTALL_PROFILE categories= data=[]
+    filter actions=androidx.profileinstaller.action.SKIP_FILE categories= data=[]
+    filter actions=androidx.profileinstaller.action.SAVE_PROFILE categories= data=[]
+    filter actions=androidx.profileinstaller.action.BENCHMARK_OPERATION categories= data=[]
+  io.appmetrica.analytics.push.internal.receiver.AppMetricaPushBroadcastReceiver exported=false permission=None
+    filter actions=io.appmetrica.analytics.push.action.NOTIFICATION_ACTION categories= data=[]
+  io.appmetrica.analytics.push.internal.receiver.AppMetricaPushNotificationStatusChangeHandler exported=true permission=None
+    filter actions=android.app.action.APP_BLOCK_STATE_CHANGED,android.app.action.NOTIFICATION_CHANNEL_BLOCK_STATE_CHANGED,android.app.action.NOTIFICATION_CHANNEL_GROUP_BLOCK_STATE_CHANGED categories= data=[]
+  io.appmetrica.analytics.push.internal.receiver.TtlBroadcastReceiver exported=false permission=None
+    filter actions=io.appmetrica.analytics.push.action.EXPIRED_BY_TTL_ACTION categories= data=[]
+provider: всего 20, с exported=true или intent-filter 3
+  com.yandex.passport.internal.authsdk.AuthSdkProvider exported=true permission=None
+    authorities com.yandex.passport.authsdk.provider.ru.yandex.mail
+  com.yandex.passport.internal.sso.SsoContentProvider exported=true permission=None
+    authorities com.yandex.passport.internal.sso.ru.yandex.mail
+  com.yandex.metrica.PreloadInfoContentProvider exported=true permission=None
+    authorities ru.yandex.mail.appmetrica.preloadinfo.retail
+network_security_config:
+<network-security-config>
+  <debug-overrides>
+    <trust-anchors>
+      <certificates src="system"/>
+      <certificates src="user"/>
+    </trust-anchors>
+  </debug-overrides>
+  <base-config cleartextTrafficPermitted="true"/>
+</network-security-config>
+

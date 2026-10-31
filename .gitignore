@@ -83,3 +83,11 @@ lab3/**/*.pfx
 # lab4: скачанные исходники libsndfile, сборки, базы CodeQL, venv и плагины.
 # В git остаются только скрипты, правила, PoC, результаты и отчёт.
 lab4/work/
+
+# lab5: APK, декомпиляция, эмулятор и прогоны. В git остаются скрипты и отчёт.
+lab5/work/
+# Дерево jadx от APKHunt, jar и копия APK. Сводка txt/html остаётся.
+lab5/results/apkhunt/*_SAST/
+lab5/results/apkhunt/*.jar
+lab5/results/apkhunt/*.apk
+lab5/owapp/apk/

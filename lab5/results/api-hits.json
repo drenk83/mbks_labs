@@ -1,0 +1,1245 @@
+{
+  "logd": {
+    "count": 322,
+    "examples": [
+      {
+        "where": "La7/q; run()V",
+        "invoke": "v1, v2, Landroid/util/Log;->d(Ljava/lang/String; Ljava/lang/String;)I"
+      },
+      {
+        "where": "Lab/h; run()V",
+        "invoke": "v1, v0, Landroid/util/Log;->d(Ljava/lang/String; Ljava/lang/String;)I"
+      },
+      {
+        "where": "Landroidx/appcompat/app/i; run()V",
+        "invoke": "v0, v5, v4, Landroid/util/Log;->d(Ljava/lang/String; Ljava/lang/String; Ljava/lang/Throwable;)I"
+      },
+      {
+        "where": "Landroidx/appcompat/app/j; p(Landroid/content/Context;)Z",
+        "invoke": "v3, v0, Landroid/util/Log;->d(Ljava/lang/String; Ljava/lang/String;)I"
+      },
+      {
+        "where": "Landroidx/appcompat/app/v; a(Landroid/content/Context; Ljava/lang/String;)V",
+        "invoke": "v1, v0, Landroid/util/Log;->d(Ljava/lang/String; Ljava/lang/String;)I"
+      },
+      {
+        "where": "Landroidx/appcompat/app/v; b(Landroid/content/Context;)Ljava/lang/String;",
+        "invoke": "v1, v9, Landroid/util/Log;->d(Ljava/lang/String; Ljava/lang/String;)I"
+      },
+      {
+        "where": "Landroidx/appcompat/widget/h; e(Landroid/graphics/drawable/Drawable; Landroidx/appcompat/widget/e1; [I)V",
+        "invoke": "v4, v5, Landroid/util/Log;->d(Ljava/lang/String; Ljava/lang/String;)I"
+      },
+      {
+        "where": "Landroidx/appcompat/widget/p1; <clinit>()V",
+        "invoke": "v0, v1, Landroid/util/Log;->d(Ljava/lang/String; Ljava/lang/String;)I"
+      }
+    ]
+  },
+  "loge": {
+    "count": 377,
+    "examples": [
+      {
+        "where": "Landroid/support/v4/media/session/MediaSessionCompat; b(Landroid/os/Bundle;)Landroid/os/Bundle;",
+        "invoke": "v2, v1, Landroid/util/Log;->e(Ljava/lang/String; Ljava/lang/String;)I"
+      },
+      {
+        "where": "Landroidx/appcompat/widget/b1; a(Landroid/content/Context; Landroid/view/View;)V",
+        "invoke": "v1, v4, Landroid/util/Log;->e(Ljava/lang/String; Ljava/lang/String;)I"
+      },
+      {
+        "where": "Landroidx/biometric/x; a()I",
+        "invoke": "v5, v2, Landroid/util/Log;->e(Ljava/lang/String; Ljava/lang/String;)I"
+      },
+      {
+        "where": "Landroidx/biometric/x; b()I",
+        "invoke": "v1, v2, Landroid/util/Log;->e(Ljava/lang/String; Ljava/lang/String;)I"
+      },
+      {
+        "where": "Landroidx/compose/ui/platform/AndroidComposeViewAccessibilityDelegateCompat$b; addExtraDataToAccessibilityNodeInfo(I Landroid/view/accessibility/AccessibilityNodeInfo; Ljava/lang/String; Landroid/os/Bundle;)V",
+        "invoke": "v0, v1, Landroid/util/Log;->e(Ljava/lang/String; Ljava/lang/String;)I"
+      },
+      {
+        "where": "Landroidx/constraintlayout/motion/widget/MotionLayout$f; a()V",
+        "invoke": "v9, v2, Landroid/util/Log;->e(Ljava/lang/String; Ljava/lang/String;)I"
+      },
+      {
+        "where": "Landroidx/constraintlayout/motion/widget/g; <clinit>()V",
+        "invoke": "v1, v2, v0, Landroid/util/Log;->e(Ljava/lang/String; Ljava/lang/String; Ljava/lang/Throwable;)I"
+      },
+      {
+        "where": "Landroidx/constraintlayout/motion/widget/g; <init>(Landroid/content/Context; Landroid/content/res/XmlResourceParser;)V",
+        "invoke": "v2, v3, v1, Landroid/util/Log;->e(Ljava/lang/String; Ljava/lang/String; Ljava/lang/Throwable;)I"
+      }
+    ]
+  },
+  "getSharedPreferences": {
+    "count": 135,
+    "examples": [
+      {
+        "where": "Landroidx/activity/h; run()V",
+        "invoke": "v1, v2, v5, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String; I)Landroid/content/SharedPreferences;"
+      },
+      {
+        "where": "Landroidx/preference/k; b()Landroid/content/SharedPreferences;",
+        "invoke": "v2, v0, v1, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String; I)Landroid/content/SharedPreferences;"
+      },
+      {
+        "where": "Lcom/android/billingclient/api/m0; run()V",
+        "invoke": "v0, v2, v3, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String; I)Landroid/content/SharedPreferences;"
+      },
+      {
+        "where": "Lcom/google/android/gms/internal/appset/a; run()V",
+        "invoke": "v1, v2, v3, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String; I)Landroid/content/SharedPreferences;"
+      },
+      {
+        "where": "Lcom/google/android/gms/internal/appset/b; a(Landroid/content/Context;)V",
+        "invoke": "v4, v0, v1, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String; I)Landroid/content/SharedPreferences;"
+      },
+      {
+        "where": "Lcom/google/firebase/iid/a; <init>(Landroid/content/Context;)V",
+        "invoke": "v5, v1, v2, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String; I)Landroid/content/SharedPreferences;"
+      },
+      {
+        "where": "Lcom/google/firebase/messaging/FirebaseMessaging$a; c()Ljava/lang/Boolean;",
+        "invoke": "v1, v2, v3, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String; I)Landroid/content/SharedPreferences;"
+      },
+      {
+        "where": "Lcom/google/firebase/messaging/c0; <init>(Landroid/content/Context;)V",
+        "invoke": "v4, v0, v1, Landroid/content/Context;->getSharedPreferences(Ljava/lang/String; I)Landroid/content/SharedPreferences;"
+      }
+    ]
+  },
+  "openFileOutput": {
+    "count": 1,
+    "examples": [
+      {
+        "where": "Landroidx/appcompat/app/v; a(Landroid/content/Context; Ljava/lang/String;)V",
+        "invoke": "v8, v5, v4, Landroid/content/Context;->openFileOutput(Ljava/lang/String; I)Ljava/io/FileOutputStream;"
+      }
+    ]
+  },
+  "startActivity": {
+    "count": 213,
+    "examples": [
+      {
+        "where": "Landroidx/appcompat/widget/SearchView$f; onClick(Landroid/view/View;)V",
+        "invoke": "v4, v2, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V"
+      },
+      {
+        "where": "Landroidx/appcompat/widget/SearchView$g; onKey(Landroid/view/View; I Landroid/view/KeyEvent;)Z",
+        "invoke": "v9, v8, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V"
+      },
+      {
+        "where": "Landroidx/preference/Preference; A(Landroid/view/View;)V",
+        "invoke": "v0, v2, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V"
+      },
+      {
+        "where": "Lcom/google/android/material/search/a; onClick(Landroid/view/View;)V",
+        "invoke": "v10, v14, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V"
+      },
+      {
+        "where": "Lcom/google/android/material/textfield/i; onClick(Landroid/view/View;)V",
+        "invoke": "v1, v2, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V"
+      },
+      {
+        "where": "Lcom/yandex/alicekit/core/utils/l; e(Landroid/content/Context; Ljava/lang/String;)V",
+        "invoke": "v2, v0, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V"
+      },
+      {
+        "where": "Lcom/yandex/alicekit/core/utils/q; onClick(Landroid/content/DialogInterface; I)V",
+        "invoke": "v2, v4, Landroid/app/Activity;->startActivity(Landroid/content/Intent;)V"
+      },
+      {
+        "where": "Lcom/yandex/alicekit/core/utils/r; c(Landroid/content/Context;)V",
+        "invoke": "v4, v0, Landroid/content/Context;->startActivity(Landroid/content/Intent;)V"
+      }
+    ]
+  },
+  "evaluateJavascript": {
+    "count": 5,
+    "examples": [
+      {
+        "where": "Landroidx/constraintlayout/motion/widget/v; run()V",
+        "invoke": "v0, v7, v2, Landroid/webkit/WebView;->evaluateJavascript(Ljava/lang/String; Landroid/webkit/ValueCallback;)V"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/jobscheduling/e; run()V",
+        "invoke": "v0, v2, v5, Landroid/webkit/WebView;->evaluateJavascript(Ljava/lang/String; Landroid/webkit/ValueCallback;)V"
+      },
+      {
+        "where": "Lcom/google/android/exoplayer2/n1; run()V",
+        "invoke": "v0, v6, v4, Landroid/webkit/WebView;->evaluateJavascript(Ljava/lang/String; Landroid/webkit/ValueCallback;)V"
+      },
+      {
+        "where": "Lcom/google/android/exoplayer2/util/l0; run()V",
+        "invoke": "v1, v0, v5, Landroid/webkit/WebView;->evaluateJavascript(Ljava/lang/String; Landroid/webkit/ValueCallback;)V"
+      },
+      {
+        "where": "Lcom/yandex/passport/sloth/ui/webview/WebViewController$execJsAsync$1; invoke(Landroid/webkit/WebView;)V",
+        "invoke": "v7, v0, v3, Landroid/webkit/WebView;->evaluateJavascript(Ljava/lang/String; Landroid/webkit/ValueCallback;)V"
+      }
+    ]
+  },
+  "intentGetStringExtra": {
+    "count": 120,
+    "examples": [
+      {
+        "where": "Landroidx/constraintlayout/motion/widget/v; run()V",
+        "invoke": "v8, v0, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "where": "Landroidx/core/app/e0; a(Landroid/content/Intent; Ljava/util/ArrayList;)V",
+        "invoke": "v8, v1, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "where": "Landroidx/credentials/playservices/HiddenActivity; onCreate(Landroid/os/Bundle;)V",
+        "invoke": "v0, v1, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "where": "Lcom/google/firebase/messaging/n; b(Landroid/content/Intent;)Lo9/Task;",
+        "invoke": "v7, v0, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "where": "Landroidx/work/impl/foreground/c; d(Landroid/content/Intent;)V",
+        "invoke": "v10, v3, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "where": "Lcom/google/firebase/messaging/FirebaseMessagingService; getMessageId(Landroid/content/Intent;)Ljava/lang/String;",
+        "invoke": "v2, v0, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "where": "Lcom/google/firebase/messaging/FirebaseMessagingService; handleMessageIntent(Landroid/content/Intent;)V",
+        "invoke": "v5, v0, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;"
+      },
+      {
+        "where": "Lcom/google/firebase/messaging/FirebaseMessagingService; passMessageIntentToSdk(Landroid/content/Intent;)V",
+        "invoke": "v2, v0, Landroid/content/Intent;->getStringExtra(Ljava/lang/String;)Ljava/lang/String;"
+      }
+    ]
+  },
+  "intentGetParcelableExtra": {
+    "count": 72,
+    "examples": [
+      {
+        "where": "Landroidx/constraintlayout/motion/widget/v; run()V",
+        "invoke": "v8, v2, Landroid/content/Intent;->getParcelableExtra(Ljava/lang/String;)Landroid/os/Parcelable;"
+      },
+      {
+        "where": "Landroidx/credentials/playservices/HiddenActivity; handleBeginSignIn()V",
+        "invoke": "v0, v1, Landroid/content/Intent;->getParcelableExtra(Ljava/lang/String;)Landroid/os/Parcelable;"
+      },
+      {
+        "where": "Landroidx/credentials/playservices/HiddenActivity; handleCreatePassword()V",
+        "invoke": "v0, v1, Landroid/content/Intent;->getParcelableExtra(Ljava/lang/String;)Landroid/os/Parcelable;"
+      },
+      {
+        "where": "Landroidx/credentials/playservices/HiddenActivity; handleCreatePublicKeyCredential()V",
+        "invoke": "v0, v1, Landroid/content/Intent;->getParcelableExtra(Ljava/lang/String;)Landroid/os/Parcelable;"
+      },
+      {
+        "where": "Landroidx/credentials/playservices/HiddenActivity; handleGetSignInIntent()V",
+        "invoke": "v0, v1, Landroid/content/Intent;->getParcelableExtra(Ljava/lang/String;)Landroid/os/Parcelable;"
+      },
+      {
+        "where": "Landroidx/credentials/playservices/HiddenActivity; onCreate(Landroid/os/Bundle;)V",
+        "invoke": "v1, v2, Landroid/content/Intent;->getParcelableExtra(Ljava/lang/String;)Landroid/os/Parcelable;"
+      },
+      {
+        "where": "Landroidx/test/core/app/InstrumentationActivityInvoker$BootstrapActivity; onResume()V",
+        "invoke": "v0, v1, Landroid/content/Intent;->getParcelableExtra(Ljava/lang/String;)Landroid/os/Parcelable;"
+      },
+      {
+        "where": "Lcom/android/billingclient/api/ProxyBillingActivity; onCreate(Landroid/os/Bundle;)V",
+        "invoke": "v0, v4, Landroid/content/Intent;->getParcelableExtra(Ljava/lang/String;)Landroid/os/Parcelable;"
+      }
+    ]
+  },
+  "fileOutputStreamInit": {
+    "count": 86,
+    "examples": [
+      {
+        "where": "Landroidx/core/util/a; b()Ljava/io/FileOutputStream;",
+        "invoke": "v1, v0, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V"
+      },
+      {
+        "where": "Landroidx/profileinstaller/i; a(Landroid/content/pm/PackageInfo; Ljava/io/File;)V",
+        "invoke": "v1, v0, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V"
+      },
+      {
+        "where": "Landroidx/profileinstaller/i; b(Landroid/content/Context; Ljava/util/concurrent/Executor; Landroidx/profileinstaller/i$c; Z)V",
+        "invoke": "v3, v0, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V"
+      },
+      {
+        "where": "Landroidx/profileinstaller/m$b; b(Ljava/io/File;)V",
+        "invoke": "v1, v4, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V"
+      },
+      {
+        "where": "Landroidx/sharetarget/g; run()V",
+        "invoke": "v4, v5, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V"
+      },
+      {
+        "where": "Lbiweekly/util/Utf8Writer; <init>(Ljava/io/File; Z)V",
+        "invoke": "v0, v2, v3, Ljava/io/FileOutputStream;-><init>(Ljava/io/File; Z)V"
+      },
+      {
+        "where": "Lcom/bumptech/glide/disklrucache/a; A()V",
+        "invoke": "v2, v3, Ljava/io/FileOutputStream;-><init>(Ljava/io/File;)V"
+      },
+      {
+        "where": "Lcom/bumptech/glide/disklrucache/a; p()V",
+        "invoke": "v3, v4, v5, Ljava/io/FileOutputStream;-><init>(Ljava/io/File; Z)V"
+      }
+    ]
+  },
+  "intentGetData": {
+    "count": 77,
+    "examples": [
+      {
+        "where": "Landroidx/navigation/NavController; m()V",
+        "invoke": "v4, Landroid/content/Intent;->getData()Landroid/net/Uri;"
+      },
+      {
+        "where": "Lc2/a; c(Landroid/content/Intent;)V",
+        "invoke": "v23, Landroid/content/Intent;->getData()Landroid/net/Uri;"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/jobscheduling/AlarmManagerSchedulerBroadcastReceiver; onReceive(Landroid/content/Context; Landroid/content/Intent;)V",
+        "invoke": "v6, Landroid/content/Intent;->getData()Landroid/net/Uri;"
+      },
+      {
+        "where": "Lk8/e1; onReceive(Landroid/content/Context; Landroid/content/Intent;)V",
+        "invoke": "v3, Landroid/content/Intent;->getData()Landroid/net/Uri;"
+      },
+      {
+        "where": "Landroidx/navigation/k; <init>(Landroid/content/Intent;)V",
+        "invoke": "v4, Landroid/content/Intent;->getData()Landroid/net/Uri;"
+      },
+      {
+        "where": "Ld/b; c(I Landroid/content/Intent;)Ljava/lang/Object;",
+        "invoke": "v3, Landroid/content/Intent;->getData()Landroid/net/Uri;"
+      },
+      {
+        "where": "Ld/c; c(I Landroid/content/Intent;)Ljava/lang/Object;",
+        "invoke": "v5, Landroid/content/Intent;->getData()Landroid/net/Uri;"
+      },
+      {
+        "where": "Ld/d; c(I Landroid/content/Intent;)Ljava/lang/Object;",
+        "invoke": "v5, Landroid/content/Intent;->getData()Landroid/net/Uri;"
+      }
+    ]
+  },
+  "fileInputStreamInit": {
+    "count": 81,
+    "examples": [
+      {
+        "where": "Landroidx/profileinstaller/i; b(Landroid/content/Context; Ljava/util/concurrent/Executor; Landroidx/profileinstaller/i$c; Z)V",
+        "invoke": "v5, v0, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V"
+      },
+      {
+        "where": "Landroidx/profileinstaller/m$b; a(Ljava/io/File;)Landroidx/profileinstaller/m$b;",
+        "invoke": "v1, v9, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V"
+      },
+      {
+        "where": "Landroidx/sharetarget/i; b(Landroid/content/Context; Ljava/io/File;)Ln/a;",
+        "invoke": "v1, v6, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V"
+      },
+      {
+        "where": "Lbiweekly/util/Gobble; buildInputStream()Ljava/io/InputStream;",
+        "invoke": "v1, v2, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V"
+      },
+      {
+        "where": "Lbiweekly/util/Utf8Reader; <init>(Ljava/io/File;)V",
+        "invoke": "v0, v2, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V"
+      },
+      {
+        "where": "Lbiweekly/util/XmlUtils; toDocument(Ljava/io/File;)Lorg/w3c/dom/Document;",
+        "invoke": "v1, v2, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V"
+      },
+      {
+        "where": "Lcom/airbnb/lottie/g; call()Ljava/lang/Object;",
+        "invoke": "v5, v6, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V"
+      },
+      {
+        "where": "Lcom/bumptech/glide/disklrucache/a; p()V",
+        "invoke": "v3, v4, Ljava/io/FileInputStream;-><init>(Ljava/io/File;)V"
+      }
+    ]
+  },
+  "sendBroadcast": {
+    "count": 25,
+    "examples": [
+      {
+        "where": "Landroidx/test/core/app/InstrumentationActivityInvoker$BootstrapActivity; onActivityResult(I I Landroid/content/Intent;)V",
+        "invoke": "v1, v2, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V"
+      },
+      {
+        "where": "Landroidx/test/core/app/InstrumentationActivityInvoker$EmptyActivity; onResume()V",
+        "invoke": "v2, v0, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V"
+      },
+      {
+        "where": "Landroidx/test/core/app/InstrumentationActivityInvoker$EmptyFloatingActivity; onResume()V",
+        "invoke": "v2, v0, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V"
+      },
+      {
+        "where": "Landroidx/work/impl/background/systemalarm/c; a()V",
+        "invoke": "v10, v2, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V"
+      },
+      {
+        "where": "Lcom/android/billingclient/api/ProxyBillingActivity; onActivityResult(I I Landroid/content/Intent;)V",
+        "invoke": "v10, v13, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V"
+      },
+      {
+        "where": "Lcom/android/billingclient/api/ProxyBillingActivity; onCreate(Landroid/os/Bundle;)V",
+        "invoke": "v12, v0, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V"
+      },
+      {
+        "where": "Lcom/android/billingclient/api/ProxyBillingActivity; onDestroy()V",
+        "invoke": "v3, v0, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V"
+      },
+      {
+        "where": "Lcom/yandex/alicekit/core/utils/l; d(Landroid/app/Activity; Ljava/io/File;)V",
+        "invoke": "v2, v0, Landroid/content/Context;->sendBroadcast(Landroid/content/Intent;)V"
+      }
+    ]
+  },
+  "contentQuery": {
+    "count": 41,
+    "examples": [
+      {
+        "where": "Lc1/d; a(Landroid/content/Context; Lc1/e;)Lc1/k;",
+        "invoke": "v0 ... v6, Landroid/content/ContentResolver;->query(Landroid/net/Uri; [Ljava/lang/String; Ljava/lang/String; [Ljava/lang/String; Ljava/lang/String; Landroid/os/CancellationSignal;)Landroid/database/Cursor;"
+      },
+      {
+        "where": "Lcom/yandex/alicekit/core/utils/m; a(Landroid/content/Context; Landroid/net/Uri;)J",
+        "invoke": "v1 ... v7, Landroid/content/ContentResolver;->query(Landroid/net/Uri; [Ljava/lang/String; Ljava/lang/String; [Ljava/lang/String; Ljava/lang/String; Landroid/os/CancellationSignal;)Landroid/database/Cursor;"
+      },
+      {
+        "where": "Lcom/yandex/alicekit/core/utils/m; b(Landroid/content/Context; Landroid/net/Uri;)Ljava/lang/String;",
+        "invoke": "v1 ... v6, Landroid/content/ContentResolver;->query(Landroid/net/Uri; [Ljava/lang/String; Ljava/lang/String; [Ljava/lang/String; Ljava/lang/String;)Landroid/database/Cursor;"
+      },
+      {
+        "where": "Lcom/yandex/alicekit/core/utils/m; c(Landroid/content/Context; Landroid/net/Uri;)Ljava/lang/String;",
+        "invoke": "v1 ... v6, Landroid/content/ContentResolver;->query(Landroid/net/Uri; [Ljava/lang/String; Ljava/lang/String; [Ljava/lang/String; Ljava/lang/String;)Landroid/database/Cursor;"
+      },
+      {
+        "where": "Lh4/a$a; a(Landroid/net/Uri;)Landroid/database/Cursor;",
+        "invoke": "v0 ... v5, Landroid/content/ContentResolver;->query(Landroid/net/Uri; [Ljava/lang/String; Ljava/lang/String; [Ljava/lang/String; Ljava/lang/String;)Landroid/database/Cursor;"
+      },
+      {
+        "where": "Lh4/a$b; a(Landroid/net/Uri;)Landroid/database/Cursor;",
+        "invoke": "v0 ... v5, Landroid/content/ContentResolver;->query(Landroid/net/Uri; [Ljava/lang/String; Ljava/lang/String; [Ljava/lang/String; Ljava/lang/String;)Landroid/database/Cursor;"
+      },
+      {
+        "where": "Lm4/k$b; d(Lcom/bumptech/glide/Priority; Lcom/bumptech/glide/load/data/d$a;)V",
+        "invoke": "v0 ... v5, Landroid/content/ContentResolver;->query(Landroid/net/Uri; [Ljava/lang/String; Ljava/lang/String; [Ljava/lang/String; Ljava/lang/String;)Landroid/database/Cursor;"
+      },
+      {
+        "where": "Ln4/d$d; e()Lcom/bumptech/glide/load/data/d;",
+        "invoke": "v6 ... v11, Landroid/content/ContentResolver;->query(Landroid/net/Uri; [Ljava/lang/String; Ljava/lang/String; [Ljava/lang/String; Ljava/lang/String;)Landroid/database/Cursor;"
+      }
+    ]
+  },
+  "httpURLConnection": {
+    "count": 112,
+    "examples": [
+      {
+        "where": "Lcom/airbnb/lottie/g; call()Ljava/lang/Object;",
+        "invoke": "v6, Ljava/net/HttpURLConnection;->getResponseCode()I"
+      },
+      {
+        "where": "Lcom/google/android/gms/ads/identifier/a; run()V",
+        "invoke": "v3, Ljava/net/HttpURLConnection;->getResponseCode()I"
+      },
+      {
+        "where": "Lcom/google/firebase/installations/remote/c; b(Ljava/net/HttpURLConnection; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V",
+        "invoke": "v10, Ljava/net/HttpURLConnection;->getErrorStream()Ljava/io/InputStream;"
+      },
+      {
+        "where": "Lhe/b$a; call()Ljava/lang/Object;",
+        "invoke": "v0, Ljava/net/HttpURLConnection;->getResponseCode()I"
+      },
+      {
+        "where": "Li8/d; run()V",
+        "invoke": "v2, Ljava/net/HttpURLConnection;->getResponseCode()I"
+      },
+      {
+        "where": "Ln3/a; b(Ljava/net/HttpURLConnection;)Ljava/lang/String;",
+        "invoke": "v2, Ljava/net/HttpURLConnection;->getErrorStream()Ljava/io/InputStream;"
+      },
+      {
+        "where": "Ln3/a; a()Ljava/lang/String;",
+        "invoke": "v0, Ljava/net/HttpURLConnection;->getResponseCode()I"
+      },
+      {
+        "where": "Ln3/a; close()V",
+        "invoke": "v0, Ljava/net/HttpURLConnection;->disconnect()V"
+      }
+    ]
+  },
+  "execSQL": {
+    "count": 172,
+    "examples": [
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/persistence/b0; a(Landroid/database/sqlite/SQLiteDatabase;)V",
+        "invoke": "v1, v0, Landroid/database/sqlite/SQLiteDatabase;->execSQL(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/persistence/b0; onDowngrade(Landroid/database/sqlite/SQLiteDatabase; I I)V",
+        "invoke": "v1, v2, Landroid/database/sqlite/SQLiteDatabase;->execSQL(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lad/a$a; a()Ljava/lang/Object;",
+        "invoke": "v3, v5, Landroid/database/sqlite/SQLiteDatabase;->execSQL(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/persistence/q; apply(Ljava/lang/Object;)Ljava/lang/Object;",
+        "invoke": "v11, v3, v2, Landroid/database/sqlite/SQLiteDatabase;->execSQL(Ljava/lang/String; [Ljava/lang/Object;)V"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/persistence/w; a(Landroid/database/sqlite/SQLiteDatabase;)V",
+        "invoke": "v2, v0, Landroid/database/sqlite/SQLiteDatabase;->execSQL(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/persistence/x; a(Landroid/database/sqlite/SQLiteDatabase;)V",
+        "invoke": "v2, v0, Landroid/database/sqlite/SQLiteDatabase;->execSQL(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/persistence/y; a(Landroid/database/sqlite/SQLiteDatabase;)V",
+        "invoke": "v2, v0, Landroid/database/sqlite/SQLiteDatabase;->execSQL(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/persistence/z; a(Landroid/database/sqlite/SQLiteDatabase;)V",
+        "invoke": "v2, v0, Landroid/database/sqlite/SQLiteDatabase;->execSQL(Ljava/lang/String;)V"
+      }
+    ]
+  },
+  "rawQuery": {
+    "count": 69,
+    "examples": [
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/persistence/b0; onConfigure(Landroid/database/sqlite/SQLiteDatabase;)V",
+        "invoke": "v4, v2, v1, Landroid/database/sqlite/SQLiteDatabase;->rawQuery(Ljava/lang/String; [Ljava/lang/String;)Landroid/database/Cursor;"
+      },
+      {
+        "where": "Lbb/n; apply(Ljava/lang/Object;)Ljava/lang/Object;",
+        "invoke": "v3, v1, v0, Landroid/database/sqlite/SQLiteDatabase;->rawQuery(Ljava/lang/String; [Ljava/lang/String;)Landroid/database/Cursor;"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/persistence/k; apply(Ljava/lang/Object;)Ljava/lang/Object;",
+        "invoke": "v9, v3, v1, Landroid/database/sqlite/SQLiteDatabase;->rawQuery(Ljava/lang/String; [Ljava/lang/String;)Landroid/database/Cursor;"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/persistence/n; apply(Ljava/lang/Object;)Ljava/lang/Object;",
+        "invoke": "v6, v2, v1, Landroid/database/sqlite/SQLiteDatabase;->rawQuery(Ljava/lang/String; [Ljava/lang/String;)Landroid/database/Cursor;"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/persistence/o; apply(Ljava/lang/Object;)Ljava/lang/Object;",
+        "invoke": "v0, v5, v2, Landroid/database/sqlite/SQLiteDatabase;->rawQuery(Ljava/lang/String; [Ljava/lang/String;)Landroid/database/Cursor;"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/persistence/q; apply(Ljava/lang/Object;)Ljava/lang/Object;",
+        "invoke": "v11, v5, v3, Landroid/database/sqlite/SQLiteDatabase;->rawQuery(Ljava/lang/String; [Ljava/lang/String;)Landroid/database/Cursor;"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/persistence/s; apply(Ljava/lang/Object;)Ljava/lang/Object;",
+        "invoke": "v6, v2, v1, Landroid/database/sqlite/SQLiteDatabase;->rawQuery(Ljava/lang/String; [Ljava/lang/String;)Landroid/database/Cursor;"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/persistence/u; b()Ls5/a;",
+        "invoke": "v3, v2, v4, Landroid/database/sqlite/SQLiteDatabase;->rawQuery(Ljava/lang/String; [Ljava/lang/String;)Landroid/database/Cursor;"
+      }
+    ]
+  },
+  "messageDigest": {
+    "count": 40,
+    "examples": [
+      {
+        "where": "Lcom/google/android/exoplayer2/source/rtsp/c; a(Lcom/google/android/exoplayer2/source/rtsp/h$a; Landroid/net/Uri; I)Ljava/lang/String;",
+        "invoke": "v8, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+      },
+      {
+        "where": "Lcom/google/firebase/installations/remote/c; c(Ljava/net/URL; Ljava/lang/String;)Ljava/net/HttpURLConnection;",
+        "invoke": "v5, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+      },
+      {
+        "where": "Lcom/google/firebase/messaging/r; b(Ljava/lang/String; Ljava/lang/String; Landroid/os/Bundle;)V",
+        "invoke": "v0, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+      },
+      {
+        "where": "Lcom/yandex/alicekit/core/utils/j; a([Ljava/lang/Object;)Ljava/lang/String;",
+        "invoke": "v1, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+      },
+      {
+        "where": "Lkb/d; d()Lo9/Task;",
+        "invoke": "v9, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+      },
+      {
+        "where": "Lpb/a; a()Ljava/lang/String;",
+        "invoke": "v4, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+      },
+      {
+        "where": "Lk4/i$a; create()Ljava/lang/Object;",
+        "invoke": "v1, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+      },
+      {
+        "where": "Lwa/c$f; a(Ljava/lang/String; Ljava/security/Provider;)Ljava/lang/Object;",
+        "invoke": "v1, Ljava/security/MessageDigest;->getInstance(Ljava/lang/String;)Ljava/security/MessageDigest;"
+      }
+    ]
+  },
+  "openInputStream": {
+    "count": 40,
+    "examples": [
+      {
+        "where": "Lcom/yandex/alicekit/core/utils/m; a(Landroid/content/Context; Landroid/net/Uri;)J",
+        "invoke": "v8, v9, Landroid/content/ContentResolver;->openInputStream(Landroid/net/Uri;)Ljava/io/InputStream;"
+      },
+      {
+        "where": "Lcoil/fetch/d; a(Lkotlin/coroutines/c;)Ljava/lang/Object;",
+        "invoke": "v0, v1, Landroid/content/ContentResolver;->openInputStream(Landroid/net/Uri;)Ljava/io/InputStream;"
+      },
+      {
+        "where": "Lcom/squareup/picasso/e; e(Lcom/squareup/picasso/r; I)Lcom/squareup/picasso/t$a;",
+        "invoke": "v6, v5, Landroid/content/ContentResolver;->openInputStream(Landroid/net/Uri;)Ljava/io/InputStream;"
+      },
+      {
+        "where": "Lcom/squareup/picasso/f; g(Lcom/squareup/picasso/r;)Ljava/io/InputStream;",
+        "invoke": "v0, v2, Landroid/content/ContentResolver;->openInputStream(Landroid/net/Uri;)Ljava/io/InputStream;"
+      },
+      {
+        "where": "Lh4/a; f()Ljava/io/InputStream;",
+        "invoke": "v6, v3, Landroid/content/ContentResolver;->openInputStream(Landroid/net/Uri;)Ljava/io/InputStream;"
+      },
+      {
+        "where": "Landroidx/core/graphics/drawable/IconCompat; g(Landroid/content/Context;)Ljava/io/InputStream;",
+        "invoke": "v5, v0, Landroid/content/ContentResolver;->openInputStream(Landroid/net/Uri;)Ljava/io/InputStream;"
+      },
+      {
+        "where": "Lcom/bumptech/glide/load/data/n; f(Landroid/content/ContentResolver; Landroid/net/Uri;)Ljava/lang/Object;",
+        "invoke": "v4, v5, Landroid/content/ContentResolver;->openInputStream(Landroid/net/Uri;)Ljava/io/InputStream;"
+      },
+      {
+        "where": "Landroidx/appcompat/widget/a1; g(Ljava/lang/String;)Landroid/graphics/drawable/Drawable;",
+        "invoke": "v2, v3, Landroid/content/ContentResolver;->openInputStream(Landroid/net/Uri;)Ljava/io/InputStream;"
+      }
+    ]
+  },
+  "loadLibrary": {
+    "count": 8,
+    "examples": [
+      {
+        "where": "Lf5/e; c(Landroid/content/Context; Ljava/lang/String; Ljava/lang/String;)V",
+        "invoke": "v20, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/metrica/impl/ac/HandlerRunner; main([Ljava/lang/String;)V",
+        "invoke": "v1, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/metrica/impl/ob/B7; b()Z",
+        "invoke": "v3, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/metrica/impl/ob/j7; a()V",
+        "invoke": "v3, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/eye/nativebits/EyeNative; <clinit>()V",
+        "invoke": "v0, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mail360/camera/doc/scanner/DocScannerCameraActivity; onCreate(Landroid/os/Bundle;)V",
+        "invoke": "v0, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lorg/sqlite/core/NativeDB; <clinit>()V",
+        "invoke": "v0, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lorg/webrtc/s0$a; a()Z",
+        "invoke": "v0, Ljava/lang/System;->loadLibrary(Ljava/lang/String;)V"
+      }
+    ]
+  },
+  "systemLoad": {
+    "count": 3,
+    "examples": [
+      {
+        "where": "Lf5/e; c(Landroid/content/Context; Ljava/lang/String; Ljava/lang/String;)V",
+        "invoke": "v0, Ljava/lang/System;->load(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/metrica/impl/ac/HandlerRunner; a(Ljava/lang/String;)V",
+        "invoke": "v4, Ljava/lang/System;->load(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lk00/c; c(Ljava/lang/String; Ljava/lang/String;)Z",
+        "invoke": "v4, Ljava/lang/System;->load(Ljava/lang/String;)V"
+      }
+    ]
+  },
+  "cipherGetInstance": {
+    "count": 15,
+    "examples": [
+      {
+        "where": "Lhe/a; a(Ljava/lang/String;)Ljava/lang/String;",
+        "invoke": "v1, Ljavax/crypto/Cipher;->getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+      },
+      {
+        "where": "Lwa/c$a; a(Ljava/lang/String; Ljava/security/Provider;)Ljava/lang/Object;",
+        "invoke": "v1, Ljavax/crypto/Cipher;->getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+      },
+      {
+        "where": "Lcom/google/android/exoplayer2/source/hls/a; b(Lv7/j;)J",
+        "invoke": "v0, Ljavax/crypto/Cipher;->getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+      },
+      {
+        "where": "Lcom/yandex/metrica/impl/ob/dn; a([B)[B",
+        "invoke": "v1, Ljavax/crypto/Cipher;->getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+      },
+      {
+        "where": "Lcom/yandex/metrica/impl/ob/dn; a([B I I)[B",
+        "invoke": "v1, Ljavax/crypto/Cipher;->getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+      },
+      {
+        "where": "Lcom/yandex/metrica/impl/ob/fn; a([B [B [B Ljava/security/PublicKey;)[B",
+        "invoke": "v1, Ljavax/crypto/Cipher;->getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/c9; a([B)[B",
+        "invoke": "v1, Ljavax/crypto/Cipher;->getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/rg0; a([B [B [B Ljava/security/PublicKey;)[B",
+        "invoke": "v1, Ljavax/crypto/Cipher;->getInstance(Ljava/lang/String;)Ljavax/crypto/Cipher;"
+      }
+    ]
+  },
+  "secretKeySpec": {
+    "count": 15,
+    "examples": [
+      {
+        "where": "Lhe/a; a(Ljava/lang/String;)Ljava/lang/String;",
+        "invoke": "v0, v1, v2, Ljavax/crypto/spec/SecretKeySpec;-><init>([B Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lwa/d; a([B [B [B I)[B",
+        "invoke": "v2, v6, v1, Ljavax/crypto/spec/SecretKeySpec;-><init>([B Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/google/android/exoplayer2/source/hls/a; b(Lv7/j;)J",
+        "invoke": "v1, v2, v3, Ljavax/crypto/spec/SecretKeySpec;-><init>([B Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lar/a; a(Ljava/lang/String;)[B",
+        "invoke": "v1, v2, v5, Ljavax/crypto/spec/SecretKeySpec;-><init>([B Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/metrica/impl/ob/dn; a([B)[B",
+        "invoke": "v0, v1, v2, Ljavax/crypto/spec/SecretKeySpec;-><init>([B Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/metrica/impl/ob/dn; a([B I I)[B",
+        "invoke": "v0, v1, v2, Ljavax/crypto/spec/SecretKeySpec;-><init>([B Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/c9; a([B)[B",
+        "invoke": "v0, v1, v2, Ljavax/crypto/spec/SecretKeySpec;-><init>([B Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/passport/internal/core/accounts/MasterTokenEncrypter$a; <init>([B)V",
+        "invoke": "v1, v0, v2, Ljavax/crypto/spec/SecretKeySpec;-><init>([B Ljava/lang/String;)V"
+      }
+    ]
+  },
+  "setJavaScriptEnabled": {
+    "count": 21,
+    "examples": [
+      {
+        "where": "Lle/c0; <init>(Landroid/content/Context;)V",
+        "invoke": "v0, v3, Landroid/webkit/WebSettings;->setJavaScriptEnabled(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/cp1; <init>(Landroid/webkit/WebView;)V",
+        "invoke": "v0, v1, Landroid/webkit/WebSettings;->setJavaScriptEnabled(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/gp1; a()V",
+        "invoke": "v0, v1, Landroid/webkit/WebSettings;->setJavaScriptEnabled(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/h2; a(Landroid/content/Context;)V",
+        "invoke": "v1, v0, Landroid/webkit/WebSettings;->setJavaScriptEnabled(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/qr0; b(Landroid/content/Context;)V",
+        "invoke": "v1, v2, Landroid/webkit/WebSettings;->setJavaScriptEnabled(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/messaging/miniapps/view/MiniAppBrick; Q0(Landroid/os/Bundle;)V",
+        "invoke": "v0, v1, Landroid/webkit/WebSettings;->setJavaScriptEnabled(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/passport/sloth/ui/webview/WebViewController; <init>(Lcom/yandex/passport/sloth/ui/SlothUiController; Landroidx/lifecycle/u; Lcom/yandex/passport/sloth/ui/k;)V",
+        "invoke": "v0, v1, Landroid/webkit/WebSettings;->setJavaScriptEnabled(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/passport/internal/warm/WarmUpWebViewActivityUi$layout$1$1; invoke(Landroid/webkit/WebView;)V",
+        "invoke": "v4, v0, Landroid/webkit/WebSettings;->setJavaScriptEnabled(Z)V"
+      }
+    ]
+  },
+  "webviewSettings": {
+    "count": 141,
+    "examples": [
+      {
+        "where": "Lle/c0; <init>(Landroid/content/Context;)V",
+        "invoke": "v0, v3, Landroid/webkit/WebSettings;->setJavaScriptEnabled(Z)V"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/jobscheduling/s; accept(Ljava/lang/Object;)V",
+        "invoke": "v1, v3, Landroid/webkit/WebSettings;->setBuiltInZoomControls(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/metrica/impl/ob/D2; a(Landroid/webkit/WebView; Lcom/yandex/metrica/impl/ob/Xf;)V",
+        "invoke": "v0, Landroid/webkit/WebSettings;->getJavaScriptEnabled()Z"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/lf; e()V",
+        "invoke": "v0, v1, Landroid/webkit/WebSettings;->setAllowFileAccess(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/lf; f()V",
+        "invoke": "v0, v1, Landroid/webkit/WebSettings;->setDisplayZoomControls(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/cp1; <init>(Landroid/webkit/WebView;)V",
+        "invoke": "v0, Landroid/webkit/WebSettings;->getJavaScriptEnabled()Z"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/gp1; a()V",
+        "invoke": "v0, v1, Landroid/webkit/WebSettings;->setJavaScriptEnabled(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/h2; a(Landroid/content/Context;)V",
+        "invoke": "v1, v0, Landroid/webkit/WebSettings;->setJavaScriptEnabled(Z)V"
+      }
+    ]
+  },
+  "webviewLoadData": {
+    "count": 8,
+    "examples": [
+      {
+        "where": "Lle/c0; loadData(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V",
+        "invoke": "v0, v1, v2, v3, Landroid/webkit/WebView;->loadData(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lle/c0; loadDataWithBaseURL(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V",
+        "invoke": "v0 ... v5, Landroid/webkit/WebView;->loadDataWithBaseURL(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/google/android/datatransport/runtime/scheduling/jobscheduling/s; accept(Ljava/lang/Object;)V",
+        "invoke": "v13 ... v18, Landroid/webkit/WebView;->loadDataWithBaseURL(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/google/android/exoplayer2/ui/g; c()V",
+        "invoke": "v4, v0, v1, v2, Landroid/webkit/WebView;->loadData(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/lf; a(Ljava/lang/String;)V",
+        "invoke": "v1 ... v6, Landroid/webkit/WebView;->loadDataWithBaseURL(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/passport/sloth/ui/SlothSlab$performBind$$inlined$collectOn$2$a; emit(Ljava/lang/Object; Lkotlin/coroutines/c;)Ljava/lang/Object;",
+        "invoke": "v0 ... v5, Landroid/webkit/WebView;->loadDataWithBaseURL(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mail/react/ReactWebView; c(Ljava/lang/String;)V",
+        "invoke": "v3 ... v8, Landroid/webkit/WebView;->loadDataWithBaseURL(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mail/o0; E1(Ljava/lang/String; Ljava/lang/String;)V",
+        "invoke": "v1 ... v6, Landroid/webkit/WebView;->loadDataWithBaseURL(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String;)V"
+      }
+    ]
+  },
+  "webviewLoadUrl": {
+    "count": 36,
+    "examples": [
+      {
+        "where": "Lle/c0; loadUrl(Ljava/lang/String;)V",
+        "invoke": "v0, v1, Landroid/webkit/WebView;->loadUrl(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lle/c0; loadUrl(Ljava/lang/String; Ljava/util/Map;)V",
+        "invoke": "v1, v2, v3, Landroid/webkit/WebView;->loadUrl(Ljava/lang/String; Ljava/util/Map;)V"
+      },
+      {
+        "where": "Lcom/google/android/exoplayer2/a0; g(Ljava/lang/Object; Ljava/lang/Object;)V",
+        "invoke": "v4, v3, Landroid/webkit/WebView;->loadUrl(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/aq1; a(Landroid/webkit/WebView; Ljava/lang/String; [Ljava/lang/Object;)V",
+        "invoke": "v4, v5, Landroid/webkit/WebView;->loadUrl(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/b8; a(Ljava/lang/String;)V",
+        "invoke": "v0, v4, Landroid/webkit/WebView;->loadUrl(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/ph0; a(Ljava/lang/String;)V",
+        "invoke": "v0, v4, Landroid/webkit/WebView;->loadUrl(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/zp1; run()V",
+        "invoke": "v0, v1, Landroid/webkit/WebView;->loadUrl(Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/gp1; a()V",
+        "invoke": "v0, v1, Landroid/webkit/WebView;->loadUrl(Ljava/lang/String;)V"
+      }
+    ]
+  },
+  "intentGetClipData": {
+    "count": 11,
+    "examples": [
+      {
+        "where": "Ld/c; c(I Landroid/content/Intent;)Ljava/lang/Object;",
+        "invoke": "v5, Landroid/content/Intent;->getClipData()Landroid/content/ClipData;"
+      },
+      {
+        "where": "Ld/d; c(I Landroid/content/Intent;)Ljava/lang/Object;",
+        "invoke": "v5, Landroid/content/Intent;->getClipData()Landroid/content/ClipData;"
+      },
+      {
+        "where": "Ld/e; c(I Landroid/content/Intent;)Ljava/lang/Object;",
+        "invoke": "v5, Landroid/content/Intent;->getClipData()Landroid/content/ClipData;"
+      },
+      {
+        "where": "Lse/h; a(I Landroid/content/Intent;)V",
+        "invoke": "v11, Landroid/content/Intent;->getClipData()Landroid/content/ClipData;"
+      },
+      {
+        "where": "Lcom/yandex/mail360/webview/fragment/ServiceFragment; onActivityResult(I I Landroid/content/Intent;)V",
+        "invoke": "v8, Landroid/content/Intent;->getClipData()Landroid/content/ClipData;"
+      },
+      {
+        "where": "Lcom/yandex/mail/compose/ComposeFragment; onActivityResult(I I Landroid/content/Intent;)V",
+        "invoke": "v8, Landroid/content/Intent;->getClipData()Landroid/content/ClipData;"
+      }
+    ]
+  },
+  "httpsURLConnection": {
+    "count": 8,
+    "examples": [
+      {
+        "where": "Ls3/g; a(Lcom/android/volley/Request; Ljava/util/Map;)Ls3/f;",
+        "invoke": "v4, v8, Ljavax/net/ssl/HttpsURLConnection;->setSSLSocketFactory(Ljavax/net/ssl/SSLSocketFactory;)V"
+      },
+      {
+        "where": "Lcom/yandex/metrica/network/impl/c; a(Ljavax/net/ssl/HttpsURLConnection;)V",
+        "invoke": "v5, v0, Ljavax/net/ssl/HttpsURLConnection;->setSSLSocketFactory(Ljavax/net/ssl/SSLSocketFactory;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/u10; a(Lcom/yandex/mobile/ads/impl/uy0; Ljava/util/Map;)Lcom/yandex/mobile/ads/impl/n10;",
+        "invoke": "v4, v11, Ljavax/net/ssl/HttpsURLConnection;->setSSLSocketFactory(Ljavax/net/ssl/SSLSocketFactory;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/pn1; a(Ljava/net/URL;)Ljava/net/HttpURLConnection;",
+        "invoke": "v1, v0, Ljavax/net/ssl/HttpsURLConnection;->setSSLSocketFactory(Ljavax/net/ssl/SSLSocketFactory;)V"
+      },
+      {
+        "where": "Lio/appmetrica/analytics/network/impl/a; a(Ljavax/net/ssl/HttpsURLConnection;)V",
+        "invoke": "v4, v0, Ljavax/net/ssl/HttpsURLConnection;->setSSLSocketFactory(Ljavax/net/ssl/SSLSocketFactory;)V"
+      },
+      {
+        "where": "Lp10/c; doInBackground([Ljava/lang/Object;)Ljava/lang/Object;",
+        "invoke": "v0, v5, Ljavax/net/ssl/HttpsURLConnection;->setSSLSocketFactory(Ljavax/net/ssl/SSLSocketFactory;)V"
+      },
+      {
+        "where": "Lru/yandex/speechkit/internal/TCPSocketFactory; createSSLSocket(Ljava/net/InetAddress; Ljava/lang/String; I)Ljava/net/Socket;",
+        "invoke": "Ljavax/net/ssl/HttpsURLConnection;->getDefaultHostnameVerifier()Ljavax/net/ssl/HostnameVerifier;"
+      }
+    ]
+  },
+  "pathClassLoader": {
+    "count": 1,
+    "examples": [
+      {
+        "where": "Lcom/yandex/metrica/impl/ac/HandlerRunner; a(Ljava/lang/String;)V",
+        "invoke": "v2, v0, v1, v3, Ldalvik/system/PathClassLoader;-><init>(Ljava/lang/String; Ljava/lang/String; Ljava/lang/ClassLoader;)V"
+      }
+    ]
+  },
+  "addJavascriptInterface": {
+    "count": 25,
+    "examples": [
+      {
+        "where": "Lcom/yandex/metrica/impl/ob/D2; a(Landroid/webkit/WebView; Lcom/yandex/metrica/impl/ob/Xf;)V",
+        "invoke": "v3, v0, v1, Landroid/webkit/WebView;->addJavascriptInterface(Ljava/lang/Object; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/lf; addJavascriptInterface(Ljava/lang/Object; Ljava/lang/String;)V",
+        "invoke": "v1, v2, v3, Landroid/webkit/WebView;->addJavascriptInterface(Ljava/lang/Object; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/messaging/miniapps/view/MiniAppBrick; Q0(Landroid/os/Bundle;)V",
+        "invoke": "v5, v2, v0, Landroid/webkit/WebView;->addJavascriptInterface(Ljava/lang/Object; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/ke; c(Landroid/content/Context;)V",
+        "invoke": "v1, v0, v2, Lcom/yandex/mobile/ads/impl/lf;->addJavascriptInterface(Ljava/lang/Object; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/xx; c(Landroid/content/Context;)V",
+        "invoke": "v1, v0, v2, Lcom/yandex/mobile/ads/impl/lf;->addJavascriptInterface(Ljava/lang/Object; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/passport/sloth/ui/webview/WebViewController; a(Ljava/lang/Object;)V",
+        "invoke": "v0, v2, v3, v1, Lcom/yandex/passport/sloth/ui/webview/WebViewController$addJavascriptInterface$1;-><init>(Lcom/yandex/passport/sloth/ui/webview/WebViewController; Ljava/lang/Object; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lio/appmetrica/analytics/impl/Ph; a(Landroid/webkit/WebView; Lio/appmetrica/analytics/impl/Z;)V",
+        "invoke": "v3, v0, v1, Landroid/webkit/WebView;->addJavascriptInterface(Ljava/lang/Object; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lju/a; b(Lcom/yandex/messaging/video/source/youtube/a;)V",
+        "invoke": "v0, v3, v1, Landroid/webkit/WebView;->addJavascriptInterface(Ljava/lang/Object; Ljava/lang/String;)V"
+      }
+    ]
+  },
+  "intentGetDataString": {
+    "count": 5,
+    "examples": [
+      {
+        "where": "Lcom/yandex/metrica/impl/ob/j0; a(Landroid/content/Intent;)V",
+        "invoke": "v2, Landroid/content/Intent;->getDataString()Ljava/lang/String;"
+      },
+      {
+        "where": "Lcom/yandex/metrica/impl/ob/u; a(Landroid/app/Activity; Lcom/yandex/metrica/impl/ob/q$a;)V",
+        "invoke": "v3, Landroid/content/Intent;->getDataString()Ljava/lang/String;"
+      },
+      {
+        "where": "Lio/appmetrica/analytics/impl/L4; a(Landroid/content/Intent;)V",
+        "invoke": "v2, Landroid/content/Intent;->getDataString()Ljava/lang/String;"
+      },
+      {
+        "where": "Lio/appmetrica/analytics/impl/t0; a(Landroid/app/Activity; Lio/appmetrica/analytics/impl/j$a;)V",
+        "invoke": "v3, Landroid/content/Intent;->getDataString()Ljava/lang/String;"
+      },
+      {
+        "where": "Lcom/yandex/telemost/TelemostActivity; d3()Ljava/lang/String;",
+        "invoke": "v0, Landroid/content/Intent;->getDataString()Ljava/lang/String;"
+      }
+    ]
+  },
+  "sslContext": {
+    "count": 14,
+    "examples": [
+      {
+        "where": "Lcom/yandex/metrica/impl/ob/sd; a()Ljavax/net/ssl/SSLSocketFactory;",
+        "invoke": "v3, Ljavax/net/ssl/SSLContext;->getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/h11; a()Ljavax/net/ssl/SSLContext;",
+        "invoke": "v0, Ljavax/net/ssl/SSLContext;->getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/pu0$a; a()Lcom/yandex/mobile/ads/impl/pu0;",
+        "invoke": "v1, Ljavax/net/ssl/SSLContext;->getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/ws0; c(Ljavax/net/ssl/X509TrustManager;)Ljavax/net/ssl/SSLSocketFactory;",
+        "invoke": "v0, Ljavax/net/ssl/SSLContext;->getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+      },
+      {
+        "where": "Lcom/yandex/metrica/impl/ob/bi; a(I)Ljava/net/ServerSocket;",
+        "invoke": "v1, Ljavax/net/ssl/SSLContext;->getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+      },
+      {
+        "where": "Lls/a; <init>(Landroid/content/Context;)V",
+        "invoke": "v0, Ljavax/net/ssl/SSLContext;->getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+      },
+      {
+        "where": "Lio/appmetrica/analytics/localsocket/impl/h; a(I)Ljava/net/ServerSocket;",
+        "invoke": "v1, Ljavax/net/ssl/SSLContext;->getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+      },
+      {
+        "where": "Lio/appmetrica/analytics/impl/W7; getSslSocketFactory()Ljavax/net/ssl/SSLSocketFactory;",
+        "invoke": "v2, Ljavax/net/ssl/SSLContext;->getInstance(Ljava/lang/String;)Ljavax/net/ssl/SSLContext;"
+      }
+    ]
+  },
+  "trustManagerCheck": {
+    "count": 26,
+    "examples": [
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/ba; b(Ljavax/net/ssl/X509TrustManager; [Ljava/security/cert/X509Certificate; Ljava/lang/String; Ljava/net/Socket;)V",
+        "invoke": "v1, v2, v3, v4, Ljavax/net/ssl/X509ExtendedTrustManager;->checkServerTrusted([Ljava/security/cert/X509Certificate; Ljava/lang/String; Ljava/net/Socket;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/ba; b(Ljavax/net/ssl/X509TrustManager; [Ljava/security/cert/X509Certificate; Ljava/lang/String; Ljavax/net/ssl/SSLEngine;)V",
+        "invoke": "v1, v2, v3, v4, Ljavax/net/ssl/X509ExtendedTrustManager;->checkServerTrusted([Ljava/security/cert/X509Certificate; Ljava/lang/String; Ljavax/net/ssl/SSLEngine;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/to1; b([Ljava/security/cert/X509Certificate; Ljava/lang/String;)V",
+        "invoke": "v0, v4, v5, Ljavax/net/ssl/X509TrustManager;->checkServerTrusted([Ljava/security/cert/X509Certificate; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/to1; b([Ljava/security/cert/X509Certificate; Ljava/lang/String; Ljava/net/Socket;)V",
+        "invoke": "v0, v5, v6, Ljavax/net/ssl/X509TrustManager;->checkServerTrusted([Ljava/security/cert/X509Certificate; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/to1; b([Ljava/security/cert/X509Certificate; Ljava/lang/String; Ljavax/net/ssl/SSLEngine;)V",
+        "invoke": "v0, v5, v6, Ljavax/net/ssl/X509TrustManager;->checkServerTrusted([Ljava/security/cert/X509Certificate; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/r9; a(Ljava/lang/String; Ljava/util/List;)Ljava/util/List;",
+        "invoke": "v0, v4, v1, v3, Landroid/net/http/X509TrustManagerExtensions;->checkServerTrusted([Ljava/security/cert/X509Certificate; Ljava/lang/String; Ljava/lang/String;)Ljava/util/List;"
+      },
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/sl1; a(Landroid/content/Context; Landroid/net/http/SslError;)Z",
+        "invoke": "v4, v2, v5, Ljavax/net/ssl/X509TrustManager;->checkServerTrusted([Ljava/security/cert/X509Certificate; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lof/c; checkServerTrusted([Ljava/security/cert/X509Certificate; Ljava/lang/String;)V",
+        "invoke": "v1, v4, v5, Ljavax/net/ssl/X509TrustManager;->checkServerTrusted([Ljava/security/cert/X509Certificate; Ljava/lang/String;)V"
+      }
+    ]
+  },
+  "setAllowFileAccess": {
+    "count": 16,
+    "examples": [
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/lf; e()V",
+        "invoke": "v0, v1, Landroid/webkit/WebSettings;->setAllowFileAccess(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/passport/sloth/ui/webview/WebViewController; <init>(Lcom/yandex/passport/sloth/ui/SlothUiController; Landroidx/lifecycle/u; Lcom/yandex/passport/sloth/ui/k;)V",
+        "invoke": "v0, v2, Landroid/webkit/WebSettings;->setAllowFileAccess(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/passport/internal/ui/common/web/e; s(Ljava/lang/Object; Lkotlin/coroutines/c;)Ljava/lang/Object;",
+        "invoke": "v2, v4, Landroid/webkit/WebSettings;->setAllowFileAccess(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/passport/internal/ui/domik/samlsso/SamlSsoAuthFragment; onCreateView(Landroid/view/LayoutInflater; Landroid/view/ViewGroup; Landroid/os/Bundle;)Landroid/view/View;",
+        "invoke": "v6, v0, Landroid/webkit/WebSettings;->setAllowFileAccess(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/passport/internal/ui/webview/WebViewActivity; onCreate(Landroid/os/Bundle;)V",
+        "invoke": "v8, v6, Landroid/webkit/WebSettings;->setAllowFileAccess(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/mail360/webview/fragment/CalendarServiceFragment$ComposeWebview; <init>(Lcom/yandex/mail360/webview/fragment/CalendarServiceFragment; Landroid/content/Context;)V",
+        "invoke": "v1, v2, Landroid/webkit/WebSettings;->setAllowFileAccess(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/mail360/webview/fragment/ServiceFragment; onViewCreated(Landroid/view/View; Landroid/os/Bundle;)V",
+        "invoke": "v0, v2, Landroid/webkit/WebSettings;->setAllowFileAccess(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/mail/calendar_offline/OfflineCalendarFragment; Y6()V",
+        "invoke": "v0, v1, Landroid/webkit/WebSettings;->setAllowFileAccess(Z)V"
+      }
+    ]
+  },
+  "setAllowUniversalAccessFromFileURLs": {
+    "count": 3,
+    "examples": [
+      {
+        "where": "Lcom/yandex/mobile/ads/impl/lf; e()V",
+        "invoke": "v0, v1, Landroid/webkit/WebSettings;->setAllowUniversalAccessFromFileURLs(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/mail/calendar_offline/OfflineCalendarFragment; Y6()V",
+        "invoke": "v0, v1, Landroid/webkit/WebSettings;->setAllowUniversalAccessFromFileURLs(Z)V"
+      },
+      {
+        "where": "Lcom/yandex/mail/calendar_offline/OfflineCalendarActivity; V3(Landroid/webkit/WebView;)V",
+        "invoke": "v0, v1, Landroid/webkit/WebSettings;->setAllowUniversalAccessFromFileURLs(Z)V"
+      }
+    ]
+  },
+  "shouldOverrideUrlLoading": {
+    "count": 5,
+    "examples": [
+      {
+        "where": "Lcom/yandex/passport/internal/ui/common/web/c; shouldOverrideUrlLoading(Landroid/webkit/WebView; Landroid/webkit/WebResourceRequest;)Z",
+        "invoke": "v1, v2, v3, Lcom/yandex/passport/internal/ui/common/web/c;->shouldOverrideUrlLoading(Landroid/webkit/WebView; Ljava/lang/String;)Z"
+      },
+      {
+        "where": "Lcom/yandex/mail/WebViewActivity$c; shouldOverrideUrlLoading(Landroid/webkit/WebView; Ljava/lang/String;)Z",
+        "invoke": "v1, v2, v3, Landroid/webkit/WebViewClient;->shouldOverrideUrlLoading(Landroid/webkit/WebView; Ljava/lang/String;)Z"
+      },
+      {
+        "where": "Lcom/yandex/mail360/purchase/ui/webstore/b; shouldOverrideUrlLoading(Landroid/webkit/WebView; Landroid/webkit/WebResourceRequest;)Z",
+        "invoke": "v2, v3, v4, Landroid/webkit/WebViewClient;->shouldOverrideUrlLoading(Landroid/webkit/WebView; Landroid/webkit/WebResourceRequest;)Z"
+      },
+      {
+        "where": "Lcom/yandex/mail360/webview/cloudviewedit/f; shouldOverrideUrlLoading(Landroid/webkit/WebView; Landroid/webkit/WebResourceRequest;)Z",
+        "invoke": "v5, v6, v7, Landroid/webkit/WebViewClient;->shouldOverrideUrlLoading(Landroid/webkit/WebView; Landroid/webkit/WebResourceRequest;)Z"
+      },
+      {
+        "where": "Lcom/yandex/mail360/webview/fragment/ServiceFragment$g; shouldOverrideUrlLoading(Landroid/webkit/WebView; Ljava/lang/String;)Z",
+        "invoke": "v2, v3, v4, Landroid/webkit/WebViewClient;->shouldOverrideUrlLoading(Landroid/webkit/WebView; Ljava/lang/String;)Z"
+      }
+    ]
+  },
+  "runtimeExec": {
+    "count": 5,
+    "examples": [
+      {
+        "where": "Lns/a; <clinit>()V",
+        "invoke": "v4, v5, Ljava/lang/Runtime;->exec(Ljava/lang/String;)Ljava/lang/Process;"
+      },
+      {
+        "where": "Lo00/a; a()Ljava/lang/String;",
+        "invoke": "v3, v4, Ljava/lang/Runtime;->exec(Ljava/lang/String;)Ljava/lang/Process;"
+      },
+      {
+        "where": "Lo00/a; c()Ljava/lang/String;",
+        "invoke": "v2, v3, Ljava/lang/Runtime;->exec(Ljava/lang/String;)Ljava/lang/Process;"
+      }
+    ]
+  },
+  "processBuilder": {
+    "count": 1,
+    "examples": [
+      {
+        "where": "Lcom/yandex/mail/util/n; a(Landroid/content/Context;)Loc/b;",
+        "invoke": "v3, v4, Ljava/lang/ProcessBuilder;-><init>([Ljava/lang/String;)V"
+      }
+    ]
+  },
+  "certificatePinner": {
+    "count": 9,
+    "examples": [
+      {
+        "where": "Lokhttp3/CertificatePinner; <clinit>()V",
+        "invoke": "v1, v0, v2, Lokhttp3/CertificatePinner;-><init>(Ljava/util/Set; Lfz/c;)V"
+      },
+      {
+        "where": "Lokhttp3/CertificatePinner; a(Ljava/lang/String; Ljava/util/List;)V",
+        "invoke": "v0, v1, v3, v2, Lokhttp3/CertificatePinner$check$1;-><init>(Lokhttp3/CertificatePinner; Ljava/util/List; Ljava/lang/String;)V"
+      },
+      {
+        "where": "Lokhttp3/OkHttpClient; <init>(Lokhttp3/OkHttpClient$a;)V",
+        "invoke": "v4, v6, v0, Lokhttp3/CertificatePinner;-><init>(Ljava/util/Set; Lfz/c;)V"
+      },
+      {
+        "where": "Lokhttp3/internal/connection/f; g(Lokhttp3/internal/connection/b; I Lokhttp3/internal/connection/e; Lokhttp3/o;)V",
+        "invoke": "v9, v0, v6, v2, Lokhttp3/internal/connection/RealConnection$connectTls$1;-><init>(Lokhttp3/CertificatePinner; Lokhttp3/Handshake; Lokhttp3/a;)V"
+      },
+      {
+        "where": "Lokhttp3/internal/connection/f; h(Lokhttp3/a; Ljava/util/List;)Z",
+        "invoke": "v9, v3, v10, Lokhttp3/CertificatePinner;->a(Ljava/lang/String; Ljava/util/List;)V"
+      },
+      {
+        "where": "Lyy/h; a(Lyy/f;)Lokhttp3/a0;",
+        "invoke": "v16 ... v28, Lokhttp3/a;-><init>(Ljava/lang/String; I Lokhttp3/n; Ljavax/net/SocketFactory; Ljavax/net/ssl/SSLSocketFactory; Ljavax/net/ssl/HostnameVerifier; Lokhttp3/CertificatePinner; Lokhttp3/c; Ljava/net/Proxy; Ljava/util/List; Ljava/util/List; Ljava/net/ProxySelector;)V"
+      }
+    ]
+  }
+}

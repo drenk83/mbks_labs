@@ -1,0 +1,709 @@
+extracted 2026-10-31T18:15:25+03:00
+
+===== libcamera360-arcadia.so =====
+/home/drenk83/Projects/gitrepo/mbks_labs/lab5/work/native/x86_64/libcamera360-arcadia.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, for Android 21, built by NDK r22 (7026061), stripped
+-- NEEDED --
+ 0x0000000000000001 (NEEDED)             Shared library: [libdl.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [liblog.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libm.so]
+ 0x000000000000000e (SONAME)             Library soname: [libcamera360-arcadia.so]
+-- Java_ and JNI exports --
+   193: 0000000000474e3c     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_TNV21Image_1GetWidth
+   194: 00000000004759ac    32 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_delete_1TOcrMobileResult
+   195: 00000000004777db    24 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_THomographyMatrix_1matrix_1set
+   196: 0000000000477938     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1FeaturesQualityLevel_1get
+   197: 0000000000477960    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1AnchorPointsRefreshThreshold_1set
+   198: 000000000047763f    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TRect_1LeftX_1set
+   199: 0000000000472fee    14 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_delete_1TRectF
+   200: 0000000000473504   387 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileDecompressorJNI_TDecompressor_1Decompress
+   201: 00000000004776eb    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value2_1set
+   202: 0000000000477718     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value4_1get
+   203: 0000000000477814     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_THomographyMatrix_1MotionMagnitude_1get
+   204: 00000000004739f6     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_TRGBImage_1GetWidth
+   205: 0000000000472f5c    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRect_1Width_1set
+   206: 00000000004734d4    48 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileDecompressorJNI_delete_1TDecompressor
+   207: 00000000004764cd    13 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentEdges_1BottomLeft_1set
+   208: 0000000000472d98    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TImage_1H_1set
+   209: 0000000000472f6a    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRect_1Height_1set
+   210: 0000000000476504     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_None_1get
+   211: 00000000004765c0     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDetectionResult_1GetEdges
+   212: 0000000000472d94     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TImage_1W_1get
+   213: 0000000000477869     3 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackedPoint_1Id_1get
+   214: 000000000047797c     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1AnchorPointsIouRefreshThreshold_1get
+   215: 0000000000473687   483 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileDecompressorJNI_TDecompressor_1Create
+   216: 0000000000477df5   346 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTracker_1SetPendingAnchor
+   217: 0000000000477803     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_THomographyMatrix_1AnchorSim_1get
+   218: 00000000004778c5     3 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1NumFeatures_1get
+   219: 000000000047790d     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1Height_1get
+   220: 000000000047791f    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1FeaturesDist_1set
+   221: 0000000000477be3     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerSetAnchorResult_1GetResult
+   222: 0000000000472db5    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TImage_1BytesPerPixel_1set
+   223: 0000000000472fdb    19 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_new_1TRectF
+   224: 0000000000477899    14 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_delete_1TTrackedPoint
+   225: 00000000004778e7    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1EccNumIter_1set
+   226: 0000000000472fca    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRectF_1Height_1set
+   227: 00000000004739fe  1019 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_TRGBImage_1FromARGB8888
+   228: 000000000047650a     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_EnhanceContrast_1get
+   229: 0000000000476f08   115 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentScanner_1GetSupportedOfflineEnhancementModes
+   230: 00000000004776fc    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value3_1set
+   231: 0000000000477729     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value5_1get
+   232: 000000000047786c    13 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackedPoint_1Pt_1set
+   233: 0000000000472ef8    14 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_delete_1TImage
+   234: 0000000000472f0f     3 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TPoint_1X_1get
+   235: 0000000000472fa3     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRectF_1X_1get
+   236: 00000000004769ad   709 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentScanner_1DetectDocumentEdges
+   237: 0000000000477235   914 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentScanner_1Create
+   238: 0000000000477a05    14 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_delete_1TTrackerParams
+   239: 0000000000472dd2    31 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_new_1TImage_1_1SWIG_10
+   240: 00000000004764a9    13 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentEdges_1TopRight_1set
+   241: 00000000004765e5    66 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_new_1TEnhancementModeResult
+   242: 000000000047762d     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentScanner_1GetOfflineDataVersion
+   243: 0000000000477696    20 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TRect_1Set
+   244: 000000000047794f    13 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1AddOutOfAnchorPoints_1set
+   245: 0000000000472df1   163 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_new_1TImage_1_1SWIG_11
+   246: 0000000000475a08     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TImageCrop_1bottomY_1get
+   247: 00000000004764df    23 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_new_1TDocumentEdges
+   248: 00000000004778b0     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_KLT_1get
+   249: 0000000000472f34    14 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_delete_1TPoint
+   250: 0000000000475d49   431 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TOcrMobile_1Recognize
+   251: 00000000004764f6    14 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_delete_1TDocumentEdges
+   252: 000000000047791b     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1Type_1get
+   253: 0000000000477c07   384 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_new_1TTracker_1_1SWIG_10
+   254: 0000000000472f4b     3 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRect_1X_1get
+   255: 00000000004759f7     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TImageCrop_1topY_1get
+   256: 0000000000476495     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TOcrMobileResult_1SWIGUpcast
+   257: 0000000000477825     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_THomographyMatrix_1contrast_1get
+   258: 0000000000477d87    83 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_new_1TTracker_1_1SWIG_11
+   259: 00000000004759d6     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TImageCrop_1leftX_1get
+   260: 000000000047766a     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TRect_1RightX_1get
+   261: 0000000000477762    53 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Set
+   262: 000000000047792d    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1FeaturesQualityLevel_1set
+   263: 0000000000472f78    19 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_new_1TRect
+   264: 0000000000474269   139 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_TNV21Image_1Rotate
+   265: 00000000004759e6     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TImageCrop_1rightX_1get
+   266: 0000000000475be7    27 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_delete_1TOcrMobile
+   267: 00000000004766c4   718 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_new_1TDocumentScanner
+   268: 000000000047386a     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileDecompressorJNI_TDecompressResult_1SWIGUpcast
+   269: 000000000047605d   576 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TOcrMobile_1Create
+   270: 00000000004779d5    48 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_new_1TTrackerParams
+   271: 0000000000478089  1770 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTracker_1GetHomography
+   272: 000000000047397a   124 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_TRGBImage_1GetGrayscaleRgbaData
+   273: 000000000047770d    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value4_1set
+   274: 000000000047773a     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value6_1get
+   275: 0000000000477809    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_THomographyMatrix_1MotionMagnitude_1set
+   276: 0000000000472f1c     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TPoint_1Y_1get
+   277: 0000000000472fb3     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRectF_1Y_1get
+   278: 0000000000476f7b   313 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentScanner_1DetectDefaultEnhancementMode
+   279: 0000000000477acb     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerResult_1GetMatrix
+   280: 0000000000477637     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TEnhancementModeResult_1SWIGUpcast
+   281: 00000000004776aa    19 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_new_1TRect
+   282: 000000000047794b     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1UseHarrisDetector_1get
+   283: 0000000000472d8a    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TImage_1W_1set
+   284: 0000000000472f20    20 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_new_1TPoint
+   285: 0000000000474e40     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_TNV21Image_1GetHeight
+   286: 0000000000476627     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TEnhancementModeResult_1GetMode
+   287: 00000000004766a4    32 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_delete_1TEnhanceImageResult
+   288: 00000000004776d5     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value0_1get
+   289: 0000000000477860     9 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackedPoint_1Id_1set
+   290: 0000000000477971    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1AnchorPointsIouRefreshThreshold_1set
+   291: 0000000000477dda    27 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_delete_1TTracker
+   292: 0000000000472f58     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRect_1Y_1get
+   293: 0000000000475a30    14 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_delete_1TImageCrop
+   294: 0000000000477982    83 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1Set
+   295: 0000000000477ad0    58 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerResult_1GetKeyPointX
+   296: 0000000000476510     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_BW_1get
+   297: 00000000004777f8    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_THomographyMatrix_1AnchorSim_1set
+   298: 00000000004778bc     9 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1NumFeatures_1set
+   299: 0000000000477903    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1Height_1set
+   300: 0000000000477b0a    58 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerResult_1GetKeyPointY
+   301: 00000000004738b6    72 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_TRGBImage_1Scale
+   302: 0000000000475a3e   425 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_new_1TOcrMobile
+   303: 0000000000476992    27 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_delete_1TDocumentScanner
+   304: 000000000047763b     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TEnhanceImageResult_1SWIGUpcast
+   305: 00000000004777d8     3 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_THomographyMatrix_1Success_1get
+   306: 0000000000475912    60 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_new_1TOcrMobileResult
+   307: 000000000047664b    84 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_new_1TEnhanceImageResult
+   308: 000000000047767b     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TRect_1BottomY_1get
+   309: 000000000047771e    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value5_1set
+   310: 000000000047774b     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value7_1get
+   311: 0000000000472f06     9 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TPoint_1X_1set
+   312: 0000000000472f99    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRectF_1X_1set
+   313: 00000000004778a7     3 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_ORB_1get
+   314: 0000000000472db0     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TImage_1BytesPerRow_1get
+   315: 0000000000472eae    74 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TImage_1getData
+   316: 00000000004742f4  2888 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_TNV21Image_1ToRgb
+   317: 00000000004764c8     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentEdges_1BottomRight_1get
+   318: 00000000004778d3     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1Scale_1get
+   319: 00000000004738fe   124 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_TRGBImage_1GetColorRgbaData
+   320: 00000000004759fd    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TImageCrop_1bottomY_1set
+   321: 0000000000473355     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileDecompressorJNI_TDecompressResult_1Read
+   322: 0000000000473379   347 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileDecompressorJNI_new_1TDecompressor
+   323: 00000000004776e5     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value1_1get
+   324: 0000000000477911    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1Type_1set
+   325: 0000000000472f42     9 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRect_1X_1set
+   326: 00000000004759ec    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TImageCrop_1topY_1set
+   327: 000000000047781a    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_THomographyMatrix_1contrast_1set
+   328: 00000000004778b6     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_KLT_1FAST_1get
+   329: 0000000000478a0b     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerResult_1SWIGUpcast
+   330: 0000000000472f8b    14 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_delete_1TRect
+   331: 00000000004759cc    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TImageCrop_1leftX_1set
+   332: 000000000047765f    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TRect_1RightX_1set
+   333: 0000000000472dce     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TImage_1ColorSpace_1get
+   334: 00000000004759db    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TImageCrop_1rightX_1set
+   335: 0000000000477be7    32 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_delete_1TTrackerSetAnchorResult
+   336: 0000000000477659     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TRect_1TopY_1get
+   337: 00000000004778ff     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1Width_1get
+   338: 0000000000472fc4     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRectF_1Width_1get
+   339: 00000000004764a5     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentEdges_1TopLeft_1get
+   340: 000000000047768b    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TRect_1Height
+   341: 000000000047772f    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value6_1set
+   342: 000000000047775c     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value8_1get
+   343: 00000000004778e3     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1NumPyr_1get
+   344: 0000000000477b44    57 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerResult_1GetKeyPointId
+   345: 0000000000477f4f   314 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTracker_1SetAnchor_1_1SWIG_10
+   346: 0000000000478773     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTracker_1ActivatePendingAnchor
+   347: 0000000000472f12    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TPoint_1Y_1set
+   348: 0000000000472fa8    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRectF_1Y_1set
+   349: 0000000000477681    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TRect_1Width
+   350: 00000000004777f3     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_THomographyMatrix_1matrix_1get
+   351: 000000000047787e    27 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_new_1TTrackedPoint
+   352: 000000000047796b     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1AnchorPointsRefreshThreshold_1get
+   353: 0000000000478937   212 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTracker_1SetAnchor_1_1SWIG_11
+   354: 0000000000477649     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TRect_1LeftX_1get
+   355: 0000000000476c72   662 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentScanner_1SetEnhanceImage
+   356: 0000000000477797    39 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_new_1TMatrix3D
+   357: 000000000047793e    13 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1UseHarrisDetector_1set
+   358: 0000000000478a0f     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerSetAnchorResult_1SWIGUpcast
+   359: 0000000000472e94    26 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TImage_1FreeImage
+   360: 00000000004776cb    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value0_1set
+   361: 00000000004776f6     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value2_1get
+   362: 0000000000472f4e    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRect_1Y_1set
+   363: 0000000000475ef8   357 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TOcrMobile_1DetectAndRecognize_1_1SWIG_10
+   364: 00000000004770b4   385 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentScanner_1GetEnhancedImage
+   365: 0000000000477852    14 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_delete_1THomographyMatrix
+   366: 0000000000477b81    32 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_delete_1TTrackerResult
+   367: 0000000000472f66     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRect_1Width_1get
+   368: 0000000000476387   270 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TOcrMobile_1DetectAndRecognize_1_1SWIG_11
+   369: 00000000004764da     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentEdges_1BottomLeft_1get
+   370: 00000000004776bd    14 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_delete_1TRect
+   371: 0000000000472da2     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TImage_1H_1get
+   372: 0000000000472f74     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRect_1Height_1get
+   373: 00000000004775c7   102 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentScanner_1GetSupportedOnlineEnhancementModes
+   374: 00000000004777cc    12 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_THomographyMatrix_1Success_1set
+   375: 0000000000478778   447 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTracker_1Create
+   376: 0000000000472d5a     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileCommonJNI_TOperationResult_1IsError
+   377: 000000000047782b    39 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_new_1THomographyMatrix
+   378: 0000000000472ffc   369 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileDecompressorJNI_new_1TDecompressResult_1_1SWIG_10
+   379: 0000000000476516    76 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_new_1TDetectionResult
+   380: 0000000000477670    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TRect_1BottomY_1set
+   381: 0000000000477740    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value7_1set
+   382: 000000000047316d   349 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileDecompressorJNI_new_1TDecompressResult_1_1SWIG_11
+   383: 0000000000473359    32 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileDecompressorJNI_delete_1TDecompressResult
+   384: 0000000000477929     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1FeaturesDist_1get
+   385: 0000000000472da6    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TImage_1BytesPerRow_1set
+   386: 0000000000472dbf     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TImage_1BytesPerPixel_1get
+   387: 00000000004732ca   139 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileDecompressorJNI_new_1TDecompressResult_1_1SWIG_12
+   388: 00000000004764bb    13 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentEdges_1BottomRight_1set
+   389: 00000000004778c8    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1Scale_1set
+   390: 0000000000477ba1    66 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_new_1TTrackerSetAnchorResult
+   391: 0000000000473df9  1017 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_TRGBImage_1FromRGB565
+   392: 0000000000475827   235 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_delete_1TNV21Image
+   393: 0000000000475a0e    34 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_new_1TImageCrop
+   394: 0000000000475c02   327 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TOcrMobile_1Detect_1_1SWIG_10
+   395: 00000000004777be    14 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_delete_1TMatrix3D
+   396: 00000000004778f1     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1EccNumIter_1get
+   397: 0000000000477a13    90 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_new_1TTrackerResult
+   398: 0000000000472d23    32 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileCommonJNI_delete_1TOperationResult
+   399: 0000000000472d5e    44 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileCommonJNI_TOperationResult_1Swap
+   400: 0000000000472fd5     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRectF_1Height_1get
+   401: 000000000047629d   234 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileOCRJNI_TOcrMobile_1Detect_1_1SWIG_11
+   402: 0000000000477633     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDetectionResult_1SWIGUpcast
+   403: 00000000004776da    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value1_1set
+   404: 0000000000477707     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value3_1get
+   405: 0000000000477879     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackedPoint_1Pt_1get
+   406: 00000000004729cc   352 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileCommonJNI_new_1TOperationResult_1_1SWIG_10
+   407: 00000000004741f2   119 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_delete_1TRGBImage
+   408: 0000000000474e44  2531 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_TNV21Image_1FromNV21
+   409: 0000000000472b2c   349 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileCommonJNI_new_1TOperationResult_1_1SWIG_11
+   410: 00000000004764b6     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentEdges_1TopRight_1get
+   411: 00000000004778aa     6 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_AKAZE_1get
+   412: 000000000047795c     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1AddOutOfAnchorPoints_1get
+   413: 0000000000472c89    60 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileCommonJNI_new_1TOperationResult_1_1SWIG_12
+   414: 0000000000472d43    23 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileCommonJNI_TOperationResult_1GetData
+   415: 0000000000472dc4    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TImage_1ColorSpace_1set
+   416: 000000000047662b    32 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_delete_1TEnhancementModeResult
+   417: 000000000047669f     5 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TEnhanceImageResult_1GetImage
+   418: 000000000047764e    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TRect_1TopY_1set
+   419: 00000000004778f5    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1Width_1set
+   420: 0000000000477b7d     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerResult_1GetKeyPointsSize
+   421: 0000000000472fb9    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_CVMobileCommonJNI_TRectF_1Width_1set
+   422: 000000000047386e    72 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_TRGBImage_1Rotate
+   423: 00000000004739fa     4 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileNativeImageJNI_TRGBImage_1GetHeight
+   424: 0000000000476499    12 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_TDocumentEdges_1TopLeft_1set
+   425: 00000000004765c5    32 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileScannerJNI_delete_1TDetectionResult
+   426: 0000000000477751    11 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TMatrix3D_1Value8_1set
+   427: 00000000004778d9    10 FUNC    GLOBAL DEFAULT   14 Java_ru_yandex_dict_mt_libs_mobile_android_MTMobileTrackerJNI_TTrackerParams_1NumPyr_1set
+-- version-ish strings --
+arcadia
+libcamera360-arcadia.so
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/restricted/abseil-cpp-tstring/y_absl/base/internal/low_level_alloc.cc
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/restricted/abseil-cpp-tstring/y_absl/synchronization/internal/waiter.cc
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/restricted/abseil-cpp-tstring/y_absl/synchronization/mutex.cc
+/place/sandbox-data/tasks/9/1/1057006319/__FUSE/mount_path_a6f8ca2c-6308-46d8-8be6-34b249956681/contrib/restricted/abseil-cpp-tstring/y_absl/time/internal/get_current_time_posix.inc
+
+===== libeye.so =====
+/home/drenk83/Projects/gitrepo/mbks_labs/lab5/work/native/x86_64/libeye.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, for Android 21, built by NDK r21e (7075529), BuildID[sha1]=619564560c8fc1343932638d95409731916b1ba3, stripped
+-- NEEDED --
+ 0x0000000000000001 (NEEDED)             Shared library: [libandroid.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libGLESv3.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libjnigraphics.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [liblog.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libm.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libdl.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so]
+ 0x000000000000000e (SONAME)             Library soname: [libeye.so]
+-- Java_ and JNI exports --
+     5: 0000000000001850     3 FUNC    GLOBAL DEFAULT   13 Java_com_yandex_eye_nativebits_EyeNative_isArmv7
+     6: 0000000000001840     3 FUNC    GLOBAL DEFAULT   13 Java_com_yandex_eye_nativebits_EyeNative_isArmv8
+     7: 0000000000001020  2068 FUNC    GLOBAL DEFAULT   13 Java_com_yandex_eye_nativebits_EyeNative_setCameraYUVBuffer
+     9: 0000000000001870     3 FUNC    GLOBAL DEFAULT   13 Java_com_yandex_eye_nativebits_EyeNative_isX8664
+    10: 0000000000001880  1263 FUNC    GLOBAL DEFAULT   13 Java_com_yandex_eye_nativebits_EyeNative_processBufferBug
+    11: 0000000000002090   466 FUNC    GLOBAL DEFAULT   13 Java_com_yandex_eye_nativebits_EyeNative_processLut
+    15: 0000000000001860     3 FUNC    GLOBAL DEFAULT   13 Java_com_yandex_eye_nativebits_EyeNative_isX86
+    20: 0000000000000d10   771 FUNC    GLOBAL DEFAULT   13 Java_com_yandex_eye_nativebits_EyeNative_setCameraRGBABuffer
+-- version-ish strings --
+
+===== libjingle_peerconnection_so.so =====
+/home/drenk83/Projects/gitrepo/mbks_labs/lab5/work/native/x86_64/libjingle_peerconnection_so.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, for Android 21, built by NDK r20 (5594570), BuildID[xxHash]=d62e16edf2ed315a, stripped
+-- NEEDED --
+ 0x0000000000000001 (NEEDED)             Shared library: [libdl.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libm.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [liblog.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libOpenSLES.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so]
+ 0x000000000000000e (SONAME)             Library soname: [libjingle_peerconnection_so.so]
+-- Java_ and JNI exports --
+   245: 00000000005e1a25    15 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_MediaStream_nativeRemoveAudioTrack
+   246: 00000000005e23d9   384 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeGetLocalDescription
+   247: 00000000005e3078   102 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeRemoveIceCandidates
+   248: 00000000004a4c64    45 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_NativeAndroidVideoTrackSource_nativeAdaptFrame
+   249: 00000000005e8549     5 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeShutdownInternalTracer
+   250: 00000000005ed20e    59 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpReceiver_nativeGetTrack
+   251: 00000000004a49da    59 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_LibvpxVp8Decoder_nativeCreateDecoder
+   252: 00000000005dfb23   122 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_DataChannel_nativeLabel
+   253: 00000000005e3108    44 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeRemoveLocalStream
+   254: 000000000034871d     8 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_JniCommon_nativeAddRef
+   255: 00000000005dfa87   103 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_DataChannel_nativeRegisterObserver
+   256: 00000000005e8d66   153 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeInjectLoggable
+   257: 00000000004aa955   104 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_YuvHelper_nativeCopyPlane
+   258: 00000000005d8f2e   427 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_audio_JavaAudioDeviceModule_nativeCreateAudioDeviceModule
+   259: 00000000005dfd04    28 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_DataChannel_nativeClose
+   260: 00000000005e1a43   108 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_MediaStreamTrack_nativeGetKind
+   261: 00000000005e23c1    24 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeGetNativePeerConnection
+   262: 0000000000454351    55 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_BuiltinAudioEncoderFactoryFactory_nativeCreateBuiltinAudioEncoderFactory
+   263: 00000000005dfb9d    25 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_DataChannel_nativeId
+   264: 000000000032ba07   905 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_Metrics_nativeGetAndReset
+   265: 00000000005e05b6   108 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_DtmfSender_nativeTones
+   266: 00000000005e2c36   184 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeSetBitrate
+   267: 00000000005e83d8    32 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeInitializeAndroidGlobals
+   268: 00000000005edc13    12 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpTransceiver_nativeStopped
+   269: 0000000000345ba7    93 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_Histogram_nativeCreateCounts
+   270: 00000000005d9cff    23 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_audio_WebRtcAudioTrack_nativeCacheDirectBufferAddress
+   271: 00000000005ed35a    61 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpReceiver_nativeSetFrameDecryptor
+   272: 00000000005e05b6   108 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpSender_nativeGetId
+   273: 00000000005edc74   181 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpTransceiver_nativeCurrentDirection
+   274: 00000000005e323f   264 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeCreateSender
+   275: 00000000005e1a34    15 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_MediaStream_nativeRemoveVideoTrack
+   276: 0000000000348888     8 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_Logging_nativeEnableLogTimeStamps
+   277: 00000000004a6b84   229 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_VideoDecoderFallback_nativeCreateDecoder
+   278: 00000000005df4a8   189 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_CallSessionFileRotatingLogSink_nativeAddSink
+   279: 00000000005e1a43   108 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_MediaStream_nativeGetId
+   280: 00000000005e2a52   191 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeSetLocalDescription
+   281: 0000000000345e16     8 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_NetworkMonitor_nativeNotifyOfNetworkDisconnect
+   282: 000000000034878a    22 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_JniCommon_nativeFreeByteBuffer
+   283: 00000000005e3642   324 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeAddTransceiverWithTrack
+   284: 00000000005e2d54   102 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeIceConnectionState
+   285: 00000000005e8dff    46 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeDeleteLoggable
+   286: 00000000005e8e2d   102 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativePrintStackTrace
+   287: 00000000005ed602    59 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpSender_nativeGetTrack
+   288: 00000000004a4a15    59 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_LibvpxVp8Encoder_nativeCreateEncoder
+   289: 00000000004a870a   229 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_VideoEncoderFallback_nativeCreateEncoder
+   290: 00000000005e2ee0    26 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeFreeOwnedPeerConnection
+   291: 00000000005e8c6b   121 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeCreateAudioTrack
+   292: 00000000005e8ad7   110 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeCreateLocalMediaStream
+   293: 00000000005e8ce4    63 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeStartAecDump
+   294: 00000000005e854e   125 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeStartInternalTracingCapture
+   295: 00000000005e85cb     5 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeStopInternalTracingCapture
+   296: 00000000005edc1f    85 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpTransceiver_nativeDirection
+   297: 00000000005edd54   259 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpTransceiver_nativeSetDirection
+   298: 000000000032ba02     5 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_Metrics_nativeEnable
+   299: 00000000004a5c36   483 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_NV12Buffer_nativeCropAndScale
+   300: 00000000005e2ea2    62 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeCreatePeerConnectionObserver
+   301: 00000000005e33cb   132 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeGetReceivers
+   302: 000000000034872e    92 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_JniCommon_nativeAllocateByteBuffer
+   303: 00000000004aaaa0   182 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_YuvHelper_nativeI420ToNV12
+   304: 00000000005d9deb     8 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_audio_WebRtcAudioTrack_nativeGetPlayoutData
+   305: 00000000004a6166    29 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_TimestampAligner_nativeCreateTimestampAligner
+   306: 00000000005e0562    84 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_DtmfSender_nativeInsertDtmf
+   307: 00000000005e20d6   108 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_MediaStreamTrack_nativeGetId
+   308: 00000000005e2156   212 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_MediaStreamTrack_nativeGetState
+   309: 00000000005e9da8   284 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtcCertificatePem_nativeGenerateCertificate
+   310: 00000000005ed5f3    15 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpSender_nativeSetTrack
+   311: 00000000005eda71    85 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpTransceiver_nativeGetMediaType
+   312: 00000000004a4b3a    93 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_NativeAndroidVideoTrackSource_nativeAdaptOutputFormat
+   313: 00000000005e2cee   102 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeSignalingState
+   314: 00000000005e1920   212 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_MediaSource_nativeGetState
+   315: 00000000005e3786   311 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeAddTransceiverOfType
+   316: 00000000005e2bd0    51 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeSetAudioPlayout
+   317: 0000000000345eef    23 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_NetworkMonitor_nativeNotifyOfNetworkPreference
+   318: 00000000004aa8f8    15 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_VideoTrack_nativeRemoveSink
+   319: 00000000005e8d23    10 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeStopAecDump
+   320: 00000000004aa8bb    61 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_VideoTrack_nativeAddSink
+   321: 00000000005d26de    45 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_LibvpxVp9Encoder_nativeIsSupported
+   322: 00000000005dfca1    99 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_DataChannel_nativeBufferedAmount
+   323: 00000000005dfbb6   235 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_DataChannel_nativeState
+   324: 00000000005ef588    15 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_TurnCustomizer_nativeFreeTurnCustomizer
+   325: 00000000005df565    29 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_CallSessionFileRotatingLogSink_nativeDeleteSink
+   326: 00000000005e2dba   102 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeConnectionState
+   327: 00000000005e8bd8   147 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeCreateAudioSource
+   328: 00000000004aac46   152 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_YuvHelper_nativeABGRToI420
+   329: 00000000005e8b5f   121 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeCreateVideoTrack
+   330: 00000000004aa946    15 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_VideoTrack_nativeFreeSink
+   331: 00000000005ed730   156 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpSender_nativeSetParameters
+   332: 00000000005edba1   114 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpTransceiver_nativeGetReceiver
+   333: 00000000004a619d    57 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_TimestampAligner_nativeTranslateTimestamp
+   334: 00000000005e84b4   144 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeFindFieldTrialsFullName
+   335: 00000000004a5af3   323 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_JavaI420Buffer_nativeCropAndScaleI420
+   336: 00000000004a6183    26 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_TimestampAligner_nativeReleaseTimestampAligner
+   337: 00000000005df467    65 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_AudioTrack_nativeSetVolume
+   338: 00000000005e83f8   188 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeInitializeFieldTrials
+   339: 00000000005e0622     9 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_DtmfSender_nativeDuration
+   340: 00000000005e28cc   195 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeCreateOffer
+   341: 00000000005e3134   134 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeOldGetStats
+   342: 00000000005e87c3   788 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeCreatePeerConnection
+   343: 00000000005e8b45    26 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeCreateVideoSource
+   344: 000000000029b458    73 FUNC    GLOBAL DEFAULT   15 JNI_OnLoad
+   345: 00000000005e2e20   102 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeIceGatheringState
+   346: 00000000005e3618    42 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeRemoveTrack
+   347: 00000000005ed249   152 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpReceiver_nativeGetParameters
+   348: 00000000005ed2e1    89 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpReceiver_nativeSetObserver
+   349: 00000000005ed6f5    59 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpSender_nativeGetDtmfSender
+   350: 00000000004aa9bd   227 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_YuvHelper_nativeI420Copy
+   351: 00000000005e3347   132 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeGetSenders
+   352: 00000000005ed33a    32 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpReceiver_nativeUnsetObserver
+   353: 00000000004a4eac    28 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_NativeAndroidVideoTrackSource_nativeOnFrameCaptured
+   354: 00000000005e38bd   173 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeStartRtcEventLog
+   355: 00000000004a5e53   382 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_NV21Buffer_nativeCropAndScale
+   356: 00000000004a6c69    45 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_VideoDecoderWrapper_nativeOnDecodedFrame
+   357: 00000000004aab56   240 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_YuvHelper_nativeI420Rotate
+   358: 00000000005d26a3    59 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_LibvpxVp9Decoder_nativeCreateDecoder
+   359: 00000000005d26de    45 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_LibvpxVp9Decoder_nativeIsSupported
+   360: 00000000005e1a07    15 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_MediaStream_nativeAddAudioTrackToNativeStream
+   361: 00000000005e2142    20 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_MediaStreamTrack_nativeSetEnabled
+   362: 00000000005e2efa   203 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeSetConfiguration
+   363: 00000000005e8d2d    48 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeFreeFactory
+   364: 00000000005e05b6   108 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpReceiver_nativeGetId
+   365: 00000000004a6161     5 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_TimestampAligner_nativeRtcTimeNanos
+   366: 00000000005dfaee    53 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_DataChannel_nativeUnregisterObserver
+   367: 00000000005e2c03    51 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeSetAudioRecording
+   368: 00000000005edb2f   114 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpTransceiver_nativeGetSender
+   369: 00000000004a8854    23 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_VideoEncoderWrapper_nativeOnEncodedFrame
+   370: 00000000005e062b     9 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_DtmfSender_nativeInterToneGap
+   371: 00000000005e2e86    28 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeClose
+   372: 0000000000345c50    16 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_Histogram_nativeAddSample
+   373: 00000000005e344f   132 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeGetTransceivers
+   374: 00000000005e31ba   133 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeNewGetStats
+   375: 00000000005e8e93     5 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativePrintStackTracesOfRegisteredThreads
+   376: 0000000000348725     9 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_JniCommon_nativeReleaseRef
+   377: 00000000005e0556    12 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_DtmfSender_nativeCanInsertDtmf
+   378: 00000000005e0556    12 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_MediaStreamTrack_nativeGetEnabled
+   379: 00000000005e298f   195 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeCreateAnswer
+   380: 0000000000345c60     8 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_NetworkMonitor_nativeNotifyConnectionTypeChanged
+   381: 0000000000348873    13 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_Logging_nativeEnableLogToDebugOutput
+   382: 00000000005dfd20   206 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_DataChannel_nativeSend
+   383: 00000000005e8d5d     9 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeGetNativePeerConnectionFactory
+   384: 00000000005edd29    12 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpTransceiver_nativeStopInternal
+   385: 0000000000345e9a    23 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_NetworkMonitor_nativeNotifyOfActiveNetworkList
+   386: 000000000045431a    55 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_BuiltinAudioDecoderFactoryFactory_nativeCreateBuiltinAudioDecoderFactory
+   387: 00000000005d916c    23 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_audio_WebRtcAudioRecord_nativeCacheDirectBufferAddress
+   388: 00000000005e8544     5 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeInitializeInternalTracer
+   389: 00000000005ed682   115 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpSender_nativeGetStreams
+   390: 00000000005ed864    64 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpSender_nativeSetFrameEncryptor
+   391: 00000000005ed63d    69 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpSender_nativeSetStreams
+   392: 00000000004aa907    63 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_VideoTrack_nativeWrapSink
+   393: 00000000005d9218     8 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_audio_WebRtcAudioRecord_nativeDataIsRecorded
+   394: 00000000005e1a16    15 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_MediaStream_nativeAddVideoTrackToNativeStream
+   395: 00000000005e2fc5   179 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeAddIceCandidate
+   396: 00000000005e27c8   260 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeCreateDataChannel
+   397: 00000000005e26d9   239 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeGetCertificate
+   398: 00000000005edd35    31 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpTransceiver_nativeStopStandard
+   399: 0000000000345d2b    23 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_NetworkMonitor_nativeNotifyOfNetworkConnect
+   400: 00000000005e34d3   325 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeAddTrack
+   401: 00000000005e2559   384 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeGetRemoteDescription
+   402: 00000000005e2b11   191 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeSetRemoteDescription
+   403: 00000000005edac6   105 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpTransceiver_nativeGetMid
+   404: 0000000000348880     8 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_Logging_nativeEnableLogThreads
+   405: 0000000000348890   140 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_Logging_nativeLog
+   406: 00000000005ed7cc   152 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_RtpSender_nativeGetParameters
+   407: 00000000005d270b    59 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_LibvpxVp9Encoder_nativeCreateEncoder
+   408: 00000000005e30de    42 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeAddLocalStream
+   409: 00000000005e85d0   499 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnectionFactory_nativeCreatePeerConnectionFactory
+   410: 0000000000345c04    76 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_Histogram_nativeCreateEnumeration
+   411: 00000000005df582   405 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_CallSessionFileRotatingLogSink_nativeGetLogData
+   412: 00000000005e396a    28 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_PeerConnection_nativeStopRtcEventLog
+   413: 00000000004a4a50    12 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_NativeAndroidVideoTrackSource_nativeSetIsScreencast
+   414: 00000000004a4a5c    10 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_NativeAndroidVideoTrackSource_nativeSetState
+   415: 00000000004a5a84   111 FUNC    GLOBAL DEFAULT   15 Java_org_webrtc_H264Utils_nativeIsSameH264Profile
+-- version-ish strings --
+0 == libyuv::I420Rotate( src.DataY(), src.StrideY(), src.DataU(), src.StrideU(), src.DataV(), src.StrideV(), buffer->MutableDataY(), buffer->StrideY(), buffer->MutableDataU(), buffer->StrideU(), buffer->MutableDataV(), buffer->StrideV(), src.width(), src.height(), static_cast<libyuv::RotationMode>(rotation))
+0 == libyuv::I420ToI010( source.DataY(), source.StrideY(), source.DataU(), source.StrideU(), source.DataV(), source.StrideV(), buffer->MutableDataY(), buffer->StrideY(), buffer->MutableDataU(), buffer->StrideU(), buffer->MutableDataV(), buffer->StrideV(), width, height)
+0 == WebRtcG722_CreateEncoder(&encoder)
+0 == WebRtcG722_EncoderInit(encoders_[i].encoder)
+0 == WebRtcG722_FreeEncoder(encoder)
+0 == WebRtcIlbcfix_EncoderCreate(&encoder_)
+0 == WebRtcIlbcfix_EncoderFree(encoder_)
+0 == WebRtcIlbcfix_EncoderInit(encoder_, encoder_frame_size_ms)
+0 == WebRtcOpus_DisableCbr(inst_)
+0 == WebRtcOpus_DisableDtx(inst_)
+0 == WebRtcOpus_DisableFec(inst_)
+0 == WebRtcOpus_EnableCbr(inst_)
+0 == WebRtcOpus_EnableDtx(inst_)
+0 == WebRtcOpus_EnableFec(inst_)
+0 == WebRtcOpus_EncoderCreate( &inst_, config.num_channels, config.application == AudioEncoderOpusConfig::ApplicationMode::kVoip ? 0 : 1, config.sample_rate_hz)
+0 == WebRtcOpus_EncoderFree(inst_)
+0 == WebRtcOpus_MultistreamEncoderCreate( &inst_, config.num_channels, config.application == AudioEncoderMultiChannelOpusConfig::ApplicationMode::kVoip ? 0 : 1, config.num_streams, config.coupled_streams, config.channel_mapping.data())
+0 == WebRtcOpus_SetBandwidth(inst_, *bandwidth)
+0 == WebRtcOpus_SetBitRate(inst_, bitrate)
+0 == WebRtcOpus_SetBitRate( inst_, GetMultipliedBitrate(bitrate, bitrate_multipliers_))
+0 == WebRtcOpus_SetComplexity(inst_, AudioEncoderOpusConfig().complexity)
+0 == WebRtcOpus_SetComplexity(inst_, complexity_)
+0 == WebRtcOpus_SetForceChannels(inst_, num_channels_to_encode)
+0 == WebRtcOpus_SetMaxPlaybackRate(inst_, config.max_playback_rate_hz)
+0 == WebRtcOpus_SetPacketLossRate( inst_, static_cast<int32_t>(packet_loss_rate_ * 100 + .5))
+AES-128 counter mode using openssl
+AES-128 GCM using openssl
+AES-192 counter mode using openssl
+AES-256 counter mode using openssl
+AES-256 GCM using openssl
+AES for Intel AES-NI, CRYPTOGAMS by <appro@openssl.org>
+AES-NI GCM module for x86_64, CRYPTOGAMS by <appro@openssl.org>
+Applying the same SRTP recv parameters again. No-op.
+Applying the same SRTP send parameters again. No-op.
+assertion failed: complexity <= SILK_PE_MAX_COMPLEX
+assertion failed: complexity >= SILK_PE_MIN_COMPLEX
+assertion failed: order >= 0 && order <= SILK_MAX_ORDER_LPC
+assertion failed: psEncC->frame_length == 8 * silk_RSHIFT( psEncC->frame_length, 3 )
+assertion failed: st->silk_mode.internalSampleRate == 16000
+BAD_SRTP_MKI_VALUE
+BAD_SRTP_PROTECTION_PROFILE_LIST
+Can't process incoming RTP packet when SRTP is inactive and crypto is required 
+ChaCha20 for x86_64, CRYPTOGAMS by <appro@openssl.org>
+CHECK failed: WebRtcIlbcfix_CbConstruct( &decresidual[(iLBCbits_inst->startIdx + 1 + subframe) * SUBL], iLBCbits_inst->cb_index + subcount * CB_NSTAGES, iLBCbits_inst->gain_index + subcount * CB_NSTAGES, mem, MEM_LF_TBL, SUBL)
+CHECK failed: WebRtcIlbcfix_CbConstruct( &decresidual[start_pos + iLBCenc_inst->state_short_len], iLBCbits_inst->cb_index, iLBCbits_inst->gain_index, mem + CB_MEML - ST_MEM_L_TBL, ST_MEM_L_TBL, diff)
+CHECK failed: WebRtcIlbcfix_CbConstruct( reverseDecresidual, iLBCbits_inst->cb_index, iLBCbits_inst->gain_index, mem + CB_MEML - ST_MEM_L_TBL, ST_MEM_L_TBL, diff)
+CHECK failed: WebRtcIlbcfix_CbConstruct( &reverseDecresidual[subframe * SUBL], iLBCbits_inst->cb_index + subcount * CB_NSTAGES, iLBCbits_inst->gain_index + subcount * CB_NSTAGES, mem, MEM_LF_TBL, SUBL)
+->Connect(): Failed usrsctp_connect. got errno=
+: Couldn't set DTLS-SRTP ciphers.
+Creating DtlsSrtpTransport.
+disabled-by-default-webrtc
+DTLS-SRTP disabled.
+DTLS-SRTP enabled; has certificate parameter.
+DTLS-SRTP enabled; sending DTLS identity request (key type: 
+DtlsSrtpKeyAgreement
+DTLS-SRTP key export failed
+DTLS-SRTP key installation for RTCP failed
+DTLS-SRTP key installation for RTP failed
+error:%08x:%s:OPENSSL_internal:%s
+ exceeded maximum protobuf size of 2GB: 
+
+===== libYandexSpeechKitJni.4.15.7.so =====
+/home/drenk83/Projects/gitrepo/mbks_labs/lab5/work/native/x86_64/libYandexSpeechKitJni.4.15.7.so: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, BuildID[sha1]=7a7d54d94df078dd8c5be851ab348dc3467049be, stripped
+-- NEEDED --
+ 0x0000000000000001 (NEEDED)             Shared library: [libandroid.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libz.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [liblog.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libm.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libstdc++.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libc.so]
+ 0x0000000000000001 (NEEDED)             Shared library: [libdl.so]
+ 0x000000000000000e (SONAME)             Library soname: [libYandexSpeechKitJni.4.15.7.so]
+-- Java_ and JNI exports --
+   125: 00000000000eb3f5   223 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_AudioPlayerJniAdapter_native_1AudioPlayerDestroy
+   126: 00000000000eb5fd  1129 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_AudioPlayerJniAdapter_native_1AudioPlayerCreate
+   127: 00000000000eba89   223 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_AudioSourceJniAdapter_native_1AudioSourceDestroy
+   128: 00000000000ebc30  1190 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_AudioSourceJniAdapter_native_1AudioSourceCreate
+   129: 00000000000ee7b8   132 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_EchoCancellingAudioSource_native_1Destroy
+   130: 00000000000ee918  1143 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_EchoCancellingAudioSource_native_1Create
+   131: 00000000000eed8f  1065 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_EchoCancellingAudioSource_native_1FinishEchoCancelling
+   132: 00000000000ef1b8  1595 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_EchoCancellingAudioSource_native_1AppendCancellationBuffer
+   133: 00000000000ef7f3  1187 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_EchoCancellingAudioSource_native_1Subscribe
+   134: 00000000000efc96  1187 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_EchoCancellingAudioSource_native_1Unsubsribe
+   136: 00000000000f1510  1084 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_PhraseSpotterJniImpl_native_1Prepare
+   137: 00000000000f194c  1016 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_PhraseSpotterJniImpl_native_1Destroy
+   138: 00000000000f1d44  1147 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_PhraseSpotterJniImpl_native_1Start
+   139: 00000000000f21bf  1084 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_PhraseSpotterJniImpl_native_1Stop
+   140: 00000000000f26f8  1644 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_PhraseSpotterJniImpl_native_1Create
+   141: 00000000000f3123   223 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_PhraseSpotterListenerJniAdapter_native_1listenerBindingDestroy
+   142: 00000000000f32e1  1196 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_PhraseSpotterListenerJniAdapter_native_1listenerBindingCreate
+   143: 00000000000f657a   972 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_RecognizerJniImpl_native_1Destroy
+   144: 00000000000f6946   952 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_RecognizerJniImpl_native_1Prepare
+   145: 00000000000f6cfe   952 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_RecognizerJniImpl_native_1StartRecording
+   146: 00000000000f70b6   952 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_RecognizerJniImpl_native_1StopRecording
+   147: 00000000000f746e   952 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_RecognizerJniImpl_native_1Cancel
+   148: 00000000000f7826  2720 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_RecognizerJniImpl_native_1Create
+   149: 00000000000f8805   121 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_RecognizerListenerJniAdapter_native_1ListenerBindingDestroy
+   150: 00000000000f8a23  1152 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_RecognizerListenerJniAdapter_native_1ListenerBindingCreate
+   151: 00000000000f9317  1170 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_SoundLoggerListenerJniAdapter_native_1createHandle
+   152: 00000000000f97a9   233 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_SoundLoggerListenerJniAdapter_native_1destroyHandle
+   153: 00000000000f9892  1077 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_SoundLoggerJniImpl_native_1setSubThresholdSendRate
+   154: 00000000000f9cc7  1156 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_SoundLoggerJniImpl_native_1setSettings
+   155: 00000000000fa306  2511 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_SoundLoggerJniImpl_native_1send
+   156: 00000000000fad96  1047 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_BaseSpeechKit_native_1setLogLevel
+   157: 00000000000fb1ad  1104 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_BaseSpeechKit_native_1init
+   158: 00000000000fb5fd  1072 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_SpeechKit_native_1setYandexUid
+   159: 00000000000fba2d  1072 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_BaseSpeechKit_native_1setUuid
+   160: 00000000000fbe5d  1072 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_BaseSpeechKit_native_1setDumpPath
+   161: 00000000000fc28d  1072 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_BaseSpeechKit_native_1setDeviceId
+   162: 00000000000fc6bd  1088 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_SpeechKit_native_1getYandexUid
+   163: 00000000000fcafd  1458 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_BaseSpeechKit_native_1getVersion
+   164: 00000000000fd0af  1088 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_BaseSpeechKit_native_1getApiKey
+   165: 00000000000fd4ef  1088 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_BaseSpeechKit_native_1getUuid
+   166: 00000000000fd92f  1121 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_BaseSpeechKit_native_1getDumpPath
+   167: 00000000000fdd90  1088 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_BaseSpeechKit_native_1getDeviceId
+   168: 00000000000fe1d0  1452 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_BaseSpeechKit_native_1setEventLogger
+   169: 00000000000fe77c  1222 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_BaseSpeechKit_native_1setLogger
+   170: 00000000000fec42  1391 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_BaseSpeechKit_native_1setPlatformInfo
+   171: 00000000000ff1b1  1078 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_Timings_native_1createFlow
+   172: 00000000000ff5e7  1078 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_Timings_native_1deleteFlow
+   173: 00000000000ffa1d  1129 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_Timings_native_1addEvent
+   174: 0000000000100018  1174 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_SoundInfo_native_1parseMime
+   175: 000000000010090e  1063 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VocalizerJniImpl_native_1Prepare
+   176: 0000000000100d35  1063 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VocalizerJniImpl_native_1Cancel
+   177: 000000000010115c  1063 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VocalizerJniImpl_native_1Play
+   178: 0000000000101583  1063 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VocalizerJniImpl_native_1Pause
+   179: 00000000001019aa  1099 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VocalizerJniImpl_native_1Destroy
+   180: 0000000000101df5  2216 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VocalizerJniImpl_native_1Create
+   181: 000000000010269d  1181 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VocalizerJniImpl_native_1Synthesize
+   182: 0000000000102f81   322 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VocalizerListenerJniAdapter_native_1ListenerBindingDestroy
+   183: 00000000001031e5  1196 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VocalizerListenerJniAdapter_native_1ListenerBindingCreate
+   184: 0000000000104843  1539 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_UniProxyHeader_new_1message_1id
+   185: 0000000000104eb5    28 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_NetworkReachabilityHelper_native_1Destroy
+   186: 00000000001056d2  1459 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_NetworkReachabilityHelper_native_1ReachabilityChanged
+   187: 0000000000106019    53 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_WebSocket_call_1onDestroy
+   188: 0000000000106ce6  1050 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_WebSocket_call_1onConnectionOpened
+   189: 0000000000107100  1050 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_WebSocket_call_1onConnectionClosed
+   190: 000000000010751a  1050 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_WebSocket_call_1onPongMessageReceived
+   191: 0000000000107934  1106 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_WebSocket_call_1onTextMessageReceived
+   192: 0000000000107d86  1162 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_WebSocket_call_1onFailure
+   193: 0000000000108210  1106 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_WebSocket_call_1onConnectionStateChanged
+   194: 0000000000108662  1546 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_WebSocket_call_1onByteMessageReceived
+   195: 000000000010b4d6   193 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_JavaToNativeAudioPlayerListenerAdapter_native_1destroyHandle
+   196: 000000000010b6bb  1094 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_JavaToNativeAudioPlayerListenerAdapter_native_1onPlayingBegin
+   197: 000000000010bc25  1094 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_JavaToNativeAudioPlayerListenerAdapter_native_1onPlayingPaused
+   198: 000000000010c18f  1094 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_JavaToNativeAudioPlayerListenerAdapter_native_1onPlayingResumed
+   199: 000000000010c6f9  1094 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_JavaToNativeAudioPlayerListenerAdapter_native_1onPlayingDone
+   200: 000000000010cc6c  1199 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_JavaToNativeAudioPlayerListenerAdapter_native_1onPlayerError
+   201: 000000000010d23f  1094 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_JavaToNativeAudioPlayerListenerAdapter_native_1onBufferUnderrun
+   202: 000000000010d941  1262 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_JavaToNativeAudioPlayerListenerAdapter_native_1onPlayingData
+   203: 000000000010e09c    28 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_JavaToNativeAudioSourceListenerAdapter_native_1Destroy
+   204: 000000000010e1f9  1001 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_JavaToNativeAudioSourceListenerAdapter_native_1onAudioSourceStarted
+   205: 000000000010e6c9  1001 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_JavaToNativeAudioSourceListenerAdapter_native_1onAudioSourceStopped
+   206: 000000000010eba2  1345 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_JavaToNativeAudioSourceListenerAdapter_native_1onAudioSourceError
+   207: 000000000010f3a2  1150 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_JavaToNativeAudioSourceListenerAdapter_native_1onAudioSourceData
+   208: 000000000010fbf4  1144 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_NativeToJavaAudioSourceListenerAdapter_native_1Create
+   209: 000000000010e09c    28 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_NativeToJavaAudioSourceListenerAdapter_native_1Destroy
+   210: 0000000000110499   134 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_OggOpusDecoder_native_1destroy
+   211: 0000000000110603  1188 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_OggOpusDecoder_native_1create
+   212: 0000000000110aa7  2391 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_OggOpusDecoder_native_1decodeData
+   213: 00000000001113fe   132 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_OggOpusEncoder_native_1destroy
+   214: 0000000000111482  1314 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_OggOpusEncoder_native_1create
+   215: 00000000001119a4  1229 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_OggOpusEncoder_native_1getStreamHeader
+   216: 0000000000111e71  2259 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_OggOpusEncoder_native_1encodeData
+   217: 0000000000112744  1509 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_OggOpusEncoder_native_1init
+   224: 000000000011393f   105 FUNC    GLOBAL DEFAULT   11 JNI_OnUnload
+   226: 0000000000113ac7   908 FUNC    GLOBAL DEFAULT   11 JNI_OnLoad
+   233: 0000000000114e5a  1017 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VoiceDialogJniImpl_native_1startConnection
+   234: 0000000000115253  1017 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VoiceDialogJniImpl_native_1stopConnection
+   235: 000000000011564c  1076 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VoiceDialogJniImpl_native_1startPhraseSpotter
+   236: 0000000000115a80  1019 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VoiceDialogJniImpl_native_1cancel
+   237: 0000000000115e7b  1017 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VoiceDialogJniImpl_native_1stopRecognition
+   238: 0000000000116274   974 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VoiceDialogJniImpl_native_1destroy
+   239: 0000000000116642  1267 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VoiceDialogJniImpl_native_1startVoiceInput
+   240: 0000000000116b35  1086 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VoiceDialogJniImpl_native_1startVinsRequest
+   241: 0000000000116f73  1157 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VoiceDialogJniImpl_native_1sendEvent
+   242: 00000000001173f8  4824 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VoiceDialogJniImpl_native_1create
+   243: 00000000000f8805   121 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VoiceDialogListenerJniAdapter_native_1listenerBindingDestroy
+   244: 000000000011907d  1152 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_VoiceDialogListenerJniAdapter_native_1listenerBindingCreate
+   245: 0000000000119bec  1084 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_UniProxyClientJniImpl_native_1start
+   246: 000000000011a028  1084 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_UniProxyClientJniImpl_native_1stop
+   247: 000000000011a464  1096 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_UniProxyClientJniImpl_native_1closeStream
+   248: 000000000011a8ac  1090 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_UniProxyClientJniImpl_native_1deleteStream
+   249: 000000000011acee  1016 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_UniProxyClientJniImpl_native_1destroy
+   250: 000000000011b0e6  1665 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_UniProxyClientJniImpl_native_1writeStream
+   251: 000000000011b767  1375 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_UniProxyClientJniImpl_native_1create
+   252: 000000000011bcc6  1264 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_UniProxyClientJniImpl_native_1openWriteStream
+   253: 000000000011c1b6  1259 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_UniProxyClientJniImpl_native_1sendEvent
+   254: 000000000011c7c7   223 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_UniProxyClientListenerJniAdapter_native_1listenerBindingDestroy
+   255: 000000000011cb1e  1196 FUNC    GLOBAL DEFAULT   11 Java_ru_yandex_speechkit_internal_UniProxyClientListenerJniAdapter_native_1listenerBindingCreate
+-- version-ish strings --
+([BLru/yandex/speechkit/SoundInfo;)V
+bool SpeechKit::{anonymous}::encodeChannel(std::list<std::shared_ptr<SpeechKit::SoundBuffer> >&, int, int, bool)
+bool SpeechKit::ConcurrentEvent::waitFor(unsigned int)
+bool SpeechKit::File::write(size_t, const void*, size_t)
+bool SpeechKit::JClass::assign(const string&, bool)
+bool SpeechKit::JField::assign(jclass, const char*, const char*)
+bool SpeechKit::JMethod::assign(jclass, const char*, const char*)
+bool SpeechKit::JStaticMethod::assign(jclass, const char*, const char*)
+bool SpeechKit::OggOpusDecoder::tryReadOpusHeader(const char*, long int)
+bool SpeechKit::PhraseSpotterState::prepareImpl(const string&)
+bool SpeechKit::RequestStatSender::ackRequestStat(const SpeechKit::UniProxy::Header&)
+bool SpeechKit::TTSStreamer::needData() const
+bool SpeechKit::VocalizerState::trySendFromQueue()
+bool SpeechKit::VoiceDialogState::canStartRequest(SpeechKit::VoiceDialogState::State)
+Can't use protobuf without USE_UNIPROXY_PROTOBUF! Fallback to old streams.
+const SpeechKit::SoundLoggingSettings& SpeechKit::SoundLogSchedulerState::selectLoggingSettings()
+../../../../../../core/src/speechkit/aec/AudioResampler.cpp
+../../../../../../core/src/speechkit/aec/AudioSourceMultithreadingHandler.cpp
+../../../../../../core/src/speechkit/aec/EchoCanceller.cpp
+../../../../../../core/src/speechkit/aec/EchoCancellingAudioSourceImpl.cpp
+../../../../../../core/src/speechkit/AudioProcessingMode.cpp
+../../../../../../core/src/speechkit/audiostream/AudioStreamBuffer.cpp
+../../../../../../core/src/speechkit/audiostream/AudioStreamProcess.cpp
+../../../../../../core/src/speechkit/audiostream/AudioStreamState.cpp
+../../../../../../core/src/speechkit/CompositeSoundBuffer.cpp
+../../../../../../core/src/speechkit/concurrency/ConcurrentEventPThread.cpp
+../../../../../../core/src/speechkit/concurrency/WorkingThread.h
+../../../../../../core/src/speechkit/Endpoint.cpp
+../../../../../../core/src/speechkit/factory/SpeechKitFactory.cpp
+../../../../../../core/src/speechkit/file/File.cpp
+../../../../../../core/src/speechkit/logsound/SoundLogData.cpp
+../../../../../../core/src/speechkit/logsound/SoundLoggerProcess.cpp
+../../../../../../core/src/speechkit/logsound/SoundLoggerState.cpp
+../../../../../../core/src/speechkit/logsound/SoundLogSchedulerProcess.cpp
+../../../../../../core/src/speechkit/logsound/SoundLogSchedulerState.cpp
+../../../../../../core/src/speechkit/logsound/StreamSoundLoggerProcess.cpp
+../../../../../../core/src/speechkit/logsound/StreamSoundLoggerState.cpp
+../../../../../../core/src/speechkit/opus/EncodingStream.cpp
+../../../../../../core/src/speechkit/opus/OggDecoder.cpp
+../../../../../../core/src/speechkit/opus/OggEncoder.cpp
+../../../../../../core/src/speechkit/opus/OggOpusDecoder.cpp
+../../../../../../core/src/speechkit/opus/OggOpusEncoder.cpp
+../../../../../../core/src/speechkit/opus/OpusEncoder.cpp
+../../../../../../core/src/speechkit/phrasespotter/PhraseSpotter.cpp
+../../../../../../core/src/speechkit/phrasespotter/PhraseSpotterModelImpl.cpp
+../../../../../../core/src/speechkit/phrasespotter/PhraseSpotterProcess.cpp
+../../../../../../core/src/speechkit/phrasespotter/PhraseSpotterState.cpp
+../../../../../../core/src/speechkit/phrasespotter/PhraseSpotterStats.cpp
+../../../../../../core/src/speechkit/recognizer/ASRProtocolUP.cpp
+../../../../../../core/src/speechkit/recognizer/Decoder.cpp
+../../../../../../core/src/speechkit/recognizer/EmbeddedRecognizerModel.cpp
+../../../../../../core/src/speechkit/recognizer/RecognizerProcess.cpp
+../../../../../../core/src/speechkit/recognizer/RecognizerProtocolEmbedded.cpp
+../../../../../../core/src/speechkit/recognizer/RecognizerProtocolUP.cpp
+../../../../../../core/src/speechkit/recognizer/RecognizerSession.cpp
+../../../../../../core/src/speechkit/recognizer/RecognizerState.cpp
+../../../../../../core/src/speechkit/SoundFormat.cpp
+../../../../../../core/src/speechkit/SoundInfo.cpp
+../../../../../../core/src/speechkit/SoundQuality.cpp
+../../../../../../core/src/speechkit/SpeechKitInternalImpl.cpp

@@ -1,0 +1,2036 @@
+[
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/CrashpadHelper;",
+    "name": "cancelSetUpNativeUncaughtExceptionHandler",
+    "descriptor": "()V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/CrashpadHelper;",
+    "name": "getLibDirInsideApk",
+    "descriptor": "()Ljava/lang/String;",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/CrashpadHelper;",
+    "name": "getLibraryVersion",
+    "descriptor": "()Ljava/lang/String;",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/CrashpadHelper;",
+    "name": "logsEnabled",
+    "descriptor": "(Z)V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/CrashpadHelper;",
+    "name": "setUpNativeUncaughtExceptionHandler",
+    "descriptor": "(Landroid/os/Bundle;)V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/CrashpadHelper;",
+    "name": "updateRuntimeConfig",
+    "descriptor": "(Ljava/lang/String;)V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/CrashpadServiceHelper;",
+    "name": "cancelSetUpServiceHelper",
+    "descriptor": "()V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/CrashpadServiceHelper;",
+    "name": "deleteCompletedReports",
+    "descriptor": "()Z",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/CrashpadServiceHelper;",
+    "name": "markCrashCompleted",
+    "descriptor": "(Ljava/lang/String;)Z",
+    "access": "private static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/CrashpadServiceHelper;",
+    "name": "readCrash",
+    "descriptor": "(Ljava/lang/String;)Landroid/os/Bundle;",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/CrashpadServiceHelper;",
+    "name": "readOldCrashes",
+    "descriptor": "()Ljava/util/List;",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/CrashpadServiceHelper;",
+    "name": "setUpServiceHelper",
+    "descriptor": "(Ljava/lang/String;)V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/HandlerRunner;",
+    "name": "runHandler",
+    "descriptor": "([Ljava/lang/String;)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/NativeCrashesHelper;",
+    "name": "cancelSetUpNativeUncaughtExceptionHandler",
+    "descriptor": "()V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/NativeCrashesHelper;",
+    "name": "logsEnabled",
+    "descriptor": "(Z)V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/metrica/impl/ac/NativeCrashesHelper;",
+    "name": "setUpNativeUncaughtExceptionHandler",
+    "descriptor": "(Ljava/lang/String;)V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/eye/nativebits/EyeNative;",
+    "name": "isArmv7",
+    "descriptor": "()Z",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/eye/nativebits/EyeNative;",
+    "name": "isArmv8",
+    "descriptor": "()Z",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/eye/nativebits/EyeNative;",
+    "name": "isX86",
+    "descriptor": "()Z",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/eye/nativebits/EyeNative;",
+    "name": "isX8664",
+    "descriptor": "()Z",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/eye/nativebits/EyeNative;",
+    "name": "processBufferBug",
+    "descriptor": "(I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; I I I I I I)V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/eye/nativebits/EyeNative;",
+    "name": "processLut",
+    "descriptor": "(I I I I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer;)V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/eye/nativebits/EyeNative;",
+    "name": "setCameraRGBABuffer",
+    "descriptor": "(I I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer;)V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lcom/yandex/eye/nativebits/EyeNative;",
+    "name": "setCameraYUVBuffer",
+    "descriptor": "(I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; I I I I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer;)V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lorg/webrtc/BuiltinAudioDecoderFactoryFactory;",
+    "name": "nativeCreateBuiltinAudioDecoderFactory",
+    "descriptor": "()J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/BuiltinAudioEncoderFactoryFactory;",
+    "name": "nativeCreateBuiltinAudioEncoderFactory",
+    "descriptor": "()J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/H264Utils;",
+    "name": "nativeIsSameH264Profile",
+    "descriptor": "(Ljava/util/Map; Ljava/util/Map;)Z",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/Histogram;",
+    "name": "nativeAddSample",
+    "descriptor": "(J I)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/Histogram;",
+    "name": "nativeCreateCounts",
+    "descriptor": "(Ljava/lang/String; I I I)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/Histogram;",
+    "name": "nativeCreateEnumeration",
+    "descriptor": "(Ljava/lang/String; I)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/JniCommon;",
+    "name": "nativeAddRef",
+    "descriptor": "(J)V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lorg/webrtc/JniCommon;",
+    "name": "nativeAllocateByteBuffer",
+    "descriptor": "(I)Ljava/nio/ByteBuffer;",
+    "access": "public static native"
+  },
+  {
+    "class": "Lorg/webrtc/JniCommon;",
+    "name": "nativeFreeByteBuffer",
+    "descriptor": "(Ljava/nio/ByteBuffer;)V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lorg/webrtc/JniCommon;",
+    "name": "nativeReleaseRef",
+    "descriptor": "(J)V",
+    "access": "public static native"
+  },
+  {
+    "class": "Lorg/webrtc/MediaStream;",
+    "name": "nativeGetId",
+    "descriptor": "(J)Ljava/lang/String;",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/MediaStream;",
+    "name": "nativeRemoveAudioTrack",
+    "descriptor": "(J J)Z",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/MediaStream;",
+    "name": "nativeRemoveVideoTrack",
+    "descriptor": "(J J)Z",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/MediaStreamTrack;",
+    "name": "nativeGetId",
+    "descriptor": "(J)Ljava/lang/String;",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/MediaStreamTrack;",
+    "name": "nativeGetKind",
+    "descriptor": "(J)Ljava/lang/String;",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/MediaStreamTrack;",
+    "name": "nativeSetEnabled",
+    "descriptor": "(J Z)Z",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/NativeAndroidVideoTrackSource;",
+    "name": "nativeAdaptFrame",
+    "descriptor": "(J I I I J)Lorg/webrtc/VideoProcessor$FrameAdaptationParameters;",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/NativeAndroidVideoTrackSource;",
+    "name": "nativeOnFrameCaptured",
+    "descriptor": "(J I J Lorg/webrtc/VideoFrame$Buffer;)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/NativeAndroidVideoTrackSource;",
+    "name": "nativeSetState",
+    "descriptor": "(J Z)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/NetworkMonitor;",
+    "name": "nativeNotifyConnectionTypeChanged",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/NetworkMonitor;",
+    "name": "nativeNotifyOfActiveNetworkList",
+    "descriptor": "(J [Lorg/webrtc/NetworkChangeDetector$NetworkInformation;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/NetworkMonitor;",
+    "name": "nativeNotifyOfNetworkConnect",
+    "descriptor": "(J Lorg/webrtc/NetworkChangeDetector$NetworkInformation;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/NetworkMonitor;",
+    "name": "nativeNotifyOfNetworkDisconnect",
+    "descriptor": "(J J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeAddIceCandidate",
+    "descriptor": "(Ljava/lang/String; I Ljava/lang/String;)Z",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeAddTrack",
+    "descriptor": "(J Ljava/util/List;)Lorg/webrtc/RtpSender;",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeAddTransceiverOfType",
+    "descriptor": "(Lorg/webrtc/MediaStreamTrack$MediaType; Lorg/webrtc/RtpTransceiver$RtpTransceiverInit;)Lorg/webrtc/RtpTransceiver;",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeClose",
+    "descriptor": "()V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeCreateAnswer",
+    "descriptor": "(Lorg/webrtc/SdpObserver; Lorg/webrtc/MediaConstraints;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeCreateOffer",
+    "descriptor": "(Lorg/webrtc/SdpObserver; Lorg/webrtc/MediaConstraints;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeCreatePeerConnectionObserver",
+    "descriptor": "(Lorg/webrtc/PeerConnection$Observer;)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeFreeOwnedPeerConnection",
+    "descriptor": "(J)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeGetSenders",
+    "descriptor": "()Ljava/util/List;",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeGetTransceivers",
+    "descriptor": "()Ljava/util/List;",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeIceConnectionState",
+    "descriptor": "()Lorg/webrtc/PeerConnection$IceConnectionState;",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeIceGatheringState",
+    "descriptor": "()Lorg/webrtc/PeerConnection$IceGatheringState;",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeNewGetStats",
+    "descriptor": "(Lorg/webrtc/RTCStatsCollectorCallback;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeRemoveIceCandidates",
+    "descriptor": "([Lorg/webrtc/IceCandidate;)Z",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeRemoveLocalStream",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeSetConfiguration",
+    "descriptor": "(Lorg/webrtc/PeerConnection$RTCConfiguration;)Z",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeSetLocalDescription",
+    "descriptor": "(Lorg/webrtc/SdpObserver; Lorg/webrtc/SessionDescription;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnection;",
+    "name": "nativeSetRemoteDescription",
+    "descriptor": "(Lorg/webrtc/SdpObserver; Lorg/webrtc/SessionDescription;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnectionFactory;",
+    "name": "nativeCreateAudioSource",
+    "descriptor": "(J Lorg/webrtc/MediaConstraints;)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnectionFactory;",
+    "name": "nativeCreateAudioTrack",
+    "descriptor": "(J Ljava/lang/String; J)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnectionFactory;",
+    "name": "nativeCreatePeerConnection",
+    "descriptor": "(J Lorg/webrtc/PeerConnection$RTCConfiguration; Lorg/webrtc/MediaConstraints; J Lorg/webrtc/SSLCertificateVerifier;)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnectionFactory;",
+    "name": "nativeCreatePeerConnectionFactory",
+    "descriptor": "(Landroid/content/Context; Lorg/webrtc/PeerConnectionFactory$Options; J J J Lorg/webrtc/VideoEncoderFactory; Lorg/webrtc/VideoDecoderFactory; J J J J J)Lorg/webrtc/PeerConnectionFactory;",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnectionFactory;",
+    "name": "nativeCreateVideoSource",
+    "descriptor": "(J Z Z)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnectionFactory;",
+    "name": "nativeCreateVideoTrack",
+    "descriptor": "(J Ljava/lang/String; J)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnectionFactory;",
+    "name": "nativeDeleteLoggable",
+    "descriptor": "()V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnectionFactory;",
+    "name": "nativeFindFieldTrialsFullName",
+    "descriptor": "(Ljava/lang/String;)Ljava/lang/String;",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnectionFactory;",
+    "name": "nativeFreeFactory",
+    "descriptor": "(J)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnectionFactory;",
+    "name": "nativeInitializeAndroidGlobals",
+    "descriptor": "()V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnectionFactory;",
+    "name": "nativeInitializeFieldTrials",
+    "descriptor": "(Ljava/lang/String;)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/PeerConnectionFactory;",
+    "name": "nativeInjectLoggable",
+    "descriptor": "(Lorg/webrtc/JNILogging; I)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/RtpReceiver;",
+    "name": "nativeGetTrack",
+    "descriptor": "(J)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/RtpSender;",
+    "name": "nativeGetDtmfSender",
+    "descriptor": "(J)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/RtpSender;",
+    "name": "nativeGetTrack",
+    "descriptor": "(J)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/RtpSender;",
+    "name": "nativeSetTrack",
+    "descriptor": "(J J)Z",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/RtpTransceiver;",
+    "name": "nativeDirection",
+    "descriptor": "(J)Lorg/webrtc/RtpTransceiver$RtpTransceiverDirection;",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/RtpTransceiver;",
+    "name": "nativeGetMediaType",
+    "descriptor": "(J)Lorg/webrtc/MediaStreamTrack$MediaType;",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/RtpTransceiver;",
+    "name": "nativeGetReceiver",
+    "descriptor": "(J)Lorg/webrtc/RtpReceiver;",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/RtpTransceiver;",
+    "name": "nativeGetSender",
+    "descriptor": "(J)Lorg/webrtc/RtpSender;",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/TimestampAligner;",
+    "name": "nativeCreateTimestampAligner",
+    "descriptor": "()J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/TimestampAligner;",
+    "name": "nativeReleaseTimestampAligner",
+    "descriptor": "(J)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/TimestampAligner;",
+    "name": "nativeTranslateTimestamp",
+    "descriptor": "(J J)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/VideoDecoderWrapper;",
+    "name": "nativeOnDecodedFrame",
+    "descriptor": "(J Lorg/webrtc/VideoFrame; Ljava/lang/Integer; Ljava/lang/Integer;)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/VideoEncoderWrapper;",
+    "name": "nativeOnEncodedFrame",
+    "descriptor": "(J Lorg/webrtc/EncodedImage;)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/YuvHelper;",
+    "name": "nativeCopyPlane",
+    "descriptor": "(Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/YuvHelper;",
+    "name": "nativeI420Copy",
+    "descriptor": "(Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/YuvHelper;",
+    "name": "nativeI420ToNV12",
+    "descriptor": "(Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/audio/WebRtcAudioRecord;",
+    "name": "nativeCacheDirectBufferAddress",
+    "descriptor": "(J Ljava/nio/ByteBuffer;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/audio/WebRtcAudioRecord;",
+    "name": "nativeDataIsRecorded",
+    "descriptor": "(J I)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/audio/WebRtcAudioTrack;",
+    "name": "nativeCacheDirectBufferAddress",
+    "descriptor": "(J Ljava/nio/ByteBuffer;)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/audio/WebRtcAudioTrack;",
+    "name": "nativeGetPlayoutData",
+    "descriptor": "(J I)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;",
+    "name": "TImage_H_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TImage;)I",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;",
+    "name": "TImage_W_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TImage;)I",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;",
+    "name": "TImage_getData",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TImage;)[B",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;",
+    "name": "TPoint_X_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)I",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;",
+    "name": "TPoint_X_set",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TPoint; I)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;",
+    "name": "TPoint_Y_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)I",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;",
+    "name": "TPoint_Y_set",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TPoint; I)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;",
+    "name": "delete_TImage",
+    "descriptor": "(J)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;",
+    "name": "delete_TPoint",
+    "descriptor": "(J)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;",
+    "name": "new_TPoint",
+    "descriptor": "()J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileCommonJNI;",
+    "name": "TOperationResult_GetData",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TOperationResult;)Ljava/lang/String;",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileCommonJNI;",
+    "name": "TOperationResult_IsError",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TOperationResult;)Z",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileCommonJNI;",
+    "name": "delete_TOperationResult",
+    "descriptor": "(J)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TDetectionResult_GetEdges",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TDetectionResult;)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TDetectionResult_SWIGUpcast",
+    "descriptor": "(J)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TDocumentEdges_BottomLeft_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TDocumentEdges_BottomLeft_set",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges; J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TDocumentEdges_BottomRight_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TDocumentEdges_BottomRight_set",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges; J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TDocumentEdges_TopLeft_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TDocumentEdges_TopLeft_set",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges; J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TDocumentEdges_TopRight_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TDocumentEdges_TopRight_set",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges; J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TDocumentScanner_DetectDocumentEdges",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentScanner; I I [B I)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TDocumentScanner_GetEnhancedImage",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentScanner; I)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TDocumentScanner_SetEnhanceImage",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentScanner; I I [B I J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TEnhanceImageResult_GetImage",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TEnhanceImageResult;)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "TEnhanceImageResult_SWIGUpcast",
+    "descriptor": "(J)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "delete_TDetectionResult",
+    "descriptor": "(J)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "delete_TDocumentEdges",
+    "descriptor": "(J)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "delete_TDocumentScanner",
+    "descriptor": "(J)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "delete_TEnhanceImageResult",
+    "descriptor": "(J)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "new_TDocumentEdges",
+    "descriptor": "()J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;",
+    "name": "new_TDocumentScanner",
+    "descriptor": "(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; I I Z)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "AKAZE_get",
+    "descriptor": "()I",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "KLT_FAST_get",
+    "descriptor": "()I",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "KLT_get",
+    "descriptor": "()I",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "ORB_get",
+    "descriptor": "()I",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "THomographyMatrix_AnchorSim_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)F",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "THomographyMatrix_MotionMagnitude_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)F",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "THomographyMatrix_Success_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)Z",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "THomographyMatrix_contrast_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)F",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "THomographyMatrix_matrix_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TMatrix3D_Set",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D; D D D D D D D D D)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TMatrix3D_Value0_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TMatrix3D_Value1_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TMatrix3D_Value2_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TMatrix3D_Value3_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TMatrix3D_Value4_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TMatrix3D_Value5_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TMatrix3D_Value6_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TMatrix3D_Value7_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TMatrix3D_Value8_get",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TRect_Set",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TRect; F F F F)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TTrackerParams_Set",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerParams; I F I I I I I I D Z Z D D)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TTrackerResult_GetKeyPointId",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult; I)I",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TTrackerResult_GetKeyPointX",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult; I)I",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TTrackerResult_GetKeyPointY",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult; I)I",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TTrackerResult_GetKeyPointsSize",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult;)I",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TTrackerResult_GetMatrix",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult;)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TTrackerResult_SWIGUpcast",
+    "descriptor": "(J)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TTrackerSetAnchorResult_GetResult",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerSetAnchorResult;)Z",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TTrackerSetAnchorResult_SWIGUpcast",
+    "descriptor": "(J)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TTracker_ActivatePendingAnchor",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TTracker;)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TTracker_GetHomography",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TTracker; I I [B I Z Z Z)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TTracker_SetAnchor__SWIG_0",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TTracker; I I [B I J Lru/yandex/dict/mt/libs/mobile/android/TRect; J Lru/yandex/dict/mt/libs/mobile/android/TRect; F J Lru/yandex/dict/mt/libs/mobile/android/TRect;)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "TTracker_SetPendingAnchor",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TTracker; I I [B I J Lru/yandex/dict/mt/libs/mobile/android/TRect; J Lru/yandex/dict/mt/libs/mobile/android/TRect; F J Lru/yandex/dict/mt/libs/mobile/android/TRect; J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "delete_THomographyMatrix",
+    "descriptor": "(J)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "delete_TMatrix3D",
+    "descriptor": "(J)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "delete_TRect",
+    "descriptor": "(J)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "delete_TTracker",
+    "descriptor": "(J)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "delete_TTrackerParams",
+    "descriptor": "(J)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "delete_TTrackerResult",
+    "descriptor": "(J)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "delete_TTrackerSetAnchorResult",
+    "descriptor": "(J)V",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "new_TMatrix3D",
+    "descriptor": "()J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "new_TRect",
+    "descriptor": "()J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "new_TTrackerParams",
+    "descriptor": "()J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;",
+    "name": "new_TTracker__SWIG_1",
+    "descriptor": "(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerParams;)J",
+    "access": "public static final native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/BaseSpeechKit;",
+    "name": "native_getUuid",
+    "descriptor": "()Ljava/lang/String;",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/BaseSpeechKit;",
+    "name": "native_init",
+    "descriptor": "(Landroid/content/Context; Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/BaseSpeechKit;",
+    "name": "native_setEventLogger",
+    "descriptor": "(Lru/yandex/speechkit/EventLogger;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/BaseSpeechKit;",
+    "name": "native_setPlatformInfo",
+    "descriptor": "(Lru/yandex/speechkit/PlatformInfo;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/BaseSpeechKit;",
+    "name": "native_setUuid",
+    "descriptor": "(Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/SoundInfo;",
+    "name": "native_parseMime",
+    "descriptor": "(Ljava/lang/String;)Lru/yandex/speechkit/SoundInfo;",
+    "access": "private static native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/NetworkReachabilityHelper;",
+    "name": "native_Destroy",
+    "descriptor": "(J)V",
+    "access": "public native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/NetworkReachabilityHelper;",
+    "name": "native_ReachabilityChanged",
+    "descriptor": "(J Z Ljava/lang/String;)V",
+    "access": "public native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/SoundLoggerJniImpl;",
+    "name": "native_send",
+    "descriptor": "(I I I Ljava/nio/ByteBuffer; Ljava/lang/String; J)Ljava/lang/String;",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/SoundLoggerJniImpl;",
+    "name": "native_setSettings",
+    "descriptor": "(Ljava/lang/String; J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/SoundLoggerJniImpl;",
+    "name": "native_setSubThresholdSendRate",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/TCPConnection;",
+    "name": "call_onConnectionDataReceived",
+    "descriptor": "(J [B I)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/TCPConnection;",
+    "name": "call_onConnectionDataSent",
+    "descriptor": "(J J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/TCPConnection;",
+    "name": "call_onConnectionError",
+    "descriptor": "(J Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/TCPConnection;",
+    "name": "call_onConnectionEstablished",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/TCPConnection;",
+    "name": "call_onConnectionFinished",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/TCPConnection;",
+    "name": "native_Destroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/TCPConnection;",
+    "name": "native_releaseData",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/Timings;",
+    "name": "native_addEvent",
+    "descriptor": "(Ljava/lang/String; Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/Timings;",
+    "name": "native_createFlow",
+    "descriptor": "(Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/Timings;",
+    "name": "native_deleteFlow",
+    "descriptor": "(Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "_close",
+    "descriptor": "()V",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "_exec_utf8",
+    "descriptor": "([B)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "_open_utf8",
+    "descriptor": "([B I)V",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "backup",
+    "descriptor": "([B [B Lorg/sqlite/core/DB$ProgressObserver;)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "bind_blob",
+    "descriptor": "(J I [B)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "bind_double",
+    "descriptor": "(J I D)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "bind_int",
+    "descriptor": "(J I I)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "bind_long",
+    "descriptor": "(J I J)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "bind_null",
+    "descriptor": "(J I)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "bind_parameter_count",
+    "descriptor": "(J)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "bind_text_utf8",
+    "descriptor": "(J I [B)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "busy_timeout",
+    "descriptor": "(I)V",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "changes",
+    "descriptor": "()I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "clear_bindings",
+    "descriptor": "(J)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "column_blob",
+    "descriptor": "(J I)[B",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "column_count",
+    "descriptor": "(J)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "column_decltype_utf8",
+    "descriptor": "(J I)Ljava/nio/ByteBuffer;",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "column_double",
+    "descriptor": "(J I)D",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "column_int",
+    "descriptor": "(J I)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "column_long",
+    "descriptor": "(J I)J",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "column_metadata",
+    "descriptor": "(J)[[Z",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "column_name_utf8",
+    "descriptor": "(J I)Ljava/nio/ByteBuffer;",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "column_table_name_utf8",
+    "descriptor": "(J I)Ljava/nio/ByteBuffer;",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "column_text_utf8",
+    "descriptor": "(J I)Ljava/nio/ByteBuffer;",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "column_type",
+    "descriptor": "(J I)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "enable_load_extension",
+    "descriptor": "(Z)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "errmsg_utf8",
+    "descriptor": "()Ljava/nio/ByteBuffer;",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "finalize",
+    "descriptor": "(J)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "free_functions",
+    "descriptor": "()V",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "interrupt",
+    "descriptor": "()V",
+    "access": "public native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "libversion_utf8",
+    "descriptor": "()Ljava/nio/ByteBuffer;",
+    "access": "public native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "limit",
+    "descriptor": "(I I)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "prepare_utf8",
+    "descriptor": "([B)J",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "reset",
+    "descriptor": "(J)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "restore",
+    "descriptor": "([B [B Lorg/sqlite/core/DB$ProgressObserver;)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "shared_cache",
+    "descriptor": "(Z)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "step",
+    "descriptor": "(J)I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/sqlite/core/NativeDB;",
+    "name": "total_changes",
+    "descriptor": "()I",
+    "access": "public synchronized native"
+  },
+  {
+    "class": "Lorg/webrtc/VideoTrack;",
+    "name": "nativeAddSink",
+    "descriptor": "(J J)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/VideoTrack;",
+    "name": "nativeFreeSink",
+    "descriptor": "(J)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/VideoTrack;",
+    "name": "nativeRemoveSink",
+    "descriptor": "(J J)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/VideoTrack;",
+    "name": "nativeWrapSink",
+    "descriptor": "(Lorg/webrtc/VideoSink;)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/audio/JavaAudioDeviceModule;",
+    "name": "nativeCreateAudioDeviceModule",
+    "descriptor": "(Landroid/content/Context; Landroid/media/AudioManager; Lorg/webrtc/audio/WebRtcAudioRecord; Lorg/webrtc/audio/WebRtcAudioTrack; I I Z Z)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/EchoCancellingAudioSource;",
+    "name": "native_AppendCancellationBuffer",
+    "descriptor": "(J I I I Ljava/nio/ByteBuffer;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/EchoCancellingAudioSource;",
+    "name": "native_Create",
+    "descriptor": "(J)J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/EchoCancellingAudioSource;",
+    "name": "native_Destroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/EchoCancellingAudioSource;",
+    "name": "native_Subscribe",
+    "descriptor": "(J J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/EchoCancellingAudioSource;",
+    "name": "native_Unsubsribe",
+    "descriptor": "(J J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/AudioPlayerJniAdapter;",
+    "name": "native_AudioPlayerCreate",
+    "descriptor": "()J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/AudioPlayerJniAdapter;",
+    "name": "native_AudioPlayerDestroy",
+    "descriptor": "(J)J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/AudioSourceJniAdapter;",
+    "name": "native_AudioSourceCreate",
+    "descriptor": "(I I I I)J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/AudioSourceJniAdapter;",
+    "name": "native_AudioSourceDestroy",
+    "descriptor": "(J)J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;",
+    "name": "native_destroyHandle",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;",
+    "name": "native_onBufferUnderrun",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;",
+    "name": "native_onPlayerError",
+    "descriptor": "(J I Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;",
+    "name": "native_onPlayingBegin",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;",
+    "name": "native_onPlayingData",
+    "descriptor": "(J Ljava/nio/ByteBuffer; Ljava/lang/String; I I I)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;",
+    "name": "native_onPlayingDone",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;",
+    "name": "native_onPlayingPaused",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;",
+    "name": "native_onPlayingResumed",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/JavaToNativeAudioSourceListenerAdapter;",
+    "name": "native_Destroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/JavaToNativeAudioSourceListenerAdapter;",
+    "name": "native_onAudioSourceData",
+    "descriptor": "(J Ljava/nio/ByteBuffer;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/JavaToNativeAudioSourceListenerAdapter;",
+    "name": "native_onAudioSourceError",
+    "descriptor": "(J I Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/JavaToNativeAudioSourceListenerAdapter;",
+    "name": "native_onAudioSourceStarted",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/JavaToNativeAudioSourceListenerAdapter;",
+    "name": "native_onAudioSourceStopped",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/NativeToJavaAudioSourceListenerAdapter;",
+    "name": "native_Create",
+    "descriptor": "()J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/NativeToJavaAudioSourceListenerAdapter;",
+    "name": "native_Destroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/OggOpusDecoder;",
+    "name": "native_create",
+    "descriptor": "()J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/OggOpusDecoder;",
+    "name": "native_decodeData",
+    "descriptor": "(Ljava/nio/ByteBuffer; J)Lru/yandex/speechkit/SoundBuffer;",
+    "access": "private static native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/OggOpusDecoder;",
+    "name": "native_destroy",
+    "descriptor": "(J)J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/OggOpusEncoder;",
+    "name": "native_create",
+    "descriptor": "(I I I I I)J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/OggOpusEncoder;",
+    "name": "native_destroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/OggOpusEncoder;",
+    "name": "native_encodeData",
+    "descriptor": "(Ljava/nio/ByteBuffer; J)Lru/yandex/speechkit/SoundBuffer;",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/OggOpusEncoder;",
+    "name": "native_getStreamHeader",
+    "descriptor": "(J)Lru/yandex/speechkit/SoundBuffer;",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/OggOpusEncoder;",
+    "name": "native_init",
+    "descriptor": "(J)Lru/yandex/speechkit/Error;",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/PhraseSpotterJniImpl;",
+    "name": "native_Create",
+    "descriptor": "(J J Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; I I J J Z Z)J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/PhraseSpotterJniImpl;",
+    "name": "native_Destroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/PhraseSpotterJniImpl;",
+    "name": "native_Prepare",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/PhraseSpotterJniImpl;",
+    "name": "native_Start",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/PhraseSpotterJniImpl;",
+    "name": "native_Stop",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/PhraseSpotterListenerJniAdapter;",
+    "name": "native_listenerBindingCreate",
+    "descriptor": "()J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/PhraseSpotterListenerJniAdapter;",
+    "name": "native_listenerBindingDestroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/RecognizerJniImpl;",
+    "name": "native_Cancel",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/RecognizerJniImpl;",
+    "name": "native_Destroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/RecognizerJniImpl;",
+    "name": "native_Prepare",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/RecognizerJniImpl;",
+    "name": "native_StartRecording",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/RecognizerJniImpl;",
+    "name": "native_StopRecording",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/RecognizerJniImpl;",
+    "name": "native_Create",
+    "descriptor": "(J J Ljava/lang/String; Ljava/lang/String; Z Z J J J Ljava/lang/String; I I Z Z J Z Z Z Ljava/lang/String; F J Z Z Z Ljava/lang/String; Ljava/lang/String; J Z Z Ljava/lang/String;)J",
+    "access": "public native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/RecognizerListenerJniAdapter;",
+    "name": "native_ListenerBindingCreate",
+    "descriptor": "()J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/RecognizerListenerJniAdapter;",
+    "name": "native_ListenerBindingDestroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/SoundLoggerListenerJniAdapter;",
+    "name": "native_createHandle",
+    "descriptor": "()J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/SoundLoggerListenerJniAdapter;",
+    "name": "native_destroyHandle",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/UniProxyClientJniImpl;",
+    "name": "native_closeStream",
+    "descriptor": "(J I Lru/yandex/speechkit/internal/UniProxyStreamControl$Reason;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/UniProxyClientJniImpl;",
+    "name": "native_create",
+    "descriptor": "(J Ljava/lang/String; Ljava/lang/String; J J)J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/UniProxyClientJniImpl;",
+    "name": "native_deleteStream",
+    "descriptor": "(J I)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/UniProxyClientJniImpl;",
+    "name": "native_destroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/UniProxyClientJniImpl;",
+    "name": "native_openWriteStream",
+    "descriptor": "(J Ljava/lang/String; Ljava/lang/String;)I",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/UniProxyClientJniImpl;",
+    "name": "native_sendEvent",
+    "descriptor": "(J Ljava/lang/String; Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/UniProxyClientJniImpl;",
+    "name": "native_start",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/UniProxyClientJniImpl;",
+    "name": "native_stop",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/UniProxyClientJniImpl;",
+    "name": "native_writeStream",
+    "descriptor": "(J I [B)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/UniProxyClientListenerJniAdapter;",
+    "name": "native_listenerBindingCreate",
+    "descriptor": "()J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/UniProxyClientListenerJniAdapter;",
+    "name": "native_listenerBindingDestroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VocalizerJniImpl;",
+    "name": "native_Cancel",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VocalizerJniImpl;",
+    "name": "native_Create",
+    "descriptor": "(J Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; F Ljava/lang/String; Z Z Ljava/lang/String; J J Ljava/lang/String; Ljava/lang/String; J)J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VocalizerJniImpl;",
+    "name": "native_Destroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VocalizerJniImpl;",
+    "name": "native_Pause",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VocalizerJniImpl;",
+    "name": "native_Play",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VocalizerJniImpl;",
+    "name": "native_Prepare",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VocalizerJniImpl;",
+    "name": "native_Synthesize",
+    "descriptor": "(J Ljava/lang/String; I Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VocalizerListenerJniAdapter;",
+    "name": "native_ListenerBindingCreate",
+    "descriptor": "()J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VocalizerListenerJniAdapter;",
+    "name": "native_ListenerBindingDestroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VoiceDialogJniImpl;",
+    "name": "native_cancel",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VoiceDialogJniImpl;",
+    "name": "native_create",
+    "descriptor": "(J J Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; J J J Z Z Z Ljava/lang/String; J J J J J F Ljava/lang/String; Ljava/lang/String; I Ljava/lang/String; I I J J J J J J J Z Z Z [Ljava/lang/Object; [Ljava/lang/Object; Ljava/lang/String; Ljava/lang/String; Z J Z Z Z Z Ljava/lang/String; J J Z Ljava/lang/String; I J Ljava/lang/String; J)J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VoiceDialogJniImpl;",
+    "name": "native_destroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VoiceDialogJniImpl;",
+    "name": "native_sendEvent",
+    "descriptor": "(J Ljava/lang/String; Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VoiceDialogJniImpl;",
+    "name": "native_startConnection",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VoiceDialogJniImpl;",
+    "name": "native_startPhraseSpotter",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VoiceDialogJniImpl;",
+    "name": "native_startVinsRequest",
+    "descriptor": "(J Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VoiceDialogJniImpl;",
+    "name": "native_startVoiceInput",
+    "descriptor": "(J Ljava/lang/String; Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VoiceDialogJniImpl;",
+    "name": "native_stopConnection",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VoiceDialogJniImpl;",
+    "name": "native_stopRecognition",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VoiceDialogListenerJniAdapter;",
+    "name": "native_listenerBindingCreate",
+    "descriptor": "()J",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/VoiceDialogListenerJniAdapter;",
+    "name": "native_listenerBindingDestroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/WebSocket;",
+    "name": "call_onByteMessageReceived",
+    "descriptor": "(J [B)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/WebSocket;",
+    "name": "call_onConnectionClosed",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/WebSocket;",
+    "name": "call_onConnectionOpened",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/WebSocket;",
+    "name": "call_onConnectionStateChanged",
+    "descriptor": "(J Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/WebSocket;",
+    "name": "call_onDestroy",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/WebSocket;",
+    "name": "call_onFailure",
+    "descriptor": "(J I Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/WebSocket;",
+    "name": "call_onPongMessageReceived",
+    "descriptor": "(J)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lru/yandex/speechkit/internal/WebSocket;",
+    "name": "call_onTextMessageReceived",
+    "descriptor": "(J Ljava/lang/String;)V",
+    "access": "private native"
+  },
+  {
+    "class": "Lorg/webrtc/LibvpxVp8Decoder;",
+    "name": "nativeCreateDecoder",
+    "descriptor": "()J",
+    "access": "public static native"
+  },
+  {
+    "class": "Lorg/webrtc/LibvpxVp8Encoder;",
+    "name": "nativeCreateEncoder",
+    "descriptor": "()J",
+    "access": "public static native"
+  },
+  {
+    "class": "Lorg/webrtc/LibvpxVp9Decoder;",
+    "name": "nativeCreateDecoder",
+    "descriptor": "()J",
+    "access": "public static native"
+  },
+  {
+    "class": "Lorg/webrtc/LibvpxVp9Decoder;",
+    "name": "nativeIsSupported",
+    "descriptor": "()Z",
+    "access": "public static native"
+  },
+  {
+    "class": "Lorg/webrtc/LibvpxVp9Encoder;",
+    "name": "nativeCreateEncoder",
+    "descriptor": "()J",
+    "access": "public static native"
+  },
+  {
+    "class": "Lorg/webrtc/LibvpxVp9Encoder;",
+    "name": "nativeIsSupported",
+    "descriptor": "()Z",
+    "access": "public static native"
+  },
+  {
+    "class": "Lorg/webrtc/NV12Buffer;",
+    "name": "nativeCropAndScale",
+    "descriptor": "(I I I I I I Ljava/nio/ByteBuffer; I I I I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/NV21Buffer;",
+    "name": "nativeCropAndScale",
+    "descriptor": "(I I I I I I [B I I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I)V",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/VideoDecoderFallback;",
+    "name": "nativeCreateDecoder",
+    "descriptor": "(Lorg/webrtc/VideoDecoder; Lorg/webrtc/VideoDecoder;)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/VideoEncoderFallback;",
+    "name": "nativeCreateEncoder",
+    "descriptor": "(Lorg/webrtc/VideoEncoder; Lorg/webrtc/VideoEncoder;)J",
+    "access": "private static native"
+  },
+  {
+    "class": "Lorg/webrtc/JavaI420Buffer;",
+    "name": "nativeCropAndScaleI420",
+    "descriptor": "(Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I I I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I)V",
+    "access": "private static native"
+  }
+]

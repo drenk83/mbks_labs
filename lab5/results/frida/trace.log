@@ -1,0 +1,33 @@
+     ____
+    / _  |   Frida 17.4.0 - A world-class dynamic instrumentation toolkit
+   | (_| |
+    > _  |   Commands:
+   /_/ |_|       help      -> Displays the help system
+   . . . .       object?   -> Display information about 'object'
+   . . . .       exit/quit -> Exit
+   . . . .
+   . . . .   More info at https://frida.re/docs/home/
+   . . . .
+   . . . .   Connected to Android Emulator 5554 (id=emulator-5554)
+Attaching...
+message: {'type': 'send', 'payload': {'event': 'script-loaded'}} data: None
+[Android Emulator 5554::PID::9066 ]-> message: {'type': 'send', 'payload': {'event': 'observer', 't': 1793461597287, 'ok': True}} data: None
+message: {'type': 'send', 'payload': {'event': 'main', 't': 1793461597369, 'javaAvailable': True, 'reason': ''}} data: None
+message: {'type': 'send', 'payload': {'event': 'java-ready', 't': 1793461597382}} data: None
+message: {'type': 'send', 'payload': {'event': 'stage', 't': 1793461597382, 'name': 'intents'}} data: None
+message: {'type': 'send', 'payload': {'event': 'stage', 't': 1793461597437, 'name': 'modules'}} data: None
+message: {'type': 'send', 'payload': {'event': 'snapshot', 't': 1793461597438, 'reason': 'at hooks-installed', 'watched': 0}} data: None
+message: {'type': 'send', 'payload': {'event': 'stage', 't': 1793461597438, 'name': 'exports'}} data: None
+message: {'type': 'send', 'payload': {'event': 'hooks-installed', 't': 1793461597438}} data: None
+message: {'type': 'send', 'payload': {'event': 'activity.onCreate', 't': 1793461598070, 'class': 'com.yandex.mail.eml.EmlActivity', 'intent': 'action=android.intent.action.VIEW type=message/rfc822 data=file:///data/data/ru.yandex.mail/files/lab5-external.eml text=', 'bundleNull': True}} data: None
+message: {'type': 'send', 'payload': {'event': 'openInputStream', 't': 1793461598275, 'uri': 'file:///data/data/ru.yandex.mail/files/lab5-external.eml'}} data: None
+message: {'type': 'send', 'payload': {'event': 'activity.onCreate', 't': 1793461601209, 'class': 'com.yandex.mail360.camera.doc.scanner.DocScannerCameraActivity', 'intent': 'action=null type=null data=null text=', 'bundleNull': True}} data: None
+message: {'type': 'send', 'payload': {'event': 'snapshot', 't': 1793461601221, 'reason': 'after DocScannerCameraActivity.onCreate', 'watched': 0}} data: None
+message: {'type': 'send', 'payload': {'event': 'snapshot', 't': 1793461602723, 'reason': '1.5s after DocScannerCameraActivity.onCreate', 'watched': 0}} data: None
+
+Thank you for using Frida!
+Fatal Python error: _enter_buffered_busy: could not acquire lock for <_io.BufferedReader name='<stdin>'> at interpreter shutdown, possibly due to daemon threads
+Python runtime state: finalizing (tstate=0x000055ff71218ab0)
+
+Current thread 0x00007fa1b2fbdb80 (most recent call first):
+  <no Python frame>

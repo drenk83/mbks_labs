@@ -1,0 +1,2934 @@
+{
+  "package": "ru.yandex.mail",
+  "version_name": "8.81.2",
+  "version_code": "105397",
+  "min_sdk": "26",
+  "target_sdk": "33",
+  "max_sdk": null,
+  "permissions": [
+    "android.permission.ACCESS_MEDIA_LOCATION",
+    "android.permission.ACCESS_NETWORK_STATE",
+    "android.permission.ACCESS_WIFI_STATE",
+    "android.permission.AUTHENTICATE_ACCOUNTS",
+    "android.permission.BLUETOOTH_CONNECT",
+    "android.permission.CALL_PHONE",
+    "android.permission.CAMERA",
+    "android.permission.CHANGE_WIFI_STATE",
+    "android.permission.DOWNLOAD_WITHOUT_NOTIFICATION",
+    "android.permission.FLASHLIGHT",
+    "android.permission.FOREGROUND_SERVICE",
+    "android.permission.GET_ACCOUNTS",
+    "android.permission.INTERNET",
+    "android.permission.MANAGE_ACCOUNTS",
+    "android.permission.MODIFY_AUDIO_SETTINGS",
+    "android.permission.POST_NOTIFICATIONS",
+    "android.permission.READ_APP_BADGE",
+    "android.permission.READ_CALENDAR",
+    "android.permission.READ_CONTACTS",
+    "android.permission.READ_EXTERNAL_STORAGE",
+    "android.permission.READ_MEDIA_IMAGES",
+    "android.permission.READ_MEDIA_VIDEO",
+    "android.permission.READ_PHONE_STATE",
+    "android.permission.READ_SYNC_SETTINGS",
+    "android.permission.READ_SYNC_STATS",
+    "android.permission.RECEIVE_BOOT_COMPLETED",
+    "android.permission.RECORD_AUDIO",
+    "android.permission.REORDER_TASKS",
+    "android.permission.REQUEST_INSTALL_PACKAGES",
+    "android.permission.SCHEDULE_EXACT_ALARM",
+    "android.permission.SEND_DOWNLOAD_COMPLETED_INTENTS",
+    "android.permission.USE_BIOMETRIC",
+    "android.permission.USE_CREDENTIALS",
+    "android.permission.USE_FINGERPRINT",
+    "android.permission.VIBRATE",
+    "android.permission.WAKE_LOCK",
+    "android.permission.WRITE_CALENDAR",
+    "android.permission.WRITE_EXTERNAL_STORAGE",
+    "android.permission.WRITE_SYNC_SETTINGS",
+    "com.anddoes.launcher.permission.UPDATE_COUNT",
+    "com.android.vending.BILLING",
+    "com.google.android.c2dm.permission.RECEIVE",
+    "com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE",
+    "com.google.android.gms.permission.AD_ID",
+    "com.htc.launcher.permission.READ_SETTINGS",
+    "com.htc.launcher.permission.UPDATE_SHORTCUT",
+    "com.huawei.android.launcher.permission.CHANGE_BADGE",
+    "com.huawei.android.launcher.permission.READ_SETTINGS",
+    "com.huawei.android.launcher.permission.WRITE_SETTINGS",
+    "com.majeur.launcher.permission.UPDATE_BADGE",
+    "com.oppo.launcher.permission.READ_SETTINGS",
+    "com.oppo.launcher.permission.WRITE_SETTINGS",
+    "com.sec.android.provider.badge.permission.READ",
+    "com.sec.android.provider.badge.permission.WRITE",
+    "com.sonyericsson.home.permission.BROADCAST_BADGE",
+    "com.sonymobile.home.permission.PROVIDER_INSERT_BADGE",
+    "com.yandex.messaging.permission.ONLINE_CHECK",
+    "com.yandex.permission.AM_COMMUNICATION",
+    "com.yandex.permission.READ_CREDENTIALS",
+    "me.everything.badger.permission.BADGE_COUNT_READ",
+    "me.everything.badger.permission.BADGE_COUNT_WRITE",
+    "ru.yandex.mail.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+    "ru.yandex.mail.permission.C2D_MESSAGE"
+  ],
+  "declared_permissions": [
+    {
+      "name": "ru.yandex.mail.permission.C2D_MESSAGE",
+      "protectionLevel": "0x00000002"
+    },
+    {
+      "name": "com.yandex.messaging.permission.ONLINE_CHECK",
+      "protectionLevel": "0x00000002"
+    },
+    {
+      "name": "com.yandex.permission.READ_CREDENTIALS",
+      "protectionLevel": "0x00000002"
+    },
+    {
+      "name": "ru.yandex.mail.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION",
+      "protectionLevel": "0x00000002"
+    }
+  ],
+  "application": {
+    "debuggable": null,
+    "allowBackup": "false",
+    "usesCleartextTraffic": null,
+    "networkSecurityConfig": null,
+    "extractNativeLibs": "false",
+    "name": "com.yandex.mail.MailApplication",
+    "testOnly": null
+  },
+  "activities": [
+    {
+      "name": "com.yandex.mail.main.MailActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.startupwizard.StartWizardActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.notes.library.editor.NoteEditorActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.notes.library.search.SearchNotesActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.eml.EmlActivity",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "content"
+            },
+            {
+              "host": "*"
+            },
+            {
+              "mimeType": "message/rfc822"
+            },
+            {
+              "mimeType": "application/eml"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT",
+            "android.intent.category.BROWSABLE"
+          ],
+          "data": [
+            {
+              "scheme": "file"
+            },
+            {
+              "scheme": "content"
+            },
+            {
+              "mimeType": "*/*"
+            },
+            {
+              "host": "*"
+            },
+            {
+              "pathPattern": ".*\\.eml"
+            },
+            {
+              "pathPattern": ".*\\..*\\.eml"
+            },
+            {
+              "pathPattern": ".*\\..*\\..*\\.eml"
+            },
+            {
+              "pathPattern": ".*\\..*\\..*\\..*\\.eml"
+            },
+            {
+              "pathPattern": ".*\\..*\\..*\\..*\\..*\\.eml"
+            },
+            {
+              "pathPattern": ".*\\..*\\..*\\..*\\..*\\..*\\.eml"
+            },
+            {
+              "pathPattern": ".*\\..*\\..*\\..*\\..*\\..*\\..*\\.eml"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.disk.AttachFromDiskActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.compose.ComposeActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.feedback.FeedbackActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.feedback.SimpleSupportActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.settings.SettingsActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.settings.folders_labels.FoldersLabelsActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.abook.AddressSelectorActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.search.SearchActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.GalleryActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.WebViewActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.ManageAccountWebViewActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.SubscriptionsWebViewActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.calendar.CalendarWebviewActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.freeze.FreezedAccountWebviewActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.calendar_offline.OfflineCalendarActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.am.ExternalLoginActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.messenger.MessengerActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.widget.configuration.MailWidgetConfigureActivity",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.appwidget.action.APPWIDGET_CONFIGURE"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.abook.ContactDetailsActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.edit_docviewer.EditDocWebViewActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.telemost.TelemostLoginActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.telemost.TelemostActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.beauty_mail.BeautyMailActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.collectors.CollectorsActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.backup.BackupActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.filters.FiltersActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.stories.StoriesActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.pin.AddOrChangePinActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.pin.EnterPinActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "ru.yandex.disk.mail360.promozavr.PromozavrOnboardingActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.onboarding.Mail360OnboardingActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.inbox_gpt.onboarding.InboxGPTOnboardingActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.promozavr_debug.PromozavrStatusActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail360.purchase.ui.subscriptions.DiskSpaceActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail360.purchase.ui.common.BuySubscriptionActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail360.purchase.ui.webstore.WebStoreActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail360.purchase.ui.onboarding.LegacyInApp360OnboardingActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail360.purchase.ui.onboarding.InApp360OnboardingActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail360.camera.doc.scanner.DocScannerCameraActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail360.camera.doc.scanner.DocScannerResultActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail360.webview.activity.SpecWebviewActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.telemost.feedback.FeedbackActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.telemost.onboarding.OnboardingActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.attachments.activity.ChooserActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.eye.camera.kit.EyeCameraActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.video.activity.MessengerVideoPlayerActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.activity.MessengerActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.ui.auth.AuthorizeActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.activity.calls.MessengerCallConfirmActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.activity.calls.MessengerCallActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.activity.calls.MessengerCallFeedbackActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.ui.imageviewer.ImageViewerActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.ui.createpoll.CreatePollActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.ui.pollinfo.PollInfoActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.ui.polloptioninfo.PollOptionInfoActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.ui.auth.ProxyPassportActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.activity.MessengerNotificationActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "com.yandex.messenger.Chat.NOTIFICATION_CLICK"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.warm.WarmUpWebViewActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.router.LoginRouterActivity",
+      "exported": "true",
+      "permission": "com.yandex.permission.READ_CREDENTIALS",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "com.yandex.intent.ADD_ACCOUNT"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": []
+        },
+        {
+          "actions": [
+            "com.yandex.passport.ACTION_SYSTEM_ADD_ACCOUNT"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.router.GlobalRouterActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.sloth.menu.UserMenuActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.domik.DomikActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.webview.WebViewActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.browser.SocialBrowserActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.links.LinksHandlingActivity",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT",
+            "android.intent.category.BROWSABLE"
+          ],
+          "data": [
+            {
+              "scheme": "http"
+            },
+            {
+              "scheme": "https"
+            },
+            {
+              "host": "passport.yandex.ru"
+            },
+            {
+              "host": "passport-rc.yandex.ru"
+            },
+            {
+              "host": "passport.yandex-team.ru"
+            },
+            {
+              "pathPrefix": "/am/push/qrsecure"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.browser.SocialBrowserDataActivity",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT",
+            "android.intent.category.BROWSABLE"
+          ],
+          "data": [
+            {
+              "scheme": "ru.yandex.mail.passport",
+              "host": "social"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT",
+            "android.intent.category.BROWSABLE"
+          ],
+          "data": [
+            {
+              "scheme": "ru.yandex.mail.passport",
+              "host": "n2b_auth"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.authsdk.AuthSdkActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.AutoLoginActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.autologin.AutoLoginRetryActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.social.mail.MailPasswordLoginActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.social.gimap.MailGIMAPActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.SocialApplicationBindActivity",
+      "exported": "true",
+      "permission": "com.yandex.permission.READ_CREDENTIALS",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.SocialBindActivity",
+      "exported": "true",
+      "permission": "com.yandex.permission.READ_CREDENTIALS",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.social.VkNativeSocialAuthActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "com.yandex.passport.action.NATIVE_SOCIAL_VKONTAKTE_AUTH"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.social.GoogleNativeSocialAuthActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "com.yandex.passport.action.NATIVE_SOCIAL_GOOGLE_AUTH"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": []
+        },
+        {
+          "actions": [
+            "com.yandex.passport.action.NATIVE_MAILISH_GOOGLE_AUTH"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.AccountNotAuthorizedActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.authwithtrack.SendAuthToTrackActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "com.yandex.passport.action.SEND_AUTH_TO_TRACK"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.authbytrack.AuthByTrackActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.tv.AuthInWebViewActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.account_upgrade.AccountUpgraderActivity",
+      "exported": "true",
+      "permission": "com.yandex.permission.READ_CREDENTIALS",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.YxAuthActivity",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT",
+            "android.intent.category.BROWSABLE"
+          ],
+          "data": [
+            {
+              "scheme": "https",
+              "host": "yx7a54f58d4ebe431caaaa53895522bf2d.oauth.yandex.ru",
+              "path": "/magic-link/ru.yandex.mail/finish"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.base.BottomSheetActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.bouncer.BouncerActivity",
+      "exported": "true",
+      "permission": "com.yandex.permission.READ_CREDENTIALS",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.challenge.logout.LogoutActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.challenge.delete.DeleteForeverActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.challenge.changecurrent.SetCurrentAccountActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.sloth.StandaloneSlothActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.sloth.authsdk.AuthSdkSlothActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.sloth.webcard.WebCardSlothActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.ui.challenge.logout.bottomsheet.LogoutBottomSheetActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.util.StarterActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "androidx.compose.ui.tooling.PreviewActivity",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.videoeditor.VideoEditorActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mobile.ads.common.AdActivity",
+      "exported": null,
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "androidx.credentials.playservices.HiddenActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.google.android.gms.auth.api.signin.internal.SignInHubActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.google.android.gms.common.api.GoogleApiActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "androidx.test.core.app.InstrumentationActivityInvoker$BootstrapActivity",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [],
+          "categories": [
+            "android.intent.category.LAUNCHER"
+          ],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "androidx.test.core.app.InstrumentationActivityInvoker$EmptyActivity",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [],
+          "categories": [
+            "android.intent.category.LAUNCHER"
+          ],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "androidx.test.core.app.InstrumentationActivityInvoker$EmptyFloatingActivity",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [],
+          "categories": [
+            "android.intent.category.LAUNCHER"
+          ],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "io.appmetrica.analytics.push.internal.activity.AppMetricaPushDummyActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "io.appmetrica.analytics.push.action.NOTIFICATION_ACTION"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "ru.yandex.speechkit.gui.RecognizerActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "ru.yandex.speechkit.action.voice_recognition"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.android.billingclient.api.ProxyBillingActivity",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    }
+  ],
+  "activity_aliases": [
+    {
+      "name": "ru.yandex.mail.ui.LoginActivity_ny",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.MAIN"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT",
+            "android.intent.category.LAUNCHER"
+          ],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "ru.yandex.mail.ui.LoginActivity",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.MAIN"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT",
+            "android.intent.category.LAUNCHER"
+          ],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "ru.yandex.mail.ui.LoginActivity_common",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [],
+          "categories": [
+            "android.intent.category.APP_EMAIL"
+          ],
+          "data": []
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT",
+            "android.intent.category.BROWSABLE"
+          ],
+          "data": [
+            {
+              "scheme": "@7F151000"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "@7F151000",
+              "host": "@7F1507D8"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "@7F151000",
+              "host": "@7F150E17"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "@7F151000",
+              "host": "@7F150454"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "@7F151000",
+              "host": "@7F1507B2"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "@7F151000",
+              "host": "@7F15012D"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "@7F151000",
+              "host": "@7F15016B"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "@7F151000",
+              "host": "@7F1504FB"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "@7F151000",
+              "host": "@7F150DDC"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "@7F151000",
+              "host": "@7F1503A4"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW",
+            "android.intent.action.SENDTO"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT",
+            "android.intent.category.BROWSABLE"
+          ],
+          "data": [
+            {
+              "scheme": "mailto"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.SEND"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "mimeType": "*/*"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.SEND_MULTIPLE"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "mimeType": "*/*"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "com.yandex.passport.ACTION_LOGIN_RESULT"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": []
+        },
+        {
+          "actions": [
+            "com.yandex.messenger.Chat.OPEN"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": []
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT",
+            "android.intent.category.BROWSABLE"
+          ],
+          "data": [
+            {
+              "scheme": "http"
+            },
+            {
+              "scheme": "https"
+            },
+            {
+              "host": "yandex.ru",
+              "pathPrefix": "/chat"
+            },
+            {
+              "host": "yandex.ru",
+              "pathPrefix": "/messenger"
+            },
+            {
+              "host": "ya.ru",
+              "pathPrefix": "/m/"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT",
+            "android.intent.category.BROWSABLE"
+          ],
+          "data": [
+            {
+              "scheme": "messenger"
+            },
+            {
+              "host": "chat"
+            },
+            {
+              "host": "newyear"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.YandexTeamLinkActivity",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.BROWSABLE",
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "https",
+              "host": "telemost.yandex-team.ru",
+              "pathPattern": "/j/.*"
+            }
+          ]
+        },
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.BROWSABLE",
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "telemost",
+              "host": "yandex-team"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.messaging.ChatOpenAlias",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "com.yandex.messenger.Chat.OPEN",
+            "com.yandex.messenger.ChatSummary.OPEN",
+            "com.yandex.messenger.Sharing.OPEN"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.QrWithoutQr",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.VIEW"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT",
+            "android.intent.category.BROWSABLE"
+          ],
+          "data": [
+            {
+              "scheme": "http"
+            },
+            {
+              "scheme": "https"
+            },
+            {
+              "host": "passport.yandex.ru"
+            },
+            {
+              "host": "passport-rc.yandex.ru"
+            },
+            {
+              "host": "passport.yandex-team.ru"
+            },
+            {
+              "pathPrefix": "/am/pssp/browser/account"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.AuthSdk",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "com.yandex.auth.action.YA_SDK_LOGIN"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": []
+        }
+      ]
+    }
+  ],
+  "services": [
+    {
+      "name": "androidx.work.impl.foreground.SystemForegroundService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.notifications.NotificationBarBroadcastService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "ru.yandex.mail.receiver.notification.delete",
+            "ru.yandex.mail.receiver.notification.message.read",
+            "ru.yandex.mail.receiver.notification.message.reply_calendar_invite",
+            "ru.yandex.mail.receiver.notification.message.archive_delete",
+            "ru.yandex.mail.receiver.notification.message.smart_reply"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.push.MailFirebaseMessagingService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "com.google.firebase.MESSAGING_EVENT"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.service.CacheTrimService",
+      "exported": "false",
+      "permission": "android.permission.BIND_JOB_SERVICE",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.movie_tickets.MovieTicketsService",
+      "exported": "false",
+      "permission": "android.permission.BIND_JOB_SERVICE",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.widget.MailWidgetListUpdateService",
+      "exported": null,
+      "permission": "android.permission.BIND_REMOTEVIEWS",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.calendar_sync.SyncService",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": ":calendar",
+      "intent_filters": [
+        {
+          "actions": [
+            "android.content.SyncAdapter"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.service.work.FlagsWorkerService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": ":flags",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.telemost.ConferenceService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.calls.MessengerCallService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.NotificationActionService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "com.yandex.messenger.Chat.DISMISS",
+            "com.yandex.messenger.ChatSummary.DISMISS"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.core.auth.AuthenticationService",
+      "exported": "true",
+      "permission": "com.yandex.permission.READ_CREDENTIALS",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "android.accounts.AccountAuthenticator",
+            "com.yandex.accounts.AccountAuthenticator"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.core.sync.SyncService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "android.content.SyncAdapter"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.push.PassportPushRegistrationService",
+      "exported": "false",
+      "permission": "android.permission.BIND_JOB_SERVICE",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.flags.experiments.FetchExperimentsService",
+      "exported": "false",
+      "permission": "android.permission.BIND_JOB_SERVICE",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.alice.reminders.notifications.RemindersService",
+      "exported": "false",
+      "permission": "android.permission.BIND_JOB_SERVICE",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.alice.reminders.sync.RemindersSynchronizationService",
+      "exported": "false",
+      "permission": "android.permission.BIND_JOB_SERVICE",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "androidx.credentials.playservices.CredentialProviderMetadataHolder",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.google.android.gms.auth.api.signin.RevocationBoundService",
+      "exported": "true",
+      "permission": "com.google.android.gms.auth.api.signin.permission.REVOCATION_NOTIFICATION",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.google.firebase.messaging.FirebaseMessagingService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "com.google.firebase.MESSAGING_EVENT"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.google.firebase.components.ComponentDiscoveryService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "io.appmetrica.analytics.internal.AppMetricaService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": ":AppMetrica",
+      "intent_filters": [
+        {
+          "actions": [
+            "io.appmetrica.analytics.IAppMetricaService"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "appmetrica"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.metrica.MetricaService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": ":Metrica",
+      "intent_filters": [
+        {
+          "actions": [
+            "com.yandex.metrica.IMetricaService"
+          ],
+          "categories": [
+            "android.intent.category.DEFAULT"
+          ],
+          "data": [
+            {
+              "scheme": "metrica"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "androidx.work.multiprocess.RemoteWorkManagerService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "androidx.work.impl.background.systemalarm.SystemAlarmService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "androidx.work.impl.background.systemjob.SystemJobService",
+      "exported": "true",
+      "permission": "android.permission.BIND_JOB_SERVICE",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "androidx.sharetarget.ChooserTargetServiceCompat",
+      "exported": "true",
+      "permission": "android.permission.BIND_CHOOSER_TARGET_SERVICE",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.service.chooser.ChooserTargetService"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "androidx.room.MultiInstanceInvalidationService",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.google.android.datatransport.runtime.backends.TransportBackendDiscovery",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.google.android.datatransport.runtime.scheduling.jobscheduling.JobInfoSchedulerService",
+      "exported": "false",
+      "permission": "android.permission.BIND_JOB_SERVICE",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "io.appmetrica.analytics.push.internal.service.PushJobService",
+      "exported": "false",
+      "permission": "android.permission.BIND_JOB_SERVICE",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "io.appmetrica.analytics.push.internal.service.PushService",
+      "exported": "false",
+      "permission": "android.permission.BIND_JOB_SERVICE",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    }
+  ],
+  "receivers": [
+    {
+      "name": "com.yandex.mail.receiver.DownloadNotificationClickReceiver",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.receiver.DeviceBootReceiver",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.BOOT_COMPLETED",
+            "android.intent.action.QUICKBOOT_POWERON"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.movie_tickets.MovieNotificationButtonsReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "ru.yandex.mail.ACTION_MOVIE_NOTIFICATION_DISMISS",
+            "ru.yandex.mail.ACTION_MOVIE_NOTIFICATION_CLICK",
+            "ru.yandex.mail.ACTION_MOVIE_NOTIFICATION_MAPS",
+            "ru.yandex.mail.ACTION_MOVIE_NOTIFICATION_SHARE_VIEW"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.LoginAccountsChangedReceiver",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "com.yandex.passport.client.ACCOUNT_REMOVED",
+            "com.yandex.passport.client.TOKEN_CHANGED",
+            "com.yandex.passport.client.ACCOUNT_ADDED"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.notifications.NotificationBarBroadcastReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "ru.yandex.mail.receiver.notification.create",
+            "ru.yandex.mail.receiver.notification.folder.delete",
+            "ru.yandex.mail.receiver.notification.tab.delete",
+            "ru.yandex.mail.receiver.notification.account.delete",
+            "ru.yandex.mail.receiver.notification.drop",
+            "ru.yandex.mail.receiver.notification.restore",
+            "ru.yandex.mail.receiver.notification.refresh"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.service.CacheTrimServiceStarterBroadcast",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.movie_tickets.MovieReminderBroadcast",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "ru.yandex.mail.ACTION_SHOW_REMINDER"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.abook.birthday_reminder.BirthdayReminderReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "ru.yandex.mail.ACTION_BIRTHDAY"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.compose.delay.DelayErrorReminderReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "ru.yandex.mail.ACTION_DELAY_ERROR"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.widget.MailWidgetProvider",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.appwidget.action.APPWIDGET_UPDATE",
+            "android.appwidget.action.APPWIDGET_DELETED"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.widget.AppUpdateBroadcastReceiver",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.MY_PACKAGE_REPLACED"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.mail.shortcut.LocaleChangedReceiver",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.LOCALE_CHANGED"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.telemost.ui.pip.PipActionReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.internal.authorized.chat.notifications.autocancel.CancelNotificationBroadcastReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.core.announcing.AccountsChangedReceiver",
+      "exported": "true",
+      "permission": "com.yandex.permission.READ_CREDENTIALS",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "android.accounts.LOGIN_ACCOUNTS_CHANGED",
+            "com.yandex.accounts.LOGIN_ACCOUNTS_CHANGED"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.core.announcing.PackageRemovedReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.PACKAGE_FULLY_REMOVED"
+          ],
+          "categories": [],
+          "data": [
+            {
+              "scheme": "package"
+            },
+            {
+              "scheme": "package"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.smsretriever.SmsRetrieverReceiver",
+      "exported": "true",
+      "permission": "com.google.android.gms.auth.api.phone.permission.SEND",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "com.google.android.gms.auth.api.phone.SMS_RETRIEVED"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.sso.announcing.SsoAnnouncingReceiver",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "com.yandex.passport.ACTION_SSO_ANNOUNCEMENT"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.passport.internal.push.NotificationDismissedReceiver",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": [
+        {
+          "actions": [
+            "com.yandex.passport.NOTIFICATION_DISMISS"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.alice.reminders.notifications.RemindersBroadcastReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.BOOT_COMPLETED",
+            "android.app.action.SCHEDULE_EXACT_ALARM_PERMISSION_STATE_CHANGED"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.yandex.alice.reminders.sync.timer.RemindersSynchronizationBroadcastReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.google.firebase.iid.FirebaseInstanceIdReceiver",
+      "exported": "true",
+      "permission": "com.google.android.c2dm.permission.SEND",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "com.google.android.c2dm.intent.RECEIVE"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "androidx.work.impl.utils.ForceStopRunnable$BroadcastReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryChargingProxy",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.ACTION_POWER_CONNECTED",
+            "android.intent.action.ACTION_POWER_DISCONNECTED"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "androidx.work.impl.background.systemalarm.ConstraintProxy$BatteryNotLowProxy",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.BATTERY_OKAY",
+            "android.intent.action.BATTERY_LOW"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "androidx.work.impl.background.systemalarm.ConstraintProxy$StorageNotLowProxy",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.DEVICE_STORAGE_LOW",
+            "android.intent.action.DEVICE_STORAGE_OK"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "androidx.work.impl.background.systemalarm.ConstraintProxy$NetworkStateProxy",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.net.conn.CONNECTIVITY_CHANGE"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "androidx.work.impl.background.systemalarm.RescheduleReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.intent.action.BOOT_COMPLETED",
+            "android.intent.action.TIME_SET",
+            "android.intent.action.TIMEZONE_CHANGED"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "androidx.work.impl.background.systemalarm.ConstraintProxyUpdateReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "androidx.work.impl.background.systemalarm.UpdateProxies"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "androidx.work.impl.diagnostics.DiagnosticsReceiver",
+      "exported": "true",
+      "permission": "android.permission.DUMP",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "androidx.work.diagnostics.REQUEST_DIAGNOSTICS"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "androidx.profileinstaller.ProfileInstallReceiver",
+      "exported": "true",
+      "permission": "android.permission.DUMP",
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "androidx.profileinstaller.action.INSTALL_PROFILE"
+          ],
+          "categories": [],
+          "data": []
+        },
+        {
+          "actions": [
+            "androidx.profileinstaller.action.SKIP_FILE"
+          ],
+          "categories": [],
+          "data": []
+        },
+        {
+          "actions": [
+            "androidx.profileinstaller.action.SAVE_PROFILE"
+          ],
+          "categories": [],
+          "data": []
+        },
+        {
+          "actions": [
+            "androidx.profileinstaller.action.BENCHMARK_OPERATION"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "com.google.android.datatransport.runtime.scheduling.jobscheduling.AlarmManagerSchedulerBroadcastReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "io.appmetrica.analytics.push.internal.receiver.AppMetricaPushBroadcastReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "io.appmetrica.analytics.push.action.NOTIFICATION_ACTION"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "io.appmetrica.analytics.push.internal.receiver.AppMetricaPushNotificationStatusChangeHandler",
+      "exported": "true",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "android.app.action.APP_BLOCK_STATE_CHANGED",
+            "android.app.action.NOTIFICATION_CHANNEL_BLOCK_STATE_CHANGED",
+            "android.app.action.NOTIFICATION_CHANNEL_GROUP_BLOCK_STATE_CHANGED"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    },
+    {
+      "name": "io.appmetrica.analytics.push.internal.receiver.TtlBroadcastReceiver",
+      "exported": "false",
+      "permission": null,
+      "authorities": null,
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": [
+        {
+          "actions": [
+            "io.appmetrica.analytics.push.action.EXPIRED_BY_TTL_ACTION"
+          ],
+          "categories": [],
+          "data": []
+        }
+      ]
+    }
+  ],
+  "providers": [
+    {
+      "name": "com.yandex.preinstallsatellite.appmetrica.AppMetricaContentProvider",
+      "exported": null,
+      "permission": null,
+      "authorities": "com.yandex.preinstallsatellite.appmetrica.provider",
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "androidx.startup.InitializationProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "ru.yandex.mail.androidx-startup",
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.provider.CrossProcessProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "ru.yandex.mail.cpp",
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.provider.CalendarContentProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "ru.yandex.mail.calendar",
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail.provider.suggestion.ContactsSuggestionProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "ru.yandex.mail.provider.contacts",
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "androidx.core.content.FileProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "ru.yandex.mail",
+      "grantUriPermissions": "true",
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mail360.camera.doc.scanner.DocScannerFilerProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "ru.yandex.mail_docScanner",
+      "grantUriPermissions": "true",
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.attachments.chooser.ChooserFileProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "ru.yandex.mail.chooser.fileprovider",
+      "grantUriPermissions": "true",
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.eye.camera.kit.util.FileProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "ru.yandex.mail.eye.camera.fileprovider",
+      "grantUriPermissions": "true",
+      "process": ":providersProcess",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.notes.library.editor.NotesAttachesProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "ru.yandex.mail.notes",
+      "grantUriPermissions": "true",
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.MessagingFileProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "ru.yandex.mail.messaging.fileprovider",
+      "grantUriPermissions": "true",
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.messaging.files.SharingFileProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "ru.yandex.mail.sharing.fileprovider",
+      "grantUriPermissions": "true",
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.provider.InternalProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "com.yandex.passport.internal.provider.ru.yandex.mail",
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.authsdk.AuthSdkProvider",
+      "exported": "true",
+      "permission": null,
+      "authorities": "com.yandex.passport.authsdk.provider.ru.yandex.mail",
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.core.sync.SyncProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "@7F150C51",
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.passport.internal.sso.SsoContentProvider",
+      "exported": "true",
+      "permission": null,
+      "authorities": "com.yandex.passport.internal.sso.ru.yandex.mail",
+      "grantUriPermissions": null,
+      "process": "@7F150C06",
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.mobile.ads.core.initializer.MobileAdsInitializeProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "ru.yandex.mail.MobileAdsInitializeProvider",
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.google.firebase.provider.FirebaseInitProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "ru.yandex.mail.firebaseinitprovider",
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    },
+    {
+      "name": "com.yandex.metrica.PreloadInfoContentProvider",
+      "exported": "true",
+      "permission": null,
+      "authorities": "ru.yandex.mail.appmetrica.preloadinfo.retail",
+      "grantUriPermissions": null,
+      "process": ":Metrica",
+      "intent_filters": []
+    },
+    {
+      "name": "com.squareup.picasso.PicassoProvider",
+      "exported": "false",
+      "permission": null,
+      "authorities": "ru.yandex.mail.com.squareup.picasso",
+      "grantUriPermissions": null,
+      "process": null,
+      "intent_filters": []
+    }
+  ],
+  "network_security_config_xml": "<network-security-config>\n  <debug-overrides>\n    <trust-anchors>\n      <certificates src=\"system\"/>\n      <certificates src=\"user\"/>\n    </trust-anchors>\n  </debug-overrides>\n  <base-config cleartextTrafficPermitted=\"true\"/>\n</network-security-config>\n"
+}

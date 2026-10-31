@@ -1,0 +1,21 @@
+     ____
+    / _  |   Frida 17.4.0 - A world-class dynamic instrumentation toolkit
+   | (_| |
+    > _  |   Commands:
+   /_/ |_|       help      -> Displays the help system
+   . . . .       object?   -> Display information about 'object'
+   . . . .       exit/quit -> Exit
+   . . . .
+   . . . .   More info at https://frida.re/docs/home/
+   . . . .
+   . . . .   Connected to Android Emulator 5554 (id=emulator-5554)
+Attaching...
+message:[Android Emulator 5554::PID::4558 ]->  {'type': 'send', 'payload': {'event': 'script-loaded'}} data: None
+message: {'type': 'send', 'payload': {'event': 'main', 't': 1793460248102}} data: None
+message: {'type': 'send', 'payload': {'event': 'module', 't': 1793460248103, 'name': 'android.hardware.camera.device@3.2.so', 'base': '0x7d4496241000', 'size': 245760}} data: None
+message: {'type': 'send', 'payload': {'event': 'module', 't': 1793460248103, 'name': 'libcamera_client.so', 'base': '0x7d4484551000', 'size': 589824}} data: None
+message: {'type': 'send', 'payload': {'event': 'module', 't': 1793460248103, 'name': 'libcamera_metadata.so', 'base': '0x7d449b39e000', 'size': 65536}} data: None
+message: {'type': 'send', 'payload': {'event': 'module', 't': 1793460248103, 'name': 'android.hardware.camera.common@1.0.so', 'base': '0x7d447faf9000', 'size': 16384}} data: None
+message: {'type': 'send', 'payload': {'event': 'module', 't': 1793460248103, 'name': 'libcamera2ndk.so', 'base': '0x7d41d412c000', 'size': 290816}} data: None
+
+Thank you for using Frida!

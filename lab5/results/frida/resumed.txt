@@ -1,0 +1,30 @@
+  * Task{ee2099c #8 type=standard A=10192:ru.yandex.mail U=0 visible=true visibleRequested=true mode=fullscreen translucent=false sz=6}
+    mLastPausedActivity: ActivityRecord{247ca01 u0 ru.yandex.mail/com.yandex.mail.eml.EmlActivity t8}
+    topResumedActivity=ActivityRecord{c3fa1dc u0 ru.yandex.mail/com.yandex.mail360.camera.doc.scanner.DocScannerCameraActivity t8}
+    * Hist  #5: ActivityRecord{c3fa1dc u0 ru.yandex.mail/com.yandex.mail360.camera.doc.scanner.DocScannerCameraActivity t8}
+      packageName=ru.yandex.mail processName=ru.yandex.mail
+      app=ProcessRecord{d0f832b 5967:ru.yandex.mail/u0a192}
+      Intent { flg=0x10000000 cmp=ru.yandex.mail/com.yandex.mail360.camera.doc.scanner.DocScannerCameraActivity }
+      rootOfTask=false task=Task{ee2099c #8 type=standard A=10192:ru.yandex.mail}
+      taskAffinity=10192:ru.yandex.mail
+      mActivityComponent=ru.yandex.mail/com.yandex.mail360.camera.doc.scanner.DocScannerCameraActivity
+      baseDir=/data/app/~~hJIM3OXk_yWCoQOCGxelTQ==/ru.yandex.mail-wnLo2YNrFJgiE-h9yCvogA==/base.apk
+      dataDir=/data/user/0/ru.yandex.mail
+      windows=[Window{34b286b u0 ru.yandex.mail/com.yandex.mail360.camera.doc.scanner.DocScannerCameraActivity}]
+    * Hist  #4: ActivityRecord{247ca01 u0 ru.yandex.mail/com.yandex.mail.eml.EmlActivity t8}
+      packageName=ru.yandex.mail processName=ru.yandex.mail
+      app=ProcessRecord{d0f832b 5967:ru.yandex.mail/u0a192}
+      Intent { act=android.intent.action.VIEW dat=file:///data/data/ru.yandex.mail/files/lab5-external.eml typ=message/rfc822 flg=0x10000000 cmp=ru.yandex.mail/com.yandex.mail.eml.EmlActivity }
+      rootOfTask=false task=Task{ee2099c #8 type=standard A=10192:ru.yandex.mail}
+      taskAffinity=10192:ru.yandex.mail
+      mActivityComponent=ru.yandex.mail/com.yandex.mail.eml.EmlActivity
+      baseDir=/data/app/~~hJIM3OXk_yWCoQOCGxelTQ==/ru.yandex.mail-wnLo2YNrFJgiE-h9yCvogA==/base.apk
+      dataDir=/data/user/0/ru.yandex.mail
+      windows=[Window{ffbcb4a u0 ru.yandex.mail/com.yandex.mail.eml.EmlActivity}]
+    * Hist  #3: ActivityRecord{6d202ce u0 ru.yandex.mail/com.yandex.passport.internal.ui.bouncer.BouncerActivity t8}
+      packageName=ru.yandex.mail processName=ru.yandex.mail:passport
+      launchedFromUid=10192 launchedFromPackage=ru.yandex.mail launchedFromFeature=null userId=0
+      app=ProcessRecord{98aa119 6160:ru.yandex.mail:passport/u0a192}
+      Intent { cmp=ru.yandex.mail/com.yandex.passport.internal.ui.bouncer.BouncerActivity (has extras) }
+      rootOfTask=false task=Task{ee2099c #8 type=standard A=10192:ru.yandex.mail}
+      taskAffinity=10192:ru.yandex.mail

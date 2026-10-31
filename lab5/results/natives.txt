@@ -1,0 +1,343 @@
+native methods: 339
+classes: 59178
+methods: 260516
+
+public static native Lcom/yandex/metrica/impl/ac/CrashpadHelper;->cancelSetUpNativeUncaughtExceptionHandler()V
+public static native Lcom/yandex/metrica/impl/ac/CrashpadHelper;->getLibDirInsideApk()Ljava/lang/String;
+public static native Lcom/yandex/metrica/impl/ac/CrashpadHelper;->getLibraryVersion()Ljava/lang/String;
+public static native Lcom/yandex/metrica/impl/ac/CrashpadHelper;->logsEnabled(Z)V
+public static native Lcom/yandex/metrica/impl/ac/CrashpadHelper;->setUpNativeUncaughtExceptionHandler(Landroid/os/Bundle;)V
+public static native Lcom/yandex/metrica/impl/ac/CrashpadHelper;->updateRuntimeConfig(Ljava/lang/String;)V
+public static native Lcom/yandex/metrica/impl/ac/CrashpadServiceHelper;->cancelSetUpServiceHelper()V
+public static native Lcom/yandex/metrica/impl/ac/CrashpadServiceHelper;->deleteCompletedReports()Z
+private static native Lcom/yandex/metrica/impl/ac/CrashpadServiceHelper;->markCrashCompleted(Ljava/lang/String;)Z
+public static native Lcom/yandex/metrica/impl/ac/CrashpadServiceHelper;->readCrash(Ljava/lang/String;)Landroid/os/Bundle;
+public static native Lcom/yandex/metrica/impl/ac/CrashpadServiceHelper;->readOldCrashes()Ljava/util/List;
+public static native Lcom/yandex/metrica/impl/ac/CrashpadServiceHelper;->setUpServiceHelper(Ljava/lang/String;)V
+private static native Lcom/yandex/metrica/impl/ac/HandlerRunner;->runHandler([Ljava/lang/String;)V
+public static native Lcom/yandex/metrica/impl/ac/NativeCrashesHelper;->cancelSetUpNativeUncaughtExceptionHandler()V
+public static native Lcom/yandex/metrica/impl/ac/NativeCrashesHelper;->logsEnabled(Z)V
+public static native Lcom/yandex/metrica/impl/ac/NativeCrashesHelper;->setUpNativeUncaughtExceptionHandler(Ljava/lang/String;)V
+public static native Lcom/yandex/eye/nativebits/EyeNative;->isArmv7()Z
+public static native Lcom/yandex/eye/nativebits/EyeNative;->isArmv8()Z
+public static native Lcom/yandex/eye/nativebits/EyeNative;->isX86()Z
+public static native Lcom/yandex/eye/nativebits/EyeNative;->isX8664()Z
+public static native Lcom/yandex/eye/nativebits/EyeNative;->processBufferBug(I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; I I I I I I)V
+public static native Lcom/yandex/eye/nativebits/EyeNative;->processLut(I I I I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer;)V
+public static native Lcom/yandex/eye/nativebits/EyeNative;->setCameraRGBABuffer(I I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer;)V
+public static native Lcom/yandex/eye/nativebits/EyeNative;->setCameraYUVBuffer(I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer; I I I I I Ljava/nio/ByteBuffer; Ljava/nio/ByteBuffer;)V
+private static native Lorg/webrtc/BuiltinAudioDecoderFactoryFactory;->nativeCreateBuiltinAudioDecoderFactory()J
+private static native Lorg/webrtc/BuiltinAudioEncoderFactoryFactory;->nativeCreateBuiltinAudioEncoderFactory()J
+private static native Lorg/webrtc/H264Utils;->nativeIsSameH264Profile(Ljava/util/Map; Ljava/util/Map;)Z
+private static native Lorg/webrtc/Histogram;->nativeAddSample(J I)V
+private static native Lorg/webrtc/Histogram;->nativeCreateCounts(Ljava/lang/String; I I I)J
+private static native Lorg/webrtc/Histogram;->nativeCreateEnumeration(Ljava/lang/String; I)J
+public static native Lorg/webrtc/JniCommon;->nativeAddRef(J)V
+public static native Lorg/webrtc/JniCommon;->nativeAllocateByteBuffer(I)Ljava/nio/ByteBuffer;
+public static native Lorg/webrtc/JniCommon;->nativeFreeByteBuffer(Ljava/nio/ByteBuffer;)V
+public static native Lorg/webrtc/JniCommon;->nativeReleaseRef(J)V
+private static native Lorg/webrtc/MediaStream;->nativeGetId(J)Ljava/lang/String;
+private static native Lorg/webrtc/MediaStream;->nativeRemoveAudioTrack(J J)Z
+private static native Lorg/webrtc/MediaStream;->nativeRemoveVideoTrack(J J)Z
+private static native Lorg/webrtc/MediaStreamTrack;->nativeGetId(J)Ljava/lang/String;
+private static native Lorg/webrtc/MediaStreamTrack;->nativeGetKind(J)Ljava/lang/String;
+private static native Lorg/webrtc/MediaStreamTrack;->nativeSetEnabled(J Z)Z
+private static native Lorg/webrtc/NativeAndroidVideoTrackSource;->nativeAdaptFrame(J I I I J)Lorg/webrtc/VideoProcessor$FrameAdaptationParameters;
+private static native Lorg/webrtc/NativeAndroidVideoTrackSource;->nativeOnFrameCaptured(J I J Lorg/webrtc/VideoFrame$Buffer;)V
+private static native Lorg/webrtc/NativeAndroidVideoTrackSource;->nativeSetState(J Z)V
+private native Lorg/webrtc/NetworkMonitor;->nativeNotifyConnectionTypeChanged(J)V
+private native Lorg/webrtc/NetworkMonitor;->nativeNotifyOfActiveNetworkList(J [Lorg/webrtc/NetworkChangeDetector$NetworkInformation;)V
+private native Lorg/webrtc/NetworkMonitor;->nativeNotifyOfNetworkConnect(J Lorg/webrtc/NetworkChangeDetector$NetworkInformation;)V
+private native Lorg/webrtc/NetworkMonitor;->nativeNotifyOfNetworkDisconnect(J J)V
+private native Lorg/webrtc/PeerConnection;->nativeAddIceCandidate(Ljava/lang/String; I Ljava/lang/String;)Z
+private native Lorg/webrtc/PeerConnection;->nativeAddTrack(J Ljava/util/List;)Lorg/webrtc/RtpSender;
+private native Lorg/webrtc/PeerConnection;->nativeAddTransceiverOfType(Lorg/webrtc/MediaStreamTrack$MediaType; Lorg/webrtc/RtpTransceiver$RtpTransceiverInit;)Lorg/webrtc/RtpTransceiver;
+private native Lorg/webrtc/PeerConnection;->nativeClose()V
+private native Lorg/webrtc/PeerConnection;->nativeCreateAnswer(Lorg/webrtc/SdpObserver; Lorg/webrtc/MediaConstraints;)V
+private native Lorg/webrtc/PeerConnection;->nativeCreateOffer(Lorg/webrtc/SdpObserver; Lorg/webrtc/MediaConstraints;)V
+private static native Lorg/webrtc/PeerConnection;->nativeCreatePeerConnectionObserver(Lorg/webrtc/PeerConnection$Observer;)J
+private static native Lorg/webrtc/PeerConnection;->nativeFreeOwnedPeerConnection(J)V
+private native Lorg/webrtc/PeerConnection;->nativeGetSenders()Ljava/util/List;
+private native Lorg/webrtc/PeerConnection;->nativeGetTransceivers()Ljava/util/List;
+private native Lorg/webrtc/PeerConnection;->nativeIceConnectionState()Lorg/webrtc/PeerConnection$IceConnectionState;
+private native Lorg/webrtc/PeerConnection;->nativeIceGatheringState()Lorg/webrtc/PeerConnection$IceGatheringState;
+private native Lorg/webrtc/PeerConnection;->nativeNewGetStats(Lorg/webrtc/RTCStatsCollectorCallback;)V
+private native Lorg/webrtc/PeerConnection;->nativeRemoveIceCandidates([Lorg/webrtc/IceCandidate;)Z
+private native Lorg/webrtc/PeerConnection;->nativeRemoveLocalStream(J)V
+private native Lorg/webrtc/PeerConnection;->nativeSetConfiguration(Lorg/webrtc/PeerConnection$RTCConfiguration;)Z
+private native Lorg/webrtc/PeerConnection;->nativeSetLocalDescription(Lorg/webrtc/SdpObserver; Lorg/webrtc/SessionDescription;)V
+private native Lorg/webrtc/PeerConnection;->nativeSetRemoteDescription(Lorg/webrtc/SdpObserver; Lorg/webrtc/SessionDescription;)V
+private static native Lorg/webrtc/PeerConnectionFactory;->nativeCreateAudioSource(J Lorg/webrtc/MediaConstraints;)J
+private static native Lorg/webrtc/PeerConnectionFactory;->nativeCreateAudioTrack(J Ljava/lang/String; J)J
+private static native Lorg/webrtc/PeerConnectionFactory;->nativeCreatePeerConnection(J Lorg/webrtc/PeerConnection$RTCConfiguration; Lorg/webrtc/MediaConstraints; J Lorg/webrtc/SSLCertificateVerifier;)J
+private static native Lorg/webrtc/PeerConnectionFactory;->nativeCreatePeerConnectionFactory(Landroid/content/Context; Lorg/webrtc/PeerConnectionFactory$Options; J J J Lorg/webrtc/VideoEncoderFactory; Lorg/webrtc/VideoDecoderFactory; J J J J J)Lorg/webrtc/PeerConnectionFactory;
+private static native Lorg/webrtc/PeerConnectionFactory;->nativeCreateVideoSource(J Z Z)J
+private static native Lorg/webrtc/PeerConnectionFactory;->nativeCreateVideoTrack(J Ljava/lang/String; J)J
+private static native Lorg/webrtc/PeerConnectionFactory;->nativeDeleteLoggable()V
+private static native Lorg/webrtc/PeerConnectionFactory;->nativeFindFieldTrialsFullName(Ljava/lang/String;)Ljava/lang/String;
+private static native Lorg/webrtc/PeerConnectionFactory;->nativeFreeFactory(J)V
+private static native Lorg/webrtc/PeerConnectionFactory;->nativeInitializeAndroidGlobals()V
+private static native Lorg/webrtc/PeerConnectionFactory;->nativeInitializeFieldTrials(Ljava/lang/String;)V
+private static native Lorg/webrtc/PeerConnectionFactory;->nativeInjectLoggable(Lorg/webrtc/JNILogging; I)V
+private static native Lorg/webrtc/RtpReceiver;->nativeGetTrack(J)J
+private static native Lorg/webrtc/RtpSender;->nativeGetDtmfSender(J)J
+private static native Lorg/webrtc/RtpSender;->nativeGetTrack(J)J
+private static native Lorg/webrtc/RtpSender;->nativeSetTrack(J J)Z
+private static native Lorg/webrtc/RtpTransceiver;->nativeDirection(J)Lorg/webrtc/RtpTransceiver$RtpTransceiverDirection;
+private static native Lorg/webrtc/RtpTransceiver;->nativeGetMediaType(J)Lorg/webrtc/MediaStreamTrack$MediaType;
+private static native Lorg/webrtc/RtpTransceiver;->nativeGetReceiver(J)Lorg/webrtc/RtpReceiver;
+private static native Lorg/webrtc/RtpTransceiver;->nativeGetSender(J)Lorg/webrtc/RtpSender;
+private static native Lorg/webrtc/TimestampAligner;->nativeCreateTimestampAligner()J
+private static native Lorg/webrtc/TimestampAligner;->nativeReleaseTimestampAligner(J)V
+private static native Lorg/webrtc/TimestampAligner;->nativeTranslateTimestamp(J J)J
+private static native Lorg/webrtc/VideoDecoderWrapper;->nativeOnDecodedFrame(J Lorg/webrtc/VideoFrame; Ljava/lang/Integer; Ljava/lang/Integer;)V
+private static native Lorg/webrtc/VideoEncoderWrapper;->nativeOnEncodedFrame(J Lorg/webrtc/EncodedImage;)V
+private static native Lorg/webrtc/YuvHelper;->nativeCopyPlane(Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I)V
+private static native Lorg/webrtc/YuvHelper;->nativeI420Copy(Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I)V
+private static native Lorg/webrtc/YuvHelper;->nativeI420ToNV12(Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I)V
+private native Lorg/webrtc/audio/WebRtcAudioRecord;->nativeCacheDirectBufferAddress(J Ljava/nio/ByteBuffer;)V
+private native Lorg/webrtc/audio/WebRtcAudioRecord;->nativeDataIsRecorded(J I)V
+private static native Lorg/webrtc/audio/WebRtcAudioTrack;->nativeCacheDirectBufferAddress(J Ljava/nio/ByteBuffer;)V
+private static native Lorg/webrtc/audio/WebRtcAudioTrack;->nativeGetPlayoutData(J I)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->TImage_H_get(J Lru/yandex/dict/mt/libs/mobile/android/TImage;)I
+public static final native Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->TImage_W_get(J Lru/yandex/dict/mt/libs/mobile/android/TImage;)I
+public static final native Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->TImage_getData(J Lru/yandex/dict/mt/libs/mobile/android/TImage;)[B
+public static final native Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->TPoint_X_get(J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)I
+public static final native Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->TPoint_X_set(J Lru/yandex/dict/mt/libs/mobile/android/TPoint; I)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->TPoint_Y_get(J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)I
+public static final native Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->TPoint_Y_set(J Lru/yandex/dict/mt/libs/mobile/android/TPoint; I)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->delete_TImage(J)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->delete_TPoint(J)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/CVMobileCommonJNI;->new_TPoint()J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileCommonJNI;->TOperationResult_GetData(J Lru/yandex/dict/mt/libs/mobile/android/TOperationResult;)Ljava/lang/String;
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileCommonJNI;->TOperationResult_IsError(J Lru/yandex/dict/mt/libs/mobile/android/TOperationResult;)Z
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileCommonJNI;->delete_TOperationResult(J)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDetectionResult_GetEdges(J Lru/yandex/dict/mt/libs/mobile/android/TDetectionResult;)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDetectionResult_SWIGUpcast(J)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_BottomLeft_get(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_BottomLeft_set(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges; J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_BottomRight_get(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_BottomRight_set(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges; J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_TopLeft_get(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_TopLeft_set(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges; J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_TopRight_get(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentEdges_TopRight_set(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges; J Lru/yandex/dict/mt/libs/mobile/android/TPoint;)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentScanner_DetectDocumentEdges(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentScanner; I I [B I)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentScanner_GetEnhancedImage(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentScanner; I)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TDocumentScanner_SetEnhanceImage(J Lru/yandex/dict/mt/libs/mobile/android/TDocumentScanner; I I [B I J Lru/yandex/dict/mt/libs/mobile/android/TDocumentEdges;)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TEnhanceImageResult_GetImage(J Lru/yandex/dict/mt/libs/mobile/android/TEnhanceImageResult;)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->TEnhanceImageResult_SWIGUpcast(J)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->delete_TDetectionResult(J)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->delete_TDocumentEdges(J)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->delete_TDocumentScanner(J)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->delete_TEnhanceImageResult(J)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->new_TDocumentEdges()J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileScannerJNI;->new_TDocumentScanner(Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; I I Z)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->AKAZE_get()I
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->KLT_FAST_get()I
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->KLT_get()I
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->ORB_get()I
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->THomographyMatrix_AnchorSim_get(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)F
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->THomographyMatrix_MotionMagnitude_get(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)F
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->THomographyMatrix_Success_get(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)Z
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->THomographyMatrix_contrast_get(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)F
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->THomographyMatrix_matrix_get(J Lru/yandex/dict/mt/libs/mobile/android/THomographyMatrix;)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Set(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D; D D D D D D D D D)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value0_get(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value1_get(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value2_get(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value3_get(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value4_get(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value5_get(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value6_get(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value7_get(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TMatrix3D_Value8_get(J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)D
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TRect_Set(J Lru/yandex/dict/mt/libs/mobile/android/TRect; F F F F)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerParams_Set(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerParams; I F I I I I I I D Z Z D D)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerResult_GetKeyPointId(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult; I)I
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerResult_GetKeyPointX(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult; I)I
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerResult_GetKeyPointY(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult; I)I
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerResult_GetKeyPointsSize(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult;)I
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerResult_GetMatrix(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerResult;)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerResult_SWIGUpcast(J)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerSetAnchorResult_GetResult(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerSetAnchorResult;)Z
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTrackerSetAnchorResult_SWIGUpcast(J)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTracker_ActivatePendingAnchor(J Lru/yandex/dict/mt/libs/mobile/android/TTracker;)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTracker_GetHomography(J Lru/yandex/dict/mt/libs/mobile/android/TTracker; I I [B I Z Z Z)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTracker_SetAnchor__SWIG_0(J Lru/yandex/dict/mt/libs/mobile/android/TTracker; I I [B I J Lru/yandex/dict/mt/libs/mobile/android/TRect; J Lru/yandex/dict/mt/libs/mobile/android/TRect; F J Lru/yandex/dict/mt/libs/mobile/android/TRect;)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->TTracker_SetPendingAnchor(J Lru/yandex/dict/mt/libs/mobile/android/TTracker; I I [B I J Lru/yandex/dict/mt/libs/mobile/android/TRect; J Lru/yandex/dict/mt/libs/mobile/android/TRect; F J Lru/yandex/dict/mt/libs/mobile/android/TRect; J Lru/yandex/dict/mt/libs/mobile/android/TMatrix3D;)J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->delete_THomographyMatrix(J)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->delete_TMatrix3D(J)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->delete_TRect(J)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->delete_TTracker(J)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->delete_TTrackerParams(J)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->delete_TTrackerResult(J)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->delete_TTrackerSetAnchorResult(J)V
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->new_TMatrix3D()J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->new_TRect()J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->new_TTrackerParams()J
+public static final native Lru/yandex/dict/mt/libs/mobile/android/MTMobileTrackerJNI;->new_TTracker__SWIG_1(J Lru/yandex/dict/mt/libs/mobile/android/TTrackerParams;)J
+private native Lru/yandex/speechkit/BaseSpeechKit;->native_getUuid()Ljava/lang/String;
+private native Lru/yandex/speechkit/BaseSpeechKit;->native_init(Landroid/content/Context; Ljava/lang/String;)V
+private native Lru/yandex/speechkit/BaseSpeechKit;->native_setEventLogger(Lru/yandex/speechkit/EventLogger;)V
+private native Lru/yandex/speechkit/BaseSpeechKit;->native_setPlatformInfo(Lru/yandex/speechkit/PlatformInfo;)V
+private native Lru/yandex/speechkit/BaseSpeechKit;->native_setUuid(Ljava/lang/String;)V
+private static native Lru/yandex/speechkit/SoundInfo;->native_parseMime(Ljava/lang/String;)Lru/yandex/speechkit/SoundInfo;
+public native Lru/yandex/speechkit/internal/NetworkReachabilityHelper;->native_Destroy(J)V
+public native Lru/yandex/speechkit/internal/NetworkReachabilityHelper;->native_ReachabilityChanged(J Z Ljava/lang/String;)V
+private native Lru/yandex/speechkit/internal/SoundLoggerJniImpl;->native_send(I I I Ljava/nio/ByteBuffer; Ljava/lang/String; J)Ljava/lang/String;
+private native Lru/yandex/speechkit/internal/SoundLoggerJniImpl;->native_setSettings(Ljava/lang/String; J)V
+private native Lru/yandex/speechkit/internal/SoundLoggerJniImpl;->native_setSubThresholdSendRate(J)V
+private native Lru/yandex/speechkit/internal/TCPConnection;->call_onConnectionDataReceived(J [B I)V
+private native Lru/yandex/speechkit/internal/TCPConnection;->call_onConnectionDataSent(J J)V
+private native Lru/yandex/speechkit/internal/TCPConnection;->call_onConnectionError(J Ljava/lang/String;)V
+private native Lru/yandex/speechkit/internal/TCPConnection;->call_onConnectionEstablished(J)V
+private native Lru/yandex/speechkit/internal/TCPConnection;->call_onConnectionFinished(J)V
+private native Lru/yandex/speechkit/internal/TCPConnection;->native_Destroy(J)V
+private native Lru/yandex/speechkit/internal/TCPConnection;->native_releaseData(J)V
+private native Lru/yandex/speechkit/internal/Timings;->native_addEvent(Ljava/lang/String; Ljava/lang/String;)V
+private native Lru/yandex/speechkit/internal/Timings;->native_createFlow(Ljava/lang/String;)V
+private native Lru/yandex/speechkit/internal/Timings;->native_deleteFlow(Ljava/lang/String;)V
+public synchronized native Lorg/sqlite/core/NativeDB;->_close()V
+public synchronized native Lorg/sqlite/core/NativeDB;->_exec_utf8([B)I
+public synchronized native Lorg/sqlite/core/NativeDB;->_open_utf8([B I)V
+public synchronized native Lorg/sqlite/core/NativeDB;->backup([B [B Lorg/sqlite/core/DB$ProgressObserver;)I
+public synchronized native Lorg/sqlite/core/NativeDB;->bind_blob(J I [B)I
+public synchronized native Lorg/sqlite/core/NativeDB;->bind_double(J I D)I
+public synchronized native Lorg/sqlite/core/NativeDB;->bind_int(J I I)I
+public synchronized native Lorg/sqlite/core/NativeDB;->bind_long(J I J)I
+public synchronized native Lorg/sqlite/core/NativeDB;->bind_null(J I)I
+public synchronized native Lorg/sqlite/core/NativeDB;->bind_parameter_count(J)I
+public synchronized native Lorg/sqlite/core/NativeDB;->bind_text_utf8(J I [B)I
+public synchronized native Lorg/sqlite/core/NativeDB;->busy_timeout(I)V
+public synchronized native Lorg/sqlite/core/NativeDB;->changes()I
+public synchronized native Lorg/sqlite/core/NativeDB;->clear_bindings(J)I
+public synchronized native Lorg/sqlite/core/NativeDB;->column_blob(J I)[B
+public synchronized native Lorg/sqlite/core/NativeDB;->column_count(J)I
+public synchronized native Lorg/sqlite/core/NativeDB;->column_decltype_utf8(J I)Ljava/nio/ByteBuffer;
+public synchronized native Lorg/sqlite/core/NativeDB;->column_double(J I)D
+public synchronized native Lorg/sqlite/core/NativeDB;->column_int(J I)I
+public synchronized native Lorg/sqlite/core/NativeDB;->column_long(J I)J
+public synchronized native Lorg/sqlite/core/NativeDB;->column_metadata(J)[[Z
+public synchronized native Lorg/sqlite/core/NativeDB;->column_name_utf8(J I)Ljava/nio/ByteBuffer;
+public synchronized native Lorg/sqlite/core/NativeDB;->column_table_name_utf8(J I)Ljava/nio/ByteBuffer;
+public synchronized native Lorg/sqlite/core/NativeDB;->column_text_utf8(J I)Ljava/nio/ByteBuffer;
+public synchronized native Lorg/sqlite/core/NativeDB;->column_type(J I)I
+public synchronized native Lorg/sqlite/core/NativeDB;->enable_load_extension(Z)I
+public synchronized native Lorg/sqlite/core/NativeDB;->errmsg_utf8()Ljava/nio/ByteBuffer;
+public synchronized native Lorg/sqlite/core/NativeDB;->finalize(J)I
+public synchronized native Lorg/sqlite/core/NativeDB;->free_functions()V
+public native Lorg/sqlite/core/NativeDB;->interrupt()V
+public native Lorg/sqlite/core/NativeDB;->libversion_utf8()Ljava/nio/ByteBuffer;
+public synchronized native Lorg/sqlite/core/NativeDB;->limit(I I)I
+public synchronized native Lorg/sqlite/core/NativeDB;->prepare_utf8([B)J
+public synchronized native Lorg/sqlite/core/NativeDB;->reset(J)I
+public synchronized native Lorg/sqlite/core/NativeDB;->restore([B [B Lorg/sqlite/core/DB$ProgressObserver;)I
+public synchronized native Lorg/sqlite/core/NativeDB;->shared_cache(Z)I
+public synchronized native Lorg/sqlite/core/NativeDB;->step(J)I
+public synchronized native Lorg/sqlite/core/NativeDB;->total_changes()I
+private static native Lorg/webrtc/VideoTrack;->nativeAddSink(J J)V
+private static native Lorg/webrtc/VideoTrack;->nativeFreeSink(J)V
+private static native Lorg/webrtc/VideoTrack;->nativeRemoveSink(J J)V
+private static native Lorg/webrtc/VideoTrack;->nativeWrapSink(Lorg/webrtc/VideoSink;)J
+private static native Lorg/webrtc/audio/JavaAudioDeviceModule;->nativeCreateAudioDeviceModule(Landroid/content/Context; Landroid/media/AudioManager; Lorg/webrtc/audio/WebRtcAudioRecord; Lorg/webrtc/audio/WebRtcAudioTrack; I I Z Z)J
+private native Lru/yandex/speechkit/EchoCancellingAudioSource;->native_AppendCancellationBuffer(J I I I Ljava/nio/ByteBuffer;)V
+private native Lru/yandex/speechkit/EchoCancellingAudioSource;->native_Create(J)J
+private native Lru/yandex/speechkit/EchoCancellingAudioSource;->native_Destroy(J)V
+private native Lru/yandex/speechkit/EchoCancellingAudioSource;->native_Subscribe(J J)V
+private native Lru/yandex/speechkit/EchoCancellingAudioSource;->native_Unsubsribe(J J)V
+private native Lru/yandex/speechkit/internal/AudioPlayerJniAdapter;->native_AudioPlayerCreate()J
+private native Lru/yandex/speechkit/internal/AudioPlayerJniAdapter;->native_AudioPlayerDestroy(J)J
+private native Lru/yandex/speechkit/internal/AudioSourceJniAdapter;->native_AudioSourceCreate(I I I I)J
+private native Lru/yandex/speechkit/internal/AudioSourceJniAdapter;->native_AudioSourceDestroy(J)J
+private native Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;->native_destroyHandle(J)V
+private native Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;->native_onBufferUnderrun(J)V
+private native Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;->native_onPlayerError(J I Ljava/lang/String;)V
+private native Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;->native_onPlayingBegin(J)V
+private native Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;->native_onPlayingData(J Ljava/nio/ByteBuffer; Ljava/lang/String; I I I)V
+private native Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;->native_onPlayingDone(J)V
+private native Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;->native_onPlayingPaused(J)V
+private native Lru/yandex/speechkit/internal/JavaToNativeAudioPlayerListenerAdapter;->native_onPlayingResumed(J)V
+private native Lru/yandex/speechkit/internal/JavaToNativeAudioSourceListenerAdapter;->native_Destroy(J)V
+private native Lru/yandex/speechkit/internal/JavaToNativeAudioSourceListenerAdapter;->native_onAudioSourceData(J Ljava/nio/ByteBuffer;)V
+private native Lru/yandex/speechkit/internal/JavaToNativeAudioSourceListenerAdapter;->native_onAudioSourceError(J I Ljava/lang/String;)V
+private native Lru/yandex/speechkit/internal/JavaToNativeAudioSourceListenerAdapter;->native_onAudioSourceStarted(J)V
+private native Lru/yandex/speechkit/internal/JavaToNativeAudioSourceListenerAdapter;->native_onAudioSourceStopped(J)V
+private native Lru/yandex/speechkit/internal/NativeToJavaAudioSourceListenerAdapter;->native_Create()J
+private native Lru/yandex/speechkit/internal/NativeToJavaAudioSourceListenerAdapter;->native_Destroy(J)V
+private native Lru/yandex/speechkit/internal/OggOpusDecoder;->native_create()J
+private static native Lru/yandex/speechkit/internal/OggOpusDecoder;->native_decodeData(Ljava/nio/ByteBuffer; J)Lru/yandex/speechkit/SoundBuffer;
+private native Lru/yandex/speechkit/internal/OggOpusDecoder;->native_destroy(J)J
+private native Lru/yandex/speechkit/internal/OggOpusEncoder;->native_create(I I I I I)J
+private native Lru/yandex/speechkit/internal/OggOpusEncoder;->native_destroy(J)V
+private native Lru/yandex/speechkit/internal/OggOpusEncoder;->native_encodeData(Ljava/nio/ByteBuffer; J)Lru/yandex/speechkit/SoundBuffer;
+private native Lru/yandex/speechkit/internal/OggOpusEncoder;->native_getStreamHeader(J)Lru/yandex/speechkit/SoundBuffer;
+private native Lru/yandex/speechkit/internal/OggOpusEncoder;->native_init(J)Lru/yandex/speechkit/Error;
+private native Lru/yandex/speechkit/internal/PhraseSpotterJniImpl;->native_Create(J J Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; I I J J Z Z)J
+private native Lru/yandex/speechkit/internal/PhraseSpotterJniImpl;->native_Destroy(J)V
+private native Lru/yandex/speechkit/internal/PhraseSpotterJniImpl;->native_Prepare(J)V
+private native Lru/yandex/speechkit/internal/PhraseSpotterJniImpl;->native_Start(J)V
+private native Lru/yandex/speechkit/internal/PhraseSpotterJniImpl;->native_Stop(J)V
+private native Lru/yandex/speechkit/internal/PhraseSpotterListenerJniAdapter;->native_listenerBindingCreate()J
+private native Lru/yandex/speechkit/internal/PhraseSpotterListenerJniAdapter;->native_listenerBindingDestroy(J)V
+private native Lru/yandex/speechkit/internal/RecognizerJniImpl;->native_Cancel(J)V
+private native Lru/yandex/speechkit/internal/RecognizerJniImpl;->native_Destroy(J)V
+private native Lru/yandex/speechkit/internal/RecognizerJniImpl;->native_Prepare(J)V
+private native Lru/yandex/speechkit/internal/RecognizerJniImpl;->native_StartRecording(J)V
+private native Lru/yandex/speechkit/internal/RecognizerJniImpl;->native_StopRecording(J)V
+public native Lru/yandex/speechkit/internal/RecognizerJniImpl;->native_Create(J J Ljava/lang/String; Ljava/lang/String; Z Z J J J Ljava/lang/String; I I Z Z J Z Z Z Ljava/lang/String; F J Z Z Z Ljava/lang/String; Ljava/lang/String; J Z Z Ljava/lang/String;)J
+private native Lru/yandex/speechkit/internal/RecognizerListenerJniAdapter;->native_ListenerBindingCreate()J
+private native Lru/yandex/speechkit/internal/RecognizerListenerJniAdapter;->native_ListenerBindingDestroy(J)V
+private native Lru/yandex/speechkit/internal/SoundLoggerListenerJniAdapter;->native_createHandle()J
+private native Lru/yandex/speechkit/internal/SoundLoggerListenerJniAdapter;->native_destroyHandle(J)V
+private native Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_closeStream(J I Lru/yandex/speechkit/internal/UniProxyStreamControl$Reason;)V
+private native Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_create(J Ljava/lang/String; Ljava/lang/String; J J)J
+private native Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_deleteStream(J I)V
+private native Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_destroy(J)V
+private native Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_openWriteStream(J Ljava/lang/String; Ljava/lang/String;)I
+private native Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_sendEvent(J Ljava/lang/String; Ljava/lang/String;)V
+private native Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_start(J)V
+private native Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_stop(J)V
+private native Lru/yandex/speechkit/internal/UniProxyClientJniImpl;->native_writeStream(J I [B)V
+private native Lru/yandex/speechkit/internal/UniProxyClientListenerJniAdapter;->native_listenerBindingCreate()J
+private native Lru/yandex/speechkit/internal/UniProxyClientListenerJniAdapter;->native_listenerBindingDestroy(J)V
+private native Lru/yandex/speechkit/internal/VocalizerJniImpl;->native_Cancel(J)V
+private native Lru/yandex/speechkit/internal/VocalizerJniImpl;->native_Create(J Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; F Ljava/lang/String; Z Z Ljava/lang/String; J J Ljava/lang/String; Ljava/lang/String; J)J
+private native Lru/yandex/speechkit/internal/VocalizerJniImpl;->native_Destroy(J)V
+private native Lru/yandex/speechkit/internal/VocalizerJniImpl;->native_Pause(J)V
+private native Lru/yandex/speechkit/internal/VocalizerJniImpl;->native_Play(J)V
+private native Lru/yandex/speechkit/internal/VocalizerJniImpl;->native_Prepare(J)V
+private native Lru/yandex/speechkit/internal/VocalizerJniImpl;->native_Synthesize(J Ljava/lang/String; I Ljava/lang/String;)V
+private native Lru/yandex/speechkit/internal/VocalizerListenerJniAdapter;->native_ListenerBindingCreate()J
+private native Lru/yandex/speechkit/internal/VocalizerListenerJniAdapter;->native_ListenerBindingDestroy(J)V
+private native Lru/yandex/speechkit/internal/VoiceDialogJniImpl;->native_cancel(J)V
+private native Lru/yandex/speechkit/internal/VoiceDialogJniImpl;->native_create(J J Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; Ljava/lang/String; J J J Z Z Z Ljava/lang/String; J J J J J F Ljava/lang/String; Ljava/lang/String; I Ljava/lang/String; I I J J J J J J J Z Z Z [Ljava/lang/Object; [Ljava/lang/Object; Ljava/lang/String; Ljava/lang/String; Z J Z Z Z Z Ljava/lang/String; J J Z Ljava/lang/String; I J Ljava/lang/String; J)J
+private native Lru/yandex/speechkit/internal/VoiceDialogJniImpl;->native_destroy(J)V
+private native Lru/yandex/speechkit/internal/VoiceDialogJniImpl;->native_sendEvent(J Ljava/lang/String; Ljava/lang/String;)V
+private native Lru/yandex/speechkit/internal/VoiceDialogJniImpl;->native_startConnection(J)V
+private native Lru/yandex/speechkit/internal/VoiceDialogJniImpl;->native_startPhraseSpotter(J)V
+private native Lru/yandex/speechkit/internal/VoiceDialogJniImpl;->native_startVinsRequest(J Ljava/lang/String;)V
+private native Lru/yandex/speechkit/internal/VoiceDialogJniImpl;->native_startVoiceInput(J Ljava/lang/String; Ljava/lang/String;)V
+private native Lru/yandex/speechkit/internal/VoiceDialogJniImpl;->native_stopConnection(J)V
+private native Lru/yandex/speechkit/internal/VoiceDialogJniImpl;->native_stopRecognition(J)V
+private native Lru/yandex/speechkit/internal/VoiceDialogListenerJniAdapter;->native_listenerBindingCreate()J
+private native Lru/yandex/speechkit/internal/VoiceDialogListenerJniAdapter;->native_listenerBindingDestroy(J)V
+private native Lru/yandex/speechkit/internal/WebSocket;->call_onByteMessageReceived(J [B)V
+private native Lru/yandex/speechkit/internal/WebSocket;->call_onConnectionClosed(J)V
+private native Lru/yandex/speechkit/internal/WebSocket;->call_onConnectionOpened(J)V
+private native Lru/yandex/speechkit/internal/WebSocket;->call_onConnectionStateChanged(J Ljava/lang/String;)V
+private native Lru/yandex/speechkit/internal/WebSocket;->call_onDestroy(J)V
+private native Lru/yandex/speechkit/internal/WebSocket;->call_onFailure(J I Ljava/lang/String;)V
+private native Lru/yandex/speechkit/internal/WebSocket;->call_onPongMessageReceived(J)V
+private native Lru/yandex/speechkit/internal/WebSocket;->call_onTextMessageReceived(J Ljava/lang/String;)V
+public static native Lorg/webrtc/LibvpxVp8Decoder;->nativeCreateDecoder()J
+public static native Lorg/webrtc/LibvpxVp8Encoder;->nativeCreateEncoder()J
+public static native Lorg/webrtc/LibvpxVp9Decoder;->nativeCreateDecoder()J
+public static native Lorg/webrtc/LibvpxVp9Decoder;->nativeIsSupported()Z
+public static native Lorg/webrtc/LibvpxVp9Encoder;->nativeCreateEncoder()J
+public static native Lorg/webrtc/LibvpxVp9Encoder;->nativeIsSupported()Z
+private static native Lorg/webrtc/NV12Buffer;->nativeCropAndScale(I I I I I I Ljava/nio/ByteBuffer; I I I I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I)V
+private static native Lorg/webrtc/NV21Buffer;->nativeCropAndScale(I I I I I I [B I I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I)V
+private static native Lorg/webrtc/VideoDecoderFallback;->nativeCreateDecoder(Lorg/webrtc/VideoDecoder; Lorg/webrtc/VideoDecoder;)J
+private static native Lorg/webrtc/VideoEncoderFallback;->nativeCreateEncoder(Lorg/webrtc/VideoEncoder; Lorg/webrtc/VideoEncoder;)J
+private static native Lorg/webrtc/JavaI420Buffer;->nativeCropAndScaleI420(Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I I I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I Ljava/nio/ByteBuffer; I I I)V
