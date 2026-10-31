@@ -69,23 +69,6 @@ def write_semgrep_summary() -> None:
     (RESULTS / "semgrep-summary.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
-def write_codechecker_summary() -> None:
-    text = (RESULTS / "codechecker-builtin-1.0.30.txt").read_text(encoding="utf-8", errors="replace")
-    start = text.find("Checker name")
-    end = text.find("----=================----", start)
-    table = text[start:end].strip() if start != -1 else "таблица не найдена"
-    summary = text[text.find("Number of analyzer reports") :].strip()
-
-    custom = (RESULTS / "codechecker-custom-1.0.30.txt").read_text(encoding="utf-8", errors="replace")
-    custom_fixed = (RESULTS / "codechecker-custom-1.1.0.txt").read_text(encoding="utf-8", errors="replace")
-    custom_line = "lab4-msadpcm-block-size: 1 отчёт"
-    custom_fixed_line = "lab4-msadpcm-block-size: 0 отчётов"
-
-    lines = ["CodeChecker, libsndfile 1.0.30", "", "Штатный набор:", table, "", summary, ""]
-    lines += [custom_line, custom_fixed_line]
-    (RESULTS / "codechecker-summary.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
-
-
 def write_poc_summary() -> None:
     vuln = (RESULTS / "poc-1.0.30-asan.log").read_text(encoding="utf-8", errors="replace")
     fixed = (RESULTS / "poc-1.1.0-asan.log").read_text(encoding="utf-8", errors="replace")
@@ -112,7 +95,6 @@ def write_poc_summary() -> None:
 def main() -> None:
     write_codeql_summary()
     write_semgrep_summary()
-    write_codechecker_summary()
     write_poc_summary()
     print("сводки записаны в", RESULTS)
 

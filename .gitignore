@@ -83,7 +83,3 @@ lab3/**/*.pfx
 # lab4: скачанные исходники libsndfile, сборки, базы CodeQL, venv и плагины.
 # В git остаются только скрипты, правила, PoC, результаты и отчёт.
 lab4/work/
-# Промежуточные plist-каталоги CodeChecker (текстовые отчёты и JSON остаются).
-lab4/results/codechecker-builtin-1.0.30/
-lab4/results/codechecker-custom-1.0.30/
-lab4/results/codechecker-custom-1.1.0/
