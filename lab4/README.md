@@ -32,17 +32,21 @@ lab4/
 ├── README.md                  этот файл
 ├── Документация_разработки_лаб4.md  техническая документация
 ├── scripts/
-│   ├── 01-fetch.sh            клонирование v1.0.30 и 1.1.0
-│   ├── 02-build.sh            обычная и ASan-сборка
-│   ├── 03-poc.sh              генерация PoC и прогон
-│   ├── 04-codeql.sh           база, пять CWE, своё правило
-│   ├── 05-semgrep.sh          штатные наборы и своё правило
-│   ├── 06-joern.sh            joern-scan и своё правило
-│   ├── 07-screenshots.sh      сводки и PNG для отчёта
-│   ├── run-all.sh             всё подряд
-│   ├── codeql-build.sh        обёртка сборки для CodeQL
-│   ├── make-shot.sh           рендер текста в PNG
-│   └── summarize.py           сводки по результатам
+│   ├── poc.sh              генерация PoC и прогон
+│   ├── codeql-rules.sh     только правила CodeQL
+│   ├── semgrep-rules.sh    только правила semgrep
+│   ├── joern-rules.sh      только правила joern
+│   ├── codeql-db.sh        создание баз CodeQL
+│   └── build/
+│       ├── 01-fetch.sh        клонирование v1.0.30 и 1.1.0
+│       ├── 02-build.sh        обычная и ASan-сборка
+│       ├── 04-codeql.sh       база, пять CWE, своё правило
+│       ├── 05-semgrep.sh      штатные наборы и своё правило
+│       ├── 06-joern.sh        joern-scan и своё правило
+│       ├── run-all.sh         всё подряд
+│       ├── codeql-build.sh    обёртка сборки для CodeQL
+│       ├── make-shot.sh       рендер текста в PNG
+│       └── summarize.py       сводки по результатам
 ├── rules/
 │   ├── codeql/
 │   │   ├── msadpcm-block-size.ql
@@ -95,26 +99,33 @@ export PATH="$JAVA_HOME/bin:$PATH"
 Полный прогон:
 
 ```sh
-./scripts/run-all.sh
+./scripts/build/run-all.sh
 ```
 
 Или по шагам:
 
 ```sh
-./scripts/01-fetch.sh
-./scripts/02-build.sh
-./scripts/03-poc.sh
-./scripts/04-codeql.sh
-./scripts/05-semgrep.sh
-./scripts/06-joern.sh
-./scripts/07-screenshots.sh
+./scripts/build/01-fetch.sh
+./scripts/build/02-build.sh
+./scripts/poc.sh
+./scripts/build/04-codeql.sh
+./scripts/build/05-semgrep.sh
+./scripts/build/06-joern.sh
+```
+
+Быстрые прогоны правил на уже готовых базах и окружении:
+
+```sh
+./scripts/codeql-rules.sh
+./scripts/semgrep-rules.sh
+./scripts/joern-rules.sh
 ```
 
 Замечания:
 
-- `04-codeql.sh` при первом запуске скачивает bundle CodeQL (~560 МБ) в `work/tools/`.
-- `05-semgrep.sh` обращается к реестру semgrep.dev; нужен интернет.
-- `06-joern.sh` требует уже установленные JDK и joern в `work/tools/`. Штатный прогон по `src/` занимает около половины минуты и пишет `results/joern-builtin-1.0.30.txt`, `results/joern-custom-1.0.30.txt` и `results/joern-custom-1.1.0.txt`. Каталог `workspace` joern создаёт внутри `work/joern-runs/`.
+- `build/04-codeql.sh` при первом запуске скачивает bundle CodeQL (~560 МБ) в `work/tools/`.
+- `build/05-semgrep.sh` обращается к реестру semgrep.dev; нужен интернет.
+- `build/06-joern.sh` требует уже установленные JDK и joern в `work/tools/`. Штатный прогон по `src/` занимает около половины минуты и пишет `results/joern-builtin-1.0.30.txt`, `results/joern-custom-1.0.30.txt` и `results/joern-custom-1.1.0.txt`. Каталог `workspace` joern создаёт внутри `work/joern-runs/`.
 - Скрипты используют `work/` и `results/`; пути абсолютные, запускать можно из любого каталога.
 
 ## Проверка PoC вручную

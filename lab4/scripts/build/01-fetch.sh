@@ -3,7 +3,7 @@
 # в work/src. Каталог work/ в git не входит.
 set -eu
 
-ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
 SRC="$ROOT/work/src"
 mkdir -p "$SRC"
 

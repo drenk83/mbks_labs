@@ -2,7 +2,7 @@
 # Собирает libsndfile 1.0.30 и 1.1.0 в обычном варианте и с AddressSanitizer.
 set -eu
 
-ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
 JOBS=${JOBS:-8}
 
 for version in 1.0.30 1.1.0; do

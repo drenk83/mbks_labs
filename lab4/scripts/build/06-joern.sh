@@ -3,7 +3,7 @@
 # на 1.0.30 и 1.1.0.
 set -eu
 
-ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
 JAVA_HOME="$ROOT/work/tools/jdk-21"
 export JAVA_HOME
 export PATH="$JAVA_HOME/bin:$PATH"

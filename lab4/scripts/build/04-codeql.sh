@@ -2,7 +2,7 @@
 # Создаёт базы CodeQL, запускает пять штатных CWE-запросов и своё правило.
 set -eu
 
-ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
 TOOLS="$ROOT/work/tools"
 CODEQL_HOME="$TOOLS/codeql"
 CODEQL="$CODEQL_HOME/codeql"
@@ -37,7 +37,7 @@ for version in 1.0.30 1.1.0; do
     "$CODEQL" database create "$ROOT/work/db-$version" \
         --language=cpp \
         --source-root="$ROOT/work/src/libsndfile-$version" \
-        --command="$ROOT/scripts/codeql-build.sh $version" \
+        --command="$ROOT/scripts/build/codeql-build.sh $version" \
         --overwrite
 done
 
@@ -61,5 +61,5 @@ for version in 1.0.30 1.1.0; do
         --threads="$JOBS"
 done
 
-python3 "$ROOT/scripts/summarize.py"
+python3 "$ROOT/scripts/build/summarize.py"
 echo "готово: $RES"

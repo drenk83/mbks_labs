@@ -3,7 +3,7 @@
 # и собственное правило на 1.0.30 и 1.1.0.
 set -eu
 
-ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/../.." && pwd)
 SEMGREP="$ROOT/work/venvs/semgrep/bin/semgrep"
 RES="$ROOT/results"
 
@@ -36,5 +36,5 @@ echo "== своё правило, 1.1.0"
 "$SEMGREP" --config="$ROOT/rules/semgrep/msadpcm-block-size.yaml" \
     --metrics=off src > "$RES/semgrep-custom-1.1.0.txt" 2>&1 || true
 
-python3 "$ROOT/scripts/summarize.py"
+python3 "$ROOT/scripts/build/summarize.py"
 echo "готово: $RES"

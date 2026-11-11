@@ -12,10 +12,11 @@
     .controlStructureType(ControlStructureTypes.IF)
     .filter { cs =>
       cs.condition.l.exists { cond =>
-        val kids = cond.astChildren.l
-        kids.length >= 2 &&
-        kids.head.code == "blockalign" &&
-        kids(1).code.startsWith("7 *")
+        val kids = cond.astChildren.l        // [левый, правый] операнды
+        // оператор (<, >, ==) не проверяется
+        kids.length >= 2 &&                  // оба операнда есть
+        kids.head.code == "blockalign" &&    // слева blockalign
+        kids(1).code.startsWith("7 *")       // справа 7 * ...
       }
     }
     .map { cs =>
