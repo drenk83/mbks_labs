@@ -1,0 +1,24 @@
+                   
+                   
+┌─────────────────┐
+│ 2 Code Findings │
+└─────────────────┘
+                                  
+    rules/fixtures/msadpcm-shape.c
+   ❯❯❱ rules.semgrep.lab4-msadpcm-block-size
+          ❰❰ Blocking ❱❱
+          Слагаемое размера malloc/calloc сравнивается с              
+          произведением, а другой множитель того же размера так не    
+          ограничен. Литерал 7 не требуется. Для MS ADPCM так выглядит
+          слабая проверка преамбулы (CVE-2021-3246).                  
+                                                                      
+           15┆ if (chunk < 7 * channels) {
+           16┆    return -1;
+           17┆ }
+            ⋮┆----------------------------------------
+           29┆ if (chunk < 8 * channels) {
+           30┆    return -1;
+           31┆ }
+
+
+Ran 1 rule on 1 file: 2 findings.

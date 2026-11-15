@@ -1,0 +1,23 @@
+                  
+                  
+┌────────────────┐
+│ 1 Code Finding │
+└────────────────┘
+                                             
+    work/src/libsndfile-1.0.30/src/ms_adpcm.c
+   ❯❯❱ rules.semgrep.lab4-msadpcm-block-size
+          ❰❰ Blocking ❱❱
+          Слагаемое размера malloc/calloc сравнивается с              
+          произведением, а другой множитель того же размера так не    
+          ограничен. Литерал 7 не требуется. Для MS ADPCM так выглядит
+          слабая проверка преамбулы (CVE-2021-3246).                  
+                                                                      
+          131┆ if (blockalign < 7 * psf->sf.channels)
+          132┆ {  psf_log_printf (psf, "*** Error blockalign (%d)
+               should be > %d.\n", blockalign, 7 *               
+               psf->sf.channels) ;                               
+          133┆    return SFE_INTERNAL ;
+          134┆    } ;
+
+
+Ran 1 rule on 130 files: 1 finding.

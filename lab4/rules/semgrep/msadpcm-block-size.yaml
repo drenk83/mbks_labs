@@ -3,9 +3,9 @@ rules:
     languages: [c]
     severity: ERROR
     message: >
-      MS ADPCM: проверяется только blockalign, а samplesperblock не ограничен.
-      Это позволяет выйти за границы буфера в msadpcm_decode_block
-      (CVE-2021-3246 в libsndfile 1.0.30).
+      Слагаемое размера malloc/calloc сравнивается с произведением, а другой
+      множитель того же размера так не ограничен. Литерал 7 не требуется.
+      Для MS ADPCM так выглядит слабая проверка преамбулы (CVE-2021-3246).
     metadata:
       cwe:
         - "CWE-787: Out-of-bounds Write"
@@ -13,13 +13,69 @@ rules:
         - https://nvd.nist.gov/vuln/detail/CVE-2021-3246
         - https://github.com/libsndfile/libsndfile/issues/687
     patterns:
+      - pattern-either:
+          - pattern: |
+              if ($BLOCK < $SCALE * $CH) { ... }
+          - pattern: |
+              if ($BLOCK < $SCALE * $CH)
+                $STMT;
       - pattern-inside: |
-          int wavlike_msadpcm_init(...)
-          {
+          $RET $FN(...) {
+            ...
+            $SZ = $HEAD + $BLOCK + $K * $MID * $COUNT;
             ...
           }
-      - pattern: |
-          if (blockalign < 7 * $CHANNELS)
-          {
+      - pattern-either:
+          - pattern-inside: |
+              $RET $FN(...) {
+                ...
+                if (! ($DEST = calloc($N, $SZ)))
+                  $S;
+                ...
+              }
+          - pattern-inside: |
+              $RET $FN(...) {
+                ...
+                if (!calloc($N, $SZ))
+                  $S;
+                ...
+              }
+          - pattern-inside: |
+              $RET $FN(...) {
+                ...
+                $DEST = calloc($N, $SZ);
+                ...
+              }
+          - pattern-inside: |
+              $RET $FN(...) {
+                ...
+                $DEST = malloc($SZ);
+                ...
+              }
+          - pattern-inside: |
+              $RET $FN(...) {
+                ...
+                if (! ($DEST = malloc($SZ)))
+                  $S;
+                ...
+              }
+          - pattern-inside: |
+              $RET $FN(...) {
+                ...
+                if (!malloc($SZ))
+                  $S;
+                ...
+              }
+      - pattern-not-inside: |
+          $RET $FN(...) {
+            ...
+            if ($COUNT < $SCALE2 * $X) { ... }
+            ...
+          }
+      - pattern-not-inside: |
+          $RET $FN(...) {
+            ...
+            if ($COUNT < $SCALE2 * $X)
+              $S2;
             ...
           }

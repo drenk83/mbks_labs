@@ -143,17 +143,9 @@ ASAN_OPTIONS=detect_leaks=0 \
 
 ## Правила
 
-Все три правила нацелены на старую проверку в `wavlike_msadpcm_init`:
+Все три правила ищут одну форму, без имён `wavlike_msadpcm_init` и `blockalign` и без литерала 7. В одной функции размер `malloc`/`calloc` складывается из переменной `B` и произведения с переменной `S`, есть `if (B < ... * ...)`, и нет `if (S < ... * ...)`.
 
-```c
-if (blockalign < 7 * psf->sf.channels)
-```
-
-В 1.1.0 она заменена на проверки `samplesperblock` и `2 * blockalign`, поэтому правила на исправленной версии молчат.
-
-- CodeQL: запрос ограничен функцией `wavlike_msadpcm_init`, ищет `if` с `blockalign` слева от `<`.
-- semgrep: `pattern-inside` функции + шаблон условия.
-- joern: обход CPG, оператор `if` в той же функции; первый ребёнок AST условия — `blockalign`, второй начинается с `7 *`.
+В 1.0.30 под эту форму попадает `blockalign < 7 * psf->sf.channels` при размере `... + blockalign + 3 * channels * samplesperblock`. В 1.1.0 с произведением сравнивается уже `samplesperblock`, поэтому правила молчат. Та же форма с именами `chunk` и `nframes` лежит в `rules/fixtures/msadpcm-shape.c`: 2 находки (`open_block` с 7 и `open_block_eight` с 8), 0 в `open_block_fixed`.
 
 ## Отчёт
 

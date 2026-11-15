@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-# Создаёт базы CodeQL для libsndfile 1.0.30 и 1.1.0.
 
 ROOT=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
 

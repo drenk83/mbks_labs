@@ -1,0 +1,3 @@
+находок: 2
+msadpcm-shape.c:15: chunk < 7 * channels
+msadpcm-shape.c:29: chunk < 8 * channels
