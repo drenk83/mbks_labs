@@ -1,0 +1,1229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Лаба 5. Самоучитель к защите</title>
+<style>
+  :root {
+    color-scheme: light;
+    --paper: #f4efe6;
+    --paper-2: #ebe4d6;
+    --ink: #1c1915;
+    --muted: #5e574c;
+    --line: #d5ccbc;
+    --accent: #8c2f2a;
+    --accent-ink: #fffaf6;
+    --soft: #f6e8e2;
+    --say: #1e4d38;
+    --say-bg: #e4f0e8;
+    --say-line: #2f7a56;
+    --warn-bg: #f8efd8;
+    --warn: #7a5410;
+    --dead: #8a8175;
+    --code: #241f1a;
+    --code-ink: #f4efe6;
+    --ok: #1f6b45;
+    --bad: #8c2f2a;
+    --shadow: 0 10px 30px rgba(40, 28, 16, .06);
+    --serif: "Liberation Serif", "Nimbus Roman", Georgia, serif;
+    --sans: "Liberation Sans", "Nimbus Sans", "Segoe UI", system-ui, sans-serif;
+    --mono: "Liberation Mono", "Nimbus Mono PS", ui-monospace, monospace;
+    --nav: 15.5rem;
+    --header: 4.4rem;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      color-scheme: dark;
+      --paper: #141210;
+      --paper-2: #211d18;
+      --ink: #f3efe6;
+      --muted: #b7ad9e;
+      --line: #3a342c;
+      --accent: #e08a72;
+      --accent-ink: #1c1210;
+      --soft: #3a2420;
+      --say: #c9ead8;
+      --say-bg: #17261e;
+      --say-line: #6fbf96;
+      --warn-bg: #2c2416;
+      --warn: #e6c27a;
+      --dead: #8a8175;
+      --code: #0d0b09;
+      --code-ink: #f3efe6;
+      --ok: #8ddebe;
+      --bad: #f0a097;
+      --shadow: 0 10px 30px rgba(0, 0, 0, .28);
+    }
+  }
+  * { box-sizing: border-box; }
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background:
+      radial-gradient(1200px 400px at 10% -10%, rgba(140, 47, 42, .08), transparent 50%),
+      var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 1.05rem;
+    line-height: 1.55;
+  }
+  .skip {
+    position: absolute;
+    left: 1rem;
+    top: -4rem;
+    background: var(--accent);
+    color: var(--accent-ink);
+    padding: .4rem .7rem;
+    z-index: 20;
+  }
+  .skip:focus { top: .5rem; }
+  header.top {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: var(--header);
+    padding: .55rem 1.1rem;
+    background: color-mix(in srgb, var(--paper) 92%, transparent);
+    border-bottom: 1px solid var(--line);
+    backdrop-filter: blur(10px);
+  }
+  .brand { min-width: 0; }
+  .brand .kicker {
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+  .brand strong { display: block; font-family: var(--serif); font-size: 1.15rem; font-weight: 600; }
+  .brand span { color: var(--muted); font-size: .86rem; }
+  .grow { flex: 1; }
+  .meter {
+    width: min(12rem, 28vw);
+    height: .35rem;
+    background: var(--paper-2);
+    border-radius: 99px;
+    overflow: hidden;
+    border: 1px solid var(--line);
+  }
+  .meter > span { display: block; height: 100%; width: 0; background: var(--accent); }
+  #progress-label { font-size: .78rem; color: var(--muted); white-space: nowrap; }
+  .modes { display: flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
+  .modes button, button, summary.btn {
+    font: inherit;
+    color: inherit;
+    background: transparent;
+    border: 1px solid var(--line);
+    border-radius: .55rem;
+    padding: .35rem .7rem;
+    cursor: pointer;
+  }
+  .modes button { border: 0; border-radius: 0; }
+  .modes button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+  button.primary { background: var(--accent); color: var(--accent-ink); border-color: transparent; }
+  button.good[aria-pressed="true"] { background: var(--say-bg); border-color: var(--say-line); color: var(--say); }
+  button.bad[aria-pressed="true"] { background: var(--soft); border-color: var(--accent); color: var(--accent); }
+  button:hover, summary.btn:hover { border-color: var(--accent); }
+  :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .menu {
+    display: none;
+    border-radius: .55rem;
+  }
+  .scrim {
+    position: fixed;
+    inset: var(--header) 0 0 0;
+    z-index: 8;
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: rgba(28, 25, 21, .45);
+  }
+  .layout { display: grid; grid-template-columns: var(--nav) 1fr; }
+  nav.side {
+    position: sticky;
+    top: var(--header);
+    align-self: start;
+    height: calc(100vh - var(--header));
+    overflow: auto;
+    padding: 1rem .8rem 2rem;
+    border-right: 1px solid var(--line);
+  }
+  nav.side a {
+    display: flex;
+    gap: .45rem;
+    align-items: baseline;
+    color: inherit;
+    text-decoration: none;
+    padding: .32rem .4rem;
+    border-radius: .4rem;
+    font-size: .92rem;
+  }
+  nav.side a:hover { background: var(--paper-2); }
+  nav.side a .n { font-family: var(--mono); font-size: .72rem; color: var(--muted); }
+  nav.side a.seen .n { color: var(--ok); }
+  main { padding: 1.4rem 1.6rem 4rem; max-width: 58rem; }
+  section { margin: 0 0 2.6rem; scroll-margin-top: calc(var(--header) + .6rem); }
+  h2 { font-family: var(--serif); font-weight: 600; font-size: 1.85rem; margin: 0 0 .4rem; }
+  h3 { font-family: var(--serif); font-weight: 600; font-size: 1.25rem; margin: 0 0 .35rem; }
+  .lede { color: var(--muted); margin-top: 0; }
+  .grid { display: grid; gap: .8rem; }
+  .grid.two { grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+  .card, .say, .warn, .q, .step, .trap, .flip, .node-card {
+    background: color-mix(in srgb, var(--paper) 70%, var(--paper-2));
+    border: 1px solid var(--line);
+    border-radius: .9rem;
+    padding: .9rem 1rem;
+    box-shadow: var(--shadow);
+  }
+  .say {
+    background: var(--say-bg);
+    border-color: color-mix(in srgb, var(--say-line) 45%, var(--line));
+    margin: .8rem 0;
+  }
+  .say .tag, .warn .tag, .k {
+    font-family: var(--mono);
+    font-size: .72rem;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+  .say .tag { color: var(--say); }
+  .warn { background: var(--warn-bg); }
+  .warn .tag { color: var(--warn); }
+  .checks { list-style: none; padding: 0; margin: .4rem 0 0; }
+  .checks li { display: flex; gap: .55rem; align-items: flex-start; padding: .28rem 0; }
+  .checks input { margin-top: .35rem; }
+  table { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  th, td { text-align: left; vertical-align: top; padding: .4rem .45rem; border-bottom: 1px solid var(--line); }
+  th { font-size: .78rem; letter-spacing: .04em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .scroll { overflow-x: auto; }
+  code, .mono { font-family: var(--mono); font-size: .86em; }
+  pre {
+    background: var(--code);
+    color: var(--code-ink);
+    padding: .8rem .9rem;
+    border-radius: .7rem;
+    overflow: auto;
+    line-height: 1.45;
+  }
+  pre code { font-size: .82rem; color: inherit; }
+  .cmd { position: relative; }
+  .cmd .copy { position: absolute; top: .4rem; right: .4rem; background: #3a332c; color: var(--code-ink); border-color: transparent; }
+  details { margin: .45rem 0; }
+  summary { cursor: pointer; }
+  summary.btn { display: inline-block; list-style: none; }
+  summary.btn::-webkit-details-marker { display: none; }
+  .flow {
+    display: grid;
+    grid-template-columns: minmax(12rem, 18rem) 1fr;
+    gap: .8rem;
+    align-items: start;
+  }
+  .nodes { display: grid; gap: .45rem; }
+  .nodes button {
+    text-align: left;
+    border-radius: .75rem;
+    background: var(--paper);
+  }
+  .nodes button small { display: block; color: var(--muted); }
+  .nodes button[aria-current="true"] { border-color: var(--accent); background: var(--soft); }
+  .nodes button.dead { color: var(--dead); }
+  .detail h3 { margin-top: 0; }
+  .shots { display: flex; gap: .8rem; flex-wrap: wrap; align-items: flex-start; }
+  .shots figure { margin: 0; max-width: 16rem; }
+  .shots img {
+    width: 100%;
+    max-height: 28rem;
+    object-fit: contain;
+    object-position: top;
+    background: #111;
+    border-radius: .6rem;
+    border: 1px solid var(--line);
+  }
+  .shots figcaption { color: var(--muted); font-size: .82rem; margin-top: .3rem; }
+  .steps { display: grid; gap: .7rem; }
+  .step header { display: flex; gap: .6rem; align-items: baseline; }
+  .step .idx {
+    font-family: var(--mono);
+    color: var(--accent);
+    min-width: 1.6rem;
+  }
+  .q header, .trap .row, .bar { display: flex; gap: .5rem; flex-wrap: wrap; align-items: center; }
+  .q textarea {
+    width: 100%;
+    min-height: 4.2rem;
+    margin: .5rem 0;
+    padding: .55rem .65rem;
+    border-radius: .55rem;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: inherit;
+    font: inherit;
+    resize: vertical;
+  }
+  .flips { display: grid; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr)); gap: .7rem; }
+  .flip {
+    min-height: 8.2rem;
+    text-align: left;
+    cursor: pointer;
+    background: var(--paper);
+  }
+  .flip .back { display: none; }
+  .flip[aria-pressed="true"] { background: var(--say-bg); border-color: var(--say-line); }
+  .flip[aria-pressed="true"] .front { display: none; }
+  .flip[aria-pressed="true"] .back { display: block; }
+  .flip .qtext { font-family: var(--serif); font-size: 1.12rem; }
+  .choice { display: grid; gap: .4rem; margin: .4rem 0; }
+  .choice button[aria-pressed="true"].hit,
+  .row button[aria-pressed="true"].hit { border-color: var(--ok); background: var(--say-bg); }
+  .choice button[aria-pressed="true"].miss,
+  .row button[aria-pressed="true"].miss { border-color: var(--bad); background: var(--soft); }
+  .search {
+    width: min(24rem, 100%);
+    padding: .5rem .7rem;
+    border-radius: .6rem;
+    border: 1px solid var(--line);
+    background: var(--paper);
+    color: inherit;
+    font: inherit;
+  }
+  .store {
+    margin: 0;
+    padding: .45rem 1rem;
+    background: var(--warn-bg);
+    color: var(--warn);
+    font-size: .88rem;
+  }
+  footer.note { color: var(--muted); font-size: .88rem; }
+  body.mode-defense .learn-only { display: none; }
+  body.mode-defense .defense-only { display: block; }
+  .defense-only { display: none; }
+  @media (min-width: 861px) {
+    .scrim { display: none !important; }
+  }
+  @media (max-width: 860px) {
+    :root { --header: 10.5rem; }
+    .menu { display: inline-block; }
+    .meter, #progress-label { display: none; }
+    .layout { grid-template-columns: 1fr; }
+    header.top { align-items: flex-start; }
+    nav.side {
+      position: fixed;
+      z-index: 9;
+      top: var(--header);
+      left: 0;
+      width: 100%;
+      background: var(--paper);
+      transform: translateX(-105%);
+      transition: transform .18s ease;
+      box-shadow: var(--shadow);
+    }
+    body.nav-open nav.side { transform: none; }
+    .flow { grid-template-columns: 1fr; }
+    main { padding: 1rem .9rem 3rem; }
+    header.top { flex-wrap: wrap; }
+  }
+  @media print {
+    header.top, nav.side, .noprint { display: none !important; }
+    .layout { display: block; }
+    body { background: white; color: black; }
+    .card, .say, .q { break-inside: avoid; }
+  }
+</style>
+</head>
+<body>
+<p id="store-warn" class="store" hidden>Браузер не сохранил отметки. В этой вкладке они живут, пока её не закрыть.</p>
+<a class="skip" href="#start">К содержанию</a>
+<header class="top">
+  <button type="button" class="menu" id="menu" aria-expanded="false" aria-controls="side">Разделы</button>
+  <div class="brand">
+    <div class="kicker">МБКС · лабораторная 5</div>
+    <strong>Самоучитель к защите</strong>
+    <span>Вариант 11 · mfva и Yandex Mail 8.81.2</span>
+  </div>
+  <div class="grow"></div>
+  <div class="meter" title="Сколько разделов уже открыто"><span id="meter"></span></div>
+  <div id="progress-label">0 / 10 разделов</div>
+  <div class="modes" role="group" aria-label="Режим чтения">
+    <button type="button" id="mode-teach" aria-pressed="true">Учить</button>
+    <button type="button" id="mode-defense" aria-pressed="false">На защиту</button>
+  </div>
+</header>
+<button type="button" id="scrim" class="scrim" hidden aria-label="Закрыть разделы"></button>
+<div class="layout">
+<nav class="side" id="side" aria-label="Разделы">
+  <a href="#start"><span class="n">00</span> Старт</a>
+  <a href="#map"><span class="n">01</span> Схема</a>
+  <a href="#theory"><span class="n">02</span> Теория</a>
+  <a href="#white"><span class="n">03</span> Белый ящик</a>
+  <a href="#black"><span class="n">04</span> Чёрный ящик</a>
+  <a href="#demo"><span class="n">05</span> Демо</a>
+  <a href="#quiz"><span class="n">06</span> 25 вопросов</a>
+  <a href="#numbers"><span class="n">07</span> Цифры</a>
+  <a href="#bounds"><span class="n">08</span> Границы</a>
+  <a href="#sheet"><span class="n">09</span> Шпаргалка</a>
+</nav>
+<main>
+<section id="start">
+  <h2>Вся работа одним абзацем</h2>
+  <p class="lede">Страница для устного ответа. Рядом лежит <code>Лаб5_самоучитель_и_защита.md</code>, его эта страница не заменяет и не правит. Отчёт сдаётся как <code>report.md</code> и <code>mbks_lab_5.docx</code>.</p>
+  <p>Вариант 11. Белый ящик — учебное приложение <strong>mfva</strong> (в таблице задания опечатка «mvfa»), пакет <code>com.appknox.mfva</code>. Чёрный ящик — <strong>Yandex Mail 8.81.2</strong>, пакет <code>ru.yandex.mail</code>, versionCode 105397. В mfva разобраны DES/ECB с ключом в исходнике, MD5, пароли и токен по HTTP, резервная копия, WebView с JavaScript и два реально открытых компонента. Необъявленное <code>CustomPermission</code> остальные как раз закрывает. Почта принимает чужое письмо через экспортированную <code>EmlActivity</code>. На эмуляторе API 34 письмо открылось, Frida на pid 9066 записала <code>openInputStream</code>. Native-методов 339, письмо до них не доходит. Сканер загрузил <code>libcamera360-arcadia.so</code> из APK, вызов JNI на кадре не пойман. FlowDroid записал 18 путей и оборвался по памяти. Trueseeing: 8068 срабатываний, 37 групп, уровня High нет. APKHunt шёл 22 минуты и напечатал ноль экспортированных компонентов. Это ошибка сводки. MobSF и SEBASTiAN без Docker не запускались.</p>
+  <div class="say">
+    <div class="tag">На защите</div>
+    <p id="pitch" hidden>Вариант 11. Белый ящик — mfva, чёрный ящик — Yandex Mail 8.81.2. В mfva: DES/ECB с ключом Gangnam!, MD5, который печатается как toString массива, пароли user1, pass1, pass0 и токен по HTTP, allowBackup и WebView с JavaScript. CustomPermission не объявлен, поэтому компоненты с именами Unprotected снаружи закрыты. Открыты сервис, чей onBind бросает исключение, и приёмник без разрешения. Почта принимает письмо через экспортированную EmlActivity. Frida на pid 9066 записала openInputStream на этот файл. 339 native-методов выписаны скриптом на androguard. Письмо в нативный код не уходит. Сканер в том же процессе загрузил libcamera360-arcadia.so из APK, вызов JNI на кадре трасса не поймала. FlowDroid дал 18 путей и оборвался по памяти, письма среди них нет. Trueseeing — 8068 срабатываний, 37 групп, High нет. APKHunt напечатал ноль экспортированных компонентов, это ошибка инструмента. MobSF и SEBASTiAN на машине без Docker не запускались.</p>
+    <button type="button" class="primary" id="show-pitch" aria-controls="pitch" aria-expanded="false">Показать текст на защиту</button>
+  </div>
+  <h3>План на час</h3>
+  <ul class="checks" id="hour">
+    <li><input type="checkbox" data-bucket="hour" data-key="0" id="h0"><label for="h0">Абзац выше, вслух, 5 минут.</label></li>
+    <li><input type="checkbox" data-bucket="hour" data-key="1" id="h1"><label for="h1">Теория и четыре ловушки, 20 минут.</label></li>
+    <li><input type="checkbox" data-bucket="hour" data-key="2" id="h2"><label for="h2">Белый и чёрный ящик по шагам, 15 минут.</label></li>
+    <li><input type="checkbox" data-bucket="hour" data-key="3" id="h3"><label for="h3">Цифры и быстрый показ, 10 минут.</label></li>
+    <li><input type="checkbox" data-bucket="hour" data-key="4" id="h4"><label for="h4">Вопросы и границы, 10 минут.</label></li>
+    <li><input type="checkbox" data-bucket="hour" data-key="5" id="h5"><label for="h5">Шпаргалка команд и файлов, 5 минут.</label></li>
+  </ul>
+  <p class="lede">Полные прогоны FlowDroid, Trueseeing и APKHunt на защите не повторяются. Второй эмулятор не поднимается, пока жив первый.</p>
+</section>
+
+<section id="map">
+  <h2>Схема</h2>
+  <p class="lede">Нажми узел. Справа — цифра, которую можно сказать, и файл, который открыть.</p>
+  <div class="flow">
+    <div class="nodes" role="list">
+      <button type="button" data-node="mfva" aria-current="false">mfva<small>белый ящик, исходники</small></button>
+      <button type="button" data-node="andro" aria-current="false">androguard<small>манифест, 339 native, стоки</small></button>
+      <button type="button" data-node="so" aria-current="false">четыре .so<small>OpenCV, BoringSSL, SpeechKit</small></button>
+      <button type="button" data-node="frida" aria-current="false">эмулятор и Frida<small>письмо и сканер, pid 9066</small></button>
+      <button type="button" data-node="flow" aria-current="false">FlowDroid<small>18 путей, обрыв по памяти</small></button>
+      <button type="button" data-node="true" aria-current="false">Trueseeing<small>8068 срабатываний, 37 групп</small></button>
+      <button type="button" data-node="hunt" aria-current="false">APKHunt<small>22 мин, exported в сводке 0</small></button>
+      <button type="button" class="dead" data-node="skip" aria-current="false">MobSF и SEBASTiAN<small>не запускались</small></button>
+    </div>
+    <article class="detail card" id="node-detail" aria-live="polite">
+      <h3>Выбери узел</h3>
+      <p>Каждый узел — кусок работы, который уже лежит в <code>lab5/results/</code>. Повторно считать его не нужно.</p>
+    </article>
+  </div>
+</section>
+
+<section id="theory">
+  <h2>Теория на пальцах</h2>
+  <p class="lede learn-only">Короткий смысл на карточке. Длинный разбор открывается внутри. Блок «На защите» можно читать почти дословно.</p>
+  <div class="grid two">
+    <article class="card">
+      <h3>Два режима и два вида анализа</h3>
+      <p>Белый ящик — исходники есть, ошибка видна в тексте. Чёрный ящик — только APK. Статический анализатор даёт гипотезу. Открытое письмо и строка в трассе — наблюдение.</p>
+      <details class="learn-only"><summary>Разобрать</summary>
+        <p>SAST здесь: FlowDroid, Trueseeing, APKHunt и разбор androguard. Они почту не запускают. DAST в этой работе: эмулятор и Frida. Приложение открывает письмо, скрипт записывает вызов. Доказательства, на которые можно опираться: фрагмент mfva, скриншот письма, <code>openInputStream</code> в трассе, библиотека в карте модулей.</p>
+      </details>
+      <div class="say"><div class="tag">На защите</div><p>Белый ящик — чтение исходников mfva по разделам MASVS. Чёрный ящик — APK почты: декомпиляция, манифест, эмулятор и Frida. Статический анализатор даёт гипотезу. Открытое письмо и строка openInputStream — уже наблюдение.</p></div>
+    </article>
+    <article class="card">
+      <h3>MASVS, MSTG, Kotlin-SCP</h3>
+      <p>Три документа об одном. MASVS говорит, что должно быть верно. MSTG говорит, какими тестами это проверять. Kotlin-SCP — те же ошибки для Kotlin.</p>
+      <details class="learn-only"><summary>Восемь категорий</summary>
+        <ol>
+          <li>Архитектура и модель угроз.</li>
+          <li>Хранение данных и приватность.</li>
+          <li>Криптография.</li>
+          <li>Аутентификация и сессии.</li>
+          <li>Сеть.</li>
+          <li>Платформа.</li>
+          <li>Качество кода и сборка.</li>
+          <li>Устойчивость. Для уровня L1 не обязательна.</li>
+        </ol>
+        <p>Номера MSTG в отчёт не подставлялись там, где по коду нельзя честно сослаться на идентификатор. mfva написан на Java, отдельных файлов Kotlin нет, правила перенесены по смыслу.</p>
+      </details>
+      <div class="say"><div class="tag">На защите</div><p>MASVS — требования, MSTG — как проверять, Kotlin-SCP — те же классы ошибок. Разбор идёт по восьми категориям MASVS v1, не по распечатке всех номеров тестов.</p></div>
+    </article>
+    <article class="card">
+      <h3>exported и permission</h3>
+      <p>Чужое приложение входит через activity, service, receiver и provider. <code>exported="true"</code> пускает снаружи. Разрешение на компоненте пускает только того, у кого оно есть.</p>
+      <details class="learn-only"><summary>Нюанс mfva</summary>
+        <p>Если тега <code>&lt;permission&gt;</code> с таким именем нет, обычное приложение себе это разрешение не получит. Компонент выглядит открытым, а снаружи закрыт. Подпись signature пускает только приложение с тем же ключом: так закрыта часть Passport в почте, <code>com.yandex.permission.READ_CREDENTIALS</code>.</p>
+        <p>У почты targetSdk 33, у mfva targetSdk 30. С targetSdk 31 компонент с intent-filter обязан объявить exported явно. Корень <code>adb shell am start</code> — не чужое приложение: так запущен неэкспортированный сканер. Стороннее приложение так сделать не может.</p>
+      </details>
+    </article>
+    <article class="card">
+      <h3>Source и sink</h3>
+      <p>Source — место, куда попадают чужие данные. Sink — место, где они становятся опасными. Задание велит считать native-вызов стоком. Таких определений 339.</p>
+      <details class="learn-only"><summary>Две цепочки</summary>
+        <p>Письмо: <code>ACTION_VIEW</code> на файл → <code>EmlActivity.onCreate</code> → <code>openInputStream</code> → разбор в Java → текст в WebView. До native эта цепочка не доходит.</p>
+        <p>Сканер: <code>DocScannerCameraActivity</code> при пустом bundle → <code>loadLibrary("camera360-arcadia")</code> → библиотека видна из <code>base.apk</code>. До вызова конкретной JNI-функции трасса не идёт.</p>
+        <p>Файл <code>results/native-sinks.txt</code> написан в формате стока FlowDroid. В <code>SourcesAndSinks.txt</code>, которым кормили прогон, эти 339 строк не входили.</p>
+      </details>
+      <div class="say"><div class="tag">На защите</div><p>Источник письма — Intent.getData и openInputStream. Сток этого пути — разбор и WebView. 339 native-методов я тоже считаю стоками, письмо до них не доходит. Сканер грузит camera360, это отдельный сценарий.</p></div>
+    </article>
+    <article class="card">
+      <h3>Декомпиляция</h3>
+      <p>JADX поднимает из DEX Java-подобный текст. Это не исходник автора. Подсчёты отчёта сняты androguard, не глазами по XML.</p>
+      <details class="learn-only"><summary>Где лежат деревья</summary>
+        <p>APKHunt сам вызвал JADX и закончил строкой <code>finished with errors, count: 267</code>. Классы <code>EmlActivity</code>, сканер, офлайн-календарь и константа SpeechKit читались по дереву того же APK в <code>/home/drenk83/Documents/mbks/3/YandexMail/sources</code>. Повторное дерево лежит в <code>results/apkhunt/</code> и в git не входит. Имя для APKHunt без пробелов и точек: <code>yandex-mail-8-81-2.apk</code>, SHA-256 тот же.</p>
+      </details>
+    </article>
+    <article class="card">
+      <h3>Frida</h3>
+      <p>Скрипт внутри живого процесса. Клиент и сервер оба 17.4.0, сервер <code>android-x86_64</code>. Итоговая трасса — attach по pid, имя процесса <code>Yandex Mail</code>.</p>
+      <details class="learn-only"><summary>Что роняет процесс</summary>
+        <p>Spawn через <code>frida -f</code> до <code>Java.perform</code> не доходит. Сессия живёт, пока открыт stdin: её держали <code>sleep 40 | stdbuf -oL -eL frida</code>. Клиент 16.7.19 из venv анализа к серверу 17.4.0 не подходит. <code>env.sh</code> этот venv в PATH не кладёт.</p>
+        <p>Подмена <code>System.loadLibrary</code> роняет WebView письма. Хук на все <code>Activity.onCreate</code> роняет тот же экран. Хук <code>android_dlopen_ext</code> роняет процесс. Подмена методов <code>EyeNative</code> тоже. В <code>trace.js</code> этих хуков нет: только две активности и <code>openInputStream</code>.</p>
+      </details>
+      <div class="say"><div class="tag">На защите</div><p>Клиент и сервер оба 17.4.0. Подключался attach по pid, потому что имя процесса — Yandex Mail, а spawn до Java не доходит. Широкие хуки роняют WebView, поэтому в трассе только EmlActivity, сканер и openInputStream.</p></div>
+    </article>
+    <article class="card">
+      <h3>JNI и чужой код в .so</h3>
+      <p>Флаг <code>ACC_NATIVE</code> значит: байткода нет, реализация в библиотеке. Версию пишут только если она есть в строке или в имени файла.</p>
+      <details class="learn-only"><summary>Кто на какой библиотеке</summary>
+        <div class="scroll"><table>
+          <tr><th>Префикс</th><th>Методов</th><th>Библиотека</th></tr>
+          <tr><td><code>ru.yandex.speechkit</code></td><td>110</td><td>SpeechKit 4.15.7</td></tr>
+          <tr><td><code>org.webrtc</code></td><td>89</td><td>jingle / WebRTC</td></tr>
+          <tr><td><code>ru.yandex.dict</code></td><td>78</td><td>camera360-arcadia</td></tr>
+          <tr><td><code>org.sqlite.core</code></td><td>38</td><td>sqlitejdbc, файла нет</td></tr>
+          <tr><td><code>com.yandex.metrica</code></td><td>16</td><td>AppMetrica, файлов нет</td></tr>
+          <tr><td><code>com.yandex.eye</code></td><td>8</td><td>libeye.so</td></tr>
+        </table></div>
+        <p>110+89+78+38+16+8 = 339. OpenCV виден по путям, номера нет. В звонковой библиотеке BoringSSL, не OpenSSL. <code>extractNativeLibs=false</code>: библиотека может отображаться как <code>base.apk!/lib/x86_64/...</code>. libpng во всех четырёх файлах: 0.</p>
+      </details>
+    </article>
+    <article class="card">
+      <h3>FlowDroid</h3>
+      <p>Статический taint по APK. Штатный список источников и стоков, 460 строк. Свои 339 native-стоков туда не добавлялись. Решатель: 18 путей из 36 источников, 86 секунд, пик 8512 МБ.</p>
+      <details class="learn-only"><summary>Почему это не весь ответ</summary>
+        <p>В XML стоит <code>TerminationState="DataFlowOutOfMemory"</code>. Полное время в XML 210 секунд, таймаут 480 секунд не сработал. 18 путей — то, что успело записаться. Среди них нет <code>EmlActivity</code>, <code>openInputStream</code>, camera360, SpeechKit и WebRTC. Отсутствие пути в оборванном прогоне не доказывает, что пути нет. Для письма доказательство другое: в <code>onCreate</code> нет <code>loadLibrary</code>, и трасса после чтения библиотеки APK в процесс не ввела.</p>
+      </details>
+      <div class="say"><div class="tag">На защите</div><p>FlowDroid напечатал 18 путей и оборвался по памяти. Письма среди них нет. Что письмо не вызывает native, я показываю по коду EmlActivity и по трассе, а не по оборванному прогону.</p></div>
+    </article>
+    <article class="card">
+      <h3>Набор OWApp</h3>
+      <p>Обвязка над четырьмя сканерами. В задании назван <code>download_script.py</code>. В репозитории набора этого файла нет. Загрузка начинается с <code>sudo apt-get</code>.</p>
+      <details class="learn-only"><summary>Что из четырёх было</summary>
+        <div class="scroll"><table>
+          <tr><th>Средство</th><th>В работе</th></tr>
+          <tr><td>Trueseeing 2.2.11</td><td>прогнан отдельно</td></tr>
+          <tr><td>APKHunt</td><td>прогнан отдельно</td></tr>
+          <tr><td>MobSF</td><td>нет Docker</td></tr>
+          <tr><td>SEBASTiAN</td><td>нет Docker</td></tr>
+        </table></div>
+        <p>Локальный <code>lab5/owapp/DownloadScript.sh</code> только делает жёсткую ссылку APK. <code>RunningScript.sh</code> не запускался.</p>
+      </details>
+    </article>
+  </div>
+
+  <h3>Четыре ловушки</h3>
+  <p class="lede">Сначала реши сам. Разбор откроется после ответа.</p>
+  <div class="grid" id="traps">
+    <article class="trap card" data-ok="trap">
+      <p>Trueseeing нашёл 8068 уязвимостей в почте.</p>
+      <div class="row">
+        <button type="button" data-choice="ok">Верно</button>
+        <button type="button" data-choice="trap">Ловушка</button>
+      </div>
+      <p class="explain" hidden>Ловушка. 8068 — число срабатываний шаблона. В JSON они сжаты в 37 групп: Info 26, Medium 6, Low 5. Уровня High нет. 1451 у APKHunt — вхождения записи в журнал, не 1451 дыра.</p>
+    </article>
+    <article class="trap card" data-ok="trap">
+      <p>APKHunt верно посчитал ноль экспортированных компонентов.</p>
+      <div class="row">
+        <button type="button" data-choice="ok">Верно</button>
+        <button type="button" data-choice="trap">Ловушка</button>
+      </div>
+      <p class="explain" hidden>Ловушка. Сводка напечатала 0 по активностям, провайдерам, приёмникам и сервисам. В манифесте того же прогона <code>android:exported="true"</code> встречается 43 раза. Поверхность атаки берётся из androguard: 20 активностей с входом из 108, сервисы 12 из 32, приёмники 29 из 35, провайдеры 3 из 20.</p>
+    </article>
+    <article class="trap card" data-ok="trap">
+      <p>Почта разрешает ясный текст: в XML стоит cleartextTrafficPermitted="true".</p>
+      <div class="row">
+        <button type="button" data-choice="ok">Верно</button>
+        <button type="button" data-choice="trap">Ловушка</button>
+      </div>
+      <p class="explain" hidden>Ловушка. Файл <code>res/xml/network_security_config.xml</code> есть, но тег application на него не ссылается, своего <code>usesCleartextTraffic</code> нет, targetSdk 33. С API 28 ясный текст по умолчанию запрещён. Trueseeing и APKHunt ставят находку по факту файла. Рабочей политикой он не является.</p>
+    </article>
+    <article class="trap card" data-ok="trap">
+      <p>UnprotectedReceiver в mfva открыт снаружи: это видно по имени класса.</p>
+      <div class="row">
+        <button type="button" data-choice="ok">Верно</button>
+        <button type="button" data-choice="trap">Ловушка</button>
+      </div>
+      <p class="explain" hidden>Ловушка. Имя описывает задумку автора. На компоненте висит <code>com.appknox.mfva.CustomPermission</code>, а тега permission с таким именем нет. Чужое приложение разрешение не получит. Снаружи открыты <code>ExportedService</code> и <code>ExportedReceiver</code>: разрешения на них нет.</p>
+    </article>
+  </div>
+</section>
+
+<section id="white">
+  <h2>Белый ящик: mfva</h2>
+  <p>Исходники: <code>/home/drenk83/Documents/mbks/3/mfva-master</code>. Сборка compileSdk 30, minSdk 25, targetSdk 30, versionName 1.0, versionCode 6. Зависимости: OkHttp 3.8.0, Jedis 2.9.0, AppCompat 1.0.0. ProGuard выключен. README прямо говорит, что ошибки вставлены для сканера Appknox. На эмулятор mfva не ставился: заданию хватает исходников.</p>
+  <div class="grid">
+    <article class="card">
+      <h3>1. Архитектура</h3>
+      <p>Точка входа — <code>MainActivity</code>. Рядом лежат экспортированные компоненты, не связанные с главным экраном. Модели угроз в репозитории нет.</p>
+      <p class="learn-only">Исправление: оставить учебный экран с пояснением каждой ошибки и убрать боевые имена хостов, если приложение ставится вне стенда.</p>
+    </article>
+    <article class="card">
+      <h3>2. Хранение</h3>
+      <p><code>allowBackup="true"</code>. Кнопка пишет системные свойства в SharedPreferences <code>pref</code> режимом 0, это <code>MODE_PRIVATE</code>. <code>FLAG_SECURE</code> нет. <code>Log.d("YOLO", quote)</code> пишет цитату в logcat.</p>
+      <p class="learn-only">Исправление: <code>allowBackup=false</code>, не писать свойства окружения, убрать отладочный лог, на экране с токеном ставить <code>FLAG_SECURE</code>.</p>
+    </article>
+    <article class="card">
+      <h3>3. Криптография</h3>
+      <p>MD5 считается, а на экран попадает <code>hash.toString()</code> у массива байт: это идентификатор объекта, не дайджест. Шифрование просит DES/ECB и ключ из исходника. Провайдера Bouncy Castle в <code>build.gradle</code> нет, вызов на устройстве падает. Параметры от этого не становятся нормальными. MD5 без провайдера BC выполняется.</p>
+      <pre class="learn-only"><code>SecretKey keyspec = new SecretKeySpec("Gangnam!".getBytes(), "DES");
+Cipher c = Cipher.getInstance("DES/ECB/ZeroBytePadding", "BC");</code></pre>
+      <p class="learn-only">Исправление: AES-GCM, ключ в Android Keystore, для целостности SHA-256.</p>
+    </article>
+    <article class="card">
+      <h3>4–5. Вход и сеть</h3>
+      <p><code>ApiRequestsActivity</code> шлёт <code>user1</code> / <code>pass1</code> на <code>http://vapi.appknox.io/tokens</code>. Пароль нового пользователя — <code>pass0</code>. Токен виден в TextView и уходит заголовком <code>X-Auth-Token</code> по HTTP. Своего network security config нет. На API 28+ ясный текст по умолчанию запрещён, запрос с современного устройства, скорее всего, не уйдёт. Исходник требование всё равно нарушает.</p>
+      <p class="learn-only">Исправление: пароль из ввода, только HTTPS, токен не печатать целиком.</p>
+    </article>
+    <article class="card">
+      <h3>6. Платформа</h3>
+      <p>WebView включает JavaScript и открывает <code>http://example.com</code>. Своего <code>WebViewClient</code> нет.</p>
+      <div class="scroll learn-only"><table>
+        <tr><th>Компонент</th><th>Снаружи</th></tr>
+        <tr><td>ExportedActivity</td><td>закрыт необъявленным permission. Внутри Jedis на localhost без пароля и тот же DES</td></tr>
+        <tr><td>UnprotectedService</td><td>закрыт тем же permission</td></tr>
+        <tr><td>UnprotectedReceiver</td><td>имя обманчиво, закрыт</td></tr>
+        <tr><td>ExportedService</td><td>разрешения нет. onBind бросает UnsupportedOperationException</td></tr>
+        <tr><td>ExportedReceiver</td><td>разрешения нет. Явный broadcast дойдёт, URI пишется в лог и в Toast. Системный boot не придёт: нет RECEIVE_BOOT_COMPLETED</td></tr>
+        <tr><td>StubProvider</td><td>закрыт. Authority <code>com.example.android.datasync.provider</code> не совпадает с пакетом. Есть grant-uri-permission на path="/"</td></tr>
+      </table></div>
+      <p class="learn-only">В манифесте запрошены <code>ACCESS_FINE_LOCATION</code> и <code>BLUETOOTH</code>, в Java они не используются. В отчёте этой фразы нет: если спросят про полноту, скажи её. Исправление: <code>exported=false</code> или настоящее signature-permission, JavaScript выключен, <code>onBind</code> возвращает null.</p>
+    </article>
+    <article class="card">
+      <h3>7–8. Качество и устойчивость</h3>
+      <p>Исключения показываются через Snackbar с фонового потока. Проверок отладчика, root и подписи нет. Для MASVS L1 устойчивость не обязательна, добавлять её в учебное приложение с намеренными ошибками не нужно.</p>
+    </article>
+  </div>
+  <div class="say"><div class="tag">На защите</div><p>Самые прямые ошибки mfva: DES/ECB с ключом Gangnam!, MD5 через toString массива, пароли и токен по HTTP, allowBackup и WebView с JavaScript. Unprotected-компоненты закрыты необъявленным CustomPermission. Открыты сервис с исключением в onBind и приёмник без разрешения.</p></div>
+</section>
+
+<section id="black">
+  <h2>Чёрный ящик: почта</h2>
+  <div class="defense-only warn">
+    <div class="tag">Коротко на защите</div>
+    <ol>
+      <li>Пакет <code>ru.yandex.mail</code>, 8.81.2, versionCode 105397, targetSdk 33, allowBackup false.</li>
+      <li>Вход для чужого письма — экспортированная <code>EmlActivity</code> без permission, тип <code>message/rfc822</code>.</li>
+      <li>Трасса pid 9066: <code>openInputStream</code> на <code>lab5-external.eml</code>. Маркер на скриншоте.</li>
+      <li>Второй attach видит <code>libcamera360-arcadia.so</code> из <code>base.apk</code>. <code>watched=0</code> значит, что вход в JNI не записан. Загрузку библиотеки это не отменяет.</li>
+      <li>FlowDroid: 18 путей, <code>DataFlowOutOfMemory</code>. Письма среди них нет, и это не доказательство полноты.</li>
+      <li>Trueseeing 8068 / 37 групп. APKHunt 22 минуты, ноль exported — не цитировать как факт.</li>
+    </ol>
+  </div>
+  <div class="steps learn-only">
+    <article class="step">
+      <header><span class="idx">01</span><h3>Образец</h3></header>
+      <div class="scroll"><table>
+        <tr><th>Поле</th><th>Значение</th></tr>
+        <tr><td>Файл</td><td><code>lab5/work/apk/Yandex Mail_8.81.2_APKPure.apk</code></td></tr>
+        <tr><td>Размер</td><td>136353707 байт</td></tr>
+        <tr><td>SHA-256</td><td><code>6fb616ce30b13dc911a9dcdd2ddfeb3450a4eb6cbf49a99733c5aefa8680463c</code></td></tr>
+        <tr><td>minSdk / targetSdk</td><td>26 / 33</td></tr>
+        <tr><td>Классы / методы</td><td>59178 / 260516, пять dex</td></tr>
+        <tr><td>Сборка 8.78.1</td><td>не ставилась</td></tr>
+      </table></div>
+      <p><code>allowBackup</code> false, <code>extractNativeLibs</code> false, <code>debuggable</code> не задан. Разрешений 63. Приложение <code>com.yandex.mail.MailApplication</code>.</p>
+    </article>
+    <article class="step">
+      <header><span class="idx">02</span><h3>Манифест и источник</h3></header>
+      <p>Сводка androguard: активности 108, с входом 20. Сервисы 32 / 12. Приёмники 35 / 29. Провайдеры 20, экспортированы 3. Псевдоним входа <code>ru.yandex.mail.ui.LoginActivity</code> целится в <code>StartWizardActivity</code>. Запуск псевдонима через <code>am start -n</code> отвечает <code>does not exist</code>.</p>
+      <p><code>EmlActivity</code> экспортирована, permission нет, фильтр <code>VIEW</code> на <code>message/rfc822</code>, <code>application/eml</code> и путь <code>.eml</code>. Это прямой вход файла, без аккаунта и без сервера. Три экспортированных провайдера: AuthSdk, SSO и preload AppMetrica. У SSO методы после проверки на null бросают исключение, утечки строк через query нет. Тестовые активности Compose и AndroidX с <code>exported=true</code> — мусор сборки.</p>
+      <p>Сканер документов в список экспортированных не входит.</p>
+    </article>
+    <article class="step">
+      <header><span class="idx">03</span><h3>Письмо</h3></header>
+      <p>Локальный файл, 240 байт, тема <code>lab5 external eml</code>, маркер <code>LAB5-EML-MARKER</code>. Лежит в <code>/data/data/ru.yandex.mail/files/</code> от имени uid приложения <code>u0_a192</code>, режим 640. Общий sdcard не использовался: на API 34 чужой <code>file://</code> из общего хранилища активность часто не отдаёт. Для чужого приложения рабочий путь — <code>content://</code>. Это воспроизведение <code>ACTION_VIEW</code>, а не модель «чужое приложение записало файл в приватный каталог».</p>
+      <div class="shots">
+        <figure>
+          <img src="results/frida/screen-eml.png" alt="Экран письма с темой lab5 external eml и маркером LAB5-EML-MARKER">
+          <figcaption>screen-eml.png, кадр в docx. 1080×2400.</figcaption>
+        </figure>
+        <figure>
+          <img src="results/frida/screen-scanner.png" alt="Экран сканера документов: заголовок SCANNER, превью камеры, кнопки Gallery и Scans">
+          <figcaption>screen-scanner.png. Сканер не экспортирован, старт с корня adb.</figcaption>
+        </figure>
+      </div>
+    </article>
+    <article class="step">
+      <header><span class="idx">04</span><h3>Трасса</h3></header>
+      <pre><code>activity.onCreate class=com.yandex.mail.eml.EmlActivity
+  intent action=android.intent.action.VIEW type=message/rfc822
+  data=file:///data/data/ru.yandex.mail/files/lab5-external.eml
+openInputStream uri=file:///data/data/ru.yandex.mail/files/lab5-external.eml
+activity.onCreate class=...DocScannerCameraActivity
+  bundleNull=true
+snapshot reason=after DocScannerCameraActivity.onCreate watched=0</code></pre>
+      <p>Второй attach, <code>modules-pid9066.log</code>: <code>libcamera360-arcadia.so</code> по пути <code>base.apk!/lib/x86_64/...</code>, всего модулей 330. В коде сканера при пустом bundle первая содержательная строка — <code>System.loadLibrary("camera360-arcadia")</code>, вызов стоит до <code>super.onCreate</code>.</p>
+      <div class="warn"><div class="tag">Чего не говорить</div><p><code>watched=0</code> не значит, что библиотека не загрузилась. Карта долгоживущего агента её не показала, следующий attach показал. Входа в JNI нет. <code>libeye</code>, WebRTC и SpeechKit в этом pid не появлялись: для них нужен экран эффектов, звонок или голос после входа. Вход в аккаунт не делался. Строка <code>Fatal Python error</code> в конце лога — шум закрытия клиента, почта на этой трассе не умерла.</p></div>
+    </article>
+    <article class="step">
+      <header><span class="idx">05</span><h3>Native и OSS</h3></header>
+      <p>Смотрелся ABI x86_64. Строгих <code>loadLibrary</code> восемь. Число 43 в сыром json шире: туда попали любые invoke со словом load.</p>
+      <div class="scroll"><table>
+        <tr><th>Библиотека</th><th>Что сказать</th></tr>
+        <tr><td>libcamera360-arcadia.so</td><td>NDK r22, экспорт Java_ 235, JNI_OnLoad нет. OpenCV без номера. Грузится из сканера</td></tr>
+        <tr><td>libeye.so</td><td>NDK r21e, Java_ 8. Класс EyeNative, метод processBufferBug. В сеансе не загружалась</td></tr>
+        <tr><td>libjingle_peerconnection_so.so</td><td>WebRTC, BoringSSL, libyuv, libvpx, Opus. Номер релиза BoringSSL не назван. Без звонка не загружалась</td></tr>
+        <tr><td>libYandexSpeechKitJni.4.15.7.so</td><td>Версия из имени файла. Ключ — константа SPEECHKIT_API_KEY в com.yandex.mail.l, значение в разделе 13 отчёта. Запрос к API не отправлялся</td></tr>
+      </table></div>
+      <p>libpng: 0 совпадений. Ключ на защите не зачитывать.</p>
+      <p>Стоки, которые стоит помнить: <code>loadLibrary</code> 8, <code>Runtime.exec</code> 5, <code>WebView.loadUrl</code> 36, <code>addJavascriptInterface</code> 25. Это число invoke, не число дыр. Строки <code>Runtime.exec</code> фиксированы: опрос <code>ro.build.type</code> и <code>/etc/os-release</code>, подстановки Intent нет. <code>OfflineCalendarActivity</code> включает JavaScript и универсальный доступ с file URL. <code>CertificatePinner</code> встречается 9 раз: это класс OkHttp, не доказательство pinning почты.</p>
+    </article>
+    <article class="step">
+      <header><span class="idx">06</span><h3>Три автоматических прогона</h3></header>
+      <p>FlowDroid 2.15.1, куча 8 ГБ, повторно не запускать. 18 путей — аналитика, курсоры, кэш Lottie, удаление файла в SharingFileProvider и выбор компонента Passport. Письма среди них нет.</p>
+      <p>Trueseeing 2.2.11: <code>found 8068 issues (66.37 sec.)</code>. Группы: Info 26, Medium 6, Low 5. Из Medium помнить: XOR, признак подмены проверки TLS, cleartext-файл, jQuery, WebView, статические ключи. High нет. Команда версии без терминала пишет <code>requires a tty</code>, на скан это не влияет.</p>
+      <p>APKHunt: старт 18:48:53, финиш 19:11:08, <code>22m14.841748933s</code>. Журналы 455 файлов / 1451 вхождение, ссылки 250 / 473. <code>allowBackup="true"</code> и <code>debuggable="true"</code> не найдены. Четыре строки exported = 0 в защиту не брать. JADX внутри: 267 ошибок. В <code>strings.xml</code> есть <code>firebase_database_url</code> на <code>https://yandex-mail.firebaseio.com</code>, правила базы инструмент не проверял.</p>
+      <p>Семь правок почты из раздела 17 отчёта: убрать ключ SpeechKit и отозвать его, выключить file URL в WebView календаря, сузить экспорт <code>EmlActivity</code>, убрать тестовые активности из release, закрыть <code>SsoContentProvider</code>, не оставлять неподключённый cleartext-XML, разобрать <code>processBufferBug</code> в libeye.</p>
+    </article>
+  </div>
+</section>
+
+<section id="demo">
+  <h2>Демонстрация</h2>
+  <p>Быстрый показ читает готовые файлы. Каталог команд — корень репозитория после <code>source lab5/work/env.sh</code>. Интерпретатор <code>lab5/work/venvs/analysis</code> в PATH не добавлять: там Frida 16.7.19.</p>
+  <ul class="checks" id="demo-list">
+    <li><input type="checkbox" data-bucket="demo" data-key="0" id="d0"><label for="d0">Хеш APK совпал со строкой отчёта.</label></li>
+    <li><input type="checkbox" data-bucket="demo" data-key="1" id="d1"><label for="d1">Фрагмент DES из mfva: ключ и DES/ECB.</label></li>
+    <li><input type="checkbox" data-bucket="demo" data-key="2" id="d2"><label for="d2">Первые строки natives.txt: 339 метода.</label></li>
+    <li><input type="checkbox" data-bucket="demo" data-key="3" id="d3"><label for="d3">В трассе есть openInputStream на письмо.</label></li>
+    <li><input type="checkbox" data-bucket="demo" data-key="4" id="d4"><label for="d4">В карте модулей есть camera360 из base.apk.</label></li>
+    <li><input type="checkbox" data-bucket="demo" data-key="5" id="d5"><label for="d5">Показаны XML FlowDroid, JSON Trueseeing и лог APKHunt, без пересчёта.</label></li>
+    <li><input type="checkbox" data-bucket="demo" data-key="6" id="d6"><label for="d6">Открыт screen-eml.png, на нём маркер.</label></li>
+  </ul>
+  <div class="cmd">
+    <button type="button" class="copy" data-copy="cmd-fast">Копировать</button>
+    <pre><code id="cmd-fast">cd /home/drenk83/Projects/gitrepo/mbks_labs
+source lab5/work/env.sh
+sha256sum "lab5/work/apk/Yandex Mail_8.81.2_APKPure.apk"
+sed -n '108,114p' /home/drenk83/Documents/mbks/3/mfva-master/app/src/main/java/com/appknox/mfva/MainActivity.java
+sed -n '1,4p' lab5/results/natives.txt
+grep openInputStream lab5/results/frida/trace.log
+grep camera360 lab5/results/frida/modules-pid9066.log
+grep -o 'TerminationState="[^"]*"' lab5/results/flowdroid/yandex-mail.xml
+grep -c '&lt;Result&gt;' lab5/results/flowdroid/yandex-mail.xml</code></pre>
+  </div>
+  <details>
+    <summary class="btn">Что должно напечататься</summary>
+    <ul>
+      <li>SHA-256 <code>6fb616ce30b13dc911a9dcdd2ddfeb3450a4eb6cbf49a99733c5aefa8680463c</code></li>
+      <li>в Java: <code>Gangnam!</code> и <code>DES/ECB/ZeroBytePadding</code></li>
+      <li><code>native methods: 339</code>, дальше classes 59178 и methods 260516</li>
+      <li>строка openInputStream на <code>lab5-external.eml</code></li>
+      <li>путь <code>base.apk!/lib/x86_64/libcamera360-arcadia.so</code></li>
+      <li><code>TerminationState="DataFlowOutOfMemory"</code> и число Result, равное 18</li>
+    </ul>
+  </details>
+  <div class="say"><div class="tag">Закрывающая фраза</div><p>Письмо открыто и дочитано, это видно на скриншоте и в трассе. Native-методов 339, к письму они не подключены. Сканер загрузил библиотеку с OpenCV. FlowDroid дал 18 путей и оборвался по памяти. Trueseeing и APKHunt отработали, два средства набора на этой машине без Docker не запускаются.</p></div>
+  <div class="shots">
+    <figure>
+      <img src="results/frida/screen-eml.png" alt="Экран письма: тема lab5 external eml и маркер LAB5-EML-MARKER">
+      <figcaption>Кадр, который открыть на показе.</figcaption>
+    </figure>
+  </div>
+  <div class="warn">
+    <div class="tag">Эмулятор заново только если попросили</div>
+    <p>Сначала <code>adb devices</code> и проверка, что qemu не запущен. Пустой список — тогда один экземпляр: <code>-gpu guest -memory 2048 -cores 2 -no-snapshot -feature -Vulkan</code>. На <code>-gpu swiftshader_indirect</code> этот образ уже падал. Образ пишет <code>Falling back to 'lavapipe' mode</code>, загрузка того прогона 14495 мс, API 34. После показа qemu остановить. FlowDroid, Trueseeing и APKHunt заново не запускать: показать XML, JSON и txt.</p>
+  </div>
+  <h3>Если не завелось</h3>
+  <input class="search" id="symptom" type="search" placeholder="Симптом, например frida или exported" aria-label="Фильтр неполадок">
+  <div class="scroll"><table id="symptoms">
+    <thead><tr><th>Симптом</th><th>Что сказать и сделать</th></tr></thead>
+    <tbody>
+      <tr><td>java: command not found</td><td>Не сделан source lab5/work/env.sh. JDK — Temurin 21 из лабы 4.</td></tr>
+      <tr><td>frida --version печатает 16.7.19</td><td>В PATH попал venv анализа. Новый терминал и снова source env.sh.</td></tr>
+      <tr><td>Хеш не совпал</td><td>Открыт другой APK, например 8.78.1. Брать файл из lab5/work/apk.</td></tr>
+      <tr><td>adb devices пуст</td><td>Для быстрого показа эмулятор не нужен.</td></tr>
+      <tr><td>qemu падает в gfxstream</td><td>Снова стоит swiftshader_indirect. Флаг: -gpu guest -feature -Vulkan.</td></tr>
+      <tr><td>Frida сразу пишет Thank you for using Frida</td><td>Закрылся stdin. Держать сессию через sleep и stdbuf.</td></tr>
+      <tr><td>frida -f молчит</td><td>У этой почты spawn не доходит до Java. Только attach по pid.</td></tr>
+      <tr><td>Процесс не находится по пакету</td><td>Имя в frida-ps — Yandex Mail, не ru.yandex.mail.</td></tr>
+      <tr><td>EmlActivity падает на WebView</td><td>Включён широкий хук. Итоговый trace.js его не ставит.</td></tr>
+      <tr><td>LoginActivity does not exist</td><td>Это псевдоним. Цель — StartWizardActivity. Для письма нужен EmlActivity.</td></tr>
+      <tr><td>FlowDroid снова ест память</td><td>Так и было, 8512 МБ. Не перезапускать, показать XML.</td></tr>
+      <tr><td>trueseeing version requires a tty</td><td>На скан не влияет. Бинарь вызывать полным путём venv.</td></tr>
+      <tr><td>APKHunt пишет exported 0</td><td>Ошибка сводки. Показывать results/manifest.txt.</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<section id="quiz">
+  <h2>25 вопросов</h2>
+  <p class="lede">Напиши ответ своими словами, потом открой эталон. Отметки остаются в браузере.</p>
+  <div class="bar noprint">
+    <span id="quiz-score">Знаю 0 · плаваю 0</span>
+    <button type="button" id="only-shaky" aria-pressed="false">Только плаваю</button>
+    <button type="button" id="shuffle">Перемешать</button>
+  </div>
+  <p id="quiz-empty" hidden>Помеченных «плаваю» пока нет. Ответь на карточку и нажми «Плаваю».</p>
+  <div id="quiz-list" class="grid">
+    <article class="q card" data-id="1"><h3>Какой вариант и какие приложения?</h3><textarea aria-label="Мой ответ на вопрос 1" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>Вариант 11. Белый ящик — mfva, пакет <code>com.appknox.mfva</code>. В таблице написано mvfa, ссылка ведёт на репозиторий mfva. Чёрный ящик — Yandex Mail 8.81.2, пакет <code>ru.yandex.mail</code>, versionCode 105397.</p></details></article>
+    <article class="q card" data-id="2"><h3>Почему не Mail 8.78.1 из второго архива?</h3><textarea aria-label="Мой ответ на вопрос 2" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>В столбце варианта указана сборка 8.81.2 из AndroidApps4Research. Хеш файла в работе совпадает с этой сборкой. 8.78.1 не ставилась.</p></details></article>
+    <article class="q card" data-id="3"><h3>Чем MASVS отличается от MSTG?</h3><textarea aria-label="Мой ответ на вопрос 3" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>MASVS — список требований. MSTG — как эти требования проверять. В отчёте восемь категорий MASVS v1. Kotlin-SCP разобран по смыслу: mfva на Java, файлов Kotlin нет.</p></details></article>
+    <article class="q card" data-id="4"><h3>Назовите три уязвимости mfva и как их исправить.</h3><textarea aria-label="Мой ответ на вопрос 4" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>DES/ECB с ключом Gangnam! — заменить на AES-GCM, ключ положить в Android Keystore. Пароли user1/pass1/pass0 и токен по HTTP — пароль из ввода, только HTTPS, токен не печатать. ExportedReceiver без разрешения — exported=false или signature-permission. Рядом WebView с JavaScript на http://example.com.</p></details></article>
+    <article class="q card" data-id="5"><h3>Почему UnprotectedReceiver на самом деле закрыт?</h3><textarea aria-label="Мой ответ на вопрос 5" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>На нём висит <code>android:permission="com.appknox.mfva.CustomPermission"</code>, а тега permission с таким именем нет. Чужое приложение несуществующее разрешение не получит. Имя класса описывает задумку автора, не фактический доступ.</p></details></article>
+    <article class="q card" data-id="6"><h3>Что тогда реально открыто в mfva?</h3><textarea aria-label="Мой ответ на вопрос 6" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>ExportedService: разрешения нет, onBind бросает UnsupportedOperationException. Это отказ при bind. ExportedReceiver: разрешения нет, явный broadcast доходит, приёмник пишет URI в лог и в Toast. Системный BOOT_COMPLETED приложение не получит: разрешения RECEIVE_BOOT_COMPLETED нет.</p></details></article>
+    <article class="q card" data-id="7"><h3>Почему DES может не выполниться, но это всё равно находка?</h3><textarea aria-label="Мой ответ на вопрос 7" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>Cipher.getInstance просит провайдер BC. В build.gradle его нет, исключение перехватывается. На устройстве шифрование падает. В коде остаются DES, ECB, ZeroBytePadding и ключ в исходнике. MD5 без BC выполняется.</p></details></article>
+    <article class="q card" data-id="8"><h3>Что такое source и sink в этой работе?</h3><textarea aria-label="Мой ответ на вопрос 8" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>Source — чтение данных, на которые влияет внешний субъект. Для письма это Intent.getData и openInputStream. Sink — опасная операция. Задание относит к стокам и native-вызовы, их 339. Путь письма заканчивается в Java и в WebView.</p></details></article>
+    <article class="q card" data-id="9"><h3>Почему внешние данные — именно eml?</h3><textarea aria-label="Мой ответ на вопрос 9" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>EmlActivity экспортирована, permission нет, фильтр принимает VIEW на message/rfc822, application/eml и путь .eml. Это прямой вход файла. Сценарий воспроизводится без аккаунта и без сервера.</p></details></article>
+    <article class="q card" data-id="10"><h3>Почему файл лежит в каталоге почты, а не на sdcard?</h3><textarea aria-label="Мой ответ на вопрос 10" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>На API 34 чужой file:// из общего хранилища просмотрщик часто не отдаёт. Файл положен в /data/data/ru.yandex.mail/files/ от имени uid приложения, режим 640. Для чужого приложения рабочий путь — content://.</p></details></article>
+    <article class="q card" data-id="11"><h3>Что именно видно в трассе Frida?</h3><textarea aria-label="Мой ответ на вопрос 11" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>Pid 9066. EmlActivity.onCreate с action VIEW, типом message/rfc822 и data на lab5-external.eml. Следом openInputStream на тот же URI. Потом DocScannerCameraActivity.onCreate с bundleNull=true. Снимки библиотек в этой сессии: watched=0.</p></details></article>
+    <article class="q card" data-id="12"><h3>Где доказательство, что библиотека загрузилась?</h3><textarea aria-label="Мой ответ на вопрос 12" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>Второй attach к тому же pid, файл modules-pid9066.log: libcamera360-arcadia.so из base.apk. Это согласуется с extractNativeLibs=false. В коде сканера при пустом bundle первая содержательная строка — System.loadLibrary("camera360-arcadia").</p></details></article>
+    <article class="q card" data-id="13"><h3>Почему нет трассы входа в JNI?</h3><textarea aria-label="Мой ответ на вопрос 13" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>Хук android_dlopen_ext ронял процесс. Подмена System.loadLibrary роняла WebView письма. Подмена методов EyeNative убивала процесс. В итоговой трассе этих хуков нет. Факт загрузки есть, вызова функции на кадре нет.</p></details></article>
+    <article class="q card" data-id="14"><h3>FlowDroid нашёл 18 утечек. Письмо среди них есть?</h3><textarea aria-label="Мой ответ на вопрос 14" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>Нет. 18 элементов Result и 36 элементов Source, решатель 86 секунд, пик 8512 МБ. В корне XML стоит DataFlowOutOfMemory, полное время 210 секунд. Эти 18 путей — аналитика, курсоры, кэш и выбор компонента. Для письма доказательство — код EmlActivity и трасса. В отчёте фразы про обрыв нет, на защите её говоришь сам.</p></details></article>
+    <article class="q card" data-id="15"><h3>Почему native-методы не попали в FlowDroid?</h3><textarea aria-label="Мой ответ на вопрос 15" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>Скрипт выписал их в native-sinks.txt. В SourcesAndSinks.txt, который передан флагом -s, эти 339 строк не добавлялись. Поэтому FlowDroid на достижимость native не отвечает. Её разбирал вручную.</p></details></article>
+    <article class="q card" data-id="16"><h3>Как устроено средство, которое перечисляет native-методы?</h3><textarea aria-label="Мой ответ на вопрос 16" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>lab5/scripts/audit_apk.py на androguard 4.1.4. Обходит DEX, берёт методы с флагом ACC_NATIVE, печатает класс, имя и JNI-дескриптор. Итог: results/natives.txt, 339 определений. JEB не использовался, задание разрешает androguard.</p></details></article>
+    <article class="q card" data-id="17"><h3>Какие OSS-библиотеки и какие версии?</h3><textarea aria-label="Мой ответ на вопрос 17" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>OpenCV внутри libcamera360-arcadia.so, номера в строках нет. В libjingle — WebRTC, BoringSSL, libyuv, libvpx, Opus и соседние кодеки, номер релиза BoringSSL не назван. SpeechKit 4.15.7 — из имени файла. libpng: 0. Называть это OpenSSL конкретной версии нельзя.</p></details></article>
+    <article class="q card" data-id="18"><h3>Откуда ключ SpeechKit и что с ним сделано?</h3><textarea aria-label="Мой ответ на вопрос 18" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>Константа SPEECHKIT_API_KEY в классе com.yandex.mail.l передаётся в native_init. Значение приведено в разделе 13 отчёта, здесь его нет специально. Запрос к API не отправлялся. Исправление: убрать ключ из клиента, выдавать короткоживущий токен, уже утекший ключ отозвать.</p></details></article>
+    <article class="q card" data-id="19"><h3>Почему APKHunt пишет ноль экспортированных компонентов?</h3><textarea aria-label="Мой ответ на вопрос 19" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>Так напечатана его сводка. В манифесте того же прогона android:exported="true" есть, таких атрибутов 43. Для цифр поверхности атаки используется androguard: 20 активностей с входом, 12 сервисов, 29 приёмников, 3 провайдера.</p></details></article>
+    <article class="q card" data-id="20"><h3>Разрешает ли почта cleartext?</h3><textarea aria-label="Мой ответ на вопрос 20" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>В network_security_config.xml есть cleartextTrafficPermitted="true". Тег application на него не ссылается, своего usesCleartextTraffic нет, targetSdk 33. С API 28 ясный текст по умолчанию запрещён. Рабочей политикой файл не является. Исправление: удалить его или подключить явно и убрать cleartext.</p></details></article>
+    <article class="q card" data-id="21"><h3>Почему нет MobSF и SEBASTiAN?</h3><textarea aria-label="Мой ответ на вопрос 21" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>Оба в наборе OWApp запускаются через Docker. Сокета Docker нет, sudo нет, DownloadScript.sh набора начинается с apt-get. Прогнаны Trueseeing и APKHunt. Файла download_script.py в репозитории набора нет. RunningScript.sh не запускался.</p></details></article>
+    <article class="q card" data-id="22"><h3>Что из автоматических находок стоит исправления?</h3><textarea aria-label="Мой ответ на вопрос 22" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>Семь пунктов раздела 17. Убрать ключ SpeechKit из клиента. Выключить file URL в WebView офлайн-календаря. Сузить экспорт EmlActivity. Убрать тестовые активности Compose и AndroidX из release. Закрыть SsoContentProvider. Не оставлять неподключённый cleartext-XML. Разобрать processBufferBug в libeye.</p></details></article>
+    <article class="q card" data-id="23"><h3>Чем статический анализ здесь отличается от динамического?</h3><textarea aria-label="Мой ответ на вопрос 23" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>FlowDroid, Trueseeing и APKHunt читают APK и письмо не открывают. Эмулятор и Frida открывают конкретный файл и записывают конкретный вызов. Статика дала 18 путей и тысячи срабатываний. Динамика подтвердила один сценарий: просмотр .eml.</p></details></article>
+    <article class="q card" data-id="24"><h3>Можно ли отчётом пользоваться как инструкцией по атаке?</h3><textarea aria-label="Мой ответ на вопрос 24" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>Нет. Это разбор учебной сборки 8.81.2 и учебного mfva. Запросы к API SpeechKit не отправлялись, аккаунт не заводился, эксплуатация не разрабатывалась. Рекомендации в отчёте — про исправление кода.</p></details></article>
+    <article class="q card" data-id="25"><h3>Что не успели или не смогли?</h3><textarea aria-label="Мой ответ на вопрос 25" placeholder="Сначала своими словами"></textarea><div class="row"><button type="button" class="good" data-mark="know">Знаю</button><button type="button" class="bad" data-mark="shaky">Плаваю</button></div><details><summary class="btn">Показать эталон</summary><p>Вход в JNI на кадре сканера. Полный прогон FlowDroid: обрыв по памяти, native-стоки в него не входили. MobSF и SEBASTiAN. Загрузку libeye, WebRTC и SpeechKit: для них нужен аккаунт, звонок или голосовой ввод. Разбор чёрного ящика по всем номерам тестов MSTG по отдельности не делался: он собран по шагам задания.</p></details></article>
+  </div>
+</section>
+
+<section id="numbers">
+  <h2>Цифры</h2>
+  <p class="lede">Нажми карточку, чтобы перевернуть. Рядом короткий тест с близкими неверными ответами.</p>
+  <div class="flips" id="flips">
+    <button type="button" class="flip" aria-pressed="false"><span class="front"><span class="k">Вопрос</span><div class="qtext">Версия почты и versionCode?</div></span><span class="back"><span class="k">Ответ</span><div class="qtext">8.81.2, versionCode 105397. Сборка 8.78.1 не ставилась.</div></span></button>
+    <button type="button" class="flip" aria-pressed="false"><span class="front"><span class="k">Вопрос</span><div class="qtext">SHA-256 APK?</div></span><span class="back"><span class="k">Ответ</span><div class="qtext">6fb616ce30b13dc911a9dcdd2ddfeb3450a4eb6cbf49a99733c5aefa8680463c. Размер 136353707 байт.</div></span></button>
+    <button type="button" class="flip" aria-pressed="false"><span class="front"><span class="k">Вопрос</span><div class="qtext">Классы, методы, native?</div></span><span class="back"><span class="k">Ответ</span><div class="qtext">59178 / 260516 / 339. Сумма префиксов 110+89+78+38+16+8.</div></span></button>
+    <button type="button" class="flip" aria-pressed="false"><span class="front"><span class="k">Вопрос</span><div class="qtext">Сколько строгих loadLibrary?</div></span><span class="back"><span class="k">Ответ</span><div class="qtext">8. Число 43 в сыром json шире и в защиту не берётся.</div></span></button>
+    <button type="button" class="flip" aria-pressed="false"><span class="front"><span class="k">Вопрос</span><div class="qtext">Активности с входом?</div></span><span class="back"><span class="k">Ответ</span><div class="qtext">20 из 108. Сервисы 12 из 32, приёмники 29 из 35.</div></span></button>
+    <button type="button" class="flip" aria-pressed="false"><span class="front"><span class="k">Вопрос</span><div class="qtext">Экспортированные провайдеры?</div></span><span class="back"><span class="k">Ответ</span><div class="qtext">3 из 20. AuthSdk, SSO и preload AppMetrica.</div></span></button>
+    <button type="button" class="flip" aria-pressed="false"><span class="front"><span class="k">Вопрос</span><div class="qtext">Pid трассы?</div></span><span class="back"><span class="k">Ответ</span><div class="qtext">9066. Имя процесса Yandex Mail, uid u0_a192.</div></span></button>
+    <button type="button" class="flip" aria-pressed="false"><span class="front"><span class="k">Вопрос</span><div class="qtext">Что записал FlowDroid?</div></span><span class="back"><span class="k">Ответ</span><div class="qtext">18 Result, 36 Source, пик 8512 МБ, DataFlowOutOfMemory, всего 210 с.</div></span></button>
+    <button type="button" class="flip" aria-pressed="false"><span class="front"><span class="k">Вопрос</span><div class="qtext">Trueseeing?</div></span><span class="back"><span class="k">Ответ</span><div class="qtext">8068 issues, 37 групп: Info 26, Medium 6, Low 5. High нет. 66,37 с.</div></span></button>
+    <button type="button" class="flip" aria-pressed="false"><span class="front"><span class="k">Вопрос</span><div class="qtext">APKHunt?</div></span><span class="back"><span class="k">Ответ</span><div class="qtext">22 мин 14,8 с. Логи 455/1451, ссылки 250/473. Exported в сводке 0 — ошибка.</div></span></button>
+    <button type="button" class="flip" aria-pressed="false"><span class="front"><span class="k">Вопрос</span><div class="qtext">Совпадения libpng?</div></span><span class="back"><span class="k">Ответ</span><div class="qtext">0 во всех четырёх библиотеках x86_64.</div></span></button>
+    <button type="button" class="flip" aria-pressed="false"><span class="front"><span class="k">Вопрос</span><div class="qtext">Frida и эмулятор?</div></span><span class="back"><span class="k">Ответ</span><div class="qtext">Клиент и сервер 17.4.0. API 34, загрузка 14495 мс. Клиент 16.7.19 — чужой venv.</div></span></button>
+  </div>
+  <h3>Мини-тест</h3>
+  <p id="num-score">Пока ни одного ответа.</p>
+  <div class="grid" id="num-test">
+    <article class="card nq" data-answer="339"><h3>Сколько native-методов?</h3><div class="choice"><button type="button" data-val="339">339</button><button type="button" data-val="8068">8068</button><button type="button" data-val="43">43</button><button type="button" data-val="8">8</button></div><p class="explain" hidden>339 определений с ACC_NATIVE. 8 — это строгие loadLibrary. 43 — раздутый сырой json. 8068 — срабатывания Trueseeing.</p></article>
+    <article class="card nq" data-answer="8068"><h3>Сколько issues напечатал Trueseeing?</h3><div class="choice"><button type="button" data-val="37">37</button><button type="button" data-val="8068">8068</button><button type="button" data-val="1451">1451</button><button type="button" data-val="18">18</button></div><p class="explain" hidden>8068 срабатываний сжаты в 37 групп. 1451 — вхождения журнала у APKHunt. 18 — пути FlowDroid.</p></article>
+    <article class="card nq" data-answer="18"><h3>Сколько путей записал FlowDroid?</h3><div class="choice"><button type="button" data-val="36">36</button><button type="button" data-val="18">18</button><button type="button" data-val="339">339</button><button type="button" data-val="0">0</button></div><p class="explain" hidden>18 Result и 36 Source. Прогон оборвался по памяти, это не полный перебор.</p></article>
+    <article class="card nq" data-answer="0"><h3>Сколько exported напечатал APKHunt?</h3><div class="choice"><button type="button" data-val="43">43</button><button type="button" data-val="20">20</button><button type="button" data-val="0">0, и это ошибка сводки</button><button type="button" data-val="3">3</button></div><p class="explain" hidden>В сводке 0. Атрибут exported=true в его же манифесте встречается 43 раза. 20 — активности с входом по androguard.</p></article>
+    <article class="card nq" data-answer="20"><h3>Сколько активностей с входом снаружи?</h3><div class="choice"><button type="button" data-val="108">108</button><button type="button" data-val="20">20 из 108</button><button type="button" data-val="43">43</button><button type="button" data-val="12">12</button></div><p class="explain" hidden>108 всего, 20 с входом. 12 — сервисы с входом. 43 — сырой подсчёт атрибута в манифесте APKHunt.</p></article>
+    <article class="card nq" data-answer="9066"><h3>Pid итоговой трассы?</h3><div class="choice"><button type="button" data-val="105397">105397</button><button type="button" data-val="9066">9066</button><button type="button" data-val="14495">14495</button><button type="button" data-val="8512">8512</button></div><p class="explain" hidden>9066. 105397 — versionCode. 14495 мс — загрузка эмулятора. 8512 — пик памяти FlowDroid.</p></article>
+    <article class="card nq" data-answer="0"><h3>Сколько совпадений libpng?</h3><div class="choice"><button type="button" data-val="4">4</button><button type="button" data-val="235">235</button><button type="button" data-val="0">0</button><button type="button" data-val="8">8</button></div><p class="explain" hidden>Ноль по четырём библиотекам x86_64. 4 — число библиотек. 235 — экспорты Java_ у camera360.</p></article>
+    <article class="card nq" data-answer="17.4.0"><h3>Версия клиента и сервера Frida в трассе?</h3><div class="choice"><button type="button" data-val="16.7.19">16.7.19</button><button type="button" data-val="17.4.0">17.4.0</button><button type="button" data-val="2.2.11">2.2.11</button><button type="button" data-val="1.5.6">1.5.6</button></div><p class="explain" hidden>17.4.0. 16.7.19 тянет Trueseeing и в трассу не годится. 2.2.11 — Trueseeing. 1.5.6 — JADX.</p></article>
+  </div>
+</section>
+
+<section id="bounds">
+  <h2>Границы, которые сказать самому</h2>
+  <p class="lede">Отметь фразу, когда проговорил её вслух.</p>
+  <ul class="checks" id="bounds-list">
+    <li><input type="checkbox" data-bucket="bounds" data-key="0" id="b0"><label for="b0">18 путей FlowDroid — неполный результат. В XML стоит DataFlowOutOfMemory. Фраза «других потоков нет» из этого прогона не следует.</label></li>
+    <li><input type="checkbox" data-bucket="bounds" data-key="1" id="b1"><label for="b1">Достижимость native от письма доказана чтением EmlActivity и трассой, а не оборванным FlowDroid.</label></li>
+    <li><input type="checkbox" data-bucket="bounds" data-key="2" id="b2"><label for="b2">Трасса подтверждает загрузку libcamera360-arcadia.so. Она не подтверждает, что функция библиотеки прочитала кадр.</label></li>
+    <li><input type="checkbox" data-bucket="bounds" data-key="3" id="b3"><label for="b3">339 методов посчитаны по ACC_NATIVE. Часть ссылается на библиотеки, которых в APK нет: sqlitejdbc и AppMetrica.</label></li>
+    <li><input type="checkbox" data-bucket="bounds" data-key="4" id="b4"><label for="b4">Номеров OpenCV и BoringSSL в строках нет. Называть библиотеку звонка OpenSSL нельзя.</label></li>
+    <li><input type="checkbox" data-bucket="bounds" data-key="5" id="b5"><label for="b5">8068 и 1451 — счётчики шаблонов. Уровень High у Trueseeing пустой.</label></li>
+    <li><input type="checkbox" data-bucket="bounds" data-key="6" id="b6"><label for="b6">Ноль exported у APKHunt — ошибка сводки. Cleartext-XML в ресурсах не подключён к приложению.</label></li>
+    <li><input type="checkbox" data-bucket="bounds" data-key="7" id="b7"><label for="b7">mfva на эмуляторе не запускался. Ключ из клиента в отчёте есть, запроса с ним не было.</label></li>
+    <li><input type="checkbox" data-bucket="bounds" data-key="8" id="b8"><label for="b8">MobSF и SEBASTiAN не входят в фактический прогон. RunningScript.sh не запускался.</label></li>
+    <li><input type="checkbox" data-bucket="bounds" data-key="9" id="b9"><label for="b9">В отчёте, раздел 14, опечатка «из клинит EyeNative». Верно: из класса EyeNative. Про обрыв FlowDroid в разделе 15 отчёта фразы нет, её говоришь сам.</label></li>
+  </ul>
+</section>
+
+<section id="sheet">
+  <h2>Шпаргалка</h2>
+  <h3>Глоссарий</h3>
+  <input class="search" id="gloss-q" type="search" placeholder="Слово, например sink" aria-label="Поиск по глоссарию">
+  <div class="scroll"><table id="gloss">
+    <thead><tr><th>Слово</th><th>Смысл в этой работе</th></tr></thead>
+    <tbody>
+      <tr><td>Белый ящик</td><td>mfva, исходники есть</td></tr>
+      <tr><td>Чёрный ящик</td><td>Yandex Mail, только APK</td></tr>
+      <tr><td>MASVS</td><td>восемь категорий требований</td></tr>
+      <tr><td>MSTG</td><td>тесты к этим категориям</td></tr>
+      <tr><td>exported</td><td>компонент можно вызвать снаружи</td></tr>
+      <tr><td>permission</td><td>вызов только при наличии разрешения</td></tr>
+      <tr><td>source</td><td>чтение внешних данных</td></tr>
+      <tr><td>sink</td><td>опасная операция, включая native-вызов</td></tr>
+      <tr><td>ACC_NATIVE</td><td>у метода нет байткода, реализация в .so</td></tr>
+      <tr><td>JNI</td><td>мост между Java и функцией в библиотеке</td></tr>
+      <tr><td>Frida</td><td>скрипт внутри живого процесса</td></tr>
+      <tr><td>attach</td><td>подключение к уже запущенному pid</td></tr>
+      <tr><td>FlowDroid</td><td>статический taint по APK</td></tr>
+      <tr><td>DataFlowOutOfMemory</td><td>анализ остановился, куча кончилась</td></tr>
+      <tr><td>Trueseeing</td><td>статический сканер с оценкой CVSS</td></tr>
+      <tr><td>APKHunt</td><td>чек-лист MASVS по декомпиляции</td></tr>
+      <tr><td>OWApp</td><td>обвязка над четырьмя сканерами</td></tr>
+    </tbody>
+  </table></div>
+  <h3>Куда открыть</h3>
+  <div class="scroll"><table>
+    <tr><th>Вопрос</th><th>Файл</th></tr>
+    <tr><td>Что сдаётся</td><td><a href="report.md">report.md</a>, mbks_lab_5.docx</td></tr>
+    <tr><td>Как запускалось</td><td><a href="Журнал_действий.md">Журнал_действий.md</a></td></tr>
+    <tr><td>DES и WebView mfva</td><td>/home/drenk83/Documents/mbks/3/mfva-master</td></tr>
+    <tr><td>Манифест почты</td><td><a href="results/manifest.txt">results/manifest.txt</a></td></tr>
+    <tr><td>339 методов</td><td><a href="results/natives.txt">results/natives.txt</a></td></tr>
+    <tr><td>Счётчики стоков</td><td><a href="results/api-hits.txt">results/api-hits.txt</a></td></tr>
+    <tr><td>OSS</td><td><a href="results/oss-summary.txt">results/oss-summary.txt</a></td></tr>
+    <tr><td>Трасса письма</td><td><a href="results/frida/trace.log">results/frida/trace.log</a></td></tr>
+    <tr><td>Библиотека загружена</td><td><a href="results/frida/modules-pid9066.log">results/frida/modules-pid9066.log</a></td></tr>
+    <tr><td>FlowDroid</td><td><a href="results/flowdroid/yandex-mail.xml">results/flowdroid/yandex-mail.xml</a></td></tr>
+    <tr><td>Trueseeing</td><td><a href="results/trueseeing/yandex-mail.json">results/trueseeing/yandex-mail.json</a></td></tr>
+    <tr><td>APKHunt</td><td><a href="results/apkhunt/APKHunt_yandex-mail-8-81-2_2026-10-31_18-48-53.txt">results/apkhunt/…txt</a></td></tr>
+    <tr><td>Хук итоговой сессии</td><td><a href="scripts/trace.js">scripts/trace.js</a>, функция armJava</td></tr>
+  </table></div>
+  <h3>Команды, которые ничего не пересчитывают</h3>
+  <div class="cmd">
+    <button type="button" class="copy" data-copy="cmd-show">Копировать</button>
+    <pre><code id="cmd-show">grep -o 'TerminationState="[^"]*"' lab5/results/flowdroid/yandex-mail.xml
+grep -c '&lt;Result&gt;' lab5/results/flowdroid/yandex-mail.xml
+grep 'Total time taken' lab5/results/apkhunt/APKHunt_yandex-mail-8-81-2_2026-10-31_18-48-53.txt
+lab5/work/venvs/analysis/bin/trueseeing</code></pre>
+  </div>
+  <p>Повторный androguard пиши в чужой каталог, не в <code>lab5/results</code>:</p>
+  <div class="cmd">
+    <button type="button" class="copy" data-copy="cmd-audit">Копировать</button>
+    <pre><code id="cmd-audit">lab5/work/venvs/analysis/bin/python lab5/scripts/audit_apk.py \
+  "lab5/work/apk/Yandex Mail_8.81.2_APKPure.apk" \
+  /tmp/lab5-audit-out</code></pre>
+  </div>
+  <p class="noprint"><button type="button" id="reset">Сбросить отметки этого браузера</button></p>
+  <footer class="note">
+    <p>Чупров Е. А., группа 5131001/30501. Проверяет ассистент Жуковский Е. В. Ключ SpeechKit на эту страницу не скопирован: он есть в разделе 13 отчёта, запрос с ним не отправлялся. Страница открывается с диска, сеть для неё не нужна.</p>
+  </footer>
+</section>
+</main>
+</div>
+<script>
+(function () {
+  const KEY = "lab5-guide";
+  const SECTION_IDS = ["start","map","theory","white","black","demo","quiz","numbers","bounds","sheet"];
+  let persist = true;
+  let mem = {};
+  try {
+    mem = JSON.parse(localStorage.getItem(KEY) || "{}") || {};
+    localStorage.setItem(KEY, JSON.stringify(mem));
+  } catch (err) {
+    persist = false;
+    mem = {};
+    document.getElementById("store-warn").hidden = false;
+  }
+  function save() {
+    if (!persist) return;
+    try { localStorage.setItem(KEY, JSON.stringify(mem)); }
+    catch (err) {
+      persist = false;
+      document.getElementById("store-warn").hidden = false;
+    }
+  }
+  function bucket(name) {
+    mem[name] = mem[name] || {};
+    return mem[name];
+  }
+
+  const nodes = {
+    mfva: {
+      title: "mfva, белый ящик",
+      body: "Пакет com.appknox.mfva. В таблице задания опечатка mvfa. Восемь категорий MASVS по исходникам. Находки, которые называют первыми: DES/ECB и ключ Gangnam!, MD5 через toString массива, пароли user1/pass1/pass0 и токен по HTTP, allowBackup, WebView с JavaScript. Необъявленное CustomPermission закрывает компоненты с именами Unprotected. Открыты ExportedService и ExportedReceiver.",
+      file: "Исходники: /home/drenk83/Documents/mbks/3/mfva-master. В отчёте это раздел 5."
+    },
+    andro: {
+      title: "androguard, audit_apk.py",
+      body: "Классы 59178, методы 260516, native-методов 339. Активности 108, с входом 20. Сервисы 32/12, приёмники 35/29, провайдеры 20, экспортированы 3. Строгих loadLibrary — 8. Это число инструкций, не число дыр.",
+      file: "results/manifest.txt, results/natives.txt, results/api-hits.txt. Скрипт: scripts/audit_apk.py."
+    },
+    so: {
+      title: "Четыре библиотеки x86_64",
+      body: "camera360: OpenCV без номера версии, грузится из сканера. libeye: класс EyeNative и processBufferBug, в сеансе не загружалась. jingle: WebRTC и BoringSSL, не OpenSSL, без звонка не загружалась. SpeechKit 4.15.7 из имени файла. libpng: 0.",
+      file: "results/oss-summary.txt. Сами .so лежат в lab5/work/native/x86_64 и в git не входят."
+    },
+    frida: {
+      title: "Эмулятор API 34 и Frida 17.4.0",
+      body: "Pid 9066, процесс Yandex Mail. EmlActivity получила ACTION_VIEW и openInputStream на lab5-external.eml. Сканер стартовал с bundleNull=true. Долгоживущий агент библиотеку не увидел, watched=0. Второй attach увидел libcamera360-arcadia.so из base.apk. Входа в JNI нет. Загрузка гостя в том прогоне: 14495 мс.",
+      file: "results/frida/trace.log, results/frida/modules-pid9066.log, results/frida/screen-eml.png."
+    },
+    flow: {
+      title: "FlowDroid 2.15.1",
+      body: "18 Result, 36 Source, пик 8512 МБ, TerminationState=DataFlowOutOfMemory, полное время 210 с. Письма среди путей нет. 339 native-стоков в список -s не входили. Повторять прогон на защите не нужно.",
+      file: "results/flowdroid/yandex-mail.xml"
+    },
+    true: {
+      title: "Trueseeing 2.2.11",
+      body: "8068 issues за 66,37 с, в JSON 37 групп: Info 26, Medium 6, Low 5. High нет. Cleartext в группе Medium относится к файлу политики, на который приложение не ссылается.",
+      file: "results/trueseeing/yandex-mail.json. Бинарь: lab5/work/venvs/analysis/bin/trueseeing."
+    },
+    hunt: {
+      title: "APKHunt",
+      body: "22m14.841748933s. Журналы 455/1451, ссылки 250/473. allowBackup=true и debuggable=true не найдены. Четыре строки exported = 0 — ошибка сводки: в манифесте того же прогона атрибут встречается 43 раза. JADX закончил с 267 ошибками.",
+      file: "results/apkhunt/APKHunt_yandex-mail-8-81-2_2026-10-31_18-48-53.txt"
+    },
+    skip: {
+      title: "MobSF и SEBASTiAN",
+      body: "В набор OWApp входят, в фактический прогон нет. Нужны Docker и sudo, на этой машине их нет. Файла download_script.py в репозитории набора нет. Локальный DownloadScript.sh только кладёт жёсткую ссылку. RunningScript.sh не запускался.",
+      file: "lab5/owapp/DownloadScript.sh — смотреть, не запускать набор заново."
+    }
+  };
+
+  function paintNode(id) {
+    const data = nodes[id];
+    document.querySelectorAll("[data-node]").forEach((btn) => {
+      btn.setAttribute("aria-current", btn.dataset.node === id ? "true" : "false");
+    });
+    document.getElementById("node-detail").innerHTML =
+      "<h3>" + data.title + "</h3><p>" + data.body + "</p><p><span class=\"k\">Открыть</span><br>" + data.file + "</p>";
+  }
+
+  function paintChecks() {
+    document.querySelectorAll("input[data-bucket]").forEach((box) => {
+      box.checked = !!(bucket(box.dataset.bucket)[box.dataset.key]);
+    });
+  }
+  function paintQuiz() {
+    const marks = bucket("quiz");
+    let know = 0;
+    let shaky = 0;
+    document.querySelectorAll("#quiz-list .q").forEach((card) => {
+      const mark = (marks[card.dataset.id] || {}).mark || "";
+      const draft = (marks[card.dataset.id] || {}).draft || "";
+      card.querySelector("textarea").value = draft;
+      card.querySelectorAll("[data-mark]").forEach((btn) => {
+        btn.setAttribute("aria-pressed", btn.dataset.mark === mark ? "true" : "false");
+      });
+      if (mark === "know") know += 1;
+      if (mark === "shaky") shaky += 1;
+      const only = document.getElementById("only-shaky").getAttribute("aria-pressed") === "true";
+      card.hidden = only && mark !== "shaky";
+    });
+    document.getElementById("quiz-score").textContent = "Знаю " + know + " · плаваю " + shaky;
+    const visible = document.querySelectorAll("#quiz-list .q:not([hidden])").length;
+    document.getElementById("quiz-empty").hidden = visible !== 0;
+  }
+  function paintNumbers() {
+    const picked = bucket("numbers");
+    let answered = 0;
+    let hit = 0;
+    document.querySelectorAll("#num-test .nq").forEach((card) => {
+      const value = picked[card.dataset.answer] ? picked[card.querySelector("h3").textContent] : picked[card.querySelector("h3").textContent];
+      const choice = picked[card.querySelector("h3").textContent];
+      card.querySelectorAll("[data-val]").forEach((btn) => {
+        const on = choice === btn.dataset.val;
+        btn.setAttribute("aria-pressed", on ? "true" : "false");
+        btn.classList.toggle("hit", on && btn.dataset.val === card.dataset.answer);
+        btn.classList.toggle("miss", on && btn.dataset.val !== card.dataset.answer);
+      });
+      card.querySelector(".explain").hidden = !choice;
+      if (choice) {
+        answered += 1;
+        if (choice === card.dataset.answer) hit += 1;
+      }
+    });
+    document.getElementById("num-score").textContent = answered
+      ? ("Верно " + hit + " из " + answered)
+      : "Пока ни одного ответа.";
+  }
+  function paintSeen() {
+    const seen = bucket("seen");
+    let count = 0;
+    document.querySelectorAll("nav.side a").forEach((link) => {
+      const id = (link.getAttribute("href") || "").slice(1);
+      const on = !!seen[id];
+      link.classList.toggle("seen", on);
+      if (on) count += 1;
+    });
+    document.getElementById("meter").style.width = (count / SECTION_IDS.length * 100) + "%";
+    document.getElementById("progress-label").textContent = count + " / " + SECTION_IDS.length + " разделов";
+  }
+  function applyMode(mode) {
+    mem.mode = mode === "defense" ? "defense" : "teach";
+    document.body.classList.toggle("mode-defense", mem.mode === "defense");
+    document.getElementById("mode-teach").setAttribute("aria-pressed", mem.mode === "teach" ? "true" : "false");
+    document.getElementById("mode-defense").setAttribute("aria-pressed", mem.mode === "defense" ? "true" : "false");
+    save();
+  }
+  function orderQuiz() {
+    const list = document.getElementById("quiz-list");
+    const order = mem.quizOrder;
+    if (!order || order.length !== list.children.length) return;
+    order.forEach((id) => {
+      const card = list.querySelector('.q[data-id="' + id + '"]');
+      if (card) list.appendChild(card);
+    });
+  }
+
+  applyMode(mem.mode || "teach");
+  orderQuiz();
+  paintChecks();
+  paintQuiz();
+  paintNumbers();
+  paintSeen();
+
+  document.getElementById("mode-teach").addEventListener("click", () => applyMode("teach"));
+  document.getElementById("mode-defense").addEventListener("click", () => applyMode("defense"));
+  function setNav(open) {
+    document.body.classList.toggle("nav-open", open);
+    document.getElementById("menu").setAttribute("aria-expanded", open ? "true" : "false");
+    document.getElementById("scrim").hidden = !open;
+  }
+  document.getElementById("menu").addEventListener("click", () => {
+    setNav(!document.body.classList.contains("nav-open"));
+  });
+  document.getElementById("scrim").addEventListener("click", () => setNav(false));
+  document.querySelector("nav.side").addEventListener("click", (event) => {
+    if (event.target.closest("a")) setNav(false);
+  });
+
+  document.getElementById("show-pitch").addEventListener("click", () => {
+    const pitch = document.getElementById("pitch");
+    const open = pitch.hidden;
+    pitch.hidden = !open;
+    eventButtonAria(document.getElementById("show-pitch"), open);
+  });
+  function eventButtonAria(btn, open) {
+    btn.setAttribute("aria-expanded", open ? "true" : "false");
+    btn.textContent = open ? "Скрыть текст" : "Показать текст на защиту";
+  }
+
+  document.body.addEventListener("click", (event) => {
+    const node = event.target.closest("[data-node]");
+    if (node) paintNode(node.dataset.node);
+
+    const copy = event.target.closest("[data-copy]");
+    if (copy) {
+      const text = document.getElementById(copy.dataset.copy).innerText;
+      const done = () => {
+        const old = copy.textContent;
+        copy.textContent = "Скопировано";
+        setTimeout(() => { copy.textContent = old; }, 1200);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done).catch(() => fallbackCopy(text, done));
+      } else fallbackCopy(text, done);
+    }
+
+    const flip = event.target.closest(".flip");
+    if (flip) flip.setAttribute("aria-pressed", flip.getAttribute("aria-pressed") === "true" ? "false" : "true");
+
+    const trapBtn = event.target.closest("#traps [data-choice]");
+    if (trapBtn) {
+      const card = trapBtn.closest(".trap");
+      const ok = trapBtn.dataset.choice === card.dataset.ok;
+      card.querySelectorAll("[data-choice]").forEach((btn) => {
+        btn.setAttribute("aria-pressed", btn === trapBtn ? "true" : "false");
+        btn.classList.toggle("hit", btn === trapBtn && ok);
+        btn.classList.toggle("miss", btn === trapBtn && !ok);
+      });
+      card.querySelector(".explain").hidden = false;
+    }
+
+    const mark = event.target.closest("[data-mark]");
+    if (mark) {
+      const card = mark.closest(".q");
+      const rec = bucket("quiz")[card.dataset.id] || {};
+      rec.mark = mark.dataset.mark;
+      bucket("quiz")[card.dataset.id] = rec;
+      save();
+      paintQuiz();
+    }
+
+    const num = event.target.closest("#num-test [data-val]");
+    if (num) {
+      const card = num.closest(".nq");
+      bucket("numbers")[card.querySelector("h3").textContent] = num.dataset.val;
+      save();
+      paintNumbers();
+    }
+  });
+
+  function fallbackCopy(text, done) {
+    const area = document.createElement("textarea");
+    area.value = text;
+    document.body.appendChild(area);
+    area.select();
+    try { document.execCommand("copy"); done(); } catch (err) { /* выделение уже стоит в блоке */ }
+    area.remove();
+  }
+
+  document.body.addEventListener("input", (event) => {
+    if (event.target.matches("#quiz-list textarea")) {
+      const card = event.target.closest(".q");
+      const rec = bucket("quiz")[card.dataset.id] || {};
+      rec.draft = event.target.value;
+      bucket("quiz")[card.dataset.id] = rec;
+      save();
+    }
+  });
+  document.body.addEventListener("change", (event) => {
+    const box = event.target.closest("input[data-bucket]");
+    if (!box) return;
+    bucket(box.dataset.bucket)[box.dataset.key] = box.checked;
+    save();
+  });
+
+  document.getElementById("only-shaky").addEventListener("click", () => {
+    const btn = document.getElementById("only-shaky");
+    const on = btn.getAttribute("aria-pressed") !== "true";
+    btn.setAttribute("aria-pressed", on ? "true" : "false");
+    paintQuiz();
+  });
+  document.getElementById("shuffle").addEventListener("click", () => {
+    const list = document.getElementById("quiz-list");
+    const cards = Array.from(list.children);
+    for (let i = cards.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const tmp = cards[i];
+      cards[i] = cards[j];
+      cards[j] = tmp;
+    }
+    cards.forEach((card) => list.appendChild(card));
+    mem.quizOrder = cards.map((card) => card.dataset.id);
+    save();
+  });
+  document.getElementById("reset").addEventListener("click", () => {
+    if (!confirm("Сбросить отметки, черновики и режим в этом браузере?")) return;
+    mem = {};
+    save();
+    location.reload();
+  });
+
+  document.getElementById("symptom").addEventListener("input", (event) => {
+    const q = event.target.value.trim().toLowerCase();
+    document.querySelectorAll("#symptoms tbody tr").forEach((row) => {
+      row.hidden = q !== "" && !row.textContent.toLowerCase().includes(q);
+    });
+  });
+  document.getElementById("gloss-q").addEventListener("input", (event) => {
+    const q = event.target.value.trim().toLowerCase();
+    document.querySelectorAll("#gloss tbody tr").forEach((row) => {
+      row.hidden = q !== "" && !row.textContent.toLowerCase().includes(q);
+    });
+  });
+
+  if ("IntersectionObserver" in window) {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        bucket("seen")[entry.target.id] = true;
+        save();
+        paintSeen();
+      });
+    }, { threshold: 0.02 });
+    SECTION_IDS.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+  }
+
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") setNav(false);
+  });
+})();
+</script>
+</body>
+</html>
