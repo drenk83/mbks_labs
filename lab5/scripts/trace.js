@@ -2,9 +2,8 @@
 
 send({ event: 'script-loaded' });
 
-// Трасса чтения внешних данных и загрузки нативных библиотек Yandex Mail.
-// Пишет события в stdout Frida (send). Библиотеки хукаются в момент loadLibrary,
-// потому что до старта процесса их ещё нет в карте модулей.
+// Трасса чтения .eml и загрузки четырёх .so. События уходят в stdout Frida через send.
+// Итоговый прогон вызывает только armJava: подмена loadLibrary, EyeNative и dlopen процесс роняют.
 
 var WATCHED = [
   'libjingle_peerconnection_so.so',
@@ -13,6 +12,7 @@ var WATCHED = [
   'libeye.so'
 ];
 
+// Одна строка трассы: имя события, время и поля.
 function emit(event, fields) {
   var row = { event: event, t: Date.now() };
   if (fields) {
@@ -25,6 +25,7 @@ function emit(event, fields) {
 
 var entered = {};
 
+// Первый вход в JNI-экспорт. Повтор того же символа не пишется.
 function noteNative(library, symbol) {
   var key = library + ' ' + symbol;
   if (entered[key]) {
@@ -34,6 +35,7 @@ function noteNative(library, symbol) {
   emit('native-enter', { library: library, symbol: symbol });
 }
 
+// Хуки на уже загруженный .so: только JNI_OnLoad и Java_, не больше 24 экспортов.
 function hookExports(name) {
   var mod = Process.findModuleByName(name);
   if (!mod) {
@@ -47,7 +49,7 @@ function hookExports(name) {
   var attached = 0;
   mod.enumerateExports().forEach(function (exp) {
     if (attached >= 24) {
-      return;
+      return; // потолок, чтобы не повесить хук на сотни Java_
     }
     if (exp.type !== 'function') {
       return;
@@ -69,6 +71,7 @@ function hookExports(name) {
   emit('library-hooks', { name: name, java_exports_hooked: attached });
 }
 
+// Не вызывается из armJava: подмена loadLibrary роняет WebView письма.
 function hookLoad() {
   var System = Java.use('java.lang.System');
   var loadLibrary = System.loadLibrary.overload('java.lang.String');
@@ -90,6 +93,7 @@ function hookLoad() {
   };
 }
 
+// action, type, data и начало EXTRA_TEXT для строки onCreate.
 function intentText(intent) {
   if (intent === null) {
     return 'null';
@@ -109,6 +113,7 @@ function intentText(intent) {
   return 'action=' + action + ' type=' + type + ' data=' + data + ' text=' + extra;
 }
 
+// Не вызывается из armJava: подмена EyeNative убивает процесс.
 function hookNativeWrappers() {
   try {
     var Eye = Java.use('com.yandex.eye.nativebits.EyeNative');
@@ -144,6 +149,7 @@ function hookNativeWrappers() {
   }
 }
 
+// Снимок «библиотека уже в карте?». В лог уходит число watched.
 function snapshotWatched(reason) {
   var found = 0;
   try {
@@ -163,6 +169,7 @@ function snapshotWatched(reason) {
   emit('snapshot', { reason: reason, watched: found });
 }
 
+// onCreate одной активности. bundleNull нужен сканеру: при null он грузит camera360.
 function hookOneCreate(className, after) {
   var Cls = Java.use(className);
   var onCreate = Cls.onCreate.overload('android.os.Bundle');
@@ -180,9 +187,8 @@ function hookOneCreate(className, after) {
   };
 }
 
+// EmlActivity, сканер и openInputStream. Общий Activity.onCreate ронял WebView.
 function hookIntents() {
-  // Хук на android.app.Activity.onCreate ронял процесс на создании WebView.
-  // Цепляемся только к двум активностям из задания.
   try {
     hookOneCreate('com.yandex.mail.eml.EmlActivity');
   } catch (err) {
@@ -190,6 +196,7 @@ function hookIntents() {
   }
   try {
     hookOneCreate('com.yandex.mail360.camera.doc.scanner.DocScannerCameraActivity', function () {
+      // Два снимка: сразу после onCreate и через 1,5 с, когда .so уже могла отобразиться.
       snapshotWatched('after DocScannerCameraActivity.onCreate');
       setTimeout(function () {
         snapshotWatched('1.5s after DocScannerCameraActivity.onCreate');
@@ -207,6 +214,7 @@ function hookIntents() {
   };
 }
 
+// Не вызывается из armJava: android_dlopen_ext в Frida 17.4 роняет почту.
 function hookDlopen() {
   var name = 'android_dlopen_ext';
   var addr = Module.findGlobalExportByName(name);
@@ -238,6 +246,7 @@ function hookDlopen() {
   });
 }
 
+// Опрос карты: в лог только четыре библиотеки варианта, не все модули процесса.
 function listWatched() {
   try {
     Process.enumerateModules().forEach(function (mod) {
@@ -251,10 +260,10 @@ function listWatched() {
   }
 }
 
+// Рабочие хуки сессии. loadLibrary не подменяем: из-за этого не создаётся WebView.
+// .so ищем опросом карты раз в 500 мс, после честной загрузки самим приложением.
 function armJava() {
   emit('java-ready', {});
-  // System.loadLibrary не подменяем: из-за этого WebView в EmlActivity не создаётся.
-  // Появление .so смотрим опросом карты модулей после честного loadLibrary приложения.
   try {
     emit('stage', { name: 'intents' });
     hookIntents();
@@ -280,6 +289,7 @@ function armJava() {
   emit('hooks-installed', {});
 }
 
+// Модуль только что добавили. Чужие .so отбрасываются, свои сразу хукаются.
 function watchAdded(mod) {
   var n = mod.name;
   if (n.indexOf('camera360') === -1 && n !== 'libeye.so' && n.indexOf('jingle_peerconnection') === -1 && n.indexOf('SpeechKit') === -1 && n.indexOf('YandexSpeech') === -1) {
@@ -295,6 +305,7 @@ function watchAdded(mod) {
 
 var observerInstalled = false;
 
+// Старт. Observer модулей один раз. Пока Java нет, повтор через 400 мс: spawn до неё не доходит.
 function main() {
   if (!observerInstalled) {
     observerInstalled = true;
@@ -321,7 +332,6 @@ function main() {
     setTimeout(main, 400);
     return;
   }
-  // android_dlopen_ext в Frida 17.4 роняет процесс почты. Загрузку ловим через System.loadLibrary.
   try {
     Java.perform(armJava);
   } catch (err2) {

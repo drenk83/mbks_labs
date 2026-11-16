@@ -86,6 +86,8 @@ lab4/work/
 
 # lab5: APK, декомпиляция, эмулятор и прогоны. В git остаются скрипты и отчёт.
 lab5/work/
+# Исходники mfva и дерево JADX почты.
+lab5/sources/
 # Дерево jadx от APKHunt, jar и копия APK. Сводка txt/html остаётся.
 lab5/results/apkhunt/*_SAST/
 lab5/results/apkhunt/*.jar

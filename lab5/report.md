@@ -77,7 +77,7 @@ MSTG даёт тесты к тем же категориям. Номера от�
 
 ## 5. Белый ящик: mfva
 
-Исходники: `/home/drenk83/Documents/mbks/3/mfva-master`. Сборка `compileSdk 30`, `minSdk 25`, `targetSdk 30`, `versionName 1.0`, `versionCode 6`. Зависимости: OkHttp 3.8.0, Jedis 2.9.0, AppCompat 1.0.0. `minifyEnabled` выключен. README прямо говорит, что приложение специально содержит уязвимости для демонстрации сканера Appknox.
+Исходники: `lab5/sources/mfva`. Сборка `compileSdk 30`, `minSdk 25`, `targetSdk 30`, `versionName 1.0`, `versionCode 6`. Зависимости: OkHttp 3.8.0, Jedis 2.9.0, AppCompat 1.0.0. `minifyEnabled` выключен. README прямо говорит, что приложение специально содержит уязвимости для демонстрации сканера Appknox.
 
 Динамический прогон mfva задание для белого ящика не требует. Ниже разбор по категориям и правка для каждой находки.
 
@@ -198,7 +198,7 @@ ProGuard выключен. Исключения криптографии и се
 
 ## 7. Декомпиляция
 
-Чтение конкретных классов (`EmlActivity`, `DocScannerCameraActivity`, `OfflineCalendarActivity`, загрузчики библиотек) сделано по дереву JADX этого же APK: `/home/drenk83/Documents/mbks/3/YandexMail/sources`. Повторную декомпиляцию в этом прогоне сделал APKHunt: он вызвал JADX и dex2jar и записал дерево в `lab5/results/apkhunt/yandex-mail-8-81-2_SAST/`. Имя APK для APKHunt пришлось сделать `yandex-mail-8-81-2.apk`: исходное имя с пробелами и точками инструмент отвергает.
+Чтение конкретных классов (`EmlActivity`, `DocScannerCameraActivity`, `OfflineCalendarActivity`, загрузчики библиотек) сделано по дереву JADX этого же APK: `lab5/sources/yandex-mail`. Повторную декомпиляцию в этом прогоне сделал APKHunt: он вызвал JADX и dex2jar и записал дерево в `lab5/results/apkhunt/yandex-mail-8-81-2_SAST/`. Имя APK для APKHunt пришлось сделать `yandex-mail-8-81-2.apk`: исходное имя с пробелами и точками инструмент отвергает.
 
 Манифест для подсчётов снят androguard-скриптом `lab5/scripts/audit_apk.py`, результат `lab5/results/manifest.txt`.
 
@@ -505,7 +505,7 @@ Yandex Mail 8.81.2 принимает внешнее письмо через э�
 1. OWASP MASVS, категории v1: архитектура, хранение, криптография, аутентификация, сеть, платформа, качество кода, устойчивость. https://github.com/OWASP/owasp-masvs
 2. OWASP MASTG, проверки Android к тем же категориям. https://github.com/OWASP/owasp-mastg
 3. Kotlin Security Considerations (Kotlin-SCP), те же классы ошибок для кода на Kotlin. Приложение mfva на Java, правила перенесены по смыслу.
-4. Исходники mfva, пакет `com.appknox.mfva`, каталог `mfva-master`.
+4. Исходники mfva, пакет `com.appknox.mfva`, каталог `lab5/sources/mfva`.
 5. APK Yandex Mail 8.81.2 из архива преподавателя, SHA-256 `6fb616ce30b13dc911a9dcdd2ddfeb3450a4eb6cbf49a99733c5aefa8680463c`.
 6. Журналы прогонов: `lab5/results/manifest.txt`, `api-hits.txt`, `natives.txt`, `oss-summary.txt`, `frida/trace.log`, `frida/modules-pid9066.log`, `flowdroid/yandex-mail.xml`, `trueseeing/yandex-mail.json`, `apkhunt/APKHunt_yandex-mail-8-81-2_2026-10-31_18-48-53.txt`.
 7. OWApp Benchmarking Suite, `BenchmarkSuite/DownloadScript.sh` и `RunningScript.sh`. Локальная правка: `lab5/owapp/`.

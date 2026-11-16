@@ -462,7 +462,7 @@
       <h3>Декомпиляция</h3>
       <p>JADX поднимает из DEX Java-подобный текст. Это не исходник автора. Подсчёты отчёта сняты androguard, не глазами по XML.</p>
       <details class="learn-only"><summary>Где лежат деревья</summary>
-        <p>APKHunt сам вызвал JADX и закончил строкой <code>finished with errors, count: 267</code>. Классы <code>EmlActivity</code>, сканер, офлайн-календарь и константа SpeechKit читались по дереву того же APK в <code>/home/drenk83/Documents/mbks/3/YandexMail/sources</code>. Повторное дерево лежит в <code>results/apkhunt/</code> и в git не входит. Имя для APKHunt без пробелов и точек: <code>yandex-mail-8-81-2.apk</code>, SHA-256 тот же.</p>
+        <p>APKHunt сам вызвал JADX и закончил строкой <code>finished with errors, count: 267</code>. Классы <code>EmlActivity</code>, сканер, офлайн-календарь и константа SpeechKit читались по дереву того же APK в <code>lab5/sources/yandex-mail</code>. Каталог <code>lab5/sources/</code> в git не входит. Повторное дерево лежит в <code>results/apkhunt/</code> и в git тоже не входит. Имя для APKHunt без пробелов и точек: <code>yandex-mail-8-81-2.apk</code>, SHA-256 тот же.</p>
       </details>
     </article>
     <article class="card">
@@ -554,7 +554,7 @@
 
 <section id="white">
   <h2>Белый ящик: mfva</h2>
-  <p>Исходники: <code>/home/drenk83/Documents/mbks/3/mfva-master</code>. Сборка compileSdk 30, minSdk 25, targetSdk 30, versionName 1.0, versionCode 6. Зависимости: OkHttp 3.8.0, Jedis 2.9.0, AppCompat 1.0.0. ProGuard выключен. README прямо говорит, что ошибки вставлены для сканера Appknox. На эмулятор mfva не ставился: заданию хватает исходников.</p>
+  <p>Исходники: <code>lab5/sources/mfva</code>. Сборка compileSdk 30, minSdk 25, targetSdk 30, versionName 1.0, versionCode 6. Зависимости: OkHttp 3.8.0, Jedis 2.9.0, AppCompat 1.0.0. ProGuard выключен. README прямо говорит, что ошибки вставлены для сканера Appknox. На эмулятор mfva не ставился: заданию хватает исходников.</p>
   <div class="grid">
     <article class="card">
       <h3>1. Архитектура</h3>
@@ -699,7 +699,7 @@ snapshot reason=after DocScannerCameraActivity.onCreate watched=0</code></pre>
     <pre><code id="cmd-fast">cd /home/drenk83/Projects/gitrepo/mbks_labs
 source lab5/work/env.sh
 sha256sum "lab5/work/apk/Yandex Mail_8.81.2_APKPure.apk"
-sed -n '108,114p' /home/drenk83/Documents/mbks/3/mfva-master/app/src/main/java/com/appknox/mfva/MainActivity.java
+sed -n '108,114p' lab5/sources/mfva/app/src/main/java/com/appknox/mfva/MainActivity.java
 sed -n '1,4p' lab5/results/natives.txt
 grep openInputStream lab5/results/frida/trace.log
 grep camera360 lab5/results/frida/modules-pid9066.log
@@ -867,7 +867,7 @@ grep -c '&lt;Result&gt;' lab5/results/flowdroid/yandex-mail.xml</code></pre>
     <tr><th>Вопрос</th><th>Файл</th></tr>
     <tr><td>Что сдаётся</td><td><a href="report.md">report.md</a>, mbks_lab_5.docx</td></tr>
     <tr><td>Как запускалось</td><td><a href="Журнал_действий.md">Журнал_действий.md</a></td></tr>
-    <tr><td>DES и WebView mfva</td><td>/home/drenk83/Documents/mbks/3/mfva-master</td></tr>
+    <tr><td>DES и WebView mfva</td><td>lab5/sources/mfva</td></tr>
     <tr><td>Манифест почты</td><td><a href="results/manifest.txt">results/manifest.txt</a></td></tr>
     <tr><td>339 методов</td><td><a href="results/natives.txt">results/natives.txt</a></td></tr>
     <tr><td>Счётчики стоков</td><td><a href="results/api-hits.txt">results/api-hits.txt</a></td></tr>
@@ -932,7 +932,7 @@ lab5/work/venvs/analysis/bin/trueseeing</code></pre>
     mfva: {
       title: "mfva, белый ящик",
       body: "Пакет com.appknox.mfva. В таблице задания опечатка mvfa. Восемь категорий MASVS по исходникам. Находки, которые называют первыми: DES/ECB и ключ Gangnam!, MD5 через toString массива, пароли user1/pass1/pass0 и токен по HTTP, allowBackup, WebView с JavaScript. Необъявленное CustomPermission закрывает компоненты с именами Unprotected. Открыты ExportedService и ExportedReceiver.",
-      file: "Исходники: /home/drenk83/Documents/mbks/3/mfva-master. В отчёте это раздел 5."
+      file: "Исходники: lab5/sources/mfva. В отчёте это раздел 5."
     },
     andro: {
       title: "androguard, audit_apk.py",
