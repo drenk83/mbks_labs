@@ -21,7 +21,7 @@ usage: 08_emulator.sh [команда]
 Без аргументов: demo — поднять эмулятор, поставить APK, открыть .eml и сканер.
 
   status              показать состояние эмулятора
-  up [--headless]     поднять AVD lab5_api34 (по умолчанию с окном)
+  up                  поднять AVD lab5_api34 с окном
   install             установить APK в эмулятор
   eml                 положить внешний .eml в приватный каталог почты
   start               открыть .eml через EmlActivity и снять скриншот
@@ -48,19 +48,8 @@ do_status() {
 }
 
 do_up() {
-  local headless=0
-  for arg in "$@"; do
-    case "$arg" in
-      --headless) headless=1 ;;
-      *) die "up: неизвестный аргумент $arg" ;;
-    esac
-  done
   need_adb
-  if (( headless )); then
-    "$LAB5/scripts/emu-up.sh"
-  else
-    "$LAB5/scripts/emu-up.sh" --window
-  fi
+  "$LAB5/scripts/emu-up.sh"
   do_status
 }
 
@@ -155,7 +144,7 @@ do_scanner() {
 }
 
 do_demo() {
-  do_up "$@"
+  do_up
   do_install
   do_eml
   do_start
@@ -170,14 +159,13 @@ do_down() {
 
 cmd="${1:-}"
 case "$cmd" in
-  --headless) do_demo --headless ;;
   status) do_status ;;
-  up) shift; do_up "$@" ;;
+  up) do_up ;;
   install) do_install ;;
   eml) do_eml ;;
   start) do_start ;;
   scanner) do_scanner ;;
-  demo) shift; do_demo "$@" ;;
+  demo) do_demo ;;
   down) do_down ;;
   -h|--help|help) usage ;;
   '') do_demo ;;

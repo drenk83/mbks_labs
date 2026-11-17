@@ -24,7 +24,7 @@ usage: 09_frida.sh [команда]
   status           версия Frida, adb, процессы
   server           adb root + push + запуск frida-server
   ps               показать процессы, похожие на Yandex Mail
-  trace [--auto]   attach по PID и трасса trace.js
+  trace [--auto]   attach по PID и трасса simple-trace.js
                    --auto сам откроет .eml и сканер через несколько секунд
   modules          второй attach: карта модулей, ищем camera360
   all              server + trace --auto + modules

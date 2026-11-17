@@ -462,7 +462,7 @@
       <h3>Декомпиляция</h3>
       <p>JADX поднимает из DEX Java-подобный текст. Это не исходник автора. Подсчёты отчёта сняты androguard, не глазами по XML.</p>
       <details class="learn-only"><summary>Где лежат деревья</summary>
-        <p>APKHunt сам вызвал JADX и закончил строкой <code>finished with errors, count: 267</code>. Классы <code>EmlActivity</code>, сканер, офлайн-календарь и константа SpeechKit читались по дереву того же APK в <code>lab5/sources/yandex-mail</code>. Каталог <code>lab5/sources/</code> в git не входит. Повторное дерево лежит в <code>results/apkhunt/</code> и в git тоже не входит. Имя для APKHunt без пробелов и точек: <code>yandex-mail-8-81-2.apk</code>, SHA-256 тот же.</p>
+        <p>APKHunt сам вызвал JADX и закончил строкой <code>finished with errors, count: 267</code>. Классы <code>EmlActivity</code>, сканер, офлайн-календарь и константа SpeechKit открываются из APK скриптом <code>lab5/scripts/jadx-mail.sh</code>. Выгруженное дерево <code>lab5/sources/yandex-mail</code> удалено. В <code>lab5/sources/</code> остался mfva, каталог в git не входит. Дерево прогона APKHunt лежит в <code>results/apkhunt/</code> и в git тоже не входит. Имя для APKHunt без пробелов и точек: <code>yandex-mail-8-81-2.apk</code>, SHA-256 тот же.</p>
       </details>
     </article>
     <article class="card">
@@ -494,7 +494,7 @@
       <h3>FlowDroid</h3>
       <p>Статический taint по APK. Штатный список источников и стоков, 460 строк. Свои 339 native-стоков туда не добавлялись. Решатель: 18 путей из 36 источников, 86 секунд, пик 8512 МБ.</p>
       <details class="learn-only"><summary>Почему это не весь ответ</summary>
-        <p>В XML стоит <code>TerminationState="DataFlowOutOfMemory"</code>. Полное время в XML 210 секунд, таймаут 480 секунд не сработал. 18 путей — то, что успело записаться. Среди них нет <code>EmlActivity</code>, <code>openInputStream</code>, camera360, SpeechKit и WebRTC. Отсутствие пути в оборванном прогоне не доказывает, что пути нет. Для письма доказательство другое: в <code>onCreate</code> нет <code>loadLibrary</code>, и трасса после чтения библиотеки APK в процесс не ввела.</p>
+        <p>В XML стоит <code>TerminationState="DataFlowOutOfMemory"</code>. Отчёт цитирует консоль: 86 секунд и 8512 МБ. Файл на диске — повторный прогон: 340 секунд и 8379 МБ, путей по-прежнему 18. Таймаут 480 секунд не сработал. Среди путей нет <code>EmlActivity</code>, <code>openInputStream</code>, camera360, SpeechKit и WebRTC. Отсутствие пути в оборванном прогоне не доказывает, что пути нет. Для письма доказательство другое: в <code>onCreate</code> нет <code>loadLibrary</code>, и трасса после чтения библиотеки APK в процесс не ввела.</p>
       </details>
       <div class="say"><div class="tag">На защите</div><p>FlowDroid напечатал 18 путей и оборвался по памяти. Письма среди них нет. Что письмо не вызывает native, я показываю по коду EmlActivity и по трассе, а не по оборванному прогону.</p></div>
     </article>
