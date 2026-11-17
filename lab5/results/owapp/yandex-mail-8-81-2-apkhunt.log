@@ -1,0 +1,1137 @@
+<html><head><title>APKHunt Report</title></head><body>
+<h1>APKHunt Report</h1>
+<pre>
+[1;31m
+      _ _   __ __  _   __  _   _                _   
+     / _ \ | _ _ \| | / / | | | |              | |  
+    / /_\ \| |_/ /| |/ /  | |_| | _   _   _ _  | |_ 
+    |  _  ||  __/ |    \  |  _  || | | |/  _  \|  _|
+    | | | || |    | |\  \ | | | || |_| || | | || |_ 
+    \_| |_/\_|    \_| \_/ \_| |_/\ _ _ /|_| |_|\_ _|
+    ------------------------------------------------
+    OWASP MASVS Static Analyzer                                
+        
+[0m[+] APKHunt - a comprehensive static code analysis tool for Android apps
+[+] Based on: OWASP MASVS - https://mobile-security.gitbook.io/masvs/
+[+] Author: Sumit Kalaria & Mrunal Chawda
+[*] Connect: Please do write to us for any suggestions/feedback.
+
+[+] Log-file path: /home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/APKHunt_yandex-mail-8-81-2_2026-11-17_23-7-17.txt
+
+[+] HTML-file path: /home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/APKHunt_yandex-mail-8-81-2_2026-11-17_23-7-17.html
+</pre></body></html>
+
+[+] Scan has been started at: 2026-11-17 23:07:17.506719278 +0300 MSK m=+0.000278715
+[+] APK Base: yandex-mail-8-81-2.apk
+[+] APK Size: 130.03613 MB
+[+] APK Directory: /home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/
+[+] APK Static Analysis Path: /home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/
+[+] APK Hash: MD5: e23b6fcd0bcff531a1eb10ab970c286b
+[+] APK Hash: SHA256: 6fb616ce30b13dc911a9dcdd2ddfeb3450a4eb6cbf49a99733c5aefa8680463c
+[34m
+[+] d2j-dex2jar has started converting APK to Java JAR file
+[0m[+] =======================================================
+    dex2jar /home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2.apk -> /home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2.jar
+
+[34m[+] Jadx has started decompiling the application
+[0m[+] ============================================
+exit status 3
+INFO  - loading ...
+INFO  - processing ...
+INFO  - progress: 0 of 28358 (0%)INFO  - progress: 6620 of 28358 (23%)INFO  - progress: 6712 of 28358 (23%)INFO  - progress: 7442 of 28358 (26%)INFO  - progress: 8988 of 28358 (31%)INFO  - progress: 10167 of 28358 (35%)INFO  - progress: 11336 of 28358 (39%)INFO  - progress: 12257 of 28358 (43%)INFO  - progress: 13023 of 28358 (45%)INFO  - progress: 14090 of 28358 (49%)INFO  - progress: 14754 of 28358 (52%)INFO  - progress: 15607 of 28358 (55%)INFO  - progress: 16323 of 28358 (57%)INFO  - progress: 17149 of 28358 (60%)INFO  - progress: 17912 of 28358 (63%)INFO  - progress: 18944 of 28358 (66%)INFO  - progress: 19523 of 28358 (68%)INFO  - progress: 20269 of 28358 (71%)INFO  - progress: 21008 of 28358 (74%)INFO  - progress: 21649 of 28358 (76%)INFO  - progress: 22410 of 28358 (79%)INFO  - progress: 22940 of 28358 (80%)INFO  - progress: 23387 of 28358 (82%)INFO  - progress: 24074 of 28358 (84%)INFO  - progress: 24496 of 28358 (86%)INFO  - progress: 25312 of 28358 (89%)INFO  - progress: 26763 of 28358 (94%)INFO  - progress: 27536 of 28358 (97%)INFO  - progress: 28357 of 28358 (99%)                                                             ERROR - finished with errors, count: 267
+
+[34m[+] Capturing the data from the AndroidManifest file
+[0m[+] ================================================
+[1;35m
+==>> The Basic Information...
+
+[0m    package="ru.yandex.mail"
+    versionName="8.81.2"
+    minSdkVersion="26"
+    targetSdkVersion="33"
+    - android:networkSecurityConfig attribute has not been observed.
+    
+[1;35m
+==>> The Activities...
+
+[0m239:        <activity
+245:        <activity
+248:        <activity-alias
+265:        <activity-alias
+281:        <activity-alias
+411:        <activity
+417:        <activity
+420:        <activity
+449:        <activity
+452:        <activity
+457:        <activity
+460:        <activity
+463:        <activity
+468:        <activity
+472:        <activity
+476:        <activity
+480:        <activity
+484:        <activity
+488:        <activity
+492:        <activity
+496:        <activity
+500:        <activity
+505:        <activity
+509:        <activity
+512:        <activity
+516:        <activity
+524:        <activity
+527:        <activity
+531:        <activity
+535:        <activity
+547:        <activity-alias
+569:        <activity
+572:        <activity
+575:        <activity
+578:        <activity
+581:        <activity
+727:        <activity
+730:        <activity
+733:        <activity
+736:        <activity
+740:        <activity
+744:        <activity
+799:        <activity
+803:        <activity
+807:        <activity
+811:        <activity
+814:        <activity
+817:        <activity
+821:        <activity
+825:        <activity
+840:        <activity
+844:        <activity
+854:        <activity
+864:        <activity
+894:        <activity
+922:        <activity
+927:        <activity-alias
+939:        <activity
+942:        <activity
+946:        <activity
+954:        <activity
+960:        <activity
+963:        <activity
+967:        <activity
+971:        <activity
+975:        <activity
+994:        <activity
+1021:        <activity
+1025:        <activity
+1042:        <activity
+1049:        <activity
+1055:        <activity
+1063:        <activity
+1070:        <activity
+1077:        <activity
+1097:        <activity-alias
+1116:        <activity
+1140:        <activity
+1146:        <activity-alias
+1158:        <activity
+1164:        <activity
+1169:        <activity
+1175:        <activity
+1181:        <activity
+1188:        <activity
+1195:        <activity
+1206:        <activity
+1221:        <activity
+1227:        <activity
+1238:        <activity
+1244:        <activity
+1250:        <activity
+1384:        <activity
+1401:        <activity
+1407:        <activity
+1414:        <activity
+1420:        <activity
+1426:        <activity
+1432:        <activity
+1438:        <activity
+1444:        <activity
+1450:        <activity
+1456:        <activity
+1460:        <activity
+1463:        <activity
+1486:        <activity
+1505:        <activity
+1512:        <activity
+1607:        <activity
+1699:        <activity
+1707:        <activity
+1715:        <activity
+1781:        <activity
+1821:        <activity
+1835:        <activity
+
+[+] Looking for the Exported Activities specifically...
+
+	- No exported activities have been observed.
+
+    > Total exported activities are: 0
+
+    > QuickNote: It is recommended to use exported activities securely, if observed.
+[1;35m
+==>> The Content Providers...
+
+[0m129:        <provider
+592:        <provider
+610:        <provider
+614:        <provider
+618:        <provider
+646:        <provider
+831:        <provider
+859:        <provider
+875:        <provider
+885:        <provider
+902:        <provider
+912:        <provider
+1257:        <provider
+1265:        <provider
+1306:        <provider
+1358:        <provider
+1490:        <provider
+1570:        <provider
+1601:        <provider
+1740:        <provider
+
+[+] Looking for the Exported Content Providers specifically...
+
+	- No exported Content Providers have been observed.
+
+    > Total exported Content Providers are: 0
+
+    > QuickNote: It is recommended to use exported Content Providers securely, if observed.
+[1;35m
+==>> The Brodcast Receivers...
+
+[0m585:        <receiver
+628:        <receiver
+636:        <receiver
+655:        <receiver
+664:        <receiver
+699:        <receiver
+702:        <receiver
+709:        <receiver
+716:        <receiver
+756:        <receiver
+770:        <receiver
+792:        <receiver
+851:        <receiver
+983:        <receiver
+1312:        <receiver
+1323:        <receiver
+1338:        <receiver
+1366:        <receiver
+1375:        <receiver
+1467:        <receiver
+1479:        <receiver
+1522:        <receiver
+1625:        <receiver
+1630:        <receiver
+1640:        <receiver
+1650:        <receiver
+1660:        <receiver
+1669:        <receiver
+1680:        <receiver
+1689:        <receiver
+1748:        <receiver
+1778:        <receiver
+1790:        <receiver
+1805:        <receiver
+1814:        <receiver
+
+[+] Looking for the Exported Brodcast Receivers specifically...
+
+	- No exported Brodcast Receivers have been observed.
+
+    > Total exported Brodcast Receivers are: 0
+
+    > QuickNote: It is recommended to use exported Brodcast Receivers securely, if observed.
+[1;35m
+==>>  The Services...
+
+[0m622:        <service
+677:        <service
+688:        <service
+695:        <service
+723:        <service
+767:        <service
+777:        <service
+788:        <service
+847:        <service
+979:        <service
+986:        <service
+1272:        <service
+1290:        <service
+1348:        <service
+1353:        <service
+1475:        <service
+1482:        <service
+1497:        <service
+1517:        <service
+1533:        <service
+1541:        <service
+1576:        <service
+1587:        <service
+1611:        <service
+1614:        <service
+1619:        <service
+1723:        <service
+1744:        <service
+1767:        <service
+1774:        <service
+1797:        <service
+1801:        <service
+
+[+] Looking for the Exported Services specifically...
+
+	- No exported Services have been observed.
+
+    > Total exported Services are: 0
+
+    > QuickNote: It is recommended to use exported Services securely, if observed.
+[1;35m
+==>>  The Intents Filters...
+
+[0m74:            <action android:name="android.intent.action.VIEW"/>
+80:            <action android:name="android.intent.action.PICK"/>
+87:            <action android:name="android.intent.action.VIEW"/>
+100:            <action android:name="android.intent.action.SENDTO"/>
+104:            <action android:name="android.intent.action.VIEW"/>
+105:            <category android:name="android.intent.category.BROWSABLE"/>
+109:            <action android:name="android.intent.action.GET_CONTENT"/>
+113:            <action android:name="android.intent.action.OPEN_DOCUMENT"/>
+117:            <action android:name="android.intent.action.SENDTO"/>
+120:            <action android:name="android.intent.action.SEND"/>
+124:            <action android:name="android.intent.action.DIAL"/>
+127:            <action android:name="android.intent.action.MEDIA_SCANNER_SCAN_FILE"/>
+257:                <action android:name="android.intent.action.MAIN"/>
+258:                <category android:name="android.intent.category.DEFAULT"/>
+259:                <category android:name="android.intent.category.LAUNCHER"/>
+273:                <action android:name="android.intent.action.MAIN"/>
+274:                <category android:name="android.intent.category.DEFAULT"/>
+275:                <category android:name="android.intent.category.LAUNCHER"/>
+287:                <category android:name="android.intent.category.APP_EMAIL"/>
+290:                <action android:name="android.intent.action.VIEW"/>
+291:                <category android:name="android.intent.category.DEFAULT"/>
+292:                <category android:name="android.intent.category.BROWSABLE"/>
+296:                <action android:name="android.intent.action.VIEW"/>
+297:                <category android:name="android.intent.category.DEFAULT"/>
+303:                <action android:name="android.intent.action.VIEW"/>
+304:                <category android:name="android.intent.category.DEFAULT"/>
+310:                <action android:name="android.intent.action.VIEW"/>
+311:                <category android:name="android.intent.category.DEFAULT"/>
+317:                <action android:name="android.intent.action.VIEW"/>
+318:                <category android:name="android.intent.category.DEFAULT"/>
+324:                <action android:name="android.intent.action.VIEW"/>
+325:                <category android:name="android.intent.category.DEFAULT"/>
+331:                <action android:name="android.intent.action.VIEW"/>
+332:                <category android:name="android.intent.category.DEFAULT"/>
+338:                <action android:name="android.intent.action.VIEW"/>
+339:                <category android:name="android.intent.category.DEFAULT"/>
+345:                <action android:name="android.intent.action.VIEW"/>
+346:                <category android:name="android.intent.category.DEFAULT"/>
+352:                <action android:name="android.intent.action.VIEW"/>
+353:                <category android:name="android.intent.category.DEFAULT"/>
+359:                <action android:name="android.intent.action.VIEW"/>
+360:                <action android:name="android.intent.action.SENDTO"/>
+362:                <category android:name="android.intent.category.DEFAULT"/>
+363:                <category android:name="android.intent.category.BROWSABLE"/>
+366:                <action android:name="android.intent.action.SEND"/>
+368:                <category android:name="android.intent.category.DEFAULT"/>
+371:                <action android:name="android.intent.action.SEND_MULTIPLE"/>
+373:                <category android:name="android.intent.category.DEFAULT"/>
+377:                <category android:name="android.intent.category.DEFAULT"/>
+381:                <category android:name="android.intent.category.DEFAULT"/>
+387:                <action android:name="android.intent.action.VIEW"/>
+388:                <category android:name="android.intent.category.DEFAULT"/>
+389:                <category android:name="android.intent.category.BROWSABLE"/>
+403:                <action android:name="android.intent.action.VIEW"/>
+404:                <category android:name="android.intent.category.DEFAULT"/>
+405:                <category android:name="android.intent.category.BROWSABLE"/>
+427:                <action android:name="android.intent.action.VIEW"/>
+428:                <category android:name="android.intent.category.DEFAULT"/>
+433:                <action android:name="android.intent.action.VIEW"/>
+434:                <category android:name="android.intent.category.DEFAULT"/>
+435:                <category android:name="android.intent.category.BROWSABLE"/>
+552:                <action android:name="android.intent.action.VIEW"/>
+553:                <category android:name="android.intent.category.BROWSABLE"/>
+554:                <category android:name="android.intent.category.DEFAULT"/>
+561:                <action android:name="android.intent.action.VIEW"/>
+562:                <category android:name="android.intent.category.BROWSABLE"/>
+563:                <category android:name="android.intent.category.DEFAULT"/>
+589:                <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED"/>
+632:                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+633:                <action android:name="android.intent.action.QUICKBOOT_POWERON"/>
+774:                <action android:name="android.intent.action.MY_PACKAGE_REPLACED"/>
+796:                <action android:name="android.intent.action.LOCALE_CHANGED"/>
+936:                <category android:name="android.intent.category.DEFAULT"/>
+1000:                <category android:name="android.intent.category.DEFAULT"/>
+1035:                <category android:name="android.intent.category.DEFAULT"/>
+1039:                <category android:name="android.intent.category.DEFAULT"/>
+1086:                <action android:name="android.intent.action.VIEW"/>
+1087:                <category android:name="android.intent.category.DEFAULT"/>
+1088:                <category android:name="android.intent.category.BROWSABLE"/>
+1105:                <action android:name="android.intent.action.VIEW"/>
+1106:                <category android:name="android.intent.category.DEFAULT"/>
+1107:                <category android:name="android.intent.category.BROWSABLE"/>
+1124:                <action android:name="android.intent.action.VIEW"/>
+1125:                <category android:name="android.intent.category.DEFAULT"/>
+1126:                <category android:name="android.intent.category.BROWSABLE"/>
+1132:                <action android:name="android.intent.action.VIEW"/>
+1133:                <category android:name="android.intent.category.DEFAULT"/>
+1134:                <category android:name="android.intent.category.BROWSABLE"/>
+1155:                <category android:name="android.intent.category.DEFAULT"/>
+1203:                <category android:name="android.intent.category.DEFAULT"/>
+1214:                <category android:name="android.intent.category.DEFAULT"/>
+1218:                <category android:name="android.intent.category.DEFAULT"/>
+1235:                <category android:name="android.intent.category.DEFAULT"/>
+1329:                <action android:name="android.intent.action.PACKAGE_FULLY_REMOVED"/>
+1392:                <action android:name="android.intent.action.VIEW"/>
+1393:                <category android:name="android.intent.category.DEFAULT"/>
+1394:                <category android:name="android.intent.category.BROWSABLE"/>
+1471:                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+1582:                <category android:name="android.intent.category.DEFAULT"/>
+1593:                <category android:name="android.intent.category.DEFAULT"/>
+1636:                <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+1637:                <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+1646:                <action android:name="android.intent.action.BATTERY_OKAY"/>
+1647:                <action android:name="android.intent.action.BATTERY_LOW"/>
+1656:                <action android:name="android.intent.action.DEVICE_STORAGE_LOW"/>
+1657:                <action android:name="android.intent.action.DEVICE_STORAGE_OK"/>
+1675:                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+1676:                <action android:name="android.intent.action.TIME_SET"/>
+1677:                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+1704:                <category android:name="android.intent.category.LAUNCHER"/>
+1712:                <category android:name="android.intent.category.LAUNCHER"/>
+1720:                <category android:name="android.intent.category.LAUNCHER"/>
+1829:                <category android:name="android.intent.category.DEFAULT"/>
+
+    > QuickNote: It is recommended to use Intent Filters securely, if observed.
+[33m
+==>> APK Component Summary
+[0m[+] --------------------------------
+    Exported Activities: 0
+    Exported Content Providers: 0
+    Exported Broadcast Receivers: 0
+    Exported Services: 0
+
+[1;36m[+] Let's start the static assessment based on "OWASP MASVS"
+[0m[+] ========================================================
+
+[1;34m[+] Hunting begins based on "V2: Data Storage and Privacy Requirements"
+[0m[+] -------------------------------------------------------------------
+[1;35m
+==>> The Shared Preferences related instances...
+
+[0m[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/androidx/activity/C0214r.java
+[0m1822:        SharedPreferences preferences = context.getSharedPreferences(name, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/androidx/activity/RunnableC0204h.java
+[0m149:                if (applicationContext.getSharedPreferences("com.google.firebase.messaging", 0).getBoolean("proxy_notification_initialized", false)) {
+175:                                    SharedPreferences.Editor editorEdit = applicationContext3.getSharedPreferences("com.google.firebase.messaging", 0).edit();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/androidx/compose/p017ui/graphics/C0886i.java
+[0m117:                String string = context.getSharedPreferences("app_set_id_storage", 0).getString(CommonUrlParts.APP_SET_ID, null);
+118:                long j11 = c3740b2.f16123a.getSharedPreferences("app_set_id_storage", 0).getLong("app_set_id_last_used_time", -1L);
+124:                        if (!context.getSharedPreferences("app_set_id_storage", 0).edit().putString(CommonUrlParts.APP_SET_ID, string).commit()) {
+130:                        if (!context.getSharedPreferences("app_set_id_storage", 0).edit().putLong("app_set_id_creation_time", System.currentTimeMillis()).commit()) {
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/androidx/credentials/playservices/CredentialProviderPlayServicesImpl.java
+[0m157:        c18567r.f15744a.getSharedPreferences("com.google.android.gms.signin", 0).edit().clear().apply();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/androidx/preference/C1843k.java
+[0m75:            this.f6609c = this.f6607a.getSharedPreferences(this.f6612f, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/androidx/work/impl/C2239i.java
+[0m157:                this.f8476c.getSharedPreferences(C2265j.PREFERENCES_FILE_NAME, 0).edit().putBoolean(C2265j.KEY_RESCHEDULE_NEEDED, true).apply();
+178:            SharedPreferences sharedPreferences = context.getSharedPreferences(C2265j.PREFERENCES_FILE_NAME, 0);
+194:            SharedPreferences sharedPreferences2 = context.getSharedPreferences(C2262g.PREFERENCE_FILE_KEY, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/ar/C2364b.java
+[0m25:        SharedPreferences sharedPreferences = context.getSharedPreferences("push_encryption_push_encryption_keychain_preferences", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/android/billingclient/api/RunnableC3010m0.java
+[0m38:                long j11 = c3740b.f16123a.getSharedPreferences("app_set_id_storage", 0).getLong("app_set_id_last_used_time", -1L);
+42:                    if (!context.getSharedPreferences("app_set_id_storage", 0).edit().remove(CommonUrlParts.APP_SET_ID).commit()) {
+46:                    if (!context.getSharedPreferences("app_set_id_storage", 0).edit().remove("app_set_id_last_used_time").commit()) {
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/google/android/gms/internal/appset/C3740b.java
+[0m33:        if (context.getSharedPreferences("app_set_id_storage", 0).edit().putLong("app_set_id_last_used_time", System.currentTimeMillis()).commit()) {
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/google/firebase/iid/C4334a.java
+[0m92:        SharedPreferences sharedPreferences = context.getSharedPreferences("com.google.android.gms.appid", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/google/firebase/messaging/C4353c0.java
+[0m83:        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCES, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/google/firebase/messaging/FirebaseMessaging.java
+[0m183:            SharedPreferences sharedPreferences = context.getSharedPreferences(FCM_PREFERENCES, 0);
+260:                        SharedPreferences sharedPreferences = context3.getSharedPreferences("com.google.android.gms.appid", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/google/firebase/messaging/FirebaseMessagingService.java
+[0m204:                SharedPreferences sharedPreferences = context.getSharedPreferences("com.google.firebase.messaging", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/alice/reminders/notifications/RemindersBroadcastReceiver.java
+[0m29:        if (applicationContext.getSharedPreferences("reminders_preferences", 0).getBoolean("has_reminders", false)) {
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/alice/reminders/storage/C4645i.java
+[0m18:        this.f19328a = context.getSharedPreferences(PREFERENCES_NAME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/alicekit/core/permissions/PermissionManager.java
+[0m367:        activity.getSharedPreferences("PermissionUtils.Prefs", 0).edit().putStringSet("prefs_key_answered_permission_set", hashSet).apply();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/alicekit/core/utils/C4685r.java
+[0m45:        return context.getSharedPreferences(PREFS_NAME, 0).getStringSet(PREFS_KEY_ANSWERED_PERMISSION_SET, Collections.EMPTY_SET);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/attachments/common/net/StickersLoader.java
+[0m28:        SharedPreferences sharedPreferences = context.getSharedPreferences("attachments_stickers_prefs", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/attachments/common/p058ui/fingerpaint/C4781c.java
+[0m123:                SharedPreferences sharedPreferences = context.getSharedPreferences(C24639a.SCHEME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/attachments/common/p058ui/stickerspanel/C4786b.java
+[0m116:                SharedPreferences sharedPreferences = context.getSharedPreferences(C24639a.SCHEME, 0);
+156:                SharedPreferences sharedPreferences2 = context2.getSharedPreferences("telemost_experiments", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/AbstractApplicationC6940k.java
+[0m156:                    c25735mM13784L.f103006a.getSharedPreferences("SMARTRATE_PREFERENCE_KEY", 0).edit().putLong("LAST_CRASH", c25735mM13784L.f103007b.currentTimeMillis()).commit();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/MailApplication.java
+[0m440:        SharedPreferences sharedPreferences = getSharedPreferences(APP_INFO_PREF, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/SubscriptionsWebViewActivity.java
+[0m170:                C25736n.f103012b.m47781b(subscriptionsWebViewActivity.getSharedPreferences("SMARTRATE_PREFERENCE_KEY", 0));
+203:                C25736n.f103012b.m47781b(subscriptionsWebViewActivity.getSharedPreferences("SMARTRATE_PREFERENCE_KEY", 0));
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/beauty_mail/promo/PromoHelper.java
+[0m53:                return this.this$0.f28010a.getSharedPreferences("BEAUTY_MAIL_SUGGEST_PROMO", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/main/MailActivity.java
+[0m2813:                    c25735m3.f103006a.getSharedPreferences("SMARTRATE_PREFERENCE_KEY", 0).edit().remove("LAST_RATE_CANCEL").putLong("LAST_RATE", System.currentTimeMillis()).apply();
+4371:                                                                SharedPreferences sharedPreferences = getSharedPreferences("SMARTRATE_PREFERENCE_KEY", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/main/RunnableC7056f.java
+[0m38:                SharedPreferences sharedPreferences = applicationContext.getSharedPreferences("tooltip", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/model/C7294h6.java
+[0m20:        SharedPreferences sharedPreferences = context.getSharedPreferences("PROMOZAVR_PREF", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/model/C7305j.java
+[0m32:        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCE_NAME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/model/C7333m0.java
+[0m159:                SharedPreferences sdkViewPrefs = context.getSharedPreferences("sdk_view_preferences", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/model/C7359p.java
+[0m137:        this.f33039l = context.getSharedPreferences(PREF_CALENDAR, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/model/NewsLettersModel.java
+[0m72:        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/network/NetworkCommonModule.java
+[0m196:        String string = abstractApplicationC6940k.getSharedPreferences("mock_server", 4).getString("fake_url", null);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/p062db/model/mail/C6553d.java
+[0m109:                SharedPreferences sharedPreferences = context.getSharedPreferences(C24639a.SCHEME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/p064di/C6657e1.java
+[0m37:        SharedPreferences sharedPreferences = mailApplication.getSharedPreferences("TRANSLATOR_MODEL", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/p064di/C6660f0.java
+[0m109:                SharedPreferences sharedPreferences = context2.getSharedPreferences(C24639a.SCHEME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/p064di/C6664g0.java
+[0m60:        SharedPreferences sharedPreferences = application.getSharedPreferences("reply_later_" + c6647c.f30324a, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/p064di/C6666g2.java
+[0m45:        SharedPreferences prefs = context.getSharedPreferences(PROMOZAVR_PREF, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/p064di/C6680k0.java
+[0m71:        SharedPreferences sharedPreferences = application.getSharedPreferences("TRANSLATOR_MODEL", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/p064di/C6712u.java
+[0m113:                SharedPreferences sharedPreferences = applicationContext.getSharedPreferences("experiments_current_session", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/p064di/C6724y.java
+[0m58:                SharedPreferences sharedPreferences = mailApplication.getSharedPreferences(C25266b.BIRTHDAY_REMINDER_PREF_PREFIX + jLongValue, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/p068ui/presenters/C8371q0.java
+[0m98:        this.f36466r = abstractApplicationC6940k.getSharedPreferences(BeautyMailModel.PREF_BEAUTY_MAIL, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/provider/CalendarContentProvider.java
+[0m58:        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/proxy/BlockManagerImpl.java
+[0m67:        SharedPreferences sharedPreferences = context.getSharedPreferences(BlockManager.BLOCK_PREF, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/proxy/C7767a.java
+[0m54:            String string = c7768b.f33943e.getSharedPreferences(C7768b.PROXY_RESOLVER_PREF, 0).getString("data_key", null);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/proxy/C7768b.java
+[0m65:            this.f33943e.getSharedPreferences(PROXY_RESOLVER_PREF, 0).edit().putString(DATA_KEY, strM45957f).apply();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/proxy/C7769c.java
+[0m32:        this.f33948a = context.getSharedPreferences(str, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/search/SearchActivity.java
+[0m693:                                                        SharedPreferences sharedPreferences = getSharedPreferences("SMARTRATE_PREFERENCE_KEY", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/settings/C7974c.java
+[0m25:            C7975d.m15387e(editor, this.f35094a.getSharedPreferences("account_settings_" + this.f34827d, 0));
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/settings/C8034m.java
+[0m41:        super(abstractApplicationC6940k, abstractApplicationC6940k.getSharedPreferences(GENERAL_SETTINGS_PREF, 0));
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/settings/account/AccountSettingsFragment.java
+[0m1232:        SharedPreferences sharedPreferences = contextRequireContext.getSharedPreferences("avatar_revisions", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/storage/preferences/C8090b.java
+[0m56:        this.f35267a = abstractApplicationC6940k.getSharedPreferences(SHARED_PREFERENCES_NAME, 4);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/util/C8425a.java
+[0m258:            SharedPreferences sharedPreferences = abstractApplicationC6940k.getSharedPreferences("stories_prefs", 0);
+390:                abstractApplicationC6940k.getSharedPreferences("account_settings_uid_" + l.longValue(), 0).edit().remove("CALENDAR_PUSH_LAYER_ADDED").apply();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/util/C8461t.java
+[0m18:        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_NAME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/xmail/XmailApplicationModule.java
+[0m99:                    SharedPreferences sharedPreferences = context.getSharedPreferences(name2, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail360/C8573h.java
+[0m226:        SharedPreferences sharedPreferences = dialogFragment.requireActivity().getSharedPreferences(PREF_MAIL_360, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail360/purchase/p069di/Yatagan$PurchaseComponent.java
+[0m371:                    sharedPreferences = contextM16254t.getSharedPreferences("purchase_settings", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/messaging/C10788r.java
+[0m23:        this.f46424b = context.getSharedPreferences(C24639a.SCHEME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/messaging/attachments/C8914i.java
+[0m35:        String string = context.getSharedPreferences(C24639a.SCHEME, 0).getString("selected_theme_v2", null);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/messaging/domain/poll/C9155f.java
+[0m111:                SharedPreferences sharedPreferences = applicationContext.getSharedPreferences(ExperimentsReporter.METRICA_EXPERIMENTS, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/messaging/internal/backendconfig/C9914d.java
+[0m124:        SharedPreferences sharedPreferences = context.getSharedPreferences(C24639a.SCHEME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/messaging/p072ui/auth/AutologinAccountChooser.java
+[0m85:                return context2.getSharedPreferences(context2.getPackageName() + "_preferences", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/messaging/p072ui/settings/C11433r.java
+[0m97:        context.getSharedPreferences(C24639a.SCHEME, 0).edit().putString("selected_theme_v2", resources.getResourceName(i11)).commit();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/messaging/profile/C10782m.java
+[0m17:        this.f46414a = context.getSharedPreferences(C24639a.SCHEME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/metrica/impl/p076ob/C12426b.java
+[0m82:        return context.getSharedPreferences(context.getPackageName() + str, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/metrica/impl/p076ob/C12715m2.java
+[0m221:            context.getSharedPreferences("com.yandex.metrica.configuration", 0).edit().clear().apply();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mobile/ads/impl/r31.java
+[0m24:            SharedPreferences sharedPreferences = context.getSharedPreferences(prefName, 0);
+28:        SharedPreferences sharedPreferences2 = context.createDeviceProtectedStorageContext().getSharedPreferences(prefName, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/common/permission/C14919a.java
+[0m30:        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFS_NAME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/badges/C14979b.java
+[0m39:        this.f68567d = context.getSharedPreferences("badges", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/flags/experiments/C15116f.java
+[0m17:        this.f69029a = context.getSharedPreferences(EXPERIMENTS_OVERRIDES_PREFERENCES_NAME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/link_auth/PollingStorage.java
+[0m49:        this.f69258d = context.getSharedPreferences("polling", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/push/NotificationsBuilderActivity.java
+[0m277:        SharedPreferences sharedPreferences = getSharedPreferences("test-app-notifications", 0);
+278:        C22255l.m42275f(sharedPreferences, "getSharedPreferences(PRE…ME, Context.MODE_PRIVATE)");
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/storage/PreferenceStorage.java
+[0m171:        SharedPreferences preferences = context.getSharedPreferences(PREFERENCES_LEGACY, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/usecase/C16632q.java
+[0m55:        this.f74057e = context.getSharedPreferences("passport_init", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/sloth/command/performers/C16761g.java
+[0m40:                SharedPreferences sharedPreferences = context.getSharedPreferences("telemost_feedback", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/sync/lib/C17053a.java
+[0m17:        SharedPreferences sharedPreferences = context.getSharedPreferences(SP_NAME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/telemost/p087di/C17271d.java
+[0m148:        SharedPreferences sharedPreferences = context.getSharedPreferences("telemost_preferences", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/telemost/storage/C17389a.java
+[0m16:        this.f76813a = context.getSharedPreferences("telemost_errors", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/fr/C18837e.java
+[0m53:        this.f80634b = context.getSharedPreferences("messenger_logout_tokens", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/gm/C19018a.java
+[0m19:        this.f81228a = abstractApplicationC6940k.getSharedPreferences(SHARED_PREFERENCES_NAME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/gm/C19022e.java
+[0m16:        SharedPreferences sharedPreferences = abstractApplicationC6940k.getSharedPreferences(PREFERENCES_NAME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/gp/AbstractC19054a.java
+[0m16:        return context.getSharedPreferences(String.format(Locale.US, C0180a.m667n(new StringBuilder(), UI_PREFS_PREFIX, "%s"), str), 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/hk/C19217e0.java
+[0m31:        SharedPreferences sp2 = abstractApplicationC6940k.getSharedPreferences("explocal", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/i50/C19526y0.java
+[0m30:                return application.getSharedPreferences(EnumEntitiesKt.UX_PREFS_FILE_NAME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/il/C19625d.java
+[0m20:        this.f83026a = context.getSharedPreferences("commands_data", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/io/appmetrica/analytics/push/impl/C20988D0.java
+[0m65:        return this.f87540a.getSharedPreferences(this.f87541b, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/ir/C21605a.java
+[0m32:        String string = context.getSharedPreferences(C24639a.SCHEME, 0).getString("selected_theme_v2", null);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/j20/AbstractC21667e.java
+[0m87:        activityC0253g.getSharedPreferences("PERMISSION_MANAGER_PREFS", 0);
+229:        SharedPreferences sharedPreferences = activityC0253g.getSharedPreferences("PERMISSION_MANAGER_PREFS", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/ni/C24263f.java
+[0m37:        this.f97833a = context.getSharedPreferences(BANHAMMER_PREFERENCES_NAME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p194gk/C19016c.java
+[0m22:        this.f81224b = context.getSharedPreferences("messenger_data_" + j11, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p239i8/C19549a.java
+[0m44:        this.f82882b = context.getSharedPreferences("com.google.android.gms.signin", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p274jb/C21770h.java
+[0m27:        this.f90356a = context.getSharedPreferences(HEARTBEAT_PREFERENCES_NAME + str, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p279jh/C21793c.java
+[0m149:                SharedPreferences sharedPreferences = context2.getSharedPreferences("experiment_counters", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p279jh/C21794d.java
+[0m111:                SharedPreferences sharedPreferences = context.getSharedPreferences(C27266e.PREFERENCES_NAME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p316ks/C23426a.java
+[0m16:        SharedPreferences sharedPreferences = abstractApplicationC6940k.getSharedPreferences(name, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p374nd/C24059b.java
+[0m189:                SharedPreferences sharedPreferences = context2.getSharedPreferences("player_profile_storage_preferences", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p435pb/C25245a.java
+[0m40:        this.f101520a = c27947e.f109858a.getSharedPreferences(IID_SHARED_PREFS_NAME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p439pj/C25276f.java
+[0m98:                SharedPreferences sharedPreferences = context2.getSharedPreferences("telemost_preferences", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p457qb/C25469a.java
+[0m29:        SharedPreferences sharedPreferences = contextCreateDeviceProtectedStorageContext.getSharedPreferences(FIREBASE_APP_PREFS + str, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p502rl/C25735m.java
+[0m84:        SharedPreferences sharedPreferences = abstractApplicationC6940k.getSharedPreferences("SMARTRATE_PREFERENCE_KEY", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p502rl/C25736n.java
+[0m33:        f103012b.m47780a(context.getSharedPreferences(SMARTRATE_PREFERENCE, 0));
+34:        SharedPreferences sharedPreferences = context.getSharedPreferences(SMARTRATE_PREFERENCE, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p502rl/DialogInterfaceOnDismissListenerC25727e.java
+[0m42:                c25734lM47782N6.f103004a.getSharedPreferences("SMARTRATE_PREFERENCE_KEY", 0).edit().remove("LAST_RATE").putLong("LAST_RATE_CANCEL", System.currentTimeMillis()).apply();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p564u7/ViewOnClickListenerC27358h.java
+[0m260:                c25734lM47782N6.f103004a.getSharedPreferences("SMARTRATE_PREFERENCE_KEY", 0).edit().remove("LAST_RATE_CANCEL").putLong("LAST_RATE", jCurrentTimeMillis).apply();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p564u7/ViewOnClickListenerC27366p.java
+[0m281:                this$12.m47782N6().f103004a.getSharedPreferences("SMARTRATE_PREFERENCE_KEY", 0).edit().remove("LAST_RATE_CANCEL").putInt("LAST_RATING", iM1946s0).putLong("LAST_RATE", System.currentTimeMillis()).apply();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p635wj/C27759m.java
+[0m345:                SharedPreferences sharedPreferences = activityC1672qRequireActivity.getSharedPreferences("avatar_revisions", i13);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p666xe/C27956a.java
+[0m16:        SharedPreferences sharedPreferences = appContext.getSharedPreferences("attachments_storage", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p671xj/C27976a.java
+[0m28:        SharedPreferences sharedPreferences = context.getSharedPreferences(PREF_ARCHIVE_RESTORE_STATE + j11, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p671xj/C27977b.java
+[0m123:                SharedPreferences sharedPreferences = context.getSharedPreferences(String.format(Locale.US, C0180a.m667n(new StringBuilder(), AbstractC19054a.PREFS_PREFIX, "%s"), (String) interfaceC19297a.get()), 0);
+124:                SharedPreferences sharedPreferences2 = context.getSharedPreferences(C24639a.SCHEME, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p737ze/C28573i.java
+[0m142:                SharedPreferences sharedPreferences = ((Context) interfaceC19297a2.get()).getSharedPreferences(String.format(Locale.US, "global_search_recent_results_%s", (String) interfaceC19297a.get()), 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p740zh/C28607e.java
+[0m61:        SharedPreferences.Editor editorEdit = context.getSharedPreferences(SHARED_PREFS, 0).edit();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p742zj/C28610b.java
+[0m52:        int i11 = context.getSharedPreferences("avatar_revisions", 0).getInt(String.valueOf(j11), -1);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/ru/domesticroots/certificatetransparency/cache/AndroidDiskCache.java
+[0m39:        this.f103094c = context.getApplicationContext().getSharedPreferences("certificate-transparency", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/ru/yandex/p512mt/translate/doc_scanner/DocScannerResultViewAbs.java
+[0m414:        activityC0253g.getSharedPreferences("PERMISSION_MANAGER_PREFS", 0);
+733:        SharedPreferences sharedPreferences = activityC0253g.getSharedPreferences("PERMISSION_MANAGER_PREFS", 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/ru/yandex/speechkit/internal/PersistentStorageHelper.java
+[0m11:        return context.getSharedPreferences(PREFERENCES_FILE_NAME, 0).getString(str, "");
+15:        SharedPreferences.Editor editorEdit = context.getSharedPreferences(PREFERENCES_FILE_NAME, 0).edit();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/ru/yandex/video/player/YandexPlayerBuilder.java
+[0m158:            SharedPreferences sharedPreferences = context.getSharedPreferences(SHARED_PREFERENCES_KEY, 0);
+161:            SharedPreferences sharedPreferences2 = context.getSharedPreferences(SHARED_PREFERENCES_KEY, 0);
+232:        SharedPreferences sharedPreferences3 = context.getSharedPreferences(SHARED_PREFERENCES_KEY, 0);
+235:        SharedPreferences sharedPreferences4 = context.getSharedPreferences(SHARED_PREFERENCES_KEY, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/se/C27003x.java
+[0m79:                SharedPreferences sharedPreferences = mailApplication.getSharedPreferences("delay_error_reminder_" + jLongValue, 0);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/w20/C27663b.java
+[0m21:        this.f109083b = c27662a.f109081a.getSharedPreferences(PREFS_NAME, 0);
+
+[36m[!] QuickNote:
+[0m    - It is recommended to use shared preferences appropriately, if observed. Please note that, Misuse of the SharedPreferences API can often lead to the exposure of sensitive data. MODE_WORLD_READABLE allows all applications to access and read the file contents. Applications compiled with an android:targetSdkVersion value less than 17 may be affected, if they run on an OS version that was released before Android 4.2 (API level 17).
+[36m
+[*] Reference:
+[0m    - OWASP MASVS: MSTG-STORAGE-2 | CWE-922: Insecure Storage of Sensitive Information
+    - https://mobile-security.gitbook.io/masvs/security-requirements/0x07-v2-data_storage_and_privacy_requirements
+[1;35m
+==>>  The SQLite Database Storage related instances...
+
+[0m[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/ad/C0118a.java
+[0m44:                    c28287a.f110744b.getWritableDatabase().execSQL(str);
+46:                    SQLiteDatabase writableDatabase = c28287a.f110744b.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/androidx/room/C2007e0.java
+[0m122:                    Cursor cursorQuery = c19520w1.getReadableDatabase().query("REQUEST_CACHE", new String[]{"CAST (COUNT(*) AS INTEGER)"}, null, null, null, null, null);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/androidx/room/C2012h.java
+[0m40:    public final InterfaceC21658b getWritableDatabase() {
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/androidx/room/C2017j0.java
+[0m45:    public final synchronized InterfaceC21658b getWritableDatabase() {
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/androidx/room/C2030t.java
+[0m108:                            InterfaceC21658b writableDatabase = C2030t.this.f7531d.f7421d.getWritableDatabase();
+384:            this.f7531d.f7421d.getWritableDatabase();
+493:            mo5927k(roomDatabase.f7421d.getWritableDatabase());
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/androidx/room/RoomDatabase.java
+[0m287:        InterfaceC21658b writableDatabase = this.f7421d.getWritableDatabase();
+317:        return this.f7421d.getWritableDatabase().mo41597w(str);
+354:        return this.f7421d.getWritableDatabase().mo41588D2();
+453:        this.f7421d.getWritableDatabase().mo41595v();
+475:        return this.f7421d.getWritableDatabase().mo41587D(interfaceC21661e);
+481:        this.f7421d.getWritableDatabase().mo41593r();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/bd/AbstractC2487a.java
+[0m19:        SQLiteDatabase readableDatabase = C28287a.this.f110744b.getReadableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/google/android/datatransport/runtime/scheduling/persistence/C3275u.java
+[0m213:                return c3255b0.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/google/android/exoplayer2/C3362i0.java
+[0m984:                    c28287a.f110744b.getWritableDatabase().execSQL("VACUUM");
+986:                    c28287a.f110744b.getWritableDatabase().execSQL("VACUUM", listM49471x1.toArray(new Object[listM49471x1.size()]));
+994:                SQLiteDatabase readableDatabase = c28287a.f110744b.getReadableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/squareup/sqldelight/android/AndroidSqliteDriver.java
+[0m239:                    InterfaceC21658b writableDatabase = interfaceC21659c2 == null ? null : interfaceC21659c2.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/div/storage/DivStorageImpl.java
+[0m141:                    bVar.f22069g = bVar.f22063a.getWritableDatabase();
+280:            bVar.f22066d = bVar.f22063a.getReadableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/p062db/C6429c1.java
+[0m76:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+150:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+212:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+299:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+410:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+493:                SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+566:                SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+644:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+704:                SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+971:                                SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase2 = context.openOrCreateDatabase("account_" + str10 + "_nano.db", 0, null);
+1259:                                                        sQLiteDatabaseOpenOrCreateDatabase = r14.openOrCreateDatabase(str3 + r2 + str4, 0, null);
+1738:                                        sQLiteDatabaseOpenOrCreateDatabase = r14.openOrCreateDatabase(str3 + r2 + str4, 0, null);
+2020:                                sQLiteDatabaseOpenOrCreateDatabase = r14.openOrCreateDatabase(str3 + r2 + str4, 0, null);
+2351:            sQLiteDatabaseOpenOrCreateDatabase = r14.openOrCreateDatabase(str3 + r2 + str4, 0, null);
+2635:                SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+2725:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+2838:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+2905:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+2985:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+3059:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+3122:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+3183:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+3244:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+3305:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+3366:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+3430:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+3525:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+3609:                SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+3691:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+3766:                SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+3854:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+3952:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+4012:                SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+4092:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("account_" + str + "_nano.db", 0, null);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/p062db/C6433d.java
+[0m103:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = context.openOrCreateDatabase("accounts2.db", 0, null);
+190:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase2 = context.openOrCreateDatabase("accounts2.db", 0, null);
+205:                        SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase3 = context.openOrCreateDatabase("accounts2.db", 0, null);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/p062db/C6606t1.java
+[0m92:            SQLiteDatabase sQLiteDatabaseOpenOrCreateDatabase = this.f30242b.openOrCreateDatabase(str, 0, null);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mail/util/C8426a0.java
+[0m33:        SQLiteDatabase writableDatabase = C28287a.this.f110744b.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/messaging/internal/storage/AppDatabaseRoom.java
+[0m231:        InterfaceC21658b writableDatabase = this.f7421d.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/messaging/internal/storage/AppDatabaseRoom_Impl.java
+[0m1643:        InterfaceC21658b writableDatabase = this.f7421d.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/messaging/internal/storage/contacts/AbstractC10251d.java
+[0m34:        InterfaceC21658b writableDatabase = this.f43718a.f7421d.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/messaging/internal/storage/experiments/ExperimentsDatabaseRoom_Impl.java
+[0m134:        InterfaceC21658b writableDatabase = this.f7421d.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/metrica/impl/p076ob/AbstractC11984J7.java
+[0m41:            SQLiteDatabase readableDatabase = this.f52787a.getReadableDatabase();
+57:            SQLiteDatabase writableDatabase = this.f52787a.getWritableDatabase();
+105:            SQLiteDatabase writableDatabase = this.f52787a.getWritableDatabase();
+121:            SQLiteDatabase writableDatabase = this.f52787a.getWritableDatabase();
+136:            SQLiteDatabase readableDatabase = this.f52787a.getReadableDatabase();
+158:            SQLiteDatabase readableDatabase = this.f52787a.getReadableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/metrica/impl/p076ob/C12034L7.java
+[0m174:            SQLiteDatabase readableDatabase = this.f53193d.getReadableDatabase();
+187:            SQLiteDatabase readableDatabase = this.f53193d.getReadableDatabase();
+212:                SQLiteDatabase readableDatabase = this.f53193d.getReadableDatabase();
+239:            SQLiteDatabase readableDatabase = this.f53193d.getReadableDatabase();
+291:            SQLiteDatabase writableDatabase = this.f53193d.getWritableDatabase();
+324:            SQLiteDatabase writableDatabase = this.f53193d.getWritableDatabase();
+339:            if (this.f53199j.get() > this.f53198i.m20524m().m22741J() && (writableDatabase = this.f53193d.getWritableDatabase()) != null) {
+366:            SQLiteDatabase writableDatabase = this.f53193d.getWritableDatabase();
+397:            SQLiteDatabase readableDatabase = this.f53193d.getReadableDatabase();
+414:            writableDatabase = this.f53193d.getWritableDatabase();
+442:            SQLiteDatabase readableDatabase = this.f53193d.getReadableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/metrica/impl/p076ob/C12109O7.java
+[0m26:    public SQLiteDatabase getReadableDatabase() {
+28:            return super.getReadableDatabase();
+38:    public SQLiteDatabase getWritableDatabase() {
+40:            return super.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/metrica/impl/p076ob/C12591h8.java
+[0m44:        return c12109o7.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/metrica/impl/p076ob/C12617i8.java
+[0m20:            return this.f55370a.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mobile/ads/exo/offline/C13243a.java
+[0m105:                Cursor cursorQuery = this.f57658b.getReadableDatabase().query(this.f57657a, f57656f, "id = ?", new String[]{str}, null, null, "start_time_ms ASC");
+138:            this.f57658b.getWritableDatabase().delete(this.f57657a, "id = ?", new String[]{str});
+169:            return new a(this.f57658b.getReadableDatabase().query(this.f57657a, f57656f, string, null, null, null, "start_time_ms ASC"), i11);
+182:            this.f57658b.getWritableDatabase().update(this.f57657a, contentValues, null, null);
+218:            this.f57658b.getWritableDatabase().update(this.f57657a, contentValues, "state = 2", null);
+228:            m23652a(c13244b, this.f57658b.getWritableDatabase());
+260:            this.f57658b.getWritableDatabase().update(this.f57657a, contentValues, f57655e, null);
+272:            this.f57658b.getWritableDatabase().update(this.f57657a, contentValues, f57655e + " AND id = ?", new String[]{str});
+285:                int iM28844a = qe1.m28844a(this.f57658b.getReadableDatabase(), 0, "");
+287:                    SQLiteDatabase writableDatabase = this.f57658b.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mobile/ads/impl/C13796kh.java
+[0m33:            if (qe1.m28844a(this.f61531a.getReadableDatabase(), 2, hexString) != 1) {
+34:                SQLiteDatabase writableDatabase = this.f61531a.getWritableDatabase();
+54:            SQLiteDatabase writableDatabase = this.f61531a.getWritableDatabase();
+69:            this.f61531a.getWritableDatabase().delete(this.f61532b, C15054b.NAME_WHERE_CLAUSE, new String[]{str});
+79:            SQLiteDatabase writableDatabase = this.f61531a.getWritableDatabase();
+99:            Cursor cursorQuery = this.f61531a.getReadableDatabase().query(this.f61532b, f61530c, null, null, null, null, null);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mobile/ads/impl/C14299th.java
+[0m442:                SQLiteDatabase writableDatabase = interfaceC13972nn.getWritableDatabase();
+459:            SQLiteDatabase readableDatabase = this.f64735a.getReadableDatabase();
+473:                SQLiteDatabase readableDatabase = this.f64735a.getReadableDatabase();
+477:                    SQLiteDatabase writableDatabase = this.f64735a.getWritableDatabase();
+494:                SQLiteDatabase readableDatabase2 = this.f64735a.getReadableDatabase();
+554:                SQLiteDatabase writableDatabase = this.f64735a.getWritableDatabase();
+602:                SQLiteDatabase writableDatabase = this.f64735a.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/mobile/ads/impl/InterfaceC13972nn.java
+[0m8:    SQLiteDatabase getReadableDatabase() throws Throwable;
+10:    SQLiteDatabase getWritableDatabase() throws Throwable;
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/analytics/CurrentAccountAnalyticsHelper.java
+[0m135:        long jQueryNumEntries2 = jQueryNumEntries + (c15049e.m32935b() ? DatabaseUtils.queryNumEntries(c15049e.getReadableDatabase(), "token") : 0L);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/core/accounts/C15000i.java
+[0m135:                Cursor cursorQuery = c15049e.getReadableDatabase().query("token", new String[]{"token", "clientId"}, "login = ?", new String[]{accountName}, null, null, null);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/core/tokens/C15012a.java
+[0m58:            C16674b.m34040a("dropClientTokenByAccountName: rows=" + c15049e.getWritableDatabase().delete("token", "login = ?", new String[]{str}));
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/database/C15031c.java
+[0m173:    public final SQLiteDatabase getReadableDatabase() {
+174:        SQLiteDatabase readableDatabase = super.getReadableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/database/C15034d.java
+[0m27:        Cursor cursorRawQuery = this.f68762a.getReadableDatabase().rawQuery(String.format("SELECT %s FROM %s WHERE %s = '%s'", C15055c.GCM_TOKEN_HASH, C15055c.TABLE_NAME, "uid", uid.m32955e()), null);
+51:        this.f68762a.getReadableDatabase().delete(C15055c.TABLE_NAME, "uid = ?", new String[]{uid.m32955e()});
+63:        SQLiteDatabase writableDatabase = this.f68762a.getWritableDatabase();
+77:        Cursor cursorQuery = this.f68762a.getReadableDatabase().query(C15055c.TABLE_NAME, C15055c.f68793a, null, null, null, null, null);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/database/C15049e.java
+[0m35:            C16674b.m34040a("dropClientTokenByTokenValue: rows=" + getWritableDatabase().delete("token", TOKEN_VALUE_WHERE_CLAUSE, new String[]{str}));
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/database/DatabaseHelper$accountsDao$1.java
+[0m12:        super(0, obj, C15031c.class, "getReadableDatabase", "getReadableDatabase()Landroid/database/sqlite/SQLiteDatabase;", 0);
+18:        return ((C15031c) this.receiver).getReadableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/database/DatabaseHelper$accountsDao$2.java
+[0m12:        super(0, obj, C15031c.class, "getWritableDatabase", "getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;", 0);
+18:        return ((C15031c) this.receiver).getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/database/DatabaseHelper$childrenDao$1.java
+[0m12:        super(0, obj, C15031c.class, "getReadableDatabase", "getReadableDatabase()Landroid/database/sqlite/SQLiteDatabase;", 0);
+18:        return ((C15031c) this.receiver).getReadableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/database/DatabaseHelper$childrenDao$2.java
+[0m12:        super(0, obj, C15031c.class, "getWritableDatabase", "getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;", 0);
+18:        return ((C15031c) this.receiver).getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/database/DatabaseHelper$revocationsDao$1.java
+[0m12:        super(0, obj, C15031c.class, "getReadableDatabase", "getReadableDatabase()Landroid/database/sqlite/SQLiteDatabase;", 0);
+18:        return ((C15031c) this.receiver).getReadableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/database/DatabaseHelper$revocationsDao$2.java
+[0m12:        super(0, obj, C15031c.class, "getWritableDatabase", "getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;", 0);
+18:        return ((C15031c) this.receiver).getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/database/DatabaseHelper$ssoDao$1.java
+[0m12:        super(0, obj, C15031c.class, "getReadableDatabase", "getReadableDatabase()Landroid/database/sqlite/SQLiteDatabase;", 0);
+18:        return ((C15031c) this.receiver).getReadableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/database/DatabaseHelper$ssoDao$2.java
+[0m12:        super(0, obj, C15031c.class, "getWritableDatabase", "getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;", 0);
+18:        return ((C15031c) this.receiver).getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/database/DatabaseHelper$tokensDao$1.java
+[0m12:        super(0, obj, C15031c.class, "getReadableDatabase", "getReadableDatabase()Landroid/database/sqlite/SQLiteDatabase;", 0);
+18:        return ((C15031c) this.receiver).getReadableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/database/DatabaseHelper$tokensDao$2.java
+[0m12:        super(0, obj, C15031c.class, "getWritableDatabase", "getWritableDatabase()Landroid/database/sqlite/SQLiteDatabase;", 0);
+18:        return ((C15031c) this.receiver).getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/passport/internal/usecase/GetClientTokenUseCase.java
+[0m243:            Cursor cursorQuery = c15049e.getReadableDatabase().query("token", C15049e.f68785c, "login = ? AND clientId = ?", new String[]{f68252j, f68726d}, null, null, null);
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/com/yandex/xplat/xmail/C18172s.java
+[0m78:                SQLiteDatabase readableDatabase = C28287a.this.f110744b.getReadableDatabase();
+124:                    SQLiteDatabase readableDatabase2 = C28287a.this.f110744b.getReadableDatabase();
+220:                    C28287a.this.f110744b.getWritableDatabase().beginTransaction();
+259:                                            C28287a.this.f110744b.getWritableDatabase().setTransactionSuccessful();
+474:        SQLiteDatabase writableDatabase = C28287a.this.f110744b.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/i50/C19520w1.java
+[0m48:                getWritableDatabase().delete("REQUEST_CACHE", "REQUEST_ID IN (SELECT REQUEST_ID FROM REQUEST_CACHE LIMIT 1)", null);
+67:                getWritableDatabase().insert("REQUEST_CACHE", null, contentValues);
+82:            Cursor cursorQuery = getReadableDatabase().query("REQUEST_CACHE", new String[]{"CAST (COUNT(*) AS INTEGER)"}, null, null, null, null, null);
+110:            Cursor cursorQuery = getReadableDatabase().query("REQUEST_CACHE", null, null, null, null, null, "REQUEST_ID", "1");
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/io/appmetrica/analytics/impl/C20182Y3.java
+[0m149:            SQLiteDatabase readableDatabase = this.f84943c.getReadableDatabase();
+189:            SQLiteDatabase readableDatabase = this.f84943c.getReadableDatabase();
+227:            SQLiteDatabase readableDatabase = this.f84943c.getReadableDatabase();
+240:            SQLiteDatabase readableDatabase = this.f84943c.getReadableDatabase();
+263:            SQLiteDatabase readableDatabase = this.f84943c.getReadableDatabase();
+278:                SQLiteDatabase readableDatabase = this.f84943c.getReadableDatabase();
+314:            SQLiteDatabase writableDatabase = this.f84943c.getWritableDatabase();
+341:            SQLiteDatabase writableDatabase = this.f84943c.getWritableDatabase();
+355:            if (this.f84949i.get() > this.f84948h.m38728m().m38372j() && (writableDatabase = this.f84943c.getWritableDatabase()) != null) {
+382:            SQLiteDatabase writableDatabase = this.f84943c.getWritableDatabase();
+417:            writableDatabase = this.f84943c.getWritableDatabase();
+447:            SQLiteDatabase readableDatabase = this.f84943c.getReadableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/io/appmetrica/analytics/impl/C20428l4.java
+[0m26:    public final SQLiteDatabase getReadableDatabase() {
+28:            return super.getReadableDatabase();
+38:    public final SQLiteDatabase getWritableDatabase() {
+40:            return super.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/io/appmetrica/analytics/impl/C20489o8.java
+[0m44:        return c20428l4.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/io/appmetrica/analytics/impl/C20553rf.java
+[0m20:            return this.f86120a.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/io/appmetrica/analytics/impl/C20704ze.java
+[0m30:        SQLiteDatabase readableDatabase = C20447m4.m39573a(context).m39587j().getReadableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/io/appmetrica/analytics/locationinternal/impl/C20867f.java
+[0m54:            SQLiteDatabase readableDatabase = this.f87131a.getReadableDatabase();
+67:            SQLiteDatabase writableDatabase = this.f87131a.getWritableDatabase();
+93:            SQLiteDatabase readableDatabase = this.f87131a.getReadableDatabase();
+131:            SQLiteDatabase writableDatabase = this.f87131a.getWritableDatabase();
+146:            SQLiteDatabase readableDatabase = this.f87131a.getReadableDatabase();
+166:            SQLiteDatabase writableDatabase = this.f87131a.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p265j2/InterfaceC21659c.java
+[0m94:    InterfaceC21658b getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p298k2/C21873b.java
+[0m134:            SQLiteDatabase writableDatabase = getWritableDatabase();
+216:    public final InterfaceC21658b getWritableDatabase() {
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p702yc/C28287a.java
+[0m55:            C28287a.this.f110744b.getWritableDatabase().endTransaction();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/p735zc/AbstractC28559a.java
+[0m17:        SQLiteDatabase writableDatabase = C28287a.this.f110744b.getWritableDatabase();
+
+[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/sources/ru/yandex/video/ott/data/local/p513db/DatabaseHelper.java
+[0m55:            SQLiteDatabase readableDatabase = getReadableDatabase();
+94:            SQLiteDatabase writableDatabase = getWritableDatabase();
+124:                SQLiteDatabase writableDatabase = getWritableDatabase();
+
+[36m[!] QuickNote:
+[0m    - It is recommended that sensitive data should not be stored in unencrypted SQLite databases, if observed. Please note that, SQLite databases should be password-encrypted.
+[36m
+[*] Reference:
+[0m    - OWASP MASVS: MSTG-STORAGE-2 | CWE-922: Insecure Storage of Sensitive Information
+    - https://mobile-security.gitbook.io/masvs/security-requirements/0x07-v2-data_storage_and_privacy_requirements
+[1;35m
+==>> The Firebase Database instances...
+
+[0m[33m/home/drenk83/Projects/gitrepo/mbks_labs/lab5/owapp/apk/yandex-mail-8-81-2_SAST/resources/res/values/strings.xml
+[0m1290:    <string name="firebase_database_url">https://yandex-mail.firebaseio.com</string>
+
+[36m[!] QuickNote:
+[0m    - It is recommended that Firebase Realtime database instances should not be misconfigured, if observed. Please note that, An attacker can read the content of the database without any authentication, if rules are set to allow open access or access is not restricted to specific users for specific data sets.
+[36m
+[*] Reference:
+[0m    - OWASP MASVS: MSTG-STORAGE-2 | CWE-200: Exposure of Sensitive Information to an Unauthorized Actor
+    - https://mobile-security.gitbook.io/masvs/security-requirements/0x07-v2-data_storage_and_privacy_requirements
+[1;35m
+==>> The Realm Database instances...
+
+[0m
