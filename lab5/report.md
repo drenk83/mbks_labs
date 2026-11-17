@@ -119,7 +119,7 @@ webView.loadUrl("http://example.com");
 
 ### Чёрный ящик: Yandex Mail
 
-Исходников почты нет. Взят APK Yandex Mail 8.81.2, пакет `ru.yandex.mail`. APK — это архив: манифест, код `classes.dex`, ресурсы и нативные библиотеки. Чтобы читать код, архив декомпилирован JADX. JADX поднимает из DEX читаемые классы Java и вытаскивает `AndroidManifest.xml`. Дерево разбора лежит в `lab5/sources/yandex-mail`.
+Исходников почты нет. Взят APK Yandex Mail 8.81.2, пакет `ru.yandex.mail`. APK — это архив: манифест, код `classes.dex`, ресурсы и нативные библиотеки. Чтобы читать код, архив декомпилирован JADX. JADX поднимает из DEX читаемые классы Java и вытаскивает `AndroidManifest.xml`. Разбор открывается в JADX из этого APK.
 
 **Манифест.** Первым в этом дереве открыт `AndroidManifest.xml`. В нём смотрели три вещи: у каких компонентов стоит `android:exported="true"`, какие у них `intent-filter` и не закрыт ли компонент своим разрешением. Активностей с `exported` или фильтром оказалось 20.
 

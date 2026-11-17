@@ -9,11 +9,13 @@ import io.shiftleft.codepropertygraph.generated.nodes.{AstNode, Call, Identifier
 @main def main(inputPath: String, outFile: String) = {
   importCode.c(inputPath)
 
+  // Имя оператора, если узел является вызовом.
   def op(n: AstNode): String = n match {
     case c: Call => c.name
     case _       => ""
   }
 
+  // Все идентификаторы в поддереве.
   def idents(n: AstNode): Set[String] = {
     val here = n match {
       case i: Identifier => Set(i.code)
@@ -50,6 +52,7 @@ import io.shiftleft.codepropertygraph.generated.nodes.{AstNode, Call, Identifier
       }
   }
 
+  // Тексты аргументов malloc и calloc в методе.
   def allocArgCodes(method: Method): List[String] =
     method.call
       .name("(malloc|calloc)")
@@ -74,6 +77,7 @@ import io.shiftleft.codepropertygraph.generated.nodes.{AstNode, Call, Identifier
     (assigned ++ direct).distinct
   }
 
+  // Находка, если имя слева есть среди слагаемых, а какой-то множитель так не проверен.
   val hits = cpg.controlStructure
     .controlStructureType(ControlStructureTypes.IF)
     .flatMap { cs =>

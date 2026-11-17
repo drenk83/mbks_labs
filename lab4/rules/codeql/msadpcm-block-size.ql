@@ -15,17 +15,20 @@
 
 import cpp
 
+/** Снимает скобки вокруг выражения. */
 Expr unwrap(Expr e) {
   e instanceof ParenthesisExpr and result = unwrap(e.(ParenthesisExpr).getExpr())
   or
   not (e instanceof ParenthesisExpr) and result = e
 }
 
+/** Вызов malloc или calloc. */
 predicate isAllocator(FunctionCall call) {
   call.getTarget().hasName("malloc") or
   call.getTarget().hasName("calloc")
 }
 
+/** Аргумент с размером: у malloc первый, у calloc второй. */
 Expr allocatorSizeArg(FunctionCall call) {
   isAllocator(call) and
   (
@@ -50,8 +53,10 @@ Expr resolvedSize(Function f, Expr arg) {
   )
 }
 
+/** Переменная встречается внутри выражения. */
 predicate mentions(Expr e, Variable v) { e.getAChild*() = v.getAnAccess() }
 
+/** Переменная является операндом сложения в размере. */
 predicate isAddend(Expr size, Variable v) {
   exists(AddExpr add |
     add = size.getAChild*() and
@@ -59,6 +64,7 @@ predicate isAddend(Expr size, Variable v) {
   )
 }
 
+/** Переменная является операндом умножения в размере. */
 predicate isFactor(Expr size, Variable v) {
   exists(MulExpr mul |
     mul = size.getAChild*() and
@@ -66,6 +72,7 @@ predicate isFactor(Expr size, Variable v) {
   )
 }
 
+/** if с оператором <: слева переменная, справа умножение. */
 predicate weakProductCheck(IfStmt check, Variable blockVar) {
   exists(BinaryOperation cmp |
     cmp = unwrap(check.getCondition()) and
@@ -75,6 +82,7 @@ predicate weakProductCheck(IfStmt check, Variable blockVar) {
   )
 }
 
+/** В одной функции слагаемое размера сравнивается с произведением, а множитель так не ограничен. */
 from Function f, IfStmt check, Variable blockVar, Variable sampleVar, Expr size
 where
   f = check.getEnclosingFunction() and
