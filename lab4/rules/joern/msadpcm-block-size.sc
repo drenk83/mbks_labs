@@ -6,15 +6,6 @@
 //   $SZ = ... + B + ... * S;           // B — слагаемое размера, S — множитель
 //   ... = malloc($SZ) / calloc($N, $SZ);
 // при этом S в этой же функции сам не сравнивается с произведением.
-// Литерал 7 не требуется.
-//
-// В libsndfile 1.0.30: B = blockalign, S = samplesperblock,
-// проверка находится в src/ms_adpcm.c:131.
-// В 1.1.0 слева стоит samplesperblock: это множитель, а не слагаемое,
-// поэтому скрипт молчит.
-//
-// Ожидаемый результат: 1.0.30 — 1 находка (ms_adpcm.c:131),
-// 1.1.0 — 0, fixture — 2.
 
 import io.shiftleft.codepropertygraph.generated.nodes.{AstNode, Call, Identifier, Method}
 
@@ -82,9 +73,7 @@ import io.shiftleft.codepropertygraph.generated.nodes.{AstNode, Call, Identifier
       }
       .l
 
-  // Выражение размера: сам аргумент аллокатора и правая часть присваивания,
-  // если аргумент — переменная. В libsndfile в calloc идёт pmssize,
-  // а интересные blockalign и samplesperblock — в её присваивании.
+  // Аналог CodeQL resolvedSize. Возвращает список «выражений размера»
   def sizeExprs(method: Method, argCode: String): List[AstNode] = {
     val assigned = method.call.nameExact("<operator>.assignment").flatMap { assign =>
       val kids = assign.astChildren.l

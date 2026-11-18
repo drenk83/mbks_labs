@@ -11,4 +11,6 @@ frida-ps -Uai | grep -i mail
 
 sleep 40 | stdbuf -oL -eL frida -U -p PID -l scripts/manual/simple-trace.js
 
-sleep 10 | stdbuf -oL -eL frida -U -p PID -e 'Process.enumerateModules().filter(m => m.name.indexOf("camera360") !== -1).forEach(m => console.log(m.name, m.path))'
+
+sleep 60 | stdbuf -oL -eL frida -U -p PID -l scripts/manual/scanner-native.js
+

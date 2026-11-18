@@ -22,7 +22,7 @@ usage: 05_scanners.sh [--trueseeing] [--apkhunt] [--flowdroid] [--all] [--force]
 Без флагов: --trueseeing.
   --trueseeing  Trueseeing 2.2.11, около 1 минуты
   --apkhunt     APKHunt, 22+ минуты, пишет SAST-дерево
-  --flowdroid   FlowDroid, 8 ГБ heap, может оборваться по памяти
+  --flowdroid   FlowDroid, 16 ГБ heap, может оборваться по памяти
   --all         все три
   --force       разрешить запись в непустой каталог
 
@@ -108,9 +108,9 @@ if (( RUN_FLOWDROID )); then
   need_file "$CP_FILE"
   need_file "$SINKS"
   [[ -d "$PLATFORMS" ]] || die "нет каталога platforms: $PLATFORMS"
-  info "FlowDroid: старт, heap 8g; возможен DataFlowOutOfMemory"
+  info "FlowDroid: старт, heap 16g; возможен DataFlowOutOfMemory"
   set +e
-  java -Xmx8g -cp "$(cat "$CP_FILE")" \
+  java -Xmx16g -cp "$(cat "$CP_FILE")" \
     soot.jimple.infoflow.cmd.MainClass \
     -a "$APK" \
     -p "$PLATFORMS" \

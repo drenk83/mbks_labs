@@ -26,6 +26,19 @@ info() {
   printf '==> %s\n' "$*"
 }
 
+# say_tool NAME CMD...
+# Печатает имя инструмента и строку команды. Команду не запускает:
+# следующая строка скрипта вызывает те же аргументы сама.
+say_tool() {
+  local name="$1"
+  shift
+  (( $# > 0 )) || die "say_tool: нет команды для $name"
+  printf 'инструмент: %s\n' "$name"
+  printf 'команда:'
+  printf ' %q' "$@"
+  printf '\n'
+}
+
 warn() {
   printf 'WARN: %s\n' "$*" >&2
 }
